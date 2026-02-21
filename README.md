@@ -228,3 +228,4 @@ Some text  % chktex 1
 **"Undefined references" persist**: Ensure `latexmk` runs enough passes (configured for up to 5 in `.latexmkrc`).
 
 **VS Code not building**: Check that LaTeX Workshop is installed and `output/` directory exists.
+# ISI_Paper
