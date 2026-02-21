@@ -1,0 +1,104 @@
+# =============================================================================
+# .github/workflows/ci.yml — Build ISI Paper PDF on push / PR
+# =============================================================================
+name: Build LaTeX PDF
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: LaTeX → PDF
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      # --- Checkout -----------------------------------------------------------
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # --- Cache TeX Live (speeds up subsequent runs) -------------------------
+      - name: Cache TeX Live
+        uses: actions/cache@v4
+        with:
+          path: /tmp/texlive
+          key: texlive-2025-${{ hashFiles('.latexmkrc', 'preamble/packages.tex') }}
+          restore-keys: |
+            texlive-2025-
+
+      # --- Build PDF with TeX Live --------------------------------------------
+      - name: Build PDF
+        uses: xu-cheng/latex-action@v3
+        with:
+          working_directory: .
+          root_file: main.tex
+          latexmk_use_xelatex: true
+          args: "-outdir=output -halt-on-error -file-line-error -interaction=nonstopmode"
+          pre_compile: |
+            tlmgr update --self
+            tlmgr install \
+              collection-fontsrecommended \
+              collection-fontsextra \
+              collection-latexrecommended \
+              collection-latexextra \
+              collection-bibtexextra \
+              biber \
+              tex-gyre \
+              tex-gyre-math \
+              unicode-math \
+              fontspec \
+              microtype \
+              biblatex \
+              csquotes \
+              cleveref
+
+      # --- Quality Gate: check for undefined refs -----------------------------
+      - name: Quality gate — undefined references
+        if: always()
+        run: |
+          LOG="output/main.log"
+          if [[ -f "$LOG" ]]; then
+            if grep -qiE 'undefined references|Citation .* undefined|Reference .* undefined' "$LOG"; then
+              echo "::error::Undefined references or citations detected. Check build log."
+              exit 1
+            fi
+          fi
+          echo "Quality gate passed."
+
+      # --- Lint (chktex) — warn only, never blocks ---------------------------
+      - name: Lint (chktex, advisory)
+        if: always()
+        continue-on-error: true
+        run: |
+          if command -v chktex &>/dev/null; then
+            echo "Running chktex on .tex files..."
+            find sections/ preamble/ -name '*.tex' -exec chktex -q -n1 -n3 -n6 -n8 -n24 -n36 {} + || true
+            chktex -q -n1 -n3 -n6 -n8 -n24 -n36 main.tex || true
+            echo "chktex lint complete (advisory only)."
+          else
+            echo "chktex not available, skipping lint."
+          fi
+
+      # --- Upload PDF as artefact ---------------------------------------------
+      - name: Upload PDF
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ISI_Paper-PDF
+          path: output/main.pdf
+          retention-days: 30
+
+      # --- Upload build log on failure ----------------------------------------
+      - name: Upload build log (on failure)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log
+          path: output/main.log
+          retention-days: 7

@@ -1,0 +1,47 @@
+% =============================================================================
+% preamble/macros.tex — Project-specific commands and shortcuts
+% =============================================================================
+
+% --- Convenience Shortcuts ---------------------------------------------------
+\newcommand{\todo}[1]{\textcolor{red}{\textbf{TODO:}~#1}}  % Inline TODO marker
+\newcommand{\fixme}[1]{\textcolor{orange}{\textbf{FIXME:}~#1}}
+\newcommand{\note}[1]{\textcolor{blue}{\textbf{NOTE:}~#1}}
+
+% --- Figure Insertion Helper -------------------------------------------------
+% Usage: \insfig{filename}{width}{caption}{label}
+%   filename: relative to figures/ (no prefix needed — \graphicspath handles it)
+\newcommand{\insfig}[4]{%
+  \begin{figure}[htbp]
+    \centering
+    \includegraphics[width=#2\textwidth]{#1}%
+    \caption{#3}%
+    \label{fig:#4}%
+  \end{figure}%
+}
+
+% --- Table from External File Helper -----------------------------------------
+% Usage: \instab{caption}{filename}{label}
+%   filename: file in tables/ directory (e.g. my-table.tex)
+\newcommand{\instab}[3]{%
+  \begin{table}[htbp]
+    \centering
+    \caption{#1}%
+    \label{tab:#3}%
+    \input{tables/#2}%
+  \end{table}%
+}
+
+% --- Abbreviations (extend as needed) ----------------------------------------
+\newcommand{\ie}{i.e.\@\xspace}
+\newcommand{\eg}{e.g.\@\xspace}
+\newcommand{\cf}{cf.\@\xspace}
+\newcommand{\etal}{et~al.\@\xspace}
+
+% --- Math Operators (extend as needed) ----------------------------------------
+% \DeclareMathOperator{\argmin}{arg\,min}
+% \DeclareMathOperator{\argmax}{arg\,max}
+
+% --- Institutional Colours (subdued palette) ----------------------------------
+\definecolor{ISIBlue}{HTML}{1B3A5C}      % Dark navy — headings, emphasis
+\definecolor{ISIGray}{HTML}{4A4A4A}      % Body text accent
+\definecolor{ISILight}{HTML}{E8EDF2}     % Background accent (tables, boxes)

@@ -1,0 +1,51 @@
+% =============================================================================
+% main.tex — Top-level orchestrator for ISI Paper
+% =============================================================================
+% Engine:  XeLaTeX (do NOT use pdflatex)
+% Build:   latexmk -xelatex main.tex   (or use scripts/build.sh)
+% Bib:     biber (invoked automatically by latexmk)
+% =============================================================================
+\documentclass[12pt,a4paper]{article}
+
+% --- Preamble (order matters) ------------------------------------------------
+\input{preamble/packages}      % Package loading
+\input{preamble/formatting}    % Page layout, fonts, headings, captions
+\input{preamble/macros}        % Project macros, helpers, colours
+\input{preamble/metadata}      % Title, authors, date, PDF metadata
+
+% --- Graphics Path -----------------------------------------------------------
+\graphicspath{{figures/}}
+
+% =============================================================================
+\begin{document}
+
+% --- Front Matter ------------------------------------------------------------
+\maketitle
+\thispagestyle{plain}
+
+{\centering\small\paperaffiliations\par\vspace{1em}}
+
+\input{sections/00_abstract}
+
+\newpage
+\tableofcontents
+\newpage
+
+% --- Body --------------------------------------------------------------------
+\input{sections/01_introduction}
+\input{sections/02_literature_review}
+\input{sections/03_methodology}
+\input{sections/04_results}
+\input{sections/05_discussion}
+\input{sections/06_conclusion}
+
+% --- Bibliography ------------------------------------------------------------
+\newpage
+\printbibliography[heading=bibintoc,title={References}]
+
+% --- Appendices (uncomment when needed) --------------------------------------
+% \newpage
+% \appendix
+% \input{sections/07_appendix}
+
+\end{document}

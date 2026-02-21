@@ -1,0 +1,39 @@
+% =============================================================================
+% preamble/metadata.tex — Title, authors, date, PDF metadata
+% =============================================================================
+
+% --- Title -------------------------------------------------------------------
+\newcommand{\papertitle}{%
+  TODO: Paper Title%
+}
+
+% --- Authors -----------------------------------------------------------------
+\newcommand{\paperauthors}{%
+  TODO: Author One\textsuperscript{1}%
+  \and TODO: Author Two\textsuperscript{2}%
+}
+
+% --- Affiliations ------------------------------------------------------------
+\newcommand{\paperaffiliations}{%
+  \textsuperscript{1}Department, Institution, City, Country \\
+  \textsuperscript{2}Department, Institution, City, Country%
+}
+
+% --- Date Rules --------------------------------------------------------------
+% Use explicit date or \today for drafts.  Set to empty for camera-ready.
+\newcommand{\paperdate}{\today}
+
+% --- Apply to Document -------------------------------------------------------
+\title{\papertitle}
+\author{\paperauthors}
+\date{\paperdate}
+
+% --- PDF Metadata (hyperref) -------------------------------------------------
+\makeatletter
+\hypersetup{
+  pdftitle={\papertitle},
+  pdfauthor={TODO: Author One, TODO: Author Two},
+  pdfsubject={ISI Project},
+  pdfkeywords={TODO, keywords, here},
+}
+\makeatother

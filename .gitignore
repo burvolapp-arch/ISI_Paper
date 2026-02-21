@@ -1,0 +1,55 @@
+# =============================================================================
+# .gitignore — ISI_Paper
+# =============================================================================
+
+# --- Build output (all artefacts go here) ------------------------------------
+output/
+
+# --- LaTeX auxiliary files (safety net if output dir is bypassed) -------------
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.nav
+*.snm
+*.vrb
+*.synctex.gz
+*.synctex.gz(busy)
+*.run.xml
+*.xdv
+
+# --- Editor / IDE ------------------------------------------------------------
+*.swp
+*.swo
+*~
+.idea/
+# .vscode/ is tracked (settings.json is part of repo)
+
+# --- macOS -------------------------------------------------------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# --- Windows -----------------------------------------------------------------
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# --- Linux -------------------------------------------------------------------
+*~
+.directory
+
+# --- Misc --------------------------------------------------------------------
+*.bak
+*.tmp
+*.orig

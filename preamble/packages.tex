@@ -1,0 +1,84 @@
+% =============================================================================
+% preamble/packages.tex — Package loading (order matters)
+% =============================================================================
+% Engine: XeLaTeX only.  Do NOT compile with pdflatex.
+% Bibliography: biblatex + biber (chosen over natbib for Unicode support,
+%   flexible citation styles, and native XeLaTeX compatibility).
+% =============================================================================
+
+% --- Encoding & Fonts (XeLaTeX) ---------------------------------------------
+\usepackage{fontspec}                 % OpenType / TrueType font selection
+\usepackage{unicode-math}             % Unicode math symbols (optional, future-proof)
+
+% --- Language ----------------------------------------------------------------
+\usepackage[english]{babel}           % Hyphenation, captions, date formats
+\usepackage{csquotes}                 % Context-sensitive quotation (required by biblatex)
+
+% --- Layout & Typography -----------------------------------------------------
+\usepackage{geometry}                 % Page margins
+\usepackage{setspace}                 % Line spacing control
+\usepackage{parskip}                  % Paragraph spacing (no indent, skip instead)
+\usepackage{microtype}                % Microtypographic enhancements (protrusion, expansion)
+\usepackage{titlesec}                 % Section heading customisation
+\usepackage{fancyhdr}                 % Header / footer control
+\usepackage{enumitem}                 % List customisation
+\usepackage{xspace}                   % Smart spacing after macros (\ie, \eg, etc.)
+
+% --- Colour ------------------------------------------------------------------
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}  % Extended colour names
+
+% --- Graphics & Floats -------------------------------------------------------
+\usepackage{graphicx}                 % \includegraphics
+\usepackage{float}                    % [H] placement
+\usepackage{caption}                  % Caption formatting
+\usepackage{subcaption}               % Sub-figures and sub-tables
+\usepackage{booktabs}                 % Professional table rules (\toprule, etc.)
+\usepackage{tabularx}                 % Flexible-width tables
+\usepackage{longtable}                % Multi-page tables
+\usepackage{multirow}                 % Row spanning
+
+% --- Mathematics (light, for notation) ---------------------------------------
+% NOTE: amsmath is loaded by unicode-math; amssymb is superseded by unicode-math.
+%       Do NOT load amssymb alongside unicode-math (symbol conflicts: \eth, etc.).
+
+% --- Code & Algorithms (optional, loaded but not required) -------------------
+% \usepackage{listings}               % Uncomment if code listings needed
+% \usepackage{algorithm2e}            % Uncomment if pseudocode needed
+
+% --- Bibliography ------------------------------------------------------------
+\usepackage[
+  backend=biber,
+  style=authoryear-comp,              % Author-year, compact: (Smith, 2024a,b)
+  sorting=nyt,                        % Name → Year → Title
+  maxbibnames=99,                     % Show all authors in bibliography
+  maxcitenames=2,                     % Truncate in-text after 2 authors
+  uniquelist=false,
+  uniquename=init,                    % Match giveninits=true (no conflict)
+  giveninits=true,                    % First-name initials in bibliography
+  dashed=false,                       % Repeat author name in successive entries
+  doi=true,
+  isbn=false,
+  url=true,
+  eprint=false,
+]{biblatex}
+\addbibresource{bibliography.bib}
+
+% --- Cross-referencing (MUST be loaded last-ish) -----------------------------
+\usepackage[
+  unicode,
+  breaklinks=true,
+  colorlinks=true,
+  linkcolor=NavyBlue,                 % Internal links: restrained blue
+  citecolor=NavyBlue,                 % Citation links
+  urlcolor=DarkSlateGray,             % External URLs
+  filecolor=NavyBlue,
+  pdfauthor={},                       % Filled by metadata.tex via \hypersetup
+  pdftitle={},
+  pdfsubject={},
+  pdfkeywords={},
+  bookmarksnumbered=true,
+  bookmarksopen=false,
+]{hyperref}
+
+% cleveref MUST be loaded after hyperref
+\usepackage[capitalise,noabbrev]{cleveref}  % \cref, \Cref — "Figure 1" not "fig. 1"

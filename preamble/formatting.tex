@@ -1,0 +1,109 @@
+% =============================================================================
+% preamble/formatting.tex — Page layout, typography, heading styles
+% =============================================================================
+
+% --- Page Geometry -----------------------------------------------------------
+\geometry{
+  a4paper,
+  left=25mm,
+  right=25mm,
+  top=30mm,
+  bottom=30mm,
+  headheight=14pt,
+  headsep=12pt,
+  footskip=20pt,
+}
+
+% --- Fonts -------------------------------------------------------------------
+% Use TeX Gyre OpenType fonts from TeX Live (referenced by filename).
+% These ship with TeX Live and require no external installation.
+\setmainfont{texgyretermes}[           % Times-like serif
+  Extension=.otf,
+  UprightFont=*-regular,
+  BoldFont=*-bold,
+  ItalicFont=*-italic,
+  BoldItalicFont=*-bolditalic,
+  Ligatures=TeX,
+]
+\setsansfont{texgyreheros}[            % Helvetica-like sans-serif
+  Extension=.otf,
+  UprightFont=*-regular,
+  BoldFont=*-bold,
+  ItalicFont=*-italic,
+  BoldItalicFont=*-bolditalic,
+  Ligatures=TeX,
+  Scale=MatchLowercase,
+]
+\setmonofont{texgyrecursor}[           % Courier-like mono
+  Extension=.otf,
+  UprightFont=*-regular,
+  BoldFont=*-bold,
+  ItalicFont=*-italic,
+  BoldItalicFont=*-bolditalic,
+  Scale=MatchLowercase,
+]
+
+% --- Line Spacing ------------------------------------------------------------
+\setstretch{1.15}                        % Slightly more than single-spaced
+
+% --- Section Headings (titlesec) ---------------------------------------------
+\titleformat{\section}
+  {\Large\bfseries\sffamily}{\thesection}{1em}{}
+\titleformat{\subsection}
+  {\large\bfseries\sffamily}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}
+  {\normalsize\bfseries\sffamily}{\thesubsubsection}{1em}{}
+
+\titlespacing*{\section}{0pt}{1.5ex plus 0.5ex minus 0.2ex}{0.8ex plus 0.2ex}
+\titlespacing*{\subsection}{0pt}{1.2ex plus 0.4ex minus 0.2ex}{0.6ex plus 0.2ex}
+\titlespacing*{\subsubsection}{0pt}{1.0ex plus 0.3ex minus 0.1ex}{0.4ex plus 0.1ex}
+
+% --- Headers & Footers (fancyhdr) --------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}                               % Clear all
+\fancyhead[L]{\small\sffamily\leftmark}  % Section name, left
+\fancyhead[R]{\small\sffamily\thepage}   % Page number, right
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Plain style for chapter/section opening pages
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \fancyfoot[C]{\small\sffamily\thepage}%
+  \renewcommand{\headrulewidth}{0pt}%
+}
+
+% --- Captions ----------------------------------------------------------------
+\captionsetup{
+  font={small,sf},
+  labelfont={bf},
+  labelsep=period,
+  justification=centering,
+  singlelinecheck=true,
+  skip=8pt,
+}
+\captionsetup[sub]{
+  font={footnotesize,sf},
+  labelfont={bf},
+}
+
+% --- Table Defaults ----------------------------------------------------------
+\renewcommand{\arraystretch}{1.2}        % More vertical padding in tables
+\setlength{\tabcolsep}{6pt}             % Horizontal padding
+
+% --- List Defaults -----------------------------------------------------------
+\setlist{
+  topsep=4pt,
+  itemsep=2pt,
+  parsep=0pt,
+  leftmargin=2em,
+}
+
+% --- Float Placement Defaults ------------------------------------------------
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\bottomfraction}{0.70}
+\renewcommand{\textfraction}{0.15}
+\renewcommand{\floatpagefraction}{0.66}
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{5}
