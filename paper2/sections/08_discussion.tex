@@ -4,22 +4,23 @@
 \section{Discussion}\label{sec:discussion}
 
 This section synthesises the empirical findings into five structural
-conclusions and situates them within the broader context of strategic
-autonomy measurement.
+conclusions, situates them within the broader context of composite
+indicator methodology and strategic autonomy measurement, and
+addresses the principal methodological implications and limitations.
 
 \subsection{Five structural conclusions}
 
 \paragraph{Conclusion~1: The ISI is dominated by defence and logistics
 variance.}
-The variance decomposition (\cref{sec:variance-decomp}) shows that
+The variance decomposition (\cref{sec:variance-decomp}) establishes that
 the defence axis contributes 35.10\% and the logistics axis 34.26\%
 of total composite variance, jointly accounting for 69.37\%.  The
 own-variance component constitutes 64.28\% and the cross-covariance
-component 35.72\% (\cref{tab:variance-decomp-detail}).  The practical
-implication is that cross-country ranking differences are overwhelmingly
-determined by two of the six axes, while the remaining four axes
-(financial, energy, technology, critical inputs) together contribute
-less than one-third of the composite's discriminatory power.
+component 35.72\% (\cref{tab:variance-decomp-detail}).  Cross-country
+ranking differences are overwhelmingly determined by two of the six
+axes; the remaining four axes (financial, energy, technology, critical
+inputs) together contribute less than one-third of the composite's
+discriminatory power.
 
 This dominance is not an artefact of scaling or weighting.  Because
 all axes inhabit a common $[0,1]$ scale and receive equal weight,
@@ -31,8 +32,27 @@ logistics have the highest bivariate $R^2$ values (0.394 and 0.491,
 respectively) and partial correlation coefficients (0.940 and 0.809)
 with the composite, and a six-axis regression achieves $R^2 = 0.968$.
 
-\paragraph{Conclusion~2: Rank ordering is robust except in the
-compressed mid-tier.}
+The PCA loadings (\cref{tab:pca-loadings}) provide independent
+structural confirmation: defence does not load on the broadest
+goods-trade factor (PC1) but instead defines its own latent
+dimension (PC2) together with logistics.  This means that the
+defence--logistics variance dominance operates through a
+structurally distinct channel---oligopsonistic procurement
+concentration---that is independent of the goods-trade
+diversification patterns captured by the other four axes.
+
+The defence-dominance stress test (\cref{sec:defence-stress-test})
+directly addresses the implied objection.  Removing both defence and
+logistics reduces rank concordance to $\rho = 0.654$ but preserves
+42.8\% of baseline rank variance, demonstrating that the remaining
+four axes carry independent discriminatory content.  The ISI is not
+reducible to a ``defence index''; it is an index in which defence
+concentration is the single most important axis of variation, a
+finding that reflects the empirical structure of European strategic
+dependencies.
+
+\paragraph{Conclusion~2: Rank ordering is robust at extremes, fragile
+in the compressed mid-tier.}
 The robustness programme (\cref{sec:robustness}) demonstrates that
 the ISI ranking is stable under winsorization ($\rho = 1.000$),
 Dirichlet weight perturbation (mean $\rho = 0.979$), and five of
@@ -40,7 +60,7 @@ six LOO exercises ($\rho \geq 0.926$).  Only defence-axis removal
 ($\rho = 0.833$, $\tau = 0.675$) and z-score standardisation
 ($\rho = 0.896$, $\tau = 0.726$) produce moderate rank disruption.
 
-The rank elasticity analysis (\cref{sec:rank-elasticity}) reveals that
+The rank elasticity analysis (\cref{sec:rank-elasticity}) establishes that
 13 of 27 countries are sensitive to $\pm 10\%$ axis perturbations, but
 these are concentrated in the composite range 0.30--0.40 where
 inter-country score gaps are smallest.  The extreme-ranked countries
@@ -51,43 +71,60 @@ explains only 48.3\% of within-composite variance, confirming that
 the mid-range is genuinely compressed and inherently difficult to
 resolve with \emph{any} aggregation method.
 
-\paragraph{Conclusion~3: Classification compression is mathematically
-inevitable.}
+The structural typology (\cref{sec:structural-typology}) sharpens
+this finding: the sixteen balanced-profile countries ($\Delta_i < 0.10$)
+exhibit lower rank volatility under Dirichlet perturbation than the
+three single-axis-dominated countries ($\Delta_i \geq 0.30$).
+Profile polarisation is both a source of mid-tier rank fragility and
+a predictor of which countries' positions are most sensitive to
+methodological choices.
+
+\paragraph{Conclusion~3: Classification compression is a distributional
+consequence, not a design flaw.}
 The compression diagnostics (\cref{tab:compression-diagnostics}) show
 that the three-tier ISI classification (mildly, moderately, highly
 concentrated) achieves $\eta^2 = 0.483$ using thresholds at 0.33 and
 0.50.  Alternative classification schemes---tercile-based
 ($\eta^2 = 0.890$) and quartile-based ($\eta^2 = 0.933$)---achieve
-higher between-group separation but sacrifice interpretability.
+higher between-group separation but sacrifice the structurally
+motivated HHI-analogue thresholds that provide interpretive anchoring
+to the industrial-organisation literature.
 
-The low $\eta^2$ under the ISI thresholds reflects the composite
-distribution itself: 17 of 27 countries fall in the ``moderately
-concentrated'' tier (0.33--0.50), creating a crowded middle category
-with within-tier dispersion of $\sigma = 0.052$.  This compression
-is not a design flaw; it is a mathematical consequence of the
-underlying data distribution, which is unimodal and moderately
-right-skewed (\cref{fig:histogram}).  Any threshold-based
-classification of a unimodal distribution will produce a crowded
-middle tier.
+The low $\eta^2$ under the ISI thresholds is a mathematical
+consequence of the underlying data distribution.  Seventeen of 27
+countries fall in the ``moderately concentrated'' tier (0.33--0.50),
+creating a crowded middle category with within-tier dispersion of
+$\sigma = 0.052$.  Any fixed-threshold classification of a unimodal
+distribution centred in the mid-range will produce this outcome.
+The compression is an empirical regularity---EU-27 countries exhibit
+similar aggregate concentration levels despite substantial axis-level
+heterogeneity---not a failure of the classification scheme.
 
 \paragraph{Conclusion~4: European defence markets exhibit
 oligopsonistic concentration.}
 The defence structural analysis (\cref{sec:defence-structural})
-reveals that 16 of 27 EU member states (59.3\%) have the defence
+establishes that 16 of 27 EU member states (59.3\%) have the defence
 axis as their single highest-scoring axis.  Five countries exceed
 0.80, and one country (Malta) reaches the theoretical maximum of
 1.000 (\cref{tab:defence-structural}).  The mean gap between the
 defence score and the next-highest axis is 0.184
-(\cref{tab:defence-gap}).
+(\cref{tab:defence-gap}).  The structural typology
+(\cref{sec:structural-typology}) identifies 3 countries as
+single-axis dominated ($\Delta_i \geq 0.30$); in all three cases
+the dominant axis is defence.
 
-This concentration is not an artefact of a few outliers: the
-prevalence of defence dominance spans small (Malta, Cyprus),
-medium (Netherlands, Bulgaria, Greece), and large (Italy) member
-states.  The pattern is consistent with the oligopsonistic
-structure of European defence procurement, in which a small number
-of bilateral supplier relationships (predominantly US--EU) create
-high HHI values that are difficult to diversify through conventional
-trade policy.
+This concentration spans small (Malta, Cyprus), medium (Netherlands,
+Bulgaria, Greece), and large (Italy) member states.  The pattern reflects
+the oligopsonistic structure of European defence
+procurement, in which a small number of bilateral supplier
+relationships (predominantly US--EU) create high HHI values that are
+structurally resistant to diversification through conventional trade
+policy.  The defence-dominance stress test
+(\cref{sec:defence-stress-test}) demonstrates that removing the
+defence axis reduces rank concordance to $\rho = 0.833$---the
+largest single-axis disruption in the robustness programme---while
+removing both defence and logistics yields $\rho = 0.654$.  Defence
+is the axis with the greatest structural influence on the composite.
 
 \paragraph{Conclusion~5: Financial concentration is orthogonal to
 goods-trade concentration.}
@@ -117,30 +154,52 @@ is so low ($\sigma = 0.037$).
 
 \subsection{Methodological implications}
 
-\paragraph{Equal weighting is defensible but not unique.}
-The Dirichlet Monte Carlo exercise shows that equal weighting
+\paragraph{Equal weighting is defensible and empirically supported.}
+The Dirichlet Monte Carlo exercise demonstrates that equal weighting
 produces rankings within the 95\% confidence envelope of randomly
-weighted composites (mean $\rho = 0.979$).  This does not prove
-that equal weighting is optimal---it proves that the ranking is
-insensitive to moderate weight variation.  The eigenvalue analysis
-(\cref{tab:eigenvalues}) supports this: no single principal
+weighted composites (mean $\rho = 0.979$).  The eigenvalue analysis
+(\cref{tab:eigenvalues}) reinforces this: no single principal
 component explains more than 31.7\% of variance, so there is no
-empirical basis for strongly favouring any particular axis.
+empirical basis for assigning dominant weight to any particular axis.
+The PCA loadings (\cref{tab:pca-loadings}) further demonstrate that
+data-driven (PC1-proportional) weighting would suppress the defence
+axis---the single most variance-contributing dimension---because
+defence loads on PC2 rather than PC1.  Equal weighting is therefore
+not merely a convenient default but the specification most consistent
+with the empirical covariance structure.
+
+This finding aligns with the broader composite-indicator literature.
+The OECD Handbook~\cite{oecd_handbook_2008} identifies equal weighting
+as appropriate when axes are conceptually non-hierarchical and the
+analyst has no empirical or normative basis for asymmetric treatment.
+Both conditions hold for the ISI: the six axes represent conceptually
+distinct domains of strategic dependence, and no external criterion
+(e.g., GDP impact, vulnerability severity) has been validated to
+justify differential weighting.  The equal-weight specification is
+therefore a deliberate and defensible methodological choice, not an
+arbitrary default.
 
 \paragraph{Composite interpretation requires axis-level context.}
-The compensability analysis demonstrates that the arithmetic-mean
-composite can conceal peak vulnerabilities.  The Netherlands
+The compensability analysis (\cref{sec:compensability}) demonstrates
+that the arithmetic-mean composite systematically compresses peak
+vulnerabilities.  The Netherlands
 (ISI = 0.335, defence = 0.960) and Estonia (ISI = 0.343, defence
-= 0.470) have similar composites but radically different risk
-profiles.  Policy recommendations derived solely from the composite
-would be misleading; the axis-level profile must be consulted.
+= 0.470) have similar composites but structurally different risk
+profiles---a distinction captured by the max--composite gap ($G$)
+and the coefficient of variation (CV) but invisible in the scalar
+composite.  Policy recommendations derived solely from the composite
+score are therefore insufficient; the axis-level profile and the
+structural typology (\cref{sec:structural-typology}) are necessary
+complements.
 
-\paragraph{Threshold-based classification is inherently lossy.}
-The compression diagnostics show that any threshold-based
+\paragraph{Threshold-based classification is inherently information-lossy.}
+The compression diagnostics establish that any threshold-based
 classification of the ISI distribution will produce a crowded middle
-tier.  Users of the ISI should treat the three-tier classification
-as a coarse heuristic and consult the continuous composite and
-axis-level scores for fine-grained comparisons.
+tier ($\eta^2 = 0.483$ for the ISI scheme vs.\ $\eta^2 = 0.890$
+for data-driven terciles).  Users of the ISI should treat the
+three-tier classification as a coarse summary and consult the
+continuous composite and axis-level scores for analytical work
+requiring fine-grained country comparisons.
 
 \subsection{Limitations}
 
@@ -159,8 +218,8 @@ Several limitations constrain the interpretation of these results.
     particularly for countries near the median.
 
   \item \textbf{Equal weighting.}  Although the Dirichlet exercise
-    shows rank stability under random weighting, there may be policy
-    contexts in which defence concentration should receive higher
+    shows rank stability under random weighting, specific policy
+    contexts exist in which defence concentration should receive higher
     weight than financial concentration.  The ISI framework
     accommodates differential weighting but does not prescribe it.
 

@@ -14,7 +14,7 @@ of the index's structure, robustness, and interpretive boundaries.
 
 \subsection{Summary of contributions}
 
-The paper makes the following thirteen analytical contributions:
+The paper makes the following analytical contributions:
 
 \begin{enumerate}[leftmargin=2em]
   \item \textbf{Complete distributional characterisation.}
@@ -30,8 +30,8 @@ The paper makes the following thirteen analytical contributions:
 
   \item \textbf{Leave-one-axis-out with Kendall concordance.}
     LOO analysis with both Spearman~$\rho$ and Kendall~$\tau$
-    confirms that defence removal ($\rho = 0.833$, $\tau = 0.675$) is
-    the most disruptive perturbation (\cref{sec:loo}).
+    establishes that defence removal ($\rho = 0.833$, $\tau = 0.675$)
+    is the most disruptive perturbation (\cref{sec:loo}).
 
   \item \textbf{Rank displacement matrix.}
     Country-by-axis signed rank changes identify Italy, Slovakia, and
@@ -58,22 +58,44 @@ The paper makes the following thirteen analytical contributions:
     dominant axis; the mean gap between the defence score and the
     next-highest axis is 0.184 (\cref{sec:defence-structural}).
 
-  \item \textbf{Cross-axis significance testing.}
-    Formal $t$-tests identify only two statistically significant
-    correlations at $\alpha = 0.05$: energy--technology ($r = 0.530$,
-    $t = 3.124$) and critical inputs--logistics ($r = 0.549$,
-    $t = 3.280$) (\cref{sec:corr-tstat}).
+  \item \textbf{Defence-dominance stress test.}
+    Three counterfactual composites (without defence, without
+    logistics, without both) demonstrate that the ranking retains
+    structural coherence ($\rho \geq 0.654$) even when the two
+    highest-variance axes are entirely excluded
+    (\cref{sec:defence-stress-test}).
+
+  \item \textbf{Formal structural typology.}
+    Countries are classified by dominance gap $\Delta_i$ into
+    single-axis dominated, dual-axis concentrated, and balanced
+    profiles, linking profile polarisation to rank volatility
+    (\cref{sec:structural-typology}).
+
+  \item \textbf{Cross-axis significance testing with multiple-testing
+    correction.}
+    Formal $t$-tests with Bonferroni correction identify only two
+    statistically significant correlations at $\alpha = 0.05$:
+    energy--technology ($r = 0.530$, $t = 3.124$) and critical
+    inputs--logistics ($r = 0.549$, $t = 3.280$)
+    (\cref{sec:corr-tstat}).
+
+  \item \textbf{PCA dimensionality diagnostic with component loadings.}
+    Three principal components exceed the Kaiser criterion (76.1\%
+    of variance); PC1 captures goods-trade concentration, PC2
+    captures defence--logistics, and PC3 isolates the financial axis
+    (\cref{tab:pca-loadings}).
 
   \item \textbf{Compensability analysis.}
-    The max--composite gap and coefficient of variation identify
-    the Netherlands (gap = 0.624, CV = 0.880) as the most internally
-    compensated country, revealing hidden single-axis vulnerabilities
-    masked by the composite (\cref{sec:compensability}).
+    The max--composite gap, max--min range, and coefficient of
+    variation identify the Netherlands (gap = 0.624, CV = 0.880)
+    as the most internally compensated country, revealing hidden
+    single-axis vulnerabilities masked by the composite
+    (\cref{sec:compensability}).
 
   \item \textbf{Geographic and structural correlates.}
     Island status, population size, and founding-member status
     correlate with the composite ISI but not with the financial
-    axis, confirming its orthogonality to goods-trade determinants
+    axis, reinforcing its orthogonality to goods-trade determinants
     (\cref{sec:geo-correlates}).
 
   \item \textbf{Monte Carlo and winsorization robustness.}
@@ -93,7 +115,7 @@ The five structural conclusions of the discussion
 (\cref{sec:discussion}) carry direct policy implications:
 
 \begin{itemize}[leftmargin=2em]
-  \item The dominance of defence and logistics variance suggests that
+  \item The dominance of defence and logistics variance implies that
     EU strategic autonomy policy should prioritise diversification of
     defence procurement and logistics corridors over financial or
     technology import diversification, at least from the perspective
@@ -108,7 +130,7 @@ The five structural conclusions of the discussion
     display axis-level profiles alongside the composite, to avoid
     masking single-axis vulnerabilities.
 
-  \item The orthogonality of the financial axis suggests that
+  \item The orthogonality of the financial axis indicates that
     financial-service diversification and goods-trade diversification
     can be pursued as independent policy tracks.
 \end{itemize}

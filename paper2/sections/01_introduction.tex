@@ -6,39 +6,66 @@
 \subsection{Motivation}
 
 Composite indicators that measure structural features of national
-economies have a long tradition in institutional research.  Indices
-published by the OECD, the World Economic Forum, and various United
-Nations agencies compress multidimensional data into scalar summaries
-that facilitate cross-country comparison and policy
-monitoring~\cite{oecd_handbook_2008,saisana2005}.  The International
-Sovereignty Index (ISI) contributes to this tradition by focusing
-specifically on \emph{concentration of bilateral external dependencies}:
-the degree to which a country's cross-border economic and strategic
-linkages are concentrated among a small number of counterparty states.
+economies occupy a central position in institutional research.  The
+OECD Handbook on Constructing Composite Indicators establishes the
+standard methodological framework: variable selection, normalisation,
+weighting, and aggregation, each step carrying design choices that
+shape the information content of the final
+score~\cite{oecd_handbook_2008}.  Saisana and
+Tarantola~\cite{saisana2005} demonstrate that rigorous sensitivity
+and uncertainty analysis is indispensable for any composite index
+that informs policy.  The International Sovereignty Index (ISI)
+adheres to both standards and extends them to a domain that has
+received insufficient quantitative treatment: \emph{the concentration
+of bilateral external dependencies across strategically distinct
+domains}.
 
-The intellectual antecedents of the ISI lie in two distinct literatures.
-First, the industrial-organisation literature on market concentration,
-where the Herfindahl--Hirschman Index (HHI) quantifies the degree to
-which market shares are concentrated among a small number of
-firms~\cite{herfindahl1950,hirschman1964}.  Second, the literature on
-supply-chain vulnerability, which has expanded substantially since the
-semiconductor shortages of 2020--2021 and the geopolitical
-disruptions following the 2022 Russia--Ukraine
-conflict~\cite{ec_critical_raw}.  The ISI bridges these traditions by
-applying concentration measurement to bilateral trade and financial
-flows across six strategically distinct domains.
+The intellectual foundations of the ISI rest on three pillars.
+First, the industrial-organisation theory of market concentration,
+where the Herfindahl--Hirschman Index (HHI) provides a closed-form
+summary of distributional inequality among market
+participants~\cite{herfindahl1950,hirschman1964}.  HHI is
+well-understood theoretically---it equals the inverse of the
+``numbers equivalent'' of equally sized suppliers---and its
+behavioural interpretation in terms of mark-up and price--cost
+margins is established in the antitrust literature.  The ISI applies
+this logic at the country--partner level rather than the
+firm--market level.
+
+Second, the literature on supply-chain vulnerability, which expanded
+substantially after the semiconductor shortages of 2020--2021 and
+the geopolitical disruptions following the 2022 Russia--Ukraine
+conflict~\cite{ec_critical_raw}.  The European Commission's Critical
+Raw Materials assessments, the US Executive Order on Supply Chain
+Resilience, and OECD analyses of trade concentration in critical
+minerals all employ concentration metrics---typically HHI or
+$CR_k$ ratios---to identify bottleneck dependencies.  The ISI
+formalises and generalises these sector-specific exercises into a
+multi-axis composite framework.
+
+Third, the methodological debate on equal versus differential
+weighting in composite indicators.  Equal weighting is the most
+common default in practice (used by the Human Development Index,
+the Global Innovation Index, and the OECD Better Life Index, among
+others), but it is not neutral: it implicitly assumes that all
+dimensions are equally important and that the analyst has no
+empirical or normative basis for asymmetric treatment.  The ISI
+adopts equal weighting as its baseline specification and subjects
+this choice to explicit statistical interrogation through Dirichlet
+weight perturbation (\cref{sec:dirichlet}) and variance
+decomposition (\cref{sec:variance-decomp}).
 
 The ISI does not measure sovereignty in a political or legal sense.
-Rather, it quantifies a structural feature---counterparty
+It quantifies a structural feature---counterparty
 concentration---that is a prerequisite for informed policy analysis of
 external dependence.  A high ISI score indicates that a country's
 external flows in a given domain are heavily concentrated among few
 partners; a low score indicates dispersion across many partners.  The
 index makes no normative claim about whether concentration is
-advantageous or disadvantageous.  The question of whether high
-concentration translates into political vulnerability, economic
-fragility, or coercive leverage is a distinct empirical question that
-requires analysis beyond the ISI's measurement scope.
+advantageous or disadvantageous.  Whether high concentration
+translates into political vulnerability, economic fragility, or
+coercive leverage is a distinct empirical question that lies beyond
+the ISI's measurement scope.
 
 \subsection{Scope of this paper}
 
@@ -53,16 +80,17 @@ construction details are relevant to interpretation.
 
 Relative to a conventional ``results'' paper in the composite-indicator
 literature, this paper provides substantially deeper analytical content.
-Beyond reporting the ranking and basic distributional statistics, we
-undertake a formal variance decomposition with proof, systematic
+Beyond reporting the ranking and basic distributional statistics, the
+paper undertakes a formal variance decomposition with proof, systematic
 robustness exercises with both Spearman and Kendall rank-order
 statistics, rank-elasticity analysis, axis contribution decomposition,
 classification compression diagnostics, structural analysis of the
-defence axis, compensability analysis, and geographic correlate
-tabulation.  Each analytical component is designed to interrogate the
-ISI composite from a different angle and to provide the reader with
-the evidence needed to form an independent judgment about the index's
-informational content.
+defence axis, a defence-dominance stress test, PCA-based dimensionality
+diagnostics with component loadings, compensability analysis, formal
+structural typology, and geographic correlate tabulation.  Each
+analytical component interrogates the ISI composite from a different
+angle and provides the evidence required for the reader to form an
+independent judgment about the index's informational content.
 
 The specific contributions of this paper are:
 
@@ -88,10 +116,21 @@ The specific contributions of this paper are:
   \item A structural analysis of the defence axis examining its
     distributional properties, oligopsonistic character, and
     country-level defence-to-max-axis gaps.
+  \item A defence-dominance stress test constructing counterfactual
+    composites without the defence axis, without the logistics axis,
+    and without both, to demonstrate that the ranking retains
+    structural coherence independently of the two highest-variance
+    axes.
+  \item A formal structural typology classifying countries by
+    dominance gap ($\Delta_i$) into single-axis dominated, dual-axis
+    concentrated, and balanced profiles.
   \item A cross-axis correlation analysis with formal $t$-statistics,
-    eigenvalue decomposition, and network representation.
-  \item A compensability analysis documenting the degree to which the
-    arithmetic-mean aggregation rule permits cross-axis compensation.
+    Bonferroni-corrected multiple-testing assessment,
+    eigenvalue decomposition, PCA component loadings with
+    interpretation, and network representation.
+  \item A compensability analysis with formal gap, range, and CV
+    metrics documenting the degree to which the arithmetic-mean
+    aggregation rule permits cross-axis compensation.
   \item An assessment of geographic and structural correlates (island
     status, population size, core/periphery classification).
   \item A four-part robustness programme: LOO, z-score
@@ -136,10 +175,12 @@ rule, and classification thresholds.
 full ranking, tier-compression analysis, and classification
 compression diagnostics.
 \Cref{sec:axis-diagnostics} provides axis-level diagnostics including
-dispersion, dominance, variance decomposition with formal proof,
-rank contribution analysis, and defence axis structural analysis.
+dispersion, dominance, formal structural typology, variance
+decomposition with formal proof, rank contribution analysis, defence
+axis structural analysis, and a defence-dominance stress test.
 \Cref{sec:cross-axis} examines the pairwise correlation structure
-with $t$-statistics and eigenvalue decomposition.
+with $t$-statistics, Bonferroni-corrected multiple testing, PCA
+component loadings, and eigenvalue decomposition.
 \Cref{sec:robustness} reports the robustness programme: LOO with
 Kendall $\tau$, rank-displacement matrices, z-score standardisation,
 Dirichlet weight perturbation, winsorisation, and rank-elasticity

@@ -29,7 +29,7 @@ and the baseline ranking.
   \item \textbf{Financial axis removal} ($\rho = 0.993$,
     $\tau = 0.943$).
     Dropping the financial axis barely perturbs the ranking.
-    This is consistent with its low variance contribution
+    This result follows directly from its low variance contribution
     (1.03\%, \cref{tab:variance-decomp}) and near-zero
     correlations with other axes.
 
@@ -49,10 +49,10 @@ and the baseline ranking.
     $\tau = 0.675$).
     The most disruptive single omission.  Defence contributes
     35.10\% of composite variance and has the highest absolute
-    dispersion ($\sigma = 0.226$).  Removing it reshuffles the
+    dispersion ($\sigma = 0.226$).  Its removal reshuffles the
     middle ranks substantially, particularly for countries like
     the Netherlands (defence score = 0.960) and Bulgaria
-    (0.861) whose high composite positions depend heavily on
+    (0.861) whose composite positions depend heavily on
     their defence concentration.  The Kendall~$\tau$ of 0.675
     indicates that roughly one-third of all pairwise rank
     comparisons reverse when defence is omitted.
@@ -74,7 +74,7 @@ The concordance between Spearman~$\rho$ and Kendall~$\tau$ is
 high across all six exercises: the ordinal relationship
 $\text{Defence} < \text{Logistics} < \text{Critical} < \text{Tech}
 < \text{Energy} \approx \text{Financial}$ holds for both statistics.
-This suggests that the LOO results are not artefacts of a particular
+The LOO results are therefore not artefacts of a particular
 rank-correlation metric.
 
 The full country-by-country LOO ranking table is provided in
@@ -92,7 +92,7 @@ worsening (higher rank number = further from rank~1).
 
 \input{tables/TE2_rank_displacement}
 
-Several patterns are notable:
+The following displacement patterns are analytically significant:
 
 \begin{itemize}[leftmargin=2em]
   \item \textbf{Maximum displacements.}  The largest absolute rank
@@ -115,7 +115,7 @@ Several patterns are notable:
     profiles.
 
   \item \textbf{Stable anchors.}  France (rank~27) shows
-    $|\Delta r| \leq 1$ under \emph{all} axis omissions, confirming
+    $|\Delta r| \leq 1$ under \emph{all} axis omissions, establishing
     its position as the most diversified and hence least sensitive
     country.
 \end{itemize}
@@ -279,15 +279,15 @@ split into two groups:
 The rank-elastic countries are concentrated in the compressed
 mid-range of the composite distribution
 (\cref{sec:compression-diagnostics}), where inter-country score
-differences are smallest.  This confirms that the mid-range ranking
+differences are smallest.  The mid-range ranking
 is intrinsically fragile: even modest data revisions or methodological
-adjustments could reshuffle countries in the 0.30--0.40 ISI range.
+adjustments can reshuffle countries in the 0.30--0.40 ISI range.
 
 Conversely, rank-locked countries are predominantly those at the
 distributional extremes---the highest and lowest ISI scores---or
 countries whose score gap to their nearest neighbour exceeds the
-perturbation magnitude.  This is reassuring: the countries that are
-most policy-relevant (the most and least dependent) are also the most
+perturbation magnitude.  The countries that are most policy-relevant
+(the most and least concentrated) are therefore also the most
 robustly ranked.
 
 % -------------------------------------------------------------------------

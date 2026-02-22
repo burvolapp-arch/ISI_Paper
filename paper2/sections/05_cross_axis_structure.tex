@@ -75,30 +75,53 @@ Pearson correlation using the $t$-statistic:
 with $N - 2 = 25$ degrees of freedom.  The two-sided critical value
 at $\alpha = 0.05$ is $t_{0.025,25} = 2.060$.
 
+\paragraph{Multiple testing consideration.}
+With 15 unique pairwise tests conducted simultaneously, the
+probability of at least one spurious rejection at $\alpha = 0.05$
+under global null is $1 - (1-0.05)^{15} \approx 0.537$.  A
+Bonferroni-corrected threshold would require $\alpha^{*} =
+0.05/15 = 0.0033$, corresponding to $|t| \geq 3.25$ at
+$df = 25$.  Both significant correlations identified below
+survive this conservative correction, strengthening confidence
+in their non-spuriousness.
+
+\paragraph{Small-sample caution.}
+With $N = 27$, the minimum detectable correlation at 80\% power
+and $\alpha = 0.05$ (two-sided) is approximately $|r| = 0.37$.
+Correlations below this threshold---even if substantively
+plausible---cannot be reliably distinguished from zero in the
+present sample.  The confidence intervals on individual
+$r$ estimates are wide (approximately $\pm 0.35$ for $r$ near zero),
+and point estimates should be interpreted with appropriate
+uncertainty.
+
 \Cref{tab:corr-tstat} reports the $t$-statistics and significance
 flags for all 15~unique pairwise correlations.
 
 \input{tables/TE3_corr_tstat}
 
-Only two pairwise correlations are significant at the 5\% level:
+Only two pairwise correlations are significant at the 5\% level
+and survive Bonferroni correction:
 \begin{enumerate}[leftmargin=2em]
   \item \textbf{Critical inputs--Logistics} ($r = 0.549$,
-    $t = 3.280$, $p < 0.01$).
+    $t = 3.280$, $p < 0.005$).
   \item \textbf{Energy--Technology} ($r = 0.530$,
-    $t = 3.124$, $p < 0.01$).
+    $t = 3.124$, $p < 0.005$).
 \end{enumerate}
 
-Two additional correlations approach but do not reach the 5\%
+One additional correlation approaches but does not reach the 5\%
 threshold:
 \begin{itemize}[leftmargin=2em]
   \item Energy--Critical inputs ($r = 0.372$, $t = 2.006$,
-    $p \approx 0.056$).
-  \item Defence--Logistics ($r = 0.286$, $t = 1.487$, $p > 0.10$).
+    $p \approx 0.056$).  This pair fails to reject the null at
+    conventional levels and does not survive any multiple-testing
+    correction; its moderate point estimate should be regarded
+    as suggestive pending replication in larger samples.
 \end{itemize}
 
-All 10~remaining pairwise correlations have $|t| < 1.15$ and are
+All remaining pairwise correlations have $|t| < 1.50$ and are
 clearly non-significant.  The financial axis in particular has
-$|t| < 1.15$ with \emph{all} other axes, confirming its orthogonality
+$|t| < 1.15$ with \emph{all} other axes, establishing its orthogonality
 to the goods-trade and infrastructure dimensions.
 
 \subsection{Interpretation}
@@ -109,16 +132,17 @@ interpretations:
 \begin{enumerate}[leftmargin=2em]
   \item \textbf{Critical inputs--Logistics} ($r = 0.549$).
     Countries with concentrated critical-material suppliers also tend
-    to have concentrated logistics corridors.  This may reflect a
-    common exposure to a narrow set of extra-EU partner countries
-    (e.g., Turkey, China) that supply both raw materials and transit
-    routes.
+    to have concentrated logistics corridors.  A plausible structural
+    channel is common exposure to a narrow set of extra-EU partner
+    countries (e.g., Turkey, China) that supply both raw materials
+    and transit routes.
 
   \item \textbf{Energy--Technology} ($r = 0.530$).
     Countries with high energy-supply concentration tend also to have
-    concentrated technology-import patterns.  One plausible channel is
-    that smaller EU countries with fewer diversified trade partnerships
-    exhibit concentration on both axes simultaneously.
+    concentrated technology-import patterns.  The most likely
+    mechanism is that smaller EU countries with fewer diversified
+    trade partnerships exhibit concentration on both axes
+    simultaneously.
 \end{enumerate}
 
 Several near-zero correlations are equally notable:
@@ -126,14 +150,16 @@ Several near-zero correlations are equally notable:
 \begin{itemize}[leftmargin=2em]
   \item \textbf{Financial--all other axes.}  The financial axis is
     nearly uncorrelated with every other axis ($|r| \leq 0.22$).
-    This confirms that the financial axis captures a distinct dimension
+    This establishes that the financial axis captures a distinct dimension
     of dependence not captured by trade or physical infrastructure
     measures.
 
   \item \textbf{Technology--Defence} ($r = -0.222$).  A mild negative
-    association, suggesting that countries with diversified technology
-    imports may tend toward concentrated defence suppliers, and vice
-    versa.  The $t$-statistic ($-1.133$) is not significant.
+    point estimate, directionally consistent with a pattern in which
+    countries with diversified technology imports tend toward
+    concentrated defence suppliers, and vice versa.  The $t$-statistic
+    ($-1.133$) is not significant; the association cannot be
+    distinguished from zero in the present sample.
 \end{itemize}
 
 \subsection{Correlation heatmap}
@@ -153,23 +179,25 @@ Pearson correlation matrix.
 \subsection{Correlation network graph}
 
 \Cref{fig:corr-network} displays a network graph in which each node
-is an axis and edges are drawn for all pairs with $|r| \geq 0.30$.
+is an axis and edges are drawn for all pairs whose correlation is
+statistically significant at $\alpha = 0.05$ or exceeds $|r| = 0.35$.
 Edge width is proportional to the absolute correlation.
 
 \begin{figure}[htbp]
 \centering
 \input{figures/F05b_corr_network}
-\caption{Correlation network graph of the six ISI axes.  Edges shown
-  for $|r| \geq 0.30$; edge width proportional to~$|r|$.  Three
-  edges: energy--technology ($r = 0.53$), energy--critical inputs
-  ($r = 0.37$), critical inputs--logistics ($r = 0.55$).}
+\caption{Correlation network graph of the six ISI axes.  Edges drawn
+  for statistically significant or substantively notable pairs; edge
+  width proportional to~$|r|$.  Three edges: energy--technology
+  ($r = 0.53$, significant), energy--critical inputs ($r = 0.37$,
+  marginal), critical inputs--logistics ($r = 0.55$, significant).}
 \label{fig:corr-network}
 \end{figure}
 
 The network reveals a connected triad (energy--technology--critical
 inputs--logistics), with the financial and defence axes appearing as
-relative isolates.  This is consistent with the eigenvalue analysis
-below.
+relative isolates.  The eigenvalue analysis below provides
+a structural explanation for this topology.
 
 \subsection{Eigenvalue structure}
 
@@ -197,8 +225,8 @@ PC6 & 0.2593 &  4.3 & 100.0 \\
 
 Three eigenvalues exceed unity (Kaiser criterion: PC1, PC2, PC3),
 jointly explaining 76.1\% of total variance.  The first two principal
-components explain 58.0\%.  No single dominant eigenvalue emerges,
-confirming that the six axes cannot be collapsed to one or two
+components explain 58.0\%.  No single dominant eigenvalue emerges;
+the six axes cannot be collapsed to one or two
 dimensions without substantial information loss.
 
 The effective number of dimensions, computed as the exponential of
@@ -209,12 +237,86 @@ six axes carry approximately 4.4 effective dimensions of independent
 information.  This supports the retention of all six axes in the
 composite.
 
+\subsubsection{Component loadings}
+
+\Cref{tab:pca-loadings} reports the loadings (eigenvectors) of the
+first three principal components, which together explain 76.1\% of
+total variance.
+
+\begin{table}[htbp]
+\centering
+\caption{PCA loadings: first three principal components of the
+  $6 \times 6$ Pearson correlation matrix.  Loadings with
+  $|\ell| \geq 0.40$ in bold.}
+\label{tab:pca-loadings}
+\sisetup{table-format=+1.3, tight-spacing}
+\begin{tabular}{@{}l S S S@{}}
+\toprule
+\textbf{Axis} & {\textbf{PC1}} & {\textbf{PC2}} & {\textbf{PC3}} \\
+\midrule
+Financial       & +0.131 & -0.103 & \textbf{+0.910} \\
+Energy          & \textbf{+0.528} & -0.365 & -0.083 \\
+Technology      & \textbf{+0.402} & \textbf{-0.475} & -0.133 \\
+Defence         & +0.067 & \textbf{+0.596} & +0.148 \\
+Critical inputs & \textbf{+0.581} & +0.269 & +0.180 \\
+Logistics       & \textbf{+0.448} & \textbf{+0.450} & -0.305 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The loading structure reveals three interpretable dimensions:
+
+\begin{enumerate}[leftmargin=2em]
+  \item \textbf{PC1 (31.7\%): goods-trade concentration factor.}
+    The highest loadings are on critical inputs (+0.581), energy
+    (+0.528), logistics (+0.448), and technology (+0.402).  PC1
+    captures the shared variance among the four goods-trade and
+    physical-infrastructure axes.  Defence and financial load
+    negligibly on this component (+0.067 and +0.131, respectively).
+
+  \item \textbf{PC2 (26.4\%): defence--logistics factor.}
+    The highest loadings are on defence (+0.596) and logistics
+    (+0.450).  PC2 isolates the variance specific to the two axes
+    that dominate cross-country composite dispersion
+    (\cref{sec:variance-decomp}).  Technology loads negatively
+    ($-0.475$) and energy also negatively ($-0.365$), reflecting
+    the mild negative Pearson correlations of defence with both
+    technology ($r = -0.222$) and energy ($r = -0.175$).
+
+  \item \textbf{PC3 (18.1\%): financial-specific factor.}
+    The financial axis loads +0.910 on PC3 and negligibly on PC1
+    and PC2.  This component is essentially the financial axis
+    itself, providing independent statistical confirmation of its
+    orthogonality to all other dimensions.
+\end{enumerate}
+
+The loading pattern provides a structural explanation for the
+variance decomposition results.  The defence axis does not load
+on PC1---the broadest goods-trade factor---but instead defines
+its own component (PC2) together with logistics.  This is
+consistent with the result that defence contributes 35.10\% of
+composite variance through a mechanism (oligopsonistic procurement
+concentration) that is structurally independent of goods-trade
+diversification patterns.
+
+\medskip\noindent\textbf{Implications for equal weighting.}
+Because no single principal component captures more than 31.7\% of
+variance, PCA-derived weights (proportional to first-component
+loadings) would upweight the goods-trade axes at the expense of
+defence and financial.  This would be analytically inappropriate:
+the variance decomposition demonstrates that defence is the single
+most important axis for cross-country differentiation, yet it loads
+negligibly on PC1.  The PCA loadings therefore \emph{reinforce}
+the case for equal weighting: data-driven weighting would suppress
+precisely the axis that contributes most to the composite's
+discriminatory power.
+
 \medskip\noindent\textbf{Implications for composite construction.}
 The moderate inter-axis correlations and multi-dimensional eigenvalue
 structure support the equal-weight additive aggregation rule
 (\cref{eq:composite}): because no single latent factor dominates,
 there is no strong empirical basis for differential weighting.
-However, the positive critical-inputs--logistics correlation ($r =
+The positive critical-inputs--logistics correlation ($r =
 0.55$) implies that these two axes partially reinforce each other.
 The Dirichlet weight perturbation exercise (\cref{sec:robustness})
 provides a direct quantification of the sensitivity of rankings to

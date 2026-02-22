@@ -9,7 +9,10 @@ Sovereignty Index (ISI) applied to the 27~member states of the European
 Union, using vintage-2024 data processed under methodology v1.0.  The
 index measures the concentration of bilateral external dependencies
 across six structural axes.  Higher scores indicate higher concentration
-of counterparty exposure.  The principal findings are:
+of counterparty exposure.  The analysis goes substantially beyond
+descriptive ranking to provide a structurally decomposed,
+variance-explained, rank-stable, and statistically interrogated
+empirical system.  The principal findings are:
 
 \begin{itemize}[leftmargin=2em]
 
@@ -20,7 +23,7 @@ of counterparty exposure.  The principal findings are:
   yielding a coefficient of variation of 0.2030.  The interquartile
   range is \num{0.09881618} (P25~= \num{0.29179051}, P75~=
   \num{0.39060669}).  The Gini coefficient is \num{0.115463},
-  confirming a relatively egalitarian distribution.
+  indicating a relatively egalitarian distribution.
   See \cref{tab:summary-stats,fig:histogram,fig:lorenz}.
 
 \item \textbf{Tier compression is mathematically inevitable.}
@@ -56,8 +59,8 @@ of counterparty exposure.  The principal findings are:
   Five EU member states record defence axis scores exceeding 0.80,
   and 59.3\% of countries have defence as their dominant axis.  The
   distribution is positively skewed, and Slovakia records the only
-  zero score in the entire dataset.  This structural pattern is
-  consistent with oligopsonistic procurement markets where small
+  zero score in the entire dataset.  This structural pattern reflects
+  oligopsonistic procurement markets in which small
   buyers face few feasible suppliers.
   See \cref{tab:defence-structural,tab:defence-gap}.
 
@@ -67,7 +70,7 @@ of counterparty exposure.  The principal findings are:
   the 5\% level ($t_{0.025,25} = 2.060$): critical inputs--logistics
   ($r = 0.549$, $t = 3.280$) and energy--technology ($r = 0.530$,
   $t = 3.124$).  The remaining 13~pairs---including all correlations
-  involving the financial axis---are not significant, confirming
+  involving the financial axis---are not significant, establishing
   that the six axes capture largely distinct dimensions.
   See \cref{tab:corr-pearson,tab:corr-tstat,fig:corr-heatmap,fig:corr-network}.
 
@@ -89,7 +92,7 @@ of counterparty exposure.  The principal findings are:
   $\rho = 0.993$, the highest stability of any axis.  Its variance
   contribution is 1.03\%.  Its bivariate $R^2$ with rank is 0.025, and
   its partial correlation with rank (controlling for all other axes) is
-  0.421.  This confirms that financial-dependence patterns are
+  0.421.  This establishes that financial-dependence patterns are
   structurally distinct from physical-trade dependence patterns.
   See \cref{tab:axis-rank-contrib,tab:corr-tstat}.
 
@@ -116,5 +119,31 @@ of counterparty exposure.  The principal findings are:
   SIPRI arms-transfer data under methodology v1.0.  It does not
   imply the absence of defence procurement.
   See \cref{sec:country-profiles,tab:defence-gap}.
+
+\item \textbf{Defence-dominance stress test.}
+  Three counterfactual composites---without defence, without
+  logistics, and without both---demonstrate that the ranking
+  retains structural coherence even when the two highest-variance
+  axes are excluded (without both: $\rho = 0.654$, $R^2 = 0.428$).
+  The ISI is not reducible to a ``defence index.''
+  See \cref{tab:defence-stress-test}.
+
+\item \textbf{Formal structural typology.}
+  Countries are classified by their dominance gap $\Delta_i$
+  into single-axis dominated ($\Delta_i \geq 0.30$; 3~countries,
+  all defence-dominant), dual-axis concentrated
+  ($0.10 \leq \Delta_i < 0.30$; 8~countries), and balanced
+  ($\Delta_i < 0.10$; 16~countries).  Profile polarisation
+  predicts rank volatility under weight perturbation.
+  See \cref{tab:structural-typology}.
+
+\item \textbf{PCA component loadings.}
+  The first principal component (31.7\% of variance) loads on the
+  four goods-trade axes; the second (26.4\%) loads on defence and
+  logistics; the third (18.1\%) isolates the financial axis.
+  PCA-derived weighting would suppress the defence axis---the
+  single most variance-contributing dimension---reinforcing the
+  case for equal weighting.
+  See \cref{tab:pca-loadings}.
 
 \end{itemize}

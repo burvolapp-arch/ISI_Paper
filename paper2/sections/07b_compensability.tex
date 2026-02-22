@@ -16,18 +16,34 @@ diversified on all others (a hidden single-axis vulnerability masked
 by the composite).
 
 This section quantifies the degree of internal compensation for each
-country using two metrics:
+country using three metrics:
 
 \begin{enumerate}[leftmargin=2em]
-  \item \textbf{Max--composite gap.}  Define $G_i = \max_j A_{ij} - \text{ISI}_i$.
+  \item \textbf{Max--composite gap.}  Define
+    \begin{equation}\label{eq:compensability-gap}
+      G_i = \max_j A_{ij} - \text{ISI}_i\,.
+    \end{equation}
     A large gap indicates that the country's highest-axis score is
-    far above its composite, meaning that the mean aggregation is
-    substantially compressing a peak vulnerability.
+    far above its composite, meaning that the arithmetic-mean
+    aggregation substantially compresses a peak vulnerability.
+  \item \textbf{Max--min range.}  Define
+    \begin{equation}\label{eq:compensability-range}
+      R_i = \max_j A_{ij} - \min_j A_{ij}\,.
+    \end{equation}
+    The range measures the full span of axis-level variation within a
+    country's profile.  A large $R_i$ indicates that the country
+    combines an extreme vulnerability on at least one axis with
+    near-diversification on another.
   \item \textbf{Coefficient of variation (CV).}  The standard deviation
     of the six axis scores divided by their mean:
-    $\text{CV}_i = \sigma_i / \bar{A}_i$.  A high CV indicates that
+    \begin{equation}\label{eq:compensability-cv}
+      \text{CV}_i = \frac{\sigma_i}{\bar{A}_i}\,.
+    \end{equation}
+    A high CV indicates that
     the country's axis profile is highly uneven---i.e., the degree of
-    internal compensation is large.
+    internal compensation is large.  The CV is a normalised
+    measure that permits comparison across countries with different
+    composite levels.
 \end{enumerate}
 
 \subsection{Results}
@@ -62,7 +78,7 @@ max--composite gaps are:
 
 \subsection{Interpretation}
 
-The compensability analysis reveals a systematic pattern: countries
+The compensability analysis identifies a systematic pattern: countries
 with the highest max--composite gaps are overwhelmingly those whose
 profiles are dominated by the defence or logistics axes.  Of the ten
 countries with the largest gaps, nine have either defence or logistics
@@ -97,7 +113,7 @@ rank volatility under Dirichlet weight perturbation
 (\cref{sec:dirichlet}).  Countries with the highest CV values
 (Netherlands: 0.880, Sweden: 0.770, Bulgaria: 0.736) are also among
 those with the highest rank standard deviations under random
-weighting (Netherlands: 3.07, Bulgaria: 2.03).  This is intuitive:
+weighting (Netherlands: 3.07, Bulgaria: 2.03).  This relationship is structurally expected:
 a peaked profile means that the country's composite depends heavily
 on the weight assigned to its dominant axis, making the ranking
 sensitive to any weighting scheme that departs from equal weights.

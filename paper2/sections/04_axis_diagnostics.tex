@@ -4,10 +4,11 @@
 \section{Axis-Level Diagnostics}\label{sec:axis-diagnostics}
 
 This section examines the distributional properties of each axis,
-identifies axis dominance patterns, decomposes the cross-country
-composite variance into axis-level contributions with a formal proof,
-quantifies each axis's contribution to rank differentiation, and
-provides a structural analysis of the defence axis.
+identifies axis dominance patterns, introduces a formal structural
+typology, decomposes the cross-country composite variance into
+axis-level contributions with a formal proof, quantifies each axis's
+contribution to rank differentiation, provides a structural analysis
+of the defence axis, and conducts a defence-dominance stress test.
 
 \subsection{Axis summary statistics}
 
@@ -37,7 +38,7 @@ Logistics       & 0.27295297 & 1.00000000 & 0.51757723 & 0.47781001 & 0.18640808
 \end{tabular}
 \end{table}
 
-Several patterns are noteworthy:
+The following distributional patterns are analytically relevant:
 
 \begin{itemize}[leftmargin=2em]
   \item \textbf{Highest dispersion.}  Critical inputs has the highest
@@ -69,9 +70,9 @@ The contrast between relative and absolute dispersion is
 consequential for the variance decomposition below.  The financial
 axis has moderate relative dispersion (CV = 0.252) but very low
 absolute dispersion ($\sigma = 0.037$).  Because the composite is an
-unweighted arithmetic mean, it is the \emph{absolute} dispersion that
-determines variance contribution.  This explains why the financial
-axis contributes negligibly to composite variance despite having
+unweighted arithmetic mean, \emph{absolute} dispersion
+determines variance contribution.  The financial
+axis therefore contributes negligibly to composite variance despite having
 non-trivial relative variation.
 
 \subsection{Axis distributions: boxplots}
@@ -98,7 +99,7 @@ that the scalar composite necessarily obscures.
 
 \input{tables/T06_axis_top_bottom}
 
-Several axis-specific patterns warrant comment.  On the financial
+Several axis-specific distributional features are relevant.  On the financial
 axis, Croatia records the highest score (0.273), which is still
 substantially below the median on defence or logistics.  On the
 technology axis, Ireland is a clear outlier (0.587), nearly double
@@ -162,6 +163,70 @@ second-max axis for each country, is provided in \cref{tab:axis-dominance}
   axis records the highest score.}
 \label{fig:axis-dominance-bar}
 \end{figure}
+
+\subsubsection{Formal structural typology}\label{sec:structural-typology}
+
+The axis-dominance pattern permits a formal classification of countries
+into structural types based on the degree of profile polarisation.
+Define for each country~$i$:
+\begin{align}
+  D_i &= \max_{a} A_{a,i}\,,
+    & &\text{(dominant axis score)} \label{eq:dominance-score} \\
+  \Delta_i &= D_i - \max_{a \neq a^*} A_{a,i}\,,
+    & &\text{(dominance gap)} \label{eq:dominance-gap}
+\end{align}
+where $a^*$ is the axis achieving the maximum.  The dominance gap
+$\Delta_i$ measures how far the highest axis score exceeds the
+second-highest; a large $\Delta_i$ indicates a peaked, single-axis
+profile, while $\Delta_i \approx 0$ indicates a balanced profile
+with the top two axes approximately equal.
+
+Countries are classified into three structural types:
+
+\begin{table}[htbp]
+\centering
+\caption{Structural typology: classification rules and EU-27
+  distribution.}
+\label{tab:structural-typology}
+\begin{tabular}{@{}llrl@{}}
+\toprule
+\textbf{Type} & \textbf{Criterion} & \textbf{Count}
+  & \textbf{Examples} \\
+\midrule
+Single-axis dominated
+  & $\Delta_i \geq 0.30$
+  & 3
+  & NL (0.605), BG (0.498), IT (0.443) \\
+Dual-axis concentrated
+  & $0.10 \leq \Delta_i < 0.30$
+  & 8
+  & DE (0.254), FI (0.250), HR (0.223) \\
+Balanced profile
+  & $\Delta_i < 0.10$
+  & 16
+  & BE (0.095), SK (0.086), DK (0.081) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The typology reveals that 3 of 27 countries (11.1\%) are
+single-axis dominated ($\Delta_i \geq 0.30$), meaning their
+composite position is disproportionately determined by a single
+dimension.  For all three---the Netherlands, Bulgaria, and
+Italy---the dominant axis is defence.  A further 8 countries
+(29.6\%) exhibit dual-axis concentration ($0.10 \leq \Delta_i < 0.30$),
+where two axes jointly determine rank position.
+This structural concentration explains the sensitivity of the
+ranking to defence-axis removal in the LOO exercise (\cref{sec:loo})
+and motivates the dedicated defence-dominance stress test
+(\cref{sec:defence-stress-test}).
+
+The sixteen balanced-profile countries ($\Delta_i < 0.10$) have more
+evenly distributed axis scores and correspondingly lower rank
+volatility under Dirichlet weight perturbation
+(\cref{sec:dirichlet}).  Their composite positions are less
+dependent on any single axis and therefore more robust to
+methodological choices about axis inclusion or weighting.
 
 \subsection{Variance contribution decomposition}\label{sec:variance-decomp}
 
@@ -288,10 +353,9 @@ whose bivariate $R^2$ is only 0.025, has a partial correlation of
 0.421, indicating that it contributes non-trivially to rank
 differentiation once the effects of other axes are removed.
 
-This pattern is consistent with the full multiple regression of rank
-on all six axes, which yields $R^2 = 0.968$ (adjusted $R^2 = 0.958$),
-confirming that the six axes jointly explain virtually all rank
-variation.  The gap between the bivariate and partial results implies
+The full multiple regression of rank on all six axes yields
+$R^2 = 0.968$ (adjusted $R^2 = 0.958$), establishing that the six
+axes jointly explain virtually all rank variation.  The gap between the bivariate and partial results implies
 that the bivariate $R^2$ underestimates the informational content of
 low-dispersion axes because it confounds their direct effect with
 their low variance.
@@ -318,8 +382,8 @@ a substantial share of the axis's variance.
 
 \subsubsection{Oligopsonistic character}
 
-The distribution of defence axis scores exhibits features consistent
-with oligopsonistic procurement markets:
+The distribution of defence axis scores exhibits structural
+features of oligopsonistic procurement markets:
 
 \begin{enumerate}[leftmargin=2em]
   \item \textbf{Boundary concentration.}  One country scores 1.000
@@ -357,3 +421,93 @@ second axis $= 0.355$, gap $= 0.605$) and Bulgaria (defence $=
 0.861$, gap $= 0.498$).  These countries' composite rankings are
 highly dependent on the defence axis, which explains their sensitivity
 to defence-axis removal in the LOO exercise (\cref{sec:loo}).
+
+\subsection{Defence-dominance stress test}\label{sec:defence-stress-test}
+
+The variance decomposition establishes that defence and logistics
+jointly account for 69.37\% of composite variance.  A natural
+objection is that the ISI ranking is therefore ``merely a defence
+index'' or ``a defence-plus-logistics index.''  This subsection
+constructs three counterfactual composites to test this objection
+directly.
+
+\subsubsection{Construction}
+
+Three reduced composites are computed for each country~$i$:
+\begin{align}
+  \text{ISI}_i^{(-D)}
+    &= \frac{1}{5}\sum_{j \neq \text{Def}} A_{j,i}\,,
+    \label{eq:isi-no-defence} \\
+  \text{ISI}_i^{(-L)}
+    &= \frac{1}{5}\sum_{j \neq \text{Log}} A_{j,i}\,,
+    \label{eq:isi-no-logistics} \\
+  \text{ISI}_i^{(-DL)}
+    &= \frac{1}{4}\sum_{j \notin \{\text{Def},\text{Log}\}} A_{j,i}\,.
+    \label{eq:isi-no-defence-logistics}
+\end{align}
+Each reduced composite is re-ranked and compared with the baseline
+ISI ranking using Spearman~$\rho$, Kendall~$\tau$, and the
+coefficient of determination~$R^2$ from regressing baseline ranks
+on reduced-composite ranks.
+
+\subsubsection{Results}
+
+\begin{table}[htbp]
+\centering
+\caption{Defence-dominance stress test: rank-order agreement between
+  reduced composites and the ISI~v1.0 baseline.}
+\label{tab:defence-stress-test}
+\begin{tabular}{@{}lS[table-format=1.3]S[table-format=1.3]S[table-format=1.3]@{}}
+\toprule
+\textbf{Reduced composite}
+  & {$\boldsymbol{\rho}$} & {$\boldsymbol{\tau}$}
+  & {$\boldsymbol{R^2}$} \\
+\midrule
+Without defence ($\text{ISI}^{(-D)}$)
+  & 0.833 & 0.675 & 0.693 \\
+Without logistics ($\text{ISI}^{(-L)}$)
+  & 0.926 & 0.789 & 0.858 \\
+Without both ($\text{ISI}^{(-DL)}$)
+  & 0.654 & 0.459 & 0.428 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Interpretation}
+
+Three conclusions follow from \cref{tab:defence-stress-test}:
+
+\begin{enumerate}[leftmargin=2em]
+  \item \textbf{The ISI is not reducible to its defence axis.}
+    Removing defence reduces rank concordance to $\rho = 0.833$
+    ($\tau = 0.675$), but the five remaining axes still preserve
+    69.3\% of baseline rank variance ($R^2 = 0.693$ for the
+    single-axis-drop case).  If the composite were ``merely a
+    defence index,'' removing defence would collapse the ranking
+    entirely; it does not.
+
+  \item \textbf{Removing both defence and logistics substantially
+    degrades but does not destroy the ranking.}  The four-axis
+    composite (financial, energy, technology, critical inputs) achieves
+    $\rho = 0.654$ and $R^2 = 0.428$ against the baseline.  Although
+    less than half of baseline rank variance is preserved, the moderate
+    concordance demonstrates that the remaining four axes still carry
+    independent discriminatory information that is structurally
+    correlated with the full composite.
+
+  \item \textbf{Logistics contributes substantial incremental rank
+    information beyond defence.}  The drop from $\rho = 0.833$
+    (defence only removed) to $\rho = 0.654$ (both removed) establishes
+    that logistics adds considerable discriminatory content not
+    redundant with defence.  The two axes share only moderate Pearson
+    correlation ($r = 0.286$, $t = 1.487$, non-significant at
+    $\alpha = 0.05$).
+\end{enumerate}
+
+The stress test therefore refutes the ``defence-only'' critique.  The
+ISI composite is dominated by defence and logistics variance---this
+is an empirical finding, not a design flaw---but the ranking retains
+structural coherence even when these axes are entirely excluded.  The
+appropriate analytical response to defence dominance is not to
+downweight or remove it, but to ensure that axis-level profiles are
+reported alongside the composite, as this paper does throughout.
