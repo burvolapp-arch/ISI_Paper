@@ -40,6 +40,7 @@
 % --- Mathematics (light, for notation) ---------------------------------------
 % NOTE: amsmath is loaded by unicode-math; amssymb is superseded by unicode-math.
 %       Do NOT load amssymb alongside unicode-math (symbol conflicts: \eth, etc.).
+\usepackage{siunitx}                  % Number formatting, alignment in tables
 
 % --- Code & Algorithms (optional, loaded but not required) -------------------
 % \usepackage{listings}               % Uncomment if code listings needed
@@ -82,3 +83,7 @@
 
 % cleveref MUST be loaded after hyperref
 \usepackage[capitalise,noabbrev]{cleveref}  % \cref, \Cref — "Figure 1" not "fig. 1"
+
+% --- URL Line Breaking -------------------------------------------------------
+\setcounter{biburllcpenalty}{7000}    % Allow URL breaks at lowercase letters
+\setcounter{biburlucpenalty}{8000}    % Allow URL breaks at uppercase letters

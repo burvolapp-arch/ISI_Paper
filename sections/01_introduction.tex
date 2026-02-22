@@ -1,9 +1,71 @@
 % sections/01_introduction.tex
 \section{Introduction}\label{sec:introduction}
 
-\todo{Write introduction.}
+\subsection{Scope}\label{sec:intro:scope}
 
-% Sample citation — proves the biblatex/biber pipeline is wired correctly.
-% Remove this paragraph when writing the real introduction.
-This stub confirms the citation pipeline: see \textcite{knuth1984literate} for
-the foundational work on literate programming.
+The International Sovereignty Index (\ISI) quantifies the structural
+concentration of a country's critical external dependencies.  It does not
+measure sovereignty in the normative or legal sense.  It measures the extent to
+which a state relies on a small number of foreign partners for essential goods,
+services, and capabilities across six domains: financial market access, energy
+supply, technology and semiconductor inputs, defence-industrial procurement,
+critical raw materials, and logistics and freight infrastructure.
+
+The index operates at the country--year level.  Each observation produces a
+composite score on the unit interval \([0,1]\) and a categorical
+classification.  Higher values denote greater concentration and, by
+implication, greater structural exposure to partner-specific disruption.
+
+\ISI v\,1.0 is materialised for the EU-27.  The architecture is international
+by design and extensible to global coverage pending data harmonisation and
+integrity validation across additional statistical sources.
+
+\subsection{Context}\label{sec:intro:context}
+
+Existing composite indicators in the sovereignty-adjacent space---the
+\textcite{kof2023globalisation} Globalisation Index, the
+\textcite{unctad2023productive} Productive Capacities Index, and the
+EU~Global Gateway scorecards---measure either \emph{openness} or
+\emph{capacity}.  None directly measures \emph{concentration} of external
+dependence.  The analytical gap is consequential: a highly open economy with
+diversified partners faces a qualitatively different risk profile from one
+whose openness is channelled through a single counterparty.
+
+The \ISI addresses this gap.  It is not a substitute for openness or capacity
+indicators; it is a complement that captures the structural geometry of
+dependence.
+
+\subsection{Design Principles}\label{sec:intro:principles}
+
+Five principles constrain the index architecture:
+
+\begin{enumerate}[label=\textbf{P\arabic*}.]
+  \item \textbf{Transparency.}  Every formula, data source, and threshold is
+    published.  No proprietary model or hidden weighting layer exists.
+  \item \textbf{Reproducibility.}  Given identical input data, any competent
+    third party must be able to reproduce the published scores to full
+    numerical precision.
+  \item \textbf{Auditability.}  Cryptographic integrity records (hash chains
+    and digital signatures) accompany every published snapshot, enabling
+    verification without access to the original computation environment.
+  \item \textbf{Parsimony.}  The index uses exactly one concentration
+    measure---the Herfindahl--Hirschman Index---applied uniformly across all
+    axes.  No axis receives preferential weighting in the composite.
+  \item \textbf{Conservatism.}  Where methodological choices are ambiguous,
+    the index defaults to the option that is simpler, more established, and
+    easier to audit.
+\end{enumerate}
+
+\subsection{Document Map}\label{sec:intro:map}
+
+The remainder of this paper is organised as follows.
+\Cref{sec:data-architecture} describes the data sources, ingestion protocol,
+and quality controls.  \Cref{sec:math-framework} presents the mathematical
+framework---the concentration formula, normalisation rules, and classification
+thresholds.  \Cref{sec:axis-specifications} specifies each of the six thematic
+axes.  \Cref{sec:aggregation} details the composite aggregation and ranking
+procedure.  \Cref{sec:scenario-engine} documents the scenario simulation
+model.  \Cref{sec:integrity-chain} describes the cryptographic integrity
+mechanism.  \Cref{sec:limitations} enumerates the structural limitations of the
+index.  \Cref{sec:governance} sets out the governance and versioning protocol.
+Three reference appendices follow.

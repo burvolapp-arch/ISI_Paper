@@ -1,0 +1,103 @@
+% sections/06_scenario_engine.tex
+\section{Scenario Engine}\label{sec:scenario-engine}
+
+\subsection{Purpose}\label{sec:scenario:purpose}
+
+The scenario engine provides a first-order sensitivity capability.  It
+answers questions of the form: \emph{``If country~\(i\)'s score on axis~\(a\)
+were to shift by a given percentage, how would the composite score and rank
+change?''}
+
+The engine operates \textbf{at the axis-score level}.  It does not decompose
+shocks to individual partners or sub-categories.  It is a mechanical
+sensitivity tool, not a forecasting model.
+
+\subsection{Multiplicative Adjustment Model}\label{sec:scenario:model}
+
+A scenario is defined by a set of axis-level adjustments for a single
+country~\(i\).  For each axis~\(a\), let
+\(\alpha_a \in [-0.20,\; +0.20]\) be the proportional adjustment.  The
+simulated axis score is:
+%
+\begin{equation}\label{eq:scenario}
+  \widetilde{M}_i^{(a)}
+  \;=\;
+  \clamp\!\bigl(M_i^{(a)} \times (1 + \alpha_a),\; 0,\; 1\bigr)
+\end{equation}
+%
+where
+%
+\[
+  \clamp(x, a, b) = \min\bigl(\max(x, a),\; b\bigr)
+\]
+
+The adjustment bounds \([-0.20, +0.20]\) are hard-coded in the backend.
+They constrain scenarios to plausible first-order perturbations and prevent
+the generation of extreme or nonsensical counterfactuals.
+
+\subsection{Composite Recomputation}\label{sec:scenario:composite}
+
+After adjustments are applied, the simulated composite is computed via the
+standard methodology:
+%
+\[
+  \widetilde{\mathrm{ISI}}_i
+  \;=\;
+  \frac{1}{6}
+  \sum_{a=1}^{6} \widetilde{M}_i^{(a)}
+\]
+%
+The simulated composite is rounded to eight decimal places and classified
+using the same thresholds (\cref{tab:thresholds}) and the same function
+(\texttt{methodology.compute\_composite}) as the baseline computation.
+
+\subsection{Rank Recomputation}\label{sec:scenario:rank}
+
+The simulated country score is inserted into the baseline ranking of all
+\(N = 27\) countries.  Other countries' scores remain at their baseline
+values.  The resulting rank change quantifies the structural sensitivity
+of country~\(i\)'s position to the specified axis-level perturbation.
+
+\subsection{Constraints}\label{sec:scenario:constraints}
+
+\begin{enumerate}
+  \item \textbf{Unit-interval bounds.}  No simulated axis score may fall
+    below~\(0\) or exceed~\(1\).  The clamping function enforces this.
+  \item \textbf{Adjustment bounds.}  Each \(\alpha_a\) is restricted to
+    \([-0.20, +0.20]\).  Inputs outside this range are rejected by the
+    backend before computation.
+  \item \textbf{Single-country scope.}  A scenario adjusts axis scores for
+    one country at a time.  Cross-country or general-equilibrium scenarios
+    are not supported.
+\end{enumerate}
+
+\subsection{Use Cases}\label{sec:scenario:uses}
+
+Typical applications include:
+
+\begin{itemize}
+  \item \emph{Axis sensitivity.}  Setting \(\alpha_a = -0.20\) for a single
+    axis reveals which axes most influence a country's composite rank.
+  \item \emph{Diversification benefit.}  Reducing a high-concentration axis
+    by \(\alpha_a = -0.10\) quantifies the composite improvement.
+  \item \emph{Stress test.}  Increasing all axes by \(\alpha_a = +0.20\)
+    simultaneously shows the worst-case composite under the permitted
+    perturbation envelope.
+\end{itemize}
+
+\subsection{Limitations of the Scenario Engine}\label{sec:scenario:limits}
+
+The engine models axis-score perturbations, not real economic adjustments.
+It does not capture:
+
+\begin{itemize}
+  \item Partner-level reallocation (which partners gain or lose share).
+  \item Second-round effects or substitution elasticities.
+  \item Correlation between axes (e.g., an energy shock that simultaneously
+    affects logistics costs).
+  \item Time dynamics---all scenarios are instantaneous, single-period
+    counterfactuals.
+\end{itemize}
+
+Users should treat scenario outputs as indicative sensitivity measures, not
+as predictions.

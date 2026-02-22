@@ -1,0 +1,246 @@
+% sections/04_axis_specifications.tex
+\section{Axis Specifications}\label{sec:axis-specifications}
+
+This section specifies each of the six thematic axes as implemented in the
+\ISI v\,1.0 backend.  For every axis, the specification covers: (i)~the
+economic concept measured, (ii)~the data source and product/flow scope,
+(iii)~the channel decomposition and aggregation variant, (iv)~the
+fallback-basis logic, and (v)~boundary conditions.
+
+% =========================================================================
+\subsection{Axis~1: Financial Sovereignty}\label{sec:axis:finance}
+
+\paragraph{Concept.}
+Concentration of a country's cross-border financial exposure---banking claims
+and portfolio debt---across counterparty countries.
+
+\paragraph{Sources.}
+\begin{itemize}
+  \item \textbf{Channel~A}: BIS Locational Banking Statistics (Table~A6.2,
+    by counterparty country).  Quarterly frequency; the most recent quarter
+    available for the vintage year is used (typically Q4).
+  \item \textbf{Channel~B}: IMF Coordinated Portfolio Investment Survey
+    (CPIS), debt securities.  Annual frequency.
+\end{itemize}
+
+\paragraph{Channel decomposition.}
+\begin{itemize}
+  \item \textbf{Channel~A (banking claims):}  Shares of inward banking
+    claims on country~\(i\) by creditor country.
+    \(s_{i,j}^{(A)} = \text{claims}_{j \rightarrow i} \;/\;
+    \text{claims}_{\cdot \rightarrow i}\).
+  \item \textbf{Channel~B (portfolio debt):}  Shares of country~\(i\)'s
+    outward portfolio-debt holdings by debtor country.
+    \(s_{i,j}^{(B)} = \text{debt}_{i \rightarrow j} \;/\;
+    \text{debt}_{i \rightarrow \cdot}\).
+\end{itemize}
+
+\paragraph{Cross-channel aggregation.}
+Arithmetic mean (\cref{eq:dual-channel}).
+
+\paragraph{Fallback basis.}
+When both channels are available: \texttt{BOTH}.  When only BIS data exist:
+\texttt{A\_ONLY}.  When only CPIS data exist: \texttt{B\_ONLY}.  When
+neither source reports data for a country: \texttt{NONE}; axis score is null.
+
+\paragraph{Boundary conditions.}
+Countries absent from the BIS reporting population receive
+\(C_i^{(A)} = \text{null}\).  Countries absent from the CPIS receive
+\(C_i^{(B)} = \text{null}\).  If both channels are null the axis score is
+null and flagged \texttt{W-ZER}.
+
+% =========================================================================
+\subsection{Axis~2: Energy Dependency}\label{sec:axis:energy}
+
+\paragraph{Concept.}
+Concentration of a country's fossil-fuel energy imports across partner
+countries.
+
+\paragraph{Source.}
+Eurostat energy tables (\texttt{nrg\_ti\_*}).  Annual frequency.  Scope:
+natural gas, crude oil, and solid fossil fuels.
+
+\paragraph{Aggregation variant.}
+Axis~2 does \emph{not} use a two-channel decomposition.  Instead, a
+per-fuel \HHI is computed for each fossil-fuel category, and the axis
+score is the arithmetic average across fuels with non-zero imports
+(\cref{eq:fuel-avg}):
+%
+\[
+  M_i^{(2)}
+  \;=\;
+  \frac{1}{|\mathcal{F}_i|}
+  \sum_{f \in \mathcal{F}_i} C_i^{(f)}
+\]
+%
+where \(\mathcal{F}_i \subseteq \{\text{gas},\, \text{oil},\,
+\text{solid fossil}\}\) is the set of fuel types for which
+country~\(i\) has non-zero imports.
+
+\paragraph{Boundary conditions.}
+Countries with zero fossil-fuel imports across all three categories
+receive axis score null and are flagged \texttt{W-ZER}.  Countries with
+imports in only one or two categories are scored over the available
+fuels (denominator adjusts automatically).
+
+% =========================================================================
+\subsection{Axis~3: Technology and Semiconductor Dependency}%
+\label{sec:axis:technology}
+
+\paragraph{Concept.}
+Concentration of a country's imports of semiconductor devices and
+electronic components across partner countries.
+
+\paragraph{Source.}
+Eurostat Comext (dataset \texttt{ds-045409}).  Product scope: HS~8541
+(semiconductor devices) and HS~8542 (electronic integrated circuits).
+
+\paragraph{Channel decomposition.}
+\begin{itemize}
+  \item \textbf{Channel~A (aggregate):}  \HHI of partner-country
+    shares across combined HS~8541\,+\,8542 imports.
+  \item \textbf{Channel~B (category-weighted):}  Per-category \HHI
+    (HS~8541 and HS~8542 separately), combined via the value-weighted
+    formula (\cref{eq:weighted-b}).
+\end{itemize}
+
+\paragraph{Cross-channel aggregation.}
+Arithmetic mean (\cref{eq:dual-channel}).
+
+\paragraph{Fallback basis.}
+\texttt{BOTH} when aggregate and per-category data are available (the
+normal case for all EU-27 states).  \texttt{A\_ONLY} / \texttt{B\_ONLY} /
+\texttt{NONE} as for Axis~1.
+
+\paragraph{Boundary conditions.}
+Countries with zero recorded semiconductor imports receive axis
+score null.
+
+% =========================================================================
+\subsection{Axis~4: Defence Industrial Dependency}\label{sec:axis:defence}
+
+\paragraph{Concept.}
+Concentration of a country's conventional arms imports across supplier
+countries.
+
+\paragraph{Source.}
+SIPRI Arms Transfers Database (ATD).  Unit of measurement: SIPRI Trend
+Indicator Values (TIV), which provide a common metric for comparing
+transfers of different weapons systems.
+
+\paragraph{Temporal window.}
+Defence transfers are lumpy.  To mitigate year-to-year volatility, a
+\textbf{six-year} rolling window is applied: share vectors are computed
+from the sum of TIV flows over years \(2019\)--\(2024\) for v\,1.0.
+
+\paragraph{Channel decomposition.}
+\begin{itemize}
+  \item \textbf{Channel~A (aggregate):}  \HHI computed over partner-country
+    shares of total TIV imports across the six-year window.
+  \item \textbf{Channel~B (capability-block weighted):}  Per-capability-block
+    \HHI (e.g., combat aircraft, armoured vehicles, naval vessels, missiles,
+    air-defence systems), combined via the value-weighted formula
+    (\cref{eq:weighted-b}).  Capability blocks follow the SIPRI category
+    taxonomy.
+\end{itemize}
+
+\paragraph{Cross-channel aggregation.}
+Arithmetic mean (\cref{eq:dual-channel}).
+
+\paragraph{Warning codes.}
+\texttt{W-DEF} (sparse transfer record: raised when country~\(i\) records
+fewer than three transfer events in the six-year window, yielding an \HHI
+that may reflect sampling noise rather than structural dependence).
+
+\paragraph{Boundary conditions.}
+Countries with zero recorded arms imports on both channels are assigned
+axis score null and excluded from the composite via the coverage rule
+(\cref{sec:agg:missing}).
+
+% =========================================================================
+\subsection{Axis~5: Critical Inputs / Raw Materials}%
+\label{sec:axis:critical-inputs}
+
+\paragraph{Concept.}
+Concentration of a country's imports of critical raw materials across
+partner countries.
+
+\paragraph{Source.}
+Eurostat Comext at CN8 level.  The material scope covers a curated list
+of critical raw materials aligned with the EU Critical Raw Materials Act
+(e.g., rare earths, lithium, cobalt, manganese, tungsten, gallium,
+germanium, titanium, and platinum-group metals).
+
+\paragraph{Channel decomposition.}
+\begin{itemize}
+  \item \textbf{Channel~A (aggregate):}  \HHI computed over partner-country
+    shares of the combined import value of all critical materials.
+  \item \textbf{Channel~B (material-group weighted):}  Per-material-group
+    \HHI, combined via the value-weighted formula (\cref{eq:weighted-b}).
+    Material groups are defined in the methodology registry.
+\end{itemize}
+
+\paragraph{Cross-channel aggregation.}
+Arithmetic mean (\cref{eq:dual-channel}).
+
+\paragraph{Fallback basis.}
+As for Axis~1 (\texttt{BOTH} / \texttt{A\_ONLY} / \texttt{B\_ONLY} /
+\texttt{NONE}).
+
+\paragraph{Boundary conditions.}
+Countries with zero recorded critical-material imports receive axis
+score null.
+
+% =========================================================================
+\subsection{Axis~6: Logistics and Freight Dependency}%
+\label{sec:axis:logistics}
+
+\paragraph{Concept.}
+Concentration of a country's freight transport linkages across partner
+countries and transport modes.
+
+\paragraph{Source.}
+Eurostat transport statistics.  Scope: maritime, road, rail, and air
+freight flows (tonnage).
+
+\paragraph{Channel decomposition.}
+\begin{itemize}
+  \item \textbf{Channel~A (mode \HHI):}  For each transport mode, the \HHI
+    is computed over partner-country shares of tonnage.  The mode-level
+    scores are then combined as a tonnage-weighted average across modes.
+  \item \textbf{Channel~B (partner \HHI per mode):}  For each mode, the
+    partner-level \HHI is computed and tonnage-weighted across modes,
+    analogous to the category-weighted variant (\cref{eq:weighted-b}).
+\end{itemize}
+
+\paragraph{Cross-channel aggregation.}
+Arithmetic mean (\cref{eq:dual-channel}).
+
+\paragraph{Boundary conditions.}
+Landlocked countries (AT, CZ, HU, LU, SK) have no maritime freight data;
+the maritime mode is excluded from their tonnage-weighted average
+(denominator adjusts automatically).  Countries with complete absence of
+transport data receive axis score null.
+
+% =========================================================================
+\subsection{Axis Summary}\label{sec:axis:summary}
+
+\Cref{tab:axis-summary} provides a compact reference.
+
+\begin{table}[htbp]
+  \centering\small
+  \caption{Axis registry summary.}\label{tab:axis-summary}
+  \begin{tabularx}{\textwidth}{@{}c l l l X@{}}
+    \toprule
+    \textbf{Axis} & \textbf{Domain} & \textbf{Ch.\,A} & \textbf{Ch.\,B}
+      & \textbf{Aggregation variant} \\
+    \midrule
+    1 & Financial sovereignty  & BIS inward claims   & IMF CPIS debt  & Arithmetic mean \\
+    2 & Energy dependency      & \multicolumn{2}{l}{Per-fuel \HHI (no channels)} & Fuel average \\
+    3 & Technology / semiconductor & Aggregate \HHI  & Category-wtd   & Arithmetic mean \\
+    4 & Defence industrial     & Aggregate \HHI      & Capability-wtd & Arithmetic mean (6-yr) \\
+    5 & Critical inputs        & Aggregate \HHI      & Material-wtd   & Arithmetic mean \\
+    6 & Logistics / freight    & Mode \HHI           & Partner \HHI   & Tonnage-weighted \\
+    \bottomrule
+  \end{tabularx}
+\end{table}

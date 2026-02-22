@@ -1,0 +1,87 @@
+% sections/10_appendix.tex
+
+\section{Axis Registry}\label{sec:appendix:axis-registry}
+
+\Cref{tab:appendix-axis-registry} provides the complete axis registry in
+tabular form.
+
+\begin{table}[htbp]
+  \centering\small
+  \caption{Complete axis registry.}\label{tab:appendix-axis-registry}
+  \begin{tabularx}{\textwidth}{@{}c l l l l X@{}}
+    \toprule
+    \textbf{Ax.} & \textbf{Domain} & \textbf{Source} & \textbf{Ch.\,A}
+      & \textbf{Ch.\,B} & \textbf{Special} \\
+    \midrule
+    1 & Financial sov. & BIS LBS / IMF CPIS
+      & Inward claims & Portfolio debt & Fallback basis \\
+    2 & Energy dep.    & Eurostat \texttt{nrg\_ti\_*}
+      & \multicolumn{2}{l}{Per-fuel \HHI (no channels)} & Fuel average \\
+    3 & Tech./semi.    & Comext \texttt{ds-045409}
+      & Aggregate \HHI & Category-wtd & HS~8541+8542 \\
+    4 & Defence ind.   & SIPRI ATD
+      & Aggregate \HHI & Capability-wtd & 6-yr window \\
+    5 & Critical inp.  & Comext CN8
+      & Aggregate \HHI & Material-wtd & CRM Act scope \\
+    6 & Logistics      & Eurostat transport
+      & Mode \HHI & Partner \HHI & Tonnage-wtd \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+% -------------------------------------------------------------------------
+\section{Classification Thresholds}\label{sec:appendix:thresholds}
+
+\begin{table}[htbp]
+  \centering\small
+  \caption{Classification thresholds (reproduced from
+    \cref{tab:thresholds}).}\label{tab:appendix-thresholds}
+  \begin{tabular}{@{}l l l@{}}
+    \toprule
+    \textbf{Tier} & \textbf{Composite range} & \textbf{Label} \\
+    \midrule
+    1 & \(\mathrm{ISI}_i \geq 0.50\)          & \texttt{highly\_concentrated} \\
+    2 & \(0.25 \leq \mathrm{ISI}_i < 0.50\)   & \texttt{moderately\_concentrated} \\
+    3 & \(0.15 \leq \mathrm{ISI}_i < 0.25\)   & \texttt{mildly\_concentrated} \\
+    4 & \(\mathrm{ISI}_i < 0.15\)              & \texttt{unconcentrated} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The thresholds are adapted from the US~DOJ/FTC Horizontal Merger Guidelines
+\parencite{doj2023merger}, which classify markets as highly concentrated
+(\HHI above \num{2500}), moderately concentrated (\HHI \num{1500}--\num{2500}),
+and unconcentrated (\HHI below \num{1500}) on the \num{0}--\num{10000} scale.
+The \ISI thresholds represent a proportional transposition to the unit interval,
+with an additional tier boundary at \num{0.15} to separate mildly concentrated
+from unconcentrated states.
+
+% -------------------------------------------------------------------------
+\section{Warning Code Registry}\label{sec:appendix:warnings}
+
+\Cref{tab:appendix-warnings} enumerates all warning codes defined in
+\ISI v\,1.0.
+
+\begin{longtable}{@{}l l p{8cm}@{}}
+  \caption{Warning code registry.}\label{tab:appendix-warnings} \\
+  \toprule
+  \textbf{Code} & \textbf{Scope} & \textbf{Description} \\
+  \midrule
+  \endfirsthead
+  \caption[]{Warning code registry (continued).} \\
+  \toprule
+  \textbf{Code} & \textbf{Scope} & \textbf{Description} \\
+  \midrule
+  \endhead
+  \midrule
+  \multicolumn{3}{r@{}}{\footnotesize\itshape Continued on next page} \\
+  \endfoot
+  \bottomrule
+  \endlastfoot
+  \texttt{W-COV} & Country & Fewer than four axes computable; country excluded from ranked output. \\
+  \texttt{W-ZER} & Channel & Zero recorded flow; channel or axis score set to null. \\
+  \texttt{W-LAG} & Axis    & Most recent data predates vintage year by more than two years. \\
+  \texttt{W-DEF} & Axis~4  & Fewer than three transfer events in the six-year window. \\
+  \texttt{W-FIN} & Axis~1  & Country absent from BIS reporting population; Channel~A score null. \\
+  \texttt{W-CPI} & Axis~1  & Country absent from IMF CPIS; Channel~B score null. \\
+\end{longtable}

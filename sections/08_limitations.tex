@@ -1,0 +1,68 @@
+% sections/08_limitations.tex
+\section{Limitations}\label{sec:limitations}
+
+The \ISI is subject to the following structural limitations.  These are
+inherent to the methodology and cannot be resolved by improved parameter
+tuning within the current framework.
+
+\begin{enumerate}[label=\textbf{L\arabic*}.]
+
+  \item \textbf{Re-export and entrepôt masking.}
+    The index attributes flows to the immediate bilateral partner, not to
+    the country of origin or ultimate destination.  Entrepôt economies
+    (notably the Netherlands and Belgium within the EU-27) inflate their
+    share in partner-level distributions for goods that merely transit
+    through their territory.  This affects axes~3 (semiconductors),
+    5~(critical raw materials), and 6~(logistics) most acutely.  The \ISI
+    does not strip out re-export flows because no harmonised re-export
+    adjustment exists across all source datasets.
+
+  \item \textbf{Small-economy amplification.}
+    Countries with very small absolute import volumes (e.g., CY, MT,
+    LU) tend to exhibit high \HHI scores because a single large
+    shipment from one partner can dominate the share distribution.
+    The resulting concentration score is mechanically correct but may
+    overstate structural dependence: a small economy can often switch
+    suppliers at lower absolute cost than a large economy with the
+    same score.
+
+  \item \textbf{Geographic determinism (Axis~6).}
+    Freight flows are partly determined by geography.  Landlocked countries
+    (AT, CZ, HU, LU, SK) necessarily concentrate road and rail freight on
+    neighbouring partners, producing high logistics \HHI values that
+    reflect physical proximity, not strategic vulnerability.  The index
+    does not adjust for geographic proximity or contiguity.
+
+  \item \textbf{No domestic production offset.}
+    The \ISI measures concentration of \emph{imports} only.  It does not
+    account for domestic production capacity.  A country that imports a
+    concentrated bundle of semiconductors but also manufactures a large
+    share domestically will receive the same axis score as a country with
+    identical import patterns but no domestic production.  Import
+    concentration is therefore a necessary but not sufficient indicator
+    of actual supply vulnerability.
+
+  \item \textbf{Equal weighting arbitrariness.}
+    The composite assigns equal weight to all six axes.  This is transparent
+    and neutral but may not reflect the relative strategic importance of each
+    domain for a specific country.  A small island state's energy-import
+    concentration may be existentially significant, while its defence-transfer
+    concentration may be economically negligible.  The composite does not
+    capture this asymmetry.  Users requiring domain-specific analysis should
+    examine axis-level scores directly.
+
+  \item \textbf{Intra-EU trade inclusion.}
+    Bilateral flows between EU~member states are included in the share
+    vectors.  A country whose imports are concentrated on a single
+    EU~partner (e.g., Germany) will receive a high \HHI, even though the
+    flow occurs within the Single Market and is subject to EU regulatory
+    safeguards.  This may overstate effective external dependence for
+    countries whose concentration is predominantly intra-EU.  An
+    alternative specification---excluding intra-EU flows---would require a
+    separate methodology variant and is reserved for future consideration.
+
+\end{enumerate}
+
+These limitations are permanent features of v\,1.0.  They are documented
+here to enable informed use of the index and to prevent over-interpretation
+of the published scores.

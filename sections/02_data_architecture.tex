@@ -1,0 +1,114 @@
+% sections/02_data_architecture.tex
+\section{Data Architecture}\label{sec:data-architecture}
+
+\subsection{Source Registry}\label{sec:data:sources}
+
+The \ISI draws on five primary statistical sources, each mapped to one or
+more thematic axes.  \Cref{tab:source-registry} summarises the registry.
+
+\begin{table}[htbp]
+  \centering\small
+  \caption{Primary data sources (v\,1.0).}\label{tab:source-registry}
+  \begin{tabularx}{\textwidth}{@{}l l l X@{}}
+    \toprule
+    \textbf{Axis} & \textbf{Source} & \textbf{Granularity}
+      & \textbf{Window} \\
+    \midrule
+    1\,---\,Financial   & BIS LBS / IMF CPIS
+      & Counterparty, quarterly   & 2024-Q4 \\
+    2\,---\,Energy      & Eurostat \texttt{nrg\_ti\_*}
+      & Fuel, partner, annual     & 2024 \\
+    3\,---\,Tech./Semi. & Eurostat Comext ds-045409
+      & CN8, bilateral, annual    & 2023--2024 \\
+    4\,---\,Defence     & SIPRI ATD (TIV)
+      & System, bilateral, annual & 2019--2024 \\
+    5\,---\,Crit.\ Inputs & Eurostat Comext CN8
+      & CN8, bilateral, annual    & 2023--2024 \\
+    6\,---\,Logistics   & Eurostat transport stats
+      & Mode, partner, annual     & 2022--2024 \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{Coverage}\label{sec:data:coverage}
+
+The unit of observation is the country--year pair \((i, t)\).  The reference
+population for \ISI v\,1.0 is the EU-27.  The architecture is international by
+design: the computation pipeline, integrity chain, and classification logic are
+country-set agnostic.  Extension to non-EU countries requires source-level data
+availability, harmonisation, and integrity validation for each additional
+jurisdiction.
+
+For a given vintage year~\(t\), a country~\(i\) is included in the published
+snapshot if and only if at least four of the six axes yield a computable
+concentration score.  Where fewer than four axes are computable, the country is
+flagged with warning code~\texttt{W-COV} and excluded from the ranked output
+(see \cref{sec:appendix:warnings}).
+
+\subsection{Data Availability Constraints (v\,1.0)}\label{sec:data:constraints}
+
+Only \ISI~2024 is materialisable under v\,1.0.  The binding constraints are:
+
+\begin{itemize}
+  \item \textbf{BIS LBS.}  The Locational Banking Statistics are published
+    with a two-quarter lag.  Only the 2024-Q4 release provides sufficient
+    counterparty coverage for the EU-27.  Earlier quarters lack the partner
+    disaggregation required for Channel~A of Axis~1.
+  \item \textbf{Eurostat energy.}  The \texttt{nrg\_ti\_*} tables report
+    annual fuel-level import data.  The 2024 vintage is the most recent
+    complete release.
+  \item \textbf{SIPRI.}  The Arms Transfers Database reports calendar-year
+    deliveries.  The six-year window (2019--2024) is the minimum required
+    to smooth lumpy transfer patterns for EU member states.
+  \item \textbf{Eurostat transport.}  Modal freight statistics lag by one to
+    two years.  The 2022--2024 window represents the best available coverage
+    at time of computation.
+\end{itemize}
+
+An \ISI~2023 vintage is infeasible: BIS counterparty data for 2023-Q4 lack
+sufficient EU-27 partner coverage, and the SIPRI window would contract below
+the minimum smoothing threshold for several member states.  Time-series
+extension requires additional source vintages and is not supported in v\,1.0.
+
+\subsection{Ingestion Protocol}\label{sec:data:ingestion}
+
+Data ingestion follows a four-stage pipeline:
+
+\begin{enumerate}
+  \item \textbf{Acquisition.}  Raw files are retrieved from the source API or
+    bulk-download portal in the format published by the provider (CSV, SDMX,
+    JSON).
+  \item \textbf{Parsing.}  Source-specific parsers normalise records into a
+    common schema per axis.  Each parser is a dedicated module in the backend
+    pipeline.
+  \item \textbf{Validation.}  Row-level checks enforce non-negative values,
+    valid ISO~3166-1 alpha-2 codes (EU member states), and year-range bounds.
+    Records that fail validation are quarantined and logged.
+  \item \textbf{Loading.}  Validated records are loaded into the computation
+    layer.  No post-load transformation occurs outside the formula
+    definitions in \cref{sec:math-framework}.
+\end{enumerate}
+
+\subsection{Quality Controls}\label{sec:data:quality}
+
+Three quality controls apply at the axis level:
+
+\begin{description}[style=nextline]
+  \item[Temporal gap detection.]
+    If the most recent available data point for axis~\(a\) and country~\(i\)
+    predates the snapshot vintage year~\(t\) by more than two years, the axis
+    score is computed from the latest available year and warning
+    code~\texttt{W-LAG} is attached.
+  \item[Partner-set completeness.]
+    If the share vector for axis~\(a\) and country~\(i\) covers fewer than
+    \SI{90}{\percent} of the total reported flow (due to missing partner
+    disaggregation), warning code~\texttt{W-PAR} is attached.
+  \item[Channel fallback basis.]
+    Where an axis defines two channels but only one is computable for a given
+    country, the axis score reverts to the surviving channel.  The fallback
+    basis (\texttt{BOTH}, \texttt{A\_ONLY}, \texttt{B\_ONLY}, \texttt{NONE})
+    is recorded in the output metadata.
+\end{description}
+
+Warning codes are propagated to the published output but do not alter the
+numerical score.  They serve as metadata for downstream consumers.

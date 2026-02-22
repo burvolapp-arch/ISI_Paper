@@ -1,0 +1,83 @@
+% sections/09_governance.tex
+\section{Governance and Versioning}\label{sec:governance}
+
+\subsection{Custodian}\label{sec:gov:custodian}
+
+The \ISI methodology is maintained by the \textbf{International Sovereignty
+Institute\,---\,Research Unit}.  All methodology changes, snapshot
+publications, and key-management decisions are the responsibility of the
+custodian.
+
+\subsection{Versioning Scheme}\label{sec:gov:versioning}
+
+The \ISI follows a two-part version number: \texttt{major.minor}.
+
+\begin{description}[style=nextline]
+  \item[\texttt{major} increment.]
+    Reserved for changes that break backward comparability of the composite
+    score.  Examples: adding or removing an axis, changing the concentration
+    formula, altering the classification thresholds, rotating the signing
+    key.  A major-version change resets the minor counter to~\(0\) and
+    requires a new methodology document.
+  \item[\texttt{minor} increment.]
+    Used for changes that preserve backward comparability.  Examples:
+    extending country coverage, adding a warning code, correcting a data-
+    ingestion bug, updating a supplementary data source.  Minor changes are
+    documented in a changelog appended to the methodology document.
+\end{description}
+
+The current version is \textbf{v\,1.0}.
+
+\subsection{Change Protocol}\label{sec:gov:change}
+
+Proposed methodology changes follow a four-stage protocol:
+
+\begin{enumerate}
+  \item \textbf{Proposal.}  A written proposal specifies the change, its
+    rationale, its impact on published scores (if any), and the affected
+    version component (major or minor).
+  \item \textbf{Impact assessment.}  The change is applied retroactively to
+    the most recent two vintage years.  The resulting score differences are
+    tabulated and reviewed.
+  \item \textbf{Review.}  The proposal and impact assessment are reviewed by
+    at least one independent methodologist not involved in the original
+    proposal.
+  \item \textbf{Publication.}  If approved, the change is incorporated into
+    the next version release.  The methodology document, changelog, and
+    version number are updated simultaneously.  The previous version remains
+    archived and accessible.
+\end{enumerate}
+
+\subsection{Data-Revision Policy}\label{sec:gov:revision}
+
+Statistical agencies routinely revise historical data.  When a source
+revision affects the input data for a published vintage, the following rules
+apply:
+
+\begin{itemize}
+  \item \textbf{No retroactive recalculation.}  Published snapshots are not
+    recomputed.  The integrity chain binds each snapshot to the data as it
+    existed at computation time.
+  \item \textbf{Prospective incorporation.}  Revised data are incorporated
+    into the next vintage computation.  The changelog records which source
+    revisions were absorbed.
+  \item \textbf{Erratum.}  If a source revision reveals a material error in
+    a published snapshot (defined as a composite-score change exceeding
+    \num{0.01} for any country), an erratum is published identifying the
+    affected countries and scores.  The original snapshot and its integrity
+    chain remain unchanged.
+\end{itemize}
+
+\subsection{Publication Schedule}\label{sec:gov:schedule}
+
+Snapshots are published annually.  The target publication window is
+Q2 of the calendar year, reflecting the typical lag in source-data
+availability.  The precise date is announced in the project repository at
+least 30~days in advance.
+
+\subsection{Archival}\label{sec:gov:archival}
+
+All published snapshots, methodology documents, changelogs, public keys, and
+integrity records are archived in a public repository with persistent
+identifiers.  No published artefact may be deleted or overwritten.
+Corrections are published as addenda, not as replacements.

@@ -1,0 +1,121 @@
+% sections/07_integrity_chain.tex
+\section{Integrity Chain}\label{sec:integrity-chain}
+
+\subsection{Design Rationale}\label{sec:integrity:rationale}
+
+Published index scores are only credible if consumers can verify that the
+scores have not been altered after computation.  The \ISI embeds a
+cryptographic integrity chain in every published snapshot.  The chain provides
+three guarantees:
+
+\begin{enumerate}
+  \item \textbf{Tamper evidence.}  Any post-publication modification to a
+    country score, axis score, weight, threshold, or classification will
+    invalidate the hash chain.
+  \item \textbf{Authorship attestation.}  The Ed25519 signature over the
+    snapshot hash binds the publication to a specific signing key, allowing
+    consumers to verify that the snapshot was produced by the authorised
+    computation environment.
+  \item \textbf{Offline verification.}  Verification requires only the
+    published snapshot files, the public key, and a standard cryptographic
+    library.  No access to the computation environment or raw data is needed.
+\end{enumerate}
+
+\subsection{Country-Level Hash}\label{sec:integrity:country}
+
+For each country~\(i\) in vintage year~\(t\), a canonical string
+representation is constructed by concatenating the following fields in
+fixed order:
+
+\begin{enumerate}
+  \item ISO~3166-1 alpha-2 country code.
+  \item Vintage year.
+  \item Methodology version string (e.g., \texttt{1.0}).
+  \item Six axis scores \(M_i^{(1)}, \ldots, M_i^{(6)}\), each represented
+    as a fixed-point decimal with eight digits after the decimal point.
+    Null axes are encoded as the string \texttt{null}.
+  \item Composite score (eight-decimal fixed-point representation).
+  \item Weight vector (the axis weights used; \(\tfrac{1}{6}\) for all six
+    axes in v\,1.0).
+  \item Classification thresholds (the four boundary values).
+\end{enumerate}
+
+The country-level hash is:
+%
+\[
+  h_i \;=\; \mathrm{SHA\text{-}256}(\text{canonical}_i)
+\]
+
+The exact serialisation format (field separators, encoding) is defined in
+the backend module \texttt{snapshot\_integrity.py} and is kept stable within
+a major version.
+
+\subsection{Snapshot Hash}\label{sec:integrity:snapshot}
+
+The snapshot hash aggregates all country-level hashes into a single digest.
+Country hashes are sorted in ascending lexicographic order of country code
+and concatenated:
+%
+\[
+  H_t \;=\; \mathrm{SHA\text{-}256}\!\bigl(h_{\mathrm{AT}} \;\|\;
+  h_{\mathrm{BE}} \;\|\; \cdots \;\|\; h_{\mathrm{SK}}\bigr)
+\]
+%
+where \(\|\) denotes concatenation.
+
+\subsection{Digital Signature}\label{sec:integrity:signature}
+
+The snapshot hash is signed using Ed25519 \parencite{bernstein2012eddsa}:
+%
+\[
+  \sigma_t \;=\; \mathrm{Ed25519\text{-}Sign}(sk,\; H_t)
+\]
+%
+where \(sk\) is the signing private key held by the publication authority.
+The corresponding public key~\(pk\) is distributed via the project's public
+key registry and pinned in the snapshot metadata.
+
+\subsection{Published Artefacts}\label{sec:integrity:artefacts}
+
+Each snapshot publication includes three integrity files:
+
+\begin{description}[style=nextline]
+  \item[\texttt{MANIFEST.json}]
+    Lists every output file in the snapshot (score files, metadata,
+    methodology registry) with its SHA-256 hash.  Consumers can verify
+    file-level integrity by recomputing hashes and comparing.
+  \item[\texttt{HASH\_SUMMARY.json}]
+    Contains the per-country hashes~\(h_i\) and the aggregate snapshot
+    hash~\(H_t\).  This file enables country-level verification without
+    recomputing the full pipeline.
+  \item[\texttt{SIGNATURE.json}]
+    Contains the Ed25519 signature~\(\sigma_t\) over~\(H_t\) and the
+    public key identifier used for signing.
+\end{description}
+
+\subsection{Verification Procedure}\label{sec:integrity:verify}
+
+A consumer verifying snapshot~\(t\) performs the following steps:
+
+\begin{enumerate}
+  \item Recompute each country hash~\(h_i\) from the published score record
+    using the canonical serialisation defined in
+    \texttt{snapshot\_integrity.py}.
+  \item Concatenate country hashes in lexicographic order and compute
+    \(H_t'\).
+  \item Verify that \(H_t' = H_t\) (the published snapshot hash in
+    \texttt{HASH\_SUMMARY.json}).
+  \item Verify the Ed25519 signature:
+    \(\mathrm{Ed25519\text{-}Verify}(pk, H_t, \sigma_t) = \text{true}\)
+    using the public key referenced in \texttt{SIGNATURE.json}.
+\end{enumerate}
+
+If any step fails, the snapshot is considered compromised.
+
+\subsection{Key Management}\label{sec:integrity:keys}
+
+The signing key pair is generated once per major version of the index.  Key
+rotation occurs at major-version boundaries (see \cref{sec:governance}).  The
+public key is published in the project repository and in
+\texttt{SIGNATURE.json}.  The private key is stored in an isolated
+environment and is never exposed to the general computation pipeline.

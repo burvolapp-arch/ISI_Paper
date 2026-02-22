@@ -1,0 +1,150 @@
+% sections/03_mathematical_framework.tex
+\section{Mathematical Framework}\label{sec:math-framework}
+
+This section defines the core formulae that transform raw bilateral flow data
+into normalised concentration scores.  All notation introduced here applies
+throughout the remainder of the document.
+
+\subsection{Notation}\label{sec:math:notation}
+
+Let \(i\) index countries (\(i = 1, \ldots, N\); \(N = 27\) for v\,1.0).
+Let \(a\) index thematic axes (\(a = 1, \ldots, 6\)).  Where an axis defines
+two channels, they are denoted \(\mathrm{ch} \in \{A, B\}\).  Not all axes
+use a two-channel decomposition; axis-specific structures are detailed in
+\cref{sec:axis-specifications}.
+
+For a given country~\(i\), axis~\(a\), and channel~\(\mathrm{ch}\), the
+partner-share vector is
+\(\mathbf{s}_i^{(\mathrm{ch})} = (s_{i,1}^{(\mathrm{ch})}, \ldots,
+s_{i,J}^{(\mathrm{ch})})\), where \(s_{i,j}^{(\mathrm{ch})}\) is the share
+of partner~\(j\) in the total flow and
+\(\sum_{j} s_{i,j}^{(\mathrm{ch})} = 1\).
+
+\subsection{Concentration Formula}\label{sec:math:hhi}
+
+Concentration is measured by the Herfindahl--Hirschman Index applied to the
+partner-share vector.  For country~\(i\) on channel~\(\mathrm{ch}\):
+%
+\begin{equation}\label{eq:hhi}
+  C_i^{(\mathrm{ch})}
+  \;=\;
+  \sum_{j=1}^{J} \bigl(s_{i,j}^{(\mathrm{ch})}\bigr)^{\!2}
+\end{equation}
+%
+The resulting value lies on the interval \((0, 1]\).  A value of~\(1\)
+indicates total dependence on a single partner; values approaching~\(0\)
+indicate dispersion across many partners.
+
+\paragraph{Relation to the classical \HHI.}
+The traditional \HHI in industrial-organisation literature is computed on
+percentage shares and ranges from~\(0\) to~\num{10000}.  The \ISI operates
+on fractional shares, yielding a normalised \HHI on \((0, 1]\).  The two
+forms are related by a factor of~\num{10000}.
+
+\subsection{Cross-Channel Aggregation}\label{sec:math:cross-channel}
+
+For axes that define two channels, the axis-level score is the arithmetic
+mean of the channel-level scores:
+%
+\begin{equation}\label{eq:dual-channel}
+  M_i^{(a)}
+  \;=\;
+  0.5\, C_i^{(A)} \;+\; 0.5\, C_i^{(B)}
+\end{equation}
+%
+Equal weighting is a deliberate design choice (Principle~\textbf{P4}).  No
+empirical basis exists for assigning asymmetric importance to supply versus
+destination concentration in a general-purpose index.
+
+Where only one channel is computable (fallback basis \texttt{A\_ONLY} or
+\texttt{B\_ONLY}), the axis score equals the surviving channel score.
+
+\subsection{Category-Weighted Channel~B}\label{sec:math:weighted-b}
+
+For axes where Channel~\(B\) encompasses multiple product sub-categories or
+capability blocks (see \cref{sec:axis-specifications}), a category-weighted
+variant is used.  Let \(k = 1, \ldots, K\) index the sub-categories and let
+\(V_i^{(k)}\) denote the total flow value of sub-category~\(k\) for
+country~\(i\).  Then:
+%
+\begin{equation}\label{eq:weighted-b}
+  C_i^{(B)}
+  \;=\;
+  \frac{\displaystyle\sum_{k=1}^{K} C_i^{(B,k)}\, V_i^{(k)}}
+       {\displaystyle\sum_{k=1}^{K} V_i^{(k)}}
+\end{equation}
+%
+where \(C_i^{(B,k)}\) is the \HHI of sub-category~\(k\).  This ensures that
+small-volume sub-categories do not dominate the axis score.
+
+\subsection{Single-Channel Fuel Averaging}\label{sec:math:fuel-avg}
+
+Axis~2 (Energy) does not use a two-channel decomposition.  Instead, a
+per-fuel \HHI is computed for each fossil-fuel category and the axis score is
+the arithmetic average across fuels:
+%
+\begin{equation}\label{eq:fuel-avg}
+  M_i^{(2)}
+  \;=\;
+  \frac{1}{|\mathcal{F}_i|}
+  \sum_{f \in \mathcal{F}_i} C_i^{(f)}
+\end{equation}
+%
+where \(\mathcal{F}_i\) is the set of fuel categories for which
+country~\(i\) has non-zero imports (see \cref{sec:axis:energy}).
+
+\subsection{Composite Score}\label{sec:math:composite}
+
+The composite \ISI score for country~\(i\) is the unweighted arithmetic mean
+of the six axis-level scores:
+%
+\begin{equation}\label{eq:composite}
+  \mathrm{ISI}_i
+  \;=\;
+  \frac{A_1 + A_2 + A_3 + A_4 + A_5 + A_6}{6}
+\end{equation}
+%
+where \(A_a \equiv M_i^{(a)}\) for notational compactness.  The composite
+inherits the unit-interval range of the axis scores.
+
+\paragraph{Equal weighting.}
+No differential axis weights are applied.  Differential weighting would
+require an empirical or normative justification for asserting that one domain
+matters more than another for \emph{all} countries at \emph{all} times.  No
+credible basis for such an assertion exists.  The equal-weight rule is
+transparent, reproducible, and neutral across policy domains.
+
+\subsection{Rounding}\label{sec:math:rounding}
+
+All published scores---axis-level and composite---are rounded to eight
+decimal places using the \emph{round-half-to-even} convention (IEEE~754
+banker's rounding).  The rounding precision is set by the backend constant
+\texttt{ROUND\_PRECISION\,=\,8}.  Rounding is applied \emph{before}
+classification and \emph{before} hashing.  Intermediate calculations retain
+full floating-point precision.
+
+\subsection{Classification Thresholds}\label{sec:math:thresholds}
+
+The rounded composite score is mapped to a four-tier ordinal classification:
+
+\begin{table}[htbp]
+  \centering\small
+  \caption{Classification thresholds.}\label{tab:thresholds}
+  \begin{tabular}{@{}l l@{}}
+    \toprule
+    \textbf{Composite range}     & \textbf{Classification} \\
+    \midrule
+    \(\mathrm{ISI}_i \geq 0.50\) & \texttt{highly\_concentrated}     \\
+    \(0.25 \leq \mathrm{ISI}_i < 0.50\) & \texttt{moderately\_concentrated} \\
+    \(0.15 \leq \mathrm{ISI}_i < 0.25\) & \texttt{mildly\_concentrated}     \\
+    \(\mathrm{ISI}_i < 0.15\)    & \texttt{unconcentrated}          \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The threshold values are adapted from the US Department of Justice \HHI
+guidelines for market concentration \parencite{doj2023merger}, rescaled to
+the unit interval.  They are defined in the methodology registry and enforced
+by a single classification function (\texttt{methodology.py}).  The thresholds
+are fixed parameters of \ISI v\,1.0 and may only be revised through the
+governance protocol specified in \cref{sec:governance}.

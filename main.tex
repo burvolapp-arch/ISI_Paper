@@ -1,5 +1,5 @@
 % =============================================================================
-% main.tex — Top-level orchestrator for ISI Paper
+% main.tex — Top-level orchestrator for ISI Methodology Whitepaper
 % =============================================================================
 % Engine:  XeLaTeX (do NOT use pdflatex)
 % Build:   latexmk -xelatex main.tex   (or use scripts/build.sh)
@@ -33,19 +33,22 @@
 
 % --- Body --------------------------------------------------------------------
 \input{sections/01_introduction}
-\input{sections/02_literature_review}
-\input{sections/03_methodology}
-\input{sections/04_results}
-\input{sections/05_discussion}
-\input{sections/06_conclusion}
+\input{sections/02_data_architecture}
+\input{sections/03_mathematical_framework}
+\input{sections/04_axis_specifications}
+\input{sections/05_aggregation}
+\input{sections/06_scenario_engine}
+\input{sections/07_integrity_chain}
+\input{sections/08_limitations}
+\input{sections/09_governance}
 
 % --- Bibliography ------------------------------------------------------------
 \newpage
 \printbibliography[heading=bibintoc,title={References}]
 
-% --- Appendices (uncomment when needed) --------------------------------------
-% \newpage
-% \appendix
-% \input{sections/07_appendix}
+% --- Appendices --------------------------------------------------------------
+\newpage
+\appendix
+\input{sections/10_appendix}
 
 \end{document}
