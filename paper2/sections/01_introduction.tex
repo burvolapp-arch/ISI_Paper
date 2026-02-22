@@ -10,11 +10,23 @@ economies have a long tradition in institutional research.  Indices
 published by the OECD, the World Economic Forum, and various United
 Nations agencies compress multidimensional data into scalar summaries
 that facilitate cross-country comparison and policy
-monitoring~\cite{oecd_handbook_2008}.  The International Sovereignty
-Index (ISI) contributes to this tradition by focusing specifically on
-\emph{concentration of bilateral external dependencies}: the degree to
-which a country's cross-border economic and strategic linkages are
-concentrated among a small number of counterparty states.
+monitoring~\cite{oecd_handbook_2008,saisana2005}.  The International
+Sovereignty Index (ISI) contributes to this tradition by focusing
+specifically on \emph{concentration of bilateral external dependencies}:
+the degree to which a country's cross-border economic and strategic
+linkages are concentrated among a small number of counterparty states.
+
+The intellectual antecedents of the ISI lie in two distinct literatures.
+First, the industrial-organisation literature on market concentration,
+where the Herfindahl--Hirschman Index (HHI) quantifies the degree to
+which market shares are concentrated among a small number of
+firms~\cite{herfindahl1950,hirschman1964}.  Second, the literature on
+supply-chain vulnerability, which has expanded substantially since the
+semiconductor shortages of 2020--2021 and the geopolitical
+disruptions following the 2022 Russia--Ukraine
+conflict~\cite{ec_critical_raw}.  The ISI bridges these traditions by
+applying concentration measurement to bilateral trade and financial
+flows across six strategically distinct domains.
 
 The ISI does not measure sovereignty in a political or legal sense.
 Rather, it quantifies a structural feature---counterparty
@@ -23,7 +35,10 @@ external dependence.  A high ISI score indicates that a country's
 external flows in a given domain are heavily concentrated among few
 partners; a low score indicates dispersion across many partners.  The
 index makes no normative claim about whether concentration is
-advantageous or disadvantageous.
+advantageous or disadvantageous.  The question of whether high
+concentration translates into political vulnerability, economic
+fragility, or coercive leverage is a distinct empirical question that
+requires analysis beyond the ISI's measurement scope.
 
 \subsection{Scope of this paper}
 
@@ -36,23 +51,52 @@ The present paper is self-contained for readers interested in the
 empirical findings; cross-references to Paper~1 are provided where
 construction details are relevant to interpretation.
 
+Relative to a conventional ``results'' paper in the composite-indicator
+literature, this paper provides substantially deeper analytical content.
+Beyond reporting the ranking and basic distributional statistics, we
+undertake a formal variance decomposition with proof, systematic
+robustness exercises with both Spearman and Kendall rank-order
+statistics, rank-elasticity analysis, axis contribution decomposition,
+classification compression diagnostics, structural analysis of the
+defence axis, compensability analysis, and geographic correlate
+tabulation.  Each analytical component is designed to interrogate the
+ISI composite from a different angle and to provide the reader with
+the evidence needed to form an independent judgment about the index's
+informational content.
+
 The specific contributions of this paper are:
 
 \begin{enumerate}[leftmargin=2em]
   \item A complete composite and axis-level ranking of all 27~EU
     member states with eight-decimal precision, accompanied by
-    classification labels.
-  \item A distributional analysis of the composite index, including
-    summary statistics, percentiles, a Lorenz curve, and a Gini
-    coefficient.
-  \item An axis-level diagnostic framework that identifies which axes
-    drive cross-country variation, using a covariance-based variance
-    decomposition and axis-dominance analysis.
-  \item A cross-axis correlation analysis identifying moderate
-    pairwise associations and representing them in a network graph.
-  \item A four-part robustness programme: leave-one-axis-out (LOO)
-    analysis, z-score standardisation, Dirichlet weight perturbation
-    (Monte Carlo), and winsorisation of high-variance axes.
+    classification labels and distributional diagnostics (histogram,
+    ECDF, Lorenz curve, Gini coefficient).
+  \item A formal variance decomposition---proved analytically from the
+    linear aggregation rule---decomposing the composite variance into
+    own-variance and cross-covariance components, with percentage
+    contributions for each axis.
+  \item A leave-one-axis-out (LOO) sensitivity analysis with both
+    Spearman~$\rho$ and Kendall~$\tau$, accompanied by a full $27
+    \times 6$ rank-displacement matrix.
+  \item A rank-elasticity analysis quantifying the sensitivity of each
+    country's rank to marginal perturbations in individual axis scores.
+  \item An axis-contribution analysis providing bivariate $R^2$ and
+    partial correlations between each axis and the composite rank.
+  \item Classification compression diagnostics comparing the
+    official four-tier scheme with data-driven tercile and quartile
+    alternatives, reporting within-tier variance and $\eta^2$.
+  \item A structural analysis of the defence axis examining its
+    distributional properties, oligopsonistic character, and
+    country-level defence-to-max-axis gaps.
+  \item A cross-axis correlation analysis with formal $t$-statistics,
+    eigenvalue decomposition, and network representation.
+  \item A compensability analysis documenting the degree to which the
+    arithmetic-mean aggregation rule permits cross-axis compensation.
+  \item An assessment of geographic and structural correlates (island
+    status, population size, core/periphery classification).
+  \item A four-part robustness programme: LOO, z-score
+    standardisation, Dirichlet weight perturbation (Monte Carlo), and
+    winsorisation.
   \item Radar-chart profiles for eight selected countries illustrating
     the heterogeneity of axis-level patterns.
   \item A reproducibility protocol and computational appendix enabling
@@ -77,6 +121,10 @@ Throughout this paper, the following conventions apply:
   \item Population standard deviation ($N$ denominator) is used
     throughout because the 27~EU member states constitute the full
     target population, not a sample drawn from a larger universe.
+  \item Statistical significance of correlation coefficients is
+    assessed via the $t$-test: $t = r\sqrt{(N-2)/(1-r^2)}$, with
+    $N = 27$, df~$= 25$, and a two-sided critical value of
+    $t_{0.025,25} = 2.060$ at the 5\% level.
 \end{itemize}
 
 \subsection{Structure}
@@ -85,14 +133,20 @@ The remainder of this paper is organised as follows.
 \Cref{sec:data-construction} summarises the data sources, aggregation
 rule, and classification thresholds.
 \Cref{sec:composite-results} presents the composite distribution,
-full ranking, and tier-compression analysis.
+full ranking, tier-compression analysis, and classification
+compression diagnostics.
 \Cref{sec:axis-diagnostics} provides axis-level diagnostics including
-dispersion, dominance, and variance decomposition.
-\Cref{sec:cross-axis} examines the pairwise correlation structure.
-\Cref{sec:robustness} reports four robustness and sensitivity
-exercises.
+dispersion, dominance, variance decomposition with formal proof,
+rank contribution analysis, and defence axis structural analysis.
+\Cref{sec:cross-axis} examines the pairwise correlation structure
+with $t$-statistics and eigenvalue decomposition.
+\Cref{sec:robustness} reports the robustness programme: LOO with
+Kendall $\tau$, rank-displacement matrices, z-score standardisation,
+Dirichlet weight perturbation, winsorisation, and rank-elasticity
+analysis.
+\Cref{sec:compensability} presents the compensability analysis.
 \Cref{sec:country-profiles} presents radar-chart profiles for eight
-selected countries.
+selected countries and geographic correlates.
 \Cref{sec:discussion} discusses interpretation boundaries and
 limitations.
 \Cref{sec:conclusion} concludes.

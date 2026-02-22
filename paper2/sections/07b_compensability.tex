@@ -1,0 +1,113 @@
+% =============================================================================
+% Section 7b: Compensability Analysis
+% =============================================================================
+\section{Compensability Analysis}\label{sec:compensability}
+
+\subsection{Motivation}
+
+The ISI composite is defined as an arithmetic mean of six axis scores
+(\cref{eq:composite}).  Arithmetic-mean aggregation is fully
+\emph{compensatory}: a high score on one axis can offset a low score
+on another, and both profiles produce the same composite.  This
+property has important policy implications.  A country with a
+moderate ISI may be moderately concentrated on all axes (genuinely
+moderate risk), or it may be extremely concentrated on one axis and
+diversified on all others (a hidden single-axis vulnerability masked
+by the composite).
+
+This section quantifies the degree of internal compensation for each
+country using two metrics:
+
+\begin{enumerate}[leftmargin=2em]
+  \item \textbf{Max--composite gap.}  Define $G_i = \max_j A_{ij} - \text{ISI}_i$.
+    A large gap indicates that the country's highest-axis score is
+    far above its composite, meaning that the mean aggregation is
+    substantially compressing a peak vulnerability.
+  \item \textbf{Coefficient of variation (CV).}  The standard deviation
+    of the six axis scores divided by their mean:
+    $\text{CV}_i = \sigma_i / \bar{A}_i$.  A high CV indicates that
+    the country's axis profile is highly uneven---i.e., the degree of
+    internal compensation is large.
+\end{enumerate}
+
+\subsection{Results}
+
+\input{tables/T17_compensability}
+
+\Cref{tab:compensability} reports both metrics for all 27~countries,
+ordered by composite rank.  The five countries with the largest
+max--composite gaps are:
+
+\begin{enumerate}[leftmargin=2em]
+  \item \textbf{Netherlands} (gap = 0.624, CV = 0.880).  The
+    Netherlands has the most internally compensated profile in the
+    dataset: its defence score (0.960) is nearly three times its
+    composite (0.335).  The arithmetic mean conceals a critical
+    single-axis vulnerability in defence procurement concentration.
+  \item \textbf{Italy} (gap = 0.547, CV = 0.716).  Italy's defence
+    axis (0.921) dominates its profile, while financial (0.141),
+    technology (0.151), and critical inputs (0.183) are all near the
+    EU-27 minimums.
+  \item \textbf{Bulgaria} (gap = 0.520, CV = 0.736).  Defence (0.861)
+    is by far the highest axis; financial (0.176) and technology
+    (0.170) are below the EU-27 mean.
+  \item \textbf{Malta} (gap = 0.483, CV = 0.681).  Despite ranking
+    first overall, Malta's gap is large because its defence and
+    logistics scores (both 1.000) are far above its financial (0.140)
+    and technology (0.205) scores.
+  \item \textbf{Sweden} (gap = 0.482, CV = 0.770).  Sweden's
+    logistics axis (0.881) is the primary driver, with financial
+    (0.116) and technology (0.145) well below the composite.
+\end{enumerate}
+
+\subsection{Interpretation}
+
+The compensability analysis reveals a systematic pattern: countries
+with the highest max--composite gaps are overwhelmingly those whose
+profiles are dominated by the defence or logistics axes.  Of the ten
+countries with the largest gaps, nine have either defence or logistics
+as their maximum axis.
+
+This has two implications for index interpretation:
+
+\begin{enumerate}[leftmargin=2em]
+  \item \textbf{The composite understates peak vulnerability.}
+    For countries like the Netherlands (gap = 0.624), the composite
+    ISI of 0.335 conveys ``moderate concentration,'' but the peak
+    defence-axis score of 0.960 conveys ``near-maximum concentration
+    on a single critical dimension.''  Policy-makers should examine
+    axis-level profiles alongside the composite to avoid false
+    reassurance.
+
+  \item \textbf{CV discriminates policy archetypes.}  Countries can
+    be classified by their CV into ``balanced'' profiles
+    (CV $< 0.40$: Estonia, Ireland, Austria) and ``peaked'' profiles
+    (CV $> 0.60$: Netherlands, Sweden, Italy, Bulgaria, Malta,
+    Cyprus).  Balanced-profile countries face diffuse risk across
+    multiple axes; peaked-profile countries face concentrated risk
+    on one or two axes.  The policy prescriptions differ accordingly:
+    balanced countries need broad-based diversification, while peaked
+    countries need targeted axis-specific interventions.
+\end{enumerate}
+
+\subsection{Relationship to rank volatility}
+
+There is a strong positive association between compensability and
+rank volatility under Dirichlet weight perturbation
+(\cref{sec:dirichlet}).  Countries with the highest CV values
+(Netherlands: 0.880, Sweden: 0.770, Bulgaria: 0.736) are also among
+those with the highest rank standard deviations under random
+weighting (Netherlands: 3.07, Bulgaria: 2.03).  This is intuitive:
+a peaked profile means that the country's composite depends heavily
+on the weight assigned to its dominant axis, making the ranking
+sensitive to any weighting scheme that departs from equal weights.
+
+Conversely, countries with low CV values (Estonia: 0.307, Ireland:
+0.376, Austria: 0.400) exhibit low rank volatility
+($\sigma_{\text{rank}} < 1.5$), because their relatively balanced
+profiles produce similar composites under any reasonable weighting.
+
+This relationship between compensability and rank volatility provides
+independent validation of both the Dirichlet Monte Carlo exercise
+and the compensability metrics: each captures the same underlying
+structural feature---profile unevenness---through a different lens.

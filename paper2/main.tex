@@ -111,18 +111,27 @@ ranges from \num{0.23567126} (France, rank~27) to \num{0.51748148}
 population standard deviation of \num{0.06992188}.  One country is
 classified as \emph{highly concentrated}, 23~as \emph{moderately
 concentrated}, and three as \emph{mildly concentrated}.
-A variance decomposition shows that defence (35.1\%) and logistics
-(34.3\%) together account for 69.4\% of cross-country composite
-variance.  Leave-one-axis-out analysis confirms that removing the
-defence axis produces the largest rank disruption (Spearman $\rho =
-0.833$).  Dirichlet weight perturbation (10\,000 draws, $\alpha_j=10$)
-yields a mean rank-order correlation of $\rho = 0.979$, with the
-Netherlands exhibiting the highest rank volatility ($\sigma = 3.07$).
-Z-score standardisation produces $\rho = 0.896$ against the baseline,
-indicating moderate sensitivity to implicit axis scaling.
-Winsorisation of the two highest-variance axes at the 95th percentile
-preserves the full rank order ($\rho = 1.000$).  The paper provides
-radar profiles for eight selected countries, full axis-level rankings,
+A full variance decomposition with formal proof shows that defence
+(35.1\%) and logistics (34.3\%) together account for 69.4\% of
+cross-country composite variance, with the own-variance component
+contributing 64.3\% and cross-covariance 35.7\%.  Leave-one-axis-out
+analysis with both Spearman~$\rho$ and Kendall~$\tau$ confirms that
+removing the defence axis produces the largest rank disruption
+($\rho = 0.833$, $\tau = 0.675$).  Dirichlet weight perturbation
+(10\,000 draws, $\alpha_j=10$) yields a mean rank-order correlation
+of $\rho = 0.979$, with the Netherlands exhibiting the highest rank
+volatility ($\sigma = 3.07$).  Rank elasticity testing ($\pm 10\%$
+perturbation) classifies 13~countries as rank-sensitive and 14~as
+rank-locked.  Only two of 15~pairwise axis correlations are
+significant at $\alpha = 0.05$: energy--technology ($t = 3.12$)
+and critical inputs--logistics ($t = 3.28$); the financial axis is
+orthogonal to all others ($|t| < 1.15$).  Compensability analysis
+identifies the Netherlands (gap = 0.624, CV = 0.880) as the most
+internally compensated country.  Classification compression
+diagnostics ($\eta^2 = 0.483$) confirm that the three-tier scheme
+is inherently constrained by the unimodal distribution.  The paper
+provides radar profiles for eight selected countries, geographic
+correlates, defence structural analysis, full axis-level rankings,
 and a complete reproducibility protocol.
 \end{abstract}
 \vfill
@@ -155,6 +164,8 @@ composite indicator, supply-chain dependence, defence dependence
 \input{sections/06_robustness}
 \newpage
 \input{sections/07_country_profiles}
+\newpage
+\input{sections/07b_compensability}
 \newpage
 \input{sections/08_discussion}
 \newpage

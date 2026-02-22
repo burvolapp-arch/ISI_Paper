@@ -1,20 +1,21 @@
-% Table T9: Leave-one-axis-out rank changes
+% Table T9: LOO sensitivity summary
 \begin{table}[htbp]
 \centering
-\caption{Spearman rank correlation between baseline ISI ranking and each
-leave-one-axis-out (LOO) ranking.  Higher $\rho$ indicates lower sensitivity
-to the excluded axis.}
+\caption{Leave-one-axis-out (LOO) rank sensitivity.  Spearman $\rho$ and Kendall
+$\tau$ measure rank-order agreement between the baseline and each LOO ranking.
+Mean $|\Delta|$ and Max $|\Delta|$ report the average and maximum absolute rank
+displacement across the 27 countries.}
 \label{tab:loo-summary}
-\begin{tabular}{@{}lS[table-format=1.6]@{}}
+\begin{tabular}{@{}l S[table-format=1.6] S[table-format=1.6] S[table-format=1.2] r@{}}
 \toprule
-{\textbf{Excluded Axis}} & {$\boldsymbol{\rho}$ \textbf{(Spearman)}} \\
+{\textbf{Excluded Axis}} & {$\boldsymbol{\rho}$ \textbf{(Spearman)}} & {$\boldsymbol{\tau}$ \textbf{(Kendall)}} & {\textbf{Mean} $|\Delta|$} & {\textbf{Max} $|\Delta|$} \\
 \midrule
-  Financial & 0.992674 \\
-  Energy & 0.992063 \\
-  Technology & 0.968254 \\
-  Defence & 0.832723 \\
-  Critical Inputs & 0.941392 \\
-  Logistics & 0.926129 \\
+  Financial & 0.992674 & 0.943020 & 0.67 & 2 \\
+  Energy & 0.992063 & 0.943020 & 0.67 & 2 \\
+  Technology & 0.968254 & 0.886040 & 1.26 & 7 \\
+  Defence & 0.832723 & 0.675214 & 3.33 & 10 \\
+  Critical Inputs & 0.941392 & 0.846154 & 1.78 & 8 \\
+  Logistics & 0.926129 & 0.789174 & 2.07 & 7 \\
 \bottomrule
 \end{tabular}
 \end{table}

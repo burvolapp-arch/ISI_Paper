@@ -4,8 +4,10 @@
 \section{Axis-Level Diagnostics}\label{sec:axis-diagnostics}
 
 This section examines the distributional properties of each axis,
-identifies axis dominance patterns, and decomposes the cross-country
-composite variance into axis-level contributions.
+identifies axis dominance patterns, decomposes the cross-country
+composite variance into axis-level contributions with a formal proof,
+quantifies each axis's contribution to rank differentiation, and
+provides a structural analysis of the defence axis.
 
 \subsection{Axis summary statistics}
 
@@ -63,6 +65,15 @@ Several patterns are noteworthy:
     These axes pull the composite upward on average.
 \end{itemize}
 
+The contrast between relative and absolute dispersion is
+consequential for the variance decomposition below.  The financial
+axis has moderate relative dispersion (CV = 0.252) but very low
+absolute dispersion ($\sigma = 0.037$).  Because the composite is an
+unweighted arithmetic mean, it is the \emph{absolute} dispersion that
+determines variance contribution.  This explains why the financial
+axis contributes negligibly to composite variance despite having
+non-trivial relative variation.
+
 \subsection{Axis distributions: boxplots}
 
 \Cref{fig:boxplots} displays boxplots for all six axes, permitting
@@ -82,9 +93,18 @@ direct visual comparison of location, spread, and skewness.
 
 \Cref{tab:axis-top-bottom} lists the five most concentrated and five
 least concentrated countries on each axis.  This complements the
-composite ranking by revealing axis-specific concentration patterns.
+composite ranking by revealing axis-specific concentration patterns
+that the scalar composite necessarily obscures.
 
 \input{tables/T06_axis_top_bottom}
+
+Several axis-specific patterns warrant comment.  On the financial
+axis, Croatia records the highest score (0.273), which is still
+substantially below the median on defence or logistics.  On the
+technology axis, Ireland is a clear outlier (0.587), nearly double
+the second-highest (Slovenia, 0.357).  On critical inputs, Finland
+(0.547) and Croatia (0.524) lead, both small open economies with
+concentrated mineral-import partnerships.
 
 \subsection{Axis dominance}\label{sec:axis-dominance}
 
@@ -121,6 +141,14 @@ No country has its highest score on the financial, energy, technology,
 or critical-inputs axis.  This implies that for every EU-27 country,
 either defence or logistics is the most concentrated domain.
 
+This dominance pattern is not merely a consequence of higher means.
+The defence axis mean (0.573) and logistics axis mean (0.518) are
+indeed the highest, but several countries have technology or
+critical-inputs scores that approach or exceed their defence/logistics
+scores.  The dominance concentration reflects a genuine structural
+feature: defence and logistics markets in Europe are intrinsically
+oligopsonistic, with small buyers facing few feasible suppliers.
+
 The full country-level axis-dominance table, including the max and
 second-max axis for each country, is provided in \cref{tab:axis-dominance}
 (\cref{app:tables}).
@@ -137,33 +165,84 @@ second-max axis for each country, is provided in \cref{tab:axis-dominance}
 
 \subsection{Variance contribution decomposition}\label{sec:variance-decomp}
 
+\subsubsection{Formal derivation}
+
 Because the ISI composite is a linear function of six axes
 (\cref{eq:composite}), its population variance can be exactly
-decomposed via the covariance structure:
+decomposed via the covariance structure.  We state and prove this
+formally.
+
+\begin{quote}
+\textbf{Proposition 1} (Variance decomposition of the ISI composite).
+\textit{Let $\mathrm{ISI}_i = (1/6)\sum_{j=1}^{6} A_{j,i}$ where
+$A_{j,i} \in [0,1]$.  Then}
 \begin{equation}\label{eq:var-decomp}
-  \operatorname{Var}(\text{ISI})
+  \operatorname{Var}(\mathrm{ISI})
   = \frac{1}{36}\sum_{j=1}^{6}\sum_{k=1}^{6}
-    \operatorname{Cov}(A_j, A_k)
-  \,.
+    \operatorname{Cov}(A_j, A_k)\,.
 \end{equation}
+\end{quote}
+
+\begin{quote}
+\textit{Proof.}  By the definition of population variance:
+\begin{align}
+  \operatorname{Var}(\mathrm{ISI})
+  &= \operatorname{Var}\!\Bigl(\frac{1}{6}\sum_{j=1}^{6} A_j\Bigr)
+   = \frac{1}{36}\operatorname{Var}\!\Bigl(\sum_{j=1}^{6} A_j\Bigr)
+   \notag \\
+  &= \frac{1}{36}\sum_{j=1}^{6}\sum_{k=1}^{6}
+     \operatorname{Cov}(A_j, A_k)\,,
+     \label{eq:var-decomp-proof}
+\end{align}
+where the second equality uses the bilinearity of covariance.
+\hfill$\square$
+\end{quote}
+
 The marginal contribution of axis~$j$ to composite variance is
+therefore:
 \begin{equation}\label{eq:marginal-contrib}
   C_j
   = \frac{1}{36}\sum_{k=1}^{6}\operatorname{Cov}(A_j, A_k)
-  \,,
+  = \frac{1}{36}\Bigl[\operatorname{Var}(A_j)
+    + \sum_{k \neq j}\operatorname{Cov}(A_j, A_k)\Bigr]\,,
 \end{equation}
-which accounts for both the own variance of axis~$j$ and its
-covariance with all other axes.  The percentage contribution is
-$100 \times C_j / \operatorname{Var}(\text{ISI})$.
+which decomposes into an \emph{own-variance} component
+$(1/36)\operatorname{Var}(A_j)$ and a \emph{cross-covariance}
+component $(1/36)\sum_{k \neq j}\operatorname{Cov}(A_j, A_k)$.
+The percentage contribution of axis~$j$ is $100 \times C_j /
+\operatorname{Var}(\mathrm{ISI})$.
+
+\subsubsection{Empirical results}
+
+\Cref{tab:variance-decomp} presents the marginal contributions.
 
 \input{tables/T08_variance_decomp}
 
-\Cref{tab:variance-decomp} presents the results.  The defence axis
-contributes 35.10\% and the logistics axis 34.26\% of composite
-variance, jointly accounting for 69.36\%.  Critical inputs contributes
-20.92\%.  The three remaining axes---technology (5.23\%), energy
-(3.46\%), and financial (1.03\%)---collectively account for only
-9.72\%.
+The defence axis contributes 35.10\% and the logistics axis 34.26\%
+of composite variance, jointly accounting for 69.37\%.  Critical
+inputs contributes 20.92\%.  The three remaining axes---technology
+(5.23\%), energy (3.46\%), and financial (1.03\%)---collectively
+account for only 9.72\%.
+
+\subsubsection{Own-variance vs.\ cross-covariance decomposition}
+
+\Cref{tab:variance-decomp-detail} further decomposes each axis's
+marginal contribution into own-variance and cross-covariance
+components.
+
+\input{tables/T08b_variance_decomp_detail}
+
+Across the six axes, own-variance accounts for 64.28\% of total
+composite variance and cross-covariances for 35.72\%.  The
+predominance of own-variance confirms that the ISI composite is
+primarily driven by the individual dispersions of the six axes rather
+than by their mutual associations.  The cross-covariance share is
+nevertheless non-negligible, concentrated in the critical
+inputs--logistics ($\operatorname{Cov} = 0.0125$) and
+energy--technology ($\operatorname{Cov} = 0.0076$) pairs.
+
+The full $6 \times 6$ population covariance matrix is reported in
+\cref{tab:cov-matrix} (\cref{app:tables}).
 
 This variance structure has a direct implication: the ISI composite
 ranking is predominantly determined by cross-country differences in
@@ -171,3 +250,110 @@ defence and logistics concentration.  The financial axis, despite
 measuring a conceptually important domain, contributes negligibly to
 cross-country differentiation because its dispersion is small (CV
 = 0.2519, $\sigma = 0.037$).
+
+\subsection{Axis contribution to rank differentiation}\label{sec:axis-rank}
+
+The variance decomposition measures each axis's contribution to
+\emph{composite variance}.  A complementary question is: how much
+does each axis contribute to \emph{rank differentiation}?  We address
+this through two statistics:
+
+\begin{enumerate}[leftmargin=2em]
+  \item \textbf{Bivariate $R^2$}: the squared Pearson correlation
+    between axis score and composite rank (sign-reversed so that
+    higher scores correspond to higher rank numbers), measuring the
+    share of rank variance explained by each axis alone.
+  \item \textbf{Partial correlation}: the Pearson correlation between
+    axis score and rank after partialling out the linear effects of
+    all other axes, measuring the axis's \emph{unique} association
+    with rank conditional on the remaining five axes.
+\end{enumerate}
+
+\input{tables/T14_axis_rank_contrib}
+
+\Cref{tab:axis-rank-contrib} presents the results.  The bivariate
+$R^2$ values confirm the dominance of critical inputs (0.559),
+logistics (0.491), and defence (0.394) in explaining rank variation.
+Financial has the lowest bivariate $R^2$ (0.025), consistent with its
+near-zero variance contribution.
+
+The partial correlations, however, reveal a different ordering.
+After controlling for all other axes, defence has the highest partial
+correlation (0.940), followed by critical inputs (0.822) and
+logistics (0.809).  Technology, which has a low bivariate $R^2$
+(0.064), has a substantial partial correlation (0.720), indicating
+that conditional on the other five axes, technology provides
+meaningful additional rank differentiation.  Even the financial axis,
+whose bivariate $R^2$ is only 0.025, has a partial correlation of
+0.421, indicating that it contributes non-trivially to rank
+differentiation once the effects of other axes are removed.
+
+This pattern is consistent with the full multiple regression of rank
+on all six axes, which yields $R^2 = 0.968$ (adjusted $R^2 = 0.958$),
+confirming that the six axes jointly explain virtually all rank
+variation.  The gap between the bivariate and partial results implies
+that the bivariate $R^2$ underestimates the informational content of
+low-dispersion axes because it confounds their direct effect with
+their low variance.
+
+\subsection{Defence axis structural analysis}\label{sec:defence-structural}
+
+The defence axis warrants dedicated structural analysis because it is
+simultaneously the most variance-contributing axis (35.10\%), the most
+frequently dominant axis (16/27), and the axis whose removal causes
+the largest rank disruption ($\rho = 0.833$).
+
+\subsubsection{Distributional properties}
+
+\input{tables/T16_defence_structural}
+
+\Cref{tab:defence-structural} reports the key distributional
+statistics.  The defence axis spans the full unit interval, from
+Slovakia's score of exactly zero to Malta's score of exactly one.
+The population standard deviation (\num{0.22565797}) is nearly six
+times that of the financial axis.  Five countries record scores above
+0.80: Malta (1.000), Netherlands (0.960), Italy (0.921), Sweden
+(0.881), and Bulgaria (0.861).  These five countries alone account for
+a substantial share of the axis's variance.
+
+\subsubsection{Oligopsonistic character}
+
+The distribution of defence axis scores exhibits features consistent
+with oligopsonistic procurement markets:
+
+\begin{enumerate}[leftmargin=2em]
+  \item \textbf{Boundary concentration.}  One country scores 1.000
+    (Malta), indicating maximal concentration---effectively a single
+    dominant supplier.  Five countries score above 0.80, indicating
+    very high supplier concentration.
+
+  \item \textbf{Zero outlier.}  Slovakia records exactly 0.000,
+    the only zero score on any axis for any country.  This reflects
+    the absence of bilateral supplier entries in the SIPRI
+    arms-transfer database for Slovakia under the v1.0 methodology,
+    not the absence of defence imports.
+
+  \item \textbf{High mean.}  The axis mean (0.573) substantially
+    exceeds the financial (0.148), energy (0.365), technology (0.211),
+    and critical inputs (0.252) means.  The majority of EU countries
+    have concentrated defence-import partnerships.
+
+  \item \textbf{Wide dispersion.}  The coefficient of variation
+    (0.394) and the IQR (\num{0.31706}) indicate substantial
+    heterogeneity in defence concentration across the EU-27.
+\end{enumerate}
+
+\subsubsection{Defence-to-max gap}
+
+For countries where defence is the dominant axis, the defence score
+exceeds the second-highest axis score by an average margin of
+\num{0.183660}.  \Cref{tab:defence-gap} reports the country-level
+defence scores, dominant axes, and defence-to-max gaps.
+
+\input{tables/T16b_defence_gap}
+
+The largest gaps are observed for the Netherlands (defence $= 0.960$,
+second axis $= 0.355$, gap $= 0.605$) and Bulgaria (defence $=
+0.861$, gap $= 0.498$).  These countries' composite rankings are
+highly dependent on the defence axis, which explains their sensitivity
+to defence-axis removal in the LOO exercise (\cref{sec:loo}).

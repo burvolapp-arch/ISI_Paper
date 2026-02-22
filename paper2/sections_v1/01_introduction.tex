@@ -1,0 +1,100 @@
+% =============================================================================
+% Section 1: Introduction & Contribution
+% =============================================================================
+\section{Introduction and Contribution}\label{sec:introduction}
+
+\subsection{Motivation}
+
+Composite indicators that measure structural features of national
+economies have a long tradition in institutional research.  Indices
+published by the OECD, the World Economic Forum, and various United
+Nations agencies compress multidimensional data into scalar summaries
+that facilitate cross-country comparison and policy
+monitoring~\cite{oecd_handbook_2008}.  The International Sovereignty
+Index (ISI) contributes to this tradition by focusing specifically on
+\emph{concentration of bilateral external dependencies}: the degree to
+which a country's cross-border economic and strategic linkages are
+concentrated among a small number of counterparty states.
+
+The ISI does not measure sovereignty in a political or legal sense.
+Rather, it quantifies a structural feature---counterparty
+concentration---that is a prerequisite for informed policy analysis of
+external dependence.  A high ISI score indicates that a country's
+external flows in a given domain are heavily concentrated among few
+partners; a low score indicates dispersion across many partners.  The
+index makes no normative claim about whether concentration is
+advantageous or disadvantageous.
+
+\subsection{Scope of this paper}
+
+This paper---the second in the ISI series---presents the full
+empirical results of the first ISI application: 27~EU member states,
+vintage-2024 data, methodology v1.0.  The methodological foundations
+(axis definitions, normalisation procedures, data sources, aggregation
+rule, integrity chain) are documented in Paper~1~\cite{isi_paper1}.
+The present paper is self-contained for readers interested in the
+empirical findings; cross-references to Paper~1 are provided where
+construction details are relevant to interpretation.
+
+The specific contributions of this paper are:
+
+\begin{enumerate}[leftmargin=2em]
+  \item A complete composite and axis-level ranking of all 27~EU
+    member states with eight-decimal precision, accompanied by
+    classification labels.
+  \item A distributional analysis of the composite index, including
+    summary statistics, percentiles, a Lorenz curve, and a Gini
+    coefficient.
+  \item An axis-level diagnostic framework that identifies which axes
+    drive cross-country variation, using a covariance-based variance
+    decomposition and axis-dominance analysis.
+  \item A cross-axis correlation analysis identifying moderate
+    pairwise associations and representing them in a network graph.
+  \item A four-part robustness programme: leave-one-axis-out (LOO)
+    analysis, z-score standardisation, Dirichlet weight perturbation
+    (Monte Carlo), and winsorisation of high-variance axes.
+  \item Radar-chart profiles for eight selected countries illustrating
+    the heterogeneity of axis-level patterns.
+  \item A reproducibility protocol and computational appendix enabling
+    full replication from the provided snapshot.
+\end{enumerate}
+
+\subsection{Interpretation conventions}
+
+Throughout this paper, the following conventions apply:
+
+\begin{itemize}[leftmargin=2em]
+  \item Higher ISI composite $\Rightarrow$ higher concentration
+    $\Rightarrow$ greater structural dependence on a small set of
+    counterparties.
+  \item Rank~1 = most concentrated country; rank~27 = least
+    concentrated.
+  \item The terms ``most concentrated'' and ``least concentrated'' are
+    descriptive.  They are not synonymous with ``worst'' and ``best.''
+  \item Correlation between axes does not imply causation.  Where
+    plausible structural interpretations exist, they are stated as
+    hypotheses, not conclusions.
+  \item Population standard deviation ($N$ denominator) is used
+    throughout because the 27~EU member states constitute the full
+    target population, not a sample drawn from a larger universe.
+\end{itemize}
+
+\subsection{Structure}
+
+The remainder of this paper is organised as follows.
+\Cref{sec:data-construction} summarises the data sources, aggregation
+rule, and classification thresholds.
+\Cref{sec:composite-results} presents the composite distribution,
+full ranking, and tier-compression analysis.
+\Cref{sec:axis-diagnostics} provides axis-level diagnostics including
+dispersion, dominance, and variance decomposition.
+\Cref{sec:cross-axis} examines the pairwise correlation structure.
+\Cref{sec:robustness} reports four robustness and sensitivity
+exercises.
+\Cref{sec:country-profiles} presents radar-chart profiles for eight
+selected countries.
+\Cref{sec:discussion} discusses interpretation boundaries and
+limitations.
+\Cref{sec:conclusion} concludes.
+Appendices~A--D provide full tables, robustness details, the
+reproducibility protocol, and the computational code listing.

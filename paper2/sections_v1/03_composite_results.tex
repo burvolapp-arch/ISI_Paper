@@ -1,7 +1,7 @@
 % =============================================================================
 % Section 3: Composite Results
 % =============================================================================
-\section{Composite Results: Distribution, Ranking, and Classification
+\section{Composite Results: Distribution, Ranking, and Tier
   Compression}\label{sec:composite-results}
 
 \subsection{Summary statistics}
@@ -34,12 +34,7 @@ The composite mean (\num{0.34439144}) slightly exceeds the median
 (\num{0.34027984}), indicating a mild positive skew driven by Malta's
 outlying score of \num{0.51748148}.  The coefficient of variation
 (0.203) is relatively low, suggesting that the composite scores are
-compressed relative to the full unit-interval range.  The range
-(\num{0.28181022}) occupies only 28.2\% of the theoretical $[0, 1]$
-interval, and the standard deviation is approximately one-fifth of
-the mean.  These statistics indicate that the ISI composite
-differentiates countries along a relatively narrow band rather than
-spanning the full theoretically available range.
+compressed relative to the full unit-interval range.
 
 \subsection{Percentiles}
 
@@ -51,13 +46,11 @@ spanning the full theoretically available range.
 \toprule
 \textbf{Percentile} & {\textbf{Value}} \\
 \midrule
-P5   & 0.23604347 \\
 P10  & 0.25534441 \\
 P25  & 0.29179051 \\
 P50  & 0.34027984 \\
 P75  & 0.39060669 \\
 P90  & 0.42586650 \\
-P95  & 0.47131816 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -66,12 +59,6 @@ The interquartile range (IQR = P75 $-$ P25 = \num{0.09881618})
 spans approximately 9.9 percentage points of the unit interval.
 The P10--P90 range is \num{0.17052209}, indicating that the central
 80\% of the distribution occupies roughly 17 percentage points.
-The P5--P95 range extends to \num{0.23527469}, still well within the
-unit interval.  The narrowness of the distribution has direct
-implications for the classification scheme discussed in
-\cref{sec:compression-diagnostics}: when most countries cluster in
-a band of roughly 20 percentage points, threshold-based classification
-will inevitably concentrate the majority in a single tier.
 
 \subsection{Composite distribution}\label{sec:composite-distribution}
 
@@ -100,24 +87,14 @@ the tails, confirming the compressed mid-range clustering.
 \label{fig:ecdf}
 \end{figure}
 
-The ECDF permits precise probability statements: approximately 50\%
-of EU countries have composite scores between 0.29 and 0.40---a span
-of only 11 percentage points.  The function is approximately
-S-shaped, with steep inflection near the median and long, thin tails.
-The lower tail contains only three countries (France, Slovakia,
-Latvia) with scores below 0.25; the upper tail contains only Malta
-above 0.50.
-
 \subsection{Lorenz curve and Gini coefficient}
 
 To further characterise the distribution, \cref{fig:lorenz} plots
 the Lorenz curve of the composite scores (countries ordered from
 lowest to highest ISI, cumulative share of total ISI on the vertical
-axis).  The Gini coefficient is computed as:
-\begin{equation}\label{eq:gini}
-  G = 1 - 2\int_0^1 L(p)\,dp\,,
-\end{equation}
-where $L(p)$ is the Lorenz ordinate at population fraction $p$.
+axis).  The Gini coefficient is 0.1155, indicating a relatively
+egalitarian distribution of composite scores across countries.  This
+is consistent with the tier compression observed above.
 
 \begin{figure}[htbp]
 \centering
@@ -127,16 +104,6 @@ where $L(p)$ is the Lorenz ordinate at population fraction $p$.
   equality.}
 \label{fig:lorenz}
 \end{figure}
-
-The Gini coefficient of \num{0.115463} indicates a relatively egalitarian
-distribution.  For comparison, the Gini coefficient of GDP per capita
-across EU countries typically ranges between 0.10 and 0.20, and the
-Gini of income distributions within individual countries ranges from
-0.25 to 0.40.  An ISI Gini of 0.115 places the cross-country
-concentration distribution at the low end of cross-country inequality
-measures, confirming that the EU-27 countries share broadly similar
-levels of import concentration---albeit with substantial axis-level
-heterogeneity, as demonstrated in subsequent sections.
 
 \subsection{Full ranking}\label{sec:ranking}
 
@@ -202,20 +169,6 @@ states.  Countries are ordered by descending composite score (rank~1
 \end{longtable}
 }
 
-Several features of the ranking merit comment.  First, the top two
-positions are occupied by small island economies (Malta, Cyprus),
-consistent with the hypothesis that limited economic scale and
-geographic isolation concentrate external dependencies.  Second, the
-bottom three countries include two large economies (Germany rank~22,
-France rank~27) and one small economy with anomalous defence data
-(Slovakia rank~26).  Third, the mid-range (ranks 8--20) is
-exceptionally compressed: the composite scores of Austria (rank~8,
-\num{0.38249806}) and Poland (rank~20, \num{0.29561321}) differ by
-only \num{0.08688485}, yet span 13~rank positions.  This compression
-implies that small perturbations to the underlying data could produce
-substantial rank reshuffling in the mid-range, a prediction confirmed
-by the robustness exercises in \cref{sec:robustness}.
-
 \subsection{Tier-compression analysis}
 
 The classification distribution is highly compressed: 85.2\% of
@@ -261,73 +214,3 @@ boundaries.
   amber ($[0.25, 0.50)$, moderately), green ($[0.15, 0.25)$, mildly).}
 \label{fig:rank-scatter}
 \end{figure}
-
-\subsection{Classification compression diagnostics}\label{sec:compression-diagnostics}
-
-The dominance of the moderately concentrated tier (23/27, 85.2\%)
-raises the question of whether the four-tier classification scheme
-provides adequate discriminatory power, or whether the observed
-compression is an artefact of the threshold placement.  We address
-this through three complementary diagnostics.
-
-\subsubsection{Between-tier variance share ($\eta^2$)}
-
-Let $\bar{x}_g$ denote the mean composite within tier~$g$ and
-$\bar{x}$ the grand mean.  The between-tier sum of squares is
-$SS_B = \sum_g n_g (\bar{x}_g - \bar{x})^2$, the within-tier sum of
-squares is $SS_W = \sum_g \sum_{i \in g} (x_i - \bar{x}_g)^2$, and
-the total is $SS_T = SS_B + SS_W$.  The $\eta^2$ statistic measures
-the share of total variance explained by the tier assignment:
-\begin{equation}\label{eq:eta-squared}
-  \eta^2 = \frac{SS_B}{SS_T}\,.
-\end{equation}
-
-For the official ISI four-tier scheme applied to the EU-27 data:
-\[
-  SS_B = 0.06372\,,\quad
-  SS_W = 0.06829\,,\quad
-  SS_T = 0.13200\,,\quad
-  \eta^2 = 0.483\,.
-\]
-
-An $\eta^2$ of 0.483 indicates that the tier classification captures
-less than half of the total cross-country dispersion in composite
-scores.  The within-tier variance ($SS_W$) slightly exceeds the
-between-tier variance ($SS_B$), confirming that tier labels obscure
-as much variation as they reveal.
-
-\subsubsection{Comparison with data-driven alternatives}
-
-\Cref{tab:compression-diagnostics} compares the official scheme with
-two data-driven alternatives: terciles (three groups of approximately
-equal size defined by the 33rd and 67th percentiles of the observed
-distribution) and quartiles (four groups defined by the 25th, 50th,
-and 75th percentiles).
-
-\input{tables/T15_compression_diagnostics}
-
-The tercile boundaries fall at approximately 0.318 and 0.371, and the
-quartile boundaries at approximately 0.292, 0.340, and 0.391.  Both
-alternatives distribute countries more evenly across groups than the
-official scheme, but at the cost of abandoning the structurally
-motivated thresholds derived from HHI conventions.
-
-\subsubsection{Interpretation}
-
-The compression diagnostic confirms that the four-tier classification
-is mathematically inevitable given the observed distribution.  The
-composite distribution is unimodal and centred near 0.34, with most
-of its mass in the $[0.26, 0.47]$ interval.  Any fixed-threshold
-scheme with boundaries at 0.15, 0.25, and 0.50 will necessarily
-concentrate the vast majority of countries in the tier spanning this
-interval.  This is not a flaw in the classification but a consequence
-of the empirical regularity that EU-27 countries exhibit similar
-\emph{overall} concentration levels despite substantial heterogeneity
-at the axis level.
-
-The practical implication is that the tier label (``moderately
-concentrated'') conveys limited information for the 23~countries in
-that category.  For policy and analytical purposes, the full
-composite ranking (\cref{tab:ranking}) and axis-level profiles
-(\cref{sec:country-profiles}) provide far more discriminatory
-information than the tier classification alone.

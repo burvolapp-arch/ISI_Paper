@@ -1,5 +1,5 @@
-% Lorenz curve coordinates for pgfplots
-% Format: population_share cumulative_score_share
+% Lorenz curve coordinates
+% population_share cumulative_score_share
 0.0000 0.0000
 0.037037 0.025345
 0.074074 0.050770

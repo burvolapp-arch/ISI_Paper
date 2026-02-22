@@ -1,0 +1,173 @@
+% =============================================================================
+% Section 4: Axis Diagnostics
+% =============================================================================
+\section{Axis-Level Diagnostics}\label{sec:axis-diagnostics}
+
+This section examines the distributional properties of each axis,
+identifies axis dominance patterns, and decomposes the cross-country
+composite variance into axis-level contributions.
+
+\subsection{Axis summary statistics}
+
+\Cref{tab:axis-stats} reports distributional statistics for each of
+the six axes.  The coefficient of variation (CV = $\sigma / \mu$)
+provides a scale-free measure of relative dispersion.
+
+\begin{table}[htbp]
+\centering
+\caption{Axis-level distributional statistics, EU-27, 2024.}
+\label{tab:axis-stats}
+\begin{tabular}{@{}lS[table-format=1.8]S[table-format=1.8]
+  S[table-format=1.8]S[table-format=1.8]S[table-format=1.8]
+  S[table-format=1.4]@{}}
+\toprule
+{\textbf{Axis}} & {\textbf{Min}} & {\textbf{Max}} & {\textbf{Mean}}
+  & {\textbf{Median}} & {$\boldsymbol{\sigma}$ \textbf{(pop.)}}
+  & {\textbf{CV}} \\
+\midrule
+Financial       & 0.10039135 & 0.27299265 & 0.14799792 & 0.13998786 & 0.03728203 & 0.2519 \\
+Energy          & 0.30187479 & 0.47029821 & 0.36523663 & 0.35125471 & 0.04790658 & 0.1312 \\
+Technology      & 0.09762824 & 0.58695939 & 0.21078775 & 0.19789321 & 0.09458972 & 0.4488 \\
+Defence         & 0.00000000 & 1.00000000 & 0.57319930 & 0.55148593 & 0.22565797 & 0.3936 \\
+Critical inputs & 0.11235234 & 0.54699996 & 0.25154982 & 0.22200621 & 0.12182538 & 0.4843 \\
+Logistics       & 0.27295297 & 1.00000000 & 0.51757723 & 0.47781001 & 0.18640808 & 0.3603 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Several patterns are noteworthy:
+
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Highest dispersion.}  Critical inputs has the highest
+    CV (0.4843), followed by technology (0.4488).  These axes
+    contribute the most relative cross-country differentiation per
+    unit of mean score.
+
+  \item \textbf{Lowest dispersion.}  Energy has the lowest CV
+    (0.1312) and the smallest range (\num{0.16842342}), indicating
+    that EU countries exhibit comparatively homogeneous energy
+    dependency concentration.
+
+  \item \textbf{Highest absolute dispersion.}  Defence has the
+    largest population standard deviation (\num{0.22565797}) and
+    the largest range (1.0), spanning the entire unit interval from
+    Slovakia's \num{0.00000000} to Malta's \num{1.00000000}.
+
+  \item \textbf{Lowest mean.}  The financial axis has the lowest mean
+    (\num{0.14799792}).  All 27~countries score below 0.28 on this
+    axis, indicating dispersed counterparty structures in cross-border
+    financial exposures.
+
+  \item \textbf{Highest means.}  Defence (\num{0.57319930}) and
+    logistics (\num{0.51757723}) record the highest axis means.
+    These axes pull the composite upward on average.
+\end{itemize}
+
+\subsection{Axis distributions: boxplots}
+
+\Cref{fig:boxplots} displays boxplots for all six axes, permitting
+direct visual comparison of location, spread, and skewness.
+
+\begin{figure}[htbp]
+\centering
+\input{figures/F04_boxplots}
+\caption{Boxplots of axis-level scores, EU-27, 2024.  The box spans
+  Q1--Q3; the line is the median; whiskers extend to the most extreme
+  observation within $1.5 \times \text{IQR}$ of the box; circles mark
+  outliers beyond the whiskers.}
+\label{fig:boxplots}
+\end{figure}
+
+\subsection{Top-5 and bottom-5 by axis}
+
+\Cref{tab:axis-top-bottom} lists the five most concentrated and five
+least concentrated countries on each axis.  This complements the
+composite ranking by revealing axis-specific concentration patterns.
+
+\input{tables/T06_axis_top_bottom}
+
+\subsection{Axis dominance}\label{sec:axis-dominance}
+
+For each country, we identify the axis with the highest score (``max
+axis'') and the axis with the second-highest score.
+\Cref{tab:axis-dominance-summary} summarises the count of countries
+for which each axis is the maximum.
+
+\begin{table}[htbp]
+\centering
+\caption{Axis dominance: number of countries for which each axis
+  records the highest score.}
+\label{tab:axis-dominance-summary}
+\begin{tabular}{@{}lr@{}}
+\toprule
+\textbf{Axis} & \textbf{Count (max axis)} \\
+\midrule
+Financial       & 0 \\
+Energy          & 0 \\
+Technology      & 0 \\
+Defence         & 16 \\
+Critical inputs & 0 \\
+Logistics       & 11 \\
+\midrule
+Total           & 27 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The axis-dominance distribution is strikingly concentrated: only two
+of six axes ever hold the maximum position.  Defence is the dominant
+axis for 16~countries (59.3\%) and logistics for 11~countries (40.7\%).
+No country has its highest score on the financial, energy, technology,
+or critical-inputs axis.  This implies that for every EU-27 country,
+either defence or logistics is the most concentrated domain.
+
+The full country-level axis-dominance table, including the max and
+second-max axis for each country, is provided in \cref{tab:axis-dominance}
+(\cref{app:tables}).
+
+\Cref{fig:axis-dominance-bar} provides a bar-chart visualisation.
+
+\begin{figure}[htbp]
+\centering
+\input{figures/F07_axis_dominance_bar}
+\caption{Axis dominance bar chart: count of countries for which each
+  axis records the highest score.}
+\label{fig:axis-dominance-bar}
+\end{figure}
+
+\subsection{Variance contribution decomposition}\label{sec:variance-decomp}
+
+Because the ISI composite is a linear function of six axes
+(\cref{eq:composite}), its population variance can be exactly
+decomposed via the covariance structure:
+\begin{equation}\label{eq:var-decomp}
+  \operatorname{Var}(\text{ISI})
+  = \frac{1}{36}\sum_{j=1}^{6}\sum_{k=1}^{6}
+    \operatorname{Cov}(A_j, A_k)
+  \,.
+\end{equation}
+The marginal contribution of axis~$j$ to composite variance is
+\begin{equation}\label{eq:marginal-contrib}
+  C_j
+  = \frac{1}{36}\sum_{k=1}^{6}\operatorname{Cov}(A_j, A_k)
+  \,,
+\end{equation}
+which accounts for both the own variance of axis~$j$ and its
+covariance with all other axes.  The percentage contribution is
+$100 \times C_j / \operatorname{Var}(\text{ISI})$.
+
+\input{tables/T08_variance_decomp}
+
+\Cref{tab:variance-decomp} presents the results.  The defence axis
+contributes 35.10\% and the logistics axis 34.26\% of composite
+variance, jointly accounting for 69.36\%.  Critical inputs contributes
+20.92\%.  The three remaining axes---technology (5.23\%), energy
+(3.46\%), and financial (1.03\%)---collectively account for only
+9.72\%.
+
+This variance structure has a direct implication: the ISI composite
+ranking is predominantly determined by cross-country differences in
+defence and logistics concentration.  The financial axis, despite
+measuring a conceptually important domain, contributes negligibly to
+cross-country differentiation because its dispersion is small (CV
+= 0.2519, $\sigma = 0.037$).

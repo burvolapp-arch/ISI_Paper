@@ -1,0 +1,23 @@
+% Table T8b: Detailed own-variance vs covariance decomposition
+\begin{table}[htbp]
+\centering
+\caption{Decomposition of each axis's marginal contribution into own-variance and
+cross-covariance components.  Own: $(1/36)\operatorname{Var}(A_j)$.
+Cross: $(1/36)\sum_{k \neq j}\operatorname{Cov}(A_j, A_k)$.}
+\label{tab:variance-decomp-detail}
+\small
+\begin{tabular}{@{}l S[table-format=1.8] S[table-format=+1.8] S[table-format=1.8] S[table-format=2.2] S[table-format=+2.2] S[table-format=2.2]@{}}
+\toprule
+{\textbf{Axis}} & {\textbf{Own Var}} & {\textbf{Cross Cov}} & {\textbf{Marginal}} & {\textbf{\% Own}} & {\textbf{\% Cross}} & {\textbf{\% Total}} \\
+\midrule
+  Financial & 0.00003861 & +0.00001188 & 0.00005049 & 0.79 & +0.24 & 1.03 \\
+  Energy & 0.00006375 & +0.00010519 & 0.00016894 & 1.30 & +2.15 & 3.46 \\
+  Technology & 0.00024853 & +0.00000696 & 0.00025549 & 5.08 & +0.14 & 5.23 \\
+  Defence & 0.00141449 & +0.00030164 & 0.00171612 & 28.93 & +6.17 & 35.10 \\
+  Critical Inputs & 0.00041226 & +0.00061054 & 0.00102280 & 8.43 & +12.49 & 20.92 \\
+  Logistics & 0.00096522 & +0.00071000 & 0.00167522 & 19.74 & +14.52 & 34.26 \\
+\midrule
+  Total & 0.00314286 & +0.00174620 & 0.00488907 & 64.28 & 35.72 & 100.00 \\
+\bottomrule
+\end{tabular}
+\end{table}

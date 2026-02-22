@@ -19,70 +19,102 @@ of counterparty exposure.  The principal findings are:
   interval.  The population standard deviation is \num{0.06992188},
   yielding a coefficient of variation of 0.2030.  The interquartile
   range is \num{0.09881618} (P25~= \num{0.29179051}, P75~=
-  \num{0.39060669}).  See \cref{tab:summary-stats,fig:histogram}.
+  \num{0.39060669}).  The Gini coefficient is \num{0.115463},
+  confirming a relatively egalitarian distribution.
+  See \cref{tab:summary-stats,fig:histogram,fig:lorenz}.
 
-\item \textbf{Tier compression.}
+\item \textbf{Tier compression is mathematically inevitable.}
   Under the four-tier classification, 23 of 27~countries (85.2\%)
   fall in the \emph{moderately concentrated} tier (ISI $\in [0.25,
-  0.50)$).  Only Malta exceeds 0.50 (\emph{highly concentrated});
-  three countries (Latvia, Slovakia, France) fall below~0.25
-  (\emph{mildly concentrated}).  No country is classified as
-  \emph{unconcentrated}.  See \cref{tab:ranking,fig:rank-scatter}.
+  0.50)$).  Only Malta exceeds 0.50; three countries (Latvia,
+  Slovakia, France) fall below~0.25.  The between-tier $\eta^2 =
+  0.483$ indicates that the official scheme captures less than half
+  the total dispersion; the within-tier range for the dominant
+  category spans \num{0.20727287}, nearly four times the entire
+  mildly-concentrated band.
+  See \cref{tab:ranking,tab:compression-diagnostics,fig:rank-scatter}.
 
 \item \textbf{Defence and logistics dominate cross-country variance.}
-  A covariance-based variance decomposition attributes 35.1\% of
-  composite variance to the defence axis and 34.3\% to the logistics
-  axis.  Together, these two axes account for 69.4\% of total
-  composite variance.  Financial concentration contributes only
-  1.0\%.  See \cref{tab:variance-decomp,fig:axis-dominance-bar}.
+  A covariance-based variance decomposition, proved analytically from
+  the linear aggregation rule, attributes 35.10\% of composite
+  variance to the defence axis and 34.26\% to the logistics axis.
+  Together these two axes account for 69.37\% of total composite
+  variance.  The own-variance component accounts for 64.28\% of total
+  composite variance; cross-covariances account for 35.72\%.
+  Financial concentration contributes only 1.03\%.
+  See \cref{tab:variance-decomp,tab:variance-decomp-detail,fig:axis-dominance-bar}.
 
 \item \textbf{Axis dominance is concentrated.}
   In 16 of 27~countries, the defence axis records the highest
   axis-level score; in the remaining 11, logistics is highest.
   No country has its maximum score on the financial, energy,
-  technology, or critical-inputs axis.  See \cref{tab:axis-dominance}.
+  technology, or critical-inputs axis.  The mean defence-to-second
+  gap for defence-dominant countries is \num{0.183660}.
+  See \cref{tab:axis-dominance,tab:defence-structural}.
 
-\item \textbf{Three moderate cross-axis correlations.}
-  Of 15~pairwise Pearson correlations, three exceed $|r| \geq 0.30$:
-  critical inputs--logistics ($r = 0.549$), energy--technology
-  ($r = 0.530$), and energy--critical inputs ($r = 0.372$).  The
-  remaining 12~pairs are weak ($|r| < 0.30$), indicating that the
-  six axes capture largely distinct dimensions.  See
-  \cref{tab:corr-pearson,fig:corr-heatmap,fig:corr-network}.
+\item \textbf{Defence axis exhibits oligopsonistic concentration.}
+  Five EU member states record defence axis scores exceeding 0.80,
+  and 59.3\% of countries have defence as their dominant axis.  The
+  distribution is positively skewed, and Slovakia records the only
+  zero score in the entire dataset.  This structural pattern is
+  consistent with oligopsonistic procurement markets where small
+  buyers face few feasible suppliers.
+  See \cref{tab:defence-structural,tab:defence-gap}.
 
-\item \textbf{Robustness to weight perturbation.}
-  Under Dirichlet weight perturbation (10\,000 Monte Carlo draws,
-  $\alpha_j = 10$), the mean Spearman rank correlation with the
-  baseline is $\rho = 0.979$.  The Netherlands exhibits the highest
-  rank volatility (standard deviation 3.07 ranks; 90\% band: 10--20).
-  See \cref{tab:dirichlet-volatility}.
+\item \textbf{Three moderate cross-axis correlations; only two
+  statistically significant.}
+  Of 15~pairwise Pearson correlations, only two are significant at
+  the 5\% level ($t_{0.025,25} = 2.060$): critical inputs--logistics
+  ($r = 0.549$, $t = 3.280$) and energy--technology ($r = 0.530$,
+  $t = 3.124$).  The remaining 13~pairs---including all correlations
+  involving the financial axis---are not significant, confirming
+  that the six axes capture largely distinct dimensions.
+  See \cref{tab:corr-pearson,tab:corr-tstat,fig:corr-heatmap,fig:corr-network}.
 
-\item \textbf{Sensitivity to defence axis removal.}
-  Leave-one-axis-out analysis yields Spearman correlations ranging
-  from $\rho = 0.833$ (defence excluded) to $\rho = 0.993$
-  (financial excluded).  Removing the defence axis produces the
-  largest rank disruptions; Slovakia moves from rank~26 to rank~27,
-  and Malta from rank~1 to rank~2, when defence is excluded.
-  See \cref{tab:loo-summary,tab:loo-detail}.
+\item \textbf{Rank ordering robust at extremes, fragile in mid-tier.}
+  Under leave-one-axis-out (LOO) analysis, Spearman~$\rho$ ranges
+  from 0.833 (defence excluded) to 0.993 (financial excluded); Kendall
+  $\tau$ from 0.675 (defence) to 0.943 (financial, energy).  Under
+  Dirichlet weight perturbation (10\,000 draws, $\alpha_j = 10$),
+  Malta ($\sigma < 0.5$~ranks) and France ($\sigma < 0.5$~ranks) are
+  structurally locked, while the Netherlands ($\sigma = 3.07$) is the
+  most volatile.  Under $\pm10\%$ axis perturbation, 14 of 27
+  countries are rank-invariant.
+  See \cref{tab:loo-summary,tab:dirichlet-volatility,tab:rank-elasticity}.
 
-\item \textbf{Z-score standardisation alters rankings materially.}
-  When each axis is z-scored before averaging, the rank-order
-  correlation with the baseline drops to $\rho = 0.896$, indicating
-  moderate sensitivity to the implicit weighting induced by axis
-  dispersion.  See \cref{tab:zscore-ranks}.
+\item \textbf{Financial concentration is orthogonal to goods-trade
+  concentration.}
+  The financial axis is nearly uncorrelated with every other axis
+  ($|r| \leq 0.22$, all $|t| < 1.15$).  Its LOO removal produces
+  $\rho = 0.993$, the highest stability of any axis.  Its variance
+  contribution is 1.03\%.  Its bivariate $R^2$ with rank is 0.025, and
+  its partial correlation with rank (controlling for all other axes) is
+  0.421.  This confirms that financial-dependence patterns are
+  structurally distinct from physical-trade dependence patterns.
+  See \cref{tab:axis-rank-contrib,tab:corr-tstat}.
 
-\item \textbf{Winsorisation preserves full rank order.}
-  Capping the defence and logistics axes at their respective 95th
-  percentiles and recomputing produces identical rank ordering
-  ($\rho = 1.000$), indicating that extreme axis-level values do not
-  drive rank inversion.  See \cref{tab:winsorization}.
+\item \textbf{Compensability masks profile heterogeneity.}
+  The arithmetic-mean aggregation rule allows high scores on one axis
+  to compensate for low scores on others.  The Netherlands exhibits the
+  highest compensation gap (max axis $= 0.960$, composite $= 0.335$,
+  gap $= 0.624$, CV~$= 0.880$), followed by Italy (gap $= 0.547$)
+  and Bulgaria (gap $= 0.520$).
+  See \cref{tab:compensability}.
+
+\item \textbf{Geographic and structural correlates.}
+  Island and near-island economies (Malta, Cyprus, Ireland) average
+  ISI~$= 0.471$, significantly above the continental mean of 0.329.
+  Large-population countries ($> 20$M) average 0.298; small-population
+  countries ($< 5$M) average 0.372.  Core EU-6 members average 0.312;
+  peripheral members average 0.368.
+  See \cref{tab:geo-correlates}.
 
 \item \textbf{Slovakia's zero defence score.}
   Slovakia records a defence axis score of \num{0.00000000}, the
   only zero score in the dataset.  This arises mechanically from
   the absence of bilateral supplier entries for Slovakia in the
   SIPRI arms-transfer data under methodology v1.0.  It does not
-  imply the absence of defence procurement.  See
-  \cref{sec:country-profiles}.
+  imply the absence of defence procurement.
+  See \cref{sec:country-profiles,tab:defence-gap}.
 
 \end{itemize}

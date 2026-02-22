@@ -7,21 +7,19 @@ This section presents radar-chart profiles for eight selected
 countries, chosen to represent the full range of ISI composites
 and diverse axis configurations.  Each radar chart displays the
 country's score on each of the six axes, with the outer ring fixed
-at~1.0.  We then examine geographic and structural correlates of the
-composite ISI.
+at~1.0.
 
 \subsection{Selection rationale}
 
 The eight countries were selected to cover:
 \begin{itemize}[leftmargin=2em]
   \item \textbf{Top of the ranking}: Malta (rank~1), Cyprus (rank~2).
-  \item \textbf{Upper-middle}: Ireland (rank~3), Finland (rank~6).
-  \item \textbf{Mid-range}: Netherlands (rank~15).
+  \item \textbf{Upper-middle}: Ireland (rank~3), Netherlands (rank~15).
   \item \textbf{Lower ranks}: Germany (rank~22), Slovakia (rank~26),
-    France (rank~27).
+    Finland (rank~6), France (rank~27).
   \item \textbf{Diverse axis profiles}: Ireland (technology-peaked),
-    Netherlands (defence-peaked), Finland (critical-inputs-peaked),
-    Slovakia (zero-defence outlier).
+    Netherlands (defence-peaked), Finland (logistics-peaked), Slovakia
+    (zero-defence outlier).
 \end{itemize}
 
 \subsection{Malta (Rank 1, ISI = 0.5175)}
@@ -48,8 +46,7 @@ logistics flows.
 Cyprus ranks second with a profile similar to Malta's: defence
 (0.748) and logistics (0.941) dominate, but neither reaches the
 boundary.  Critical inputs (0.424) is also elevated relative to
-the EU-27 mean.  Like Malta, Cyprus's small size and island geography
-concentrate its strategic dependencies.
+the EU-27 mean.
 
 \begin{figure}[htbp]
 \centering
@@ -66,9 +63,7 @@ is the highest among all EU-27 countries, reflecting Ireland's
 dependence on a narrow set of high-technology import partners
 (notably the United States and China).  Defence (0.449) and
 logistics (0.614) are moderately elevated, while energy (0.465) is
-also above the EU-27 mean.  Ireland's profile illustrates the
-technology-spike archetype: a single non-defence axis drives a
-substantial share of the composite.
+also above the EU-27 mean.
 
 \begin{figure}[htbp]
 \centering
@@ -85,9 +80,7 @@ Its defence axis score (0.960) is the third-highest in the EU-27,
 while its financial (0.121), technology (0.125), and critical inputs
 (0.130) scores are among the lowest.  This extreme polarisation
 explains the Netherlands' high rank volatility under Dirichlet
-weight perturbation ($\sigma_{\text{rank}} = 3.07$,
-\cref{tab:dirichlet-volatility}) and its large compensability gap
-(0.624, \cref{tab:compensability}).
+weight perturbation ($\sigma_{\text{rank}} = 3.07$).
 
 \begin{figure}[htbp]
 \centering
@@ -137,8 +130,7 @@ Finland ranks sixth with an elevated critical-inputs axis (0.547,
 highest in the EU-27) and logistics (0.797).  Its defence score
 (0.390) is below the EU-27 mean, but the combined effect of high
 critical-inputs and logistics concentration places it in the upper
-tier.  Finland also records a high coefficient of variation across
-axes (CV = 0.544), indicating substantial within-country dispersion.
+tier.
 
 \begin{figure}[htbp]
 \centering
@@ -156,9 +148,6 @@ axis scores are below the respective EU-27 means: financial
 critical inputs (0.161), and logistics (0.353).  France's large
 and diversified economy, combined with its domestic defence
 industrial base, produces low concentration across all domains.
-France is also the most robust country under all perturbation
-exercises, with rank displacements of at most~$\pm 1$ under
-any LOO scenario (\cref{tab:rank-displacement}).
 
 \begin{figure}[htbp]
 \centering
@@ -195,10 +184,10 @@ of the eight profiled countries.
 Malta        & 0.517 & 0.140 & 0.351 & 0.205 & 1.000 & 0.409 & 1.000 \\
 Cyprus       & 0.468 & 0.124 & 0.348 & 0.224 & 0.748 & 0.424 & 0.941 \\
 Ireland      & 0.428 & 0.147 & 0.465 & 0.587 & 0.449 & 0.307 & 0.614 \\
-Finland      & 0.402 & 0.118 & 0.363 & 0.198 & 0.390 & 0.547 & 0.797 \\
 Netherlands  & 0.335 & 0.121 & 0.320 & 0.125 & 0.960 & 0.130 & 0.355 \\
 Germany      & 0.268 & 0.102 & 0.329 & 0.098 & 0.583 & 0.223 & 0.273 \\
 Slovakia     & 0.236 & 0.162 & 0.400 & 0.216 & 0.000 & 0.155 & 0.486 \\
+Finland      & 0.402 & 0.118 & 0.363 & 0.198 & 0.390 & 0.547 & 0.797 \\
 France       & 0.236 & 0.100 & 0.309 & 0.120 & 0.370 & 0.161 & 0.353 \\
 \bottomrule
 \end{tabular}
@@ -207,74 +196,10 @@ France       & 0.236 & 0.100 & 0.309 & 0.120 & 0.370 & 0.161 & 0.353 \\
 The profiles illustrate three archetypal patterns:
 \begin{enumerate}[leftmargin=2em]
   \item \textbf{Small-island concentration} (Malta, Cyprus): high
-    across defence and logistics, moderate elsewhere.  Both countries
-    have populations under 1.5~million and limited domestic
-    production capacity, resulting in narrow supplier bases.
+    across defence and logistics, moderate elsewhere.
   \item \textbf{Sector-specific spike} (Ireland: technology;
-    Netherlands: defence; Finland: critical inputs): one axis sharply
-    elevated, others dispersed.  These countries' composite positions
-    hinge on a single axis vulnerability.
+    Netherlands: defence): one axis sharply elevated, others
+    dispersed.
   \item \textbf{Broad diversification} (Germany, France): all axes
-    near or below the EU-27 mean, reflecting large-economy scale
-    effects.
+    near or below the EU-27 mean, reflecting large-economy effects.
 \end{enumerate}
-
-\subsection{Geographic and structural correlates}\label{sec:geo-correlates}
-
-To what extent does the composite ISI correlate with observable
-structural characteristics of member states?  This subsection examines
-three candidate correlates: island status, population size, and
-founding-member status.
-
-\input{tables/T18_geo_correlates}
-
-\Cref{tab:geo-correlates} summarises group-mean ISI scores for each
-classification.  Several patterns emerge:
-
-\begin{enumerate}[leftmargin=2em]
-  \item \textbf{Island effect.}
-    The three island member states (Malta, Cyprus, Ireland) have
-    a mean ISI of~0.471, compared with 0.329 for the 24~continental
-    member states.  This difference is large---0.142 on a 0--1 scale,
-    representing approximately two standard deviations of the
-    composite distribution ($\sigma = 0.070$).  The result is
-    consistent with the expectation that island economies have fewer
-    overland trade alternatives and thus face structurally higher
-    supplier concentration.
-
-  \item \textbf{Population size.}
-    Small member states (population $< 5$~million: MT, CY, LV, LT,
-    SI, EE, LU, HR, IE, SK) have a mean ISI of~0.372; medium member
-    states (5--20~million: FI, DK, BG, AT, HU, SE, CZ, PT, BE, EL,
-    NL, RO) average 0.353; large member states ($> 20$~million: PL,
-    ES, IT, DE, FR) average 0.298.  The monotone relationship between
-    population size and ISI is consistent with the diversification
-    hypothesis: larger economies generate more bilateral trade
-    relationships, reducing import concentration.
-
-  \item \textbf{EU-6 founding members vs.\ periphery.}
-    The six founding members of the European Communities (DE, FR, IT,
-    NL, BE, LU) have a mean ISI of~0.312, lower than the 21-country
-    periphery mean of~0.368.  This may reflect decades of trade
-    integration and infrastructure investment that have broadened the
-    founding members' supplier networks.  However, the difference
-    is partially confounded with country size: three of the six
-    founders (Germany, France, Italy) are among the five largest
-    EU~member states.
-\end{enumerate}
-
-These geographic correlates do not establish causality, but they
-suggest that the ISI captures genuine structural features of
-strategic dependence that align with well-known determinants of
-trade concentration: geography (island vs.\ continental),
-market size (small vs.\ large), and institutional depth
-(founding vs.\ accession members).
-
-\medskip\noindent\textbf{Notably absent correlate: financial
-concentration.}  Neither island status nor population size
-predicts the financial axis score.  The three island states
-have a mean financial score of~0.137, essentially identical to the
-continental mean of~0.143.  This confirms the orthogonality of the
-financial dimension to the geographic and physical-trade dimensions,
-consistent with the near-zero Pearson correlations of the financial
-axis with all other axes (\cref{tab:corr-pearson}).

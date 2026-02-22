@@ -1,0 +1,29 @@
+% Table T15: Classification compression diagnostics
+\begin{table}[htbp]
+\centering
+\caption{Classification compression diagnostics.  The official four-tier scheme
+is compared with data-driven tercile and quartile alternatives.  $\eta^2 = SS_B / SS_T$
+measures between-tier variance share.}
+\label{tab:compression-diagnostics}
+\small
+\begin{tabular}{@{}l r S[table-format=1.8] S[table-format=1.10] l@{}}
+\toprule
+{\textbf{Tier}} & {$n$} & {\textbf{Mean}} & {\textbf{Var (within)}} & {\textbf{Scheme}} \\
+\midrule
+  Highly concentrated & 1 & 0.51748148 & 0.0000000000 & Official \\
+  Moderately concentrated & 23 & 0.35052388 & 0.0029654931 & Official \\
+  Mildly concentrated & 3 & 0.23967943 & 0.0000265329 & Official \\
+\addlinespace
+  T1 (low) & 9 & 0.26831306 & 0.0006888119 & Tercile \\
+  T2 (mid) & 9 & 0.34268127 & 0.0003116324 & Tercile \\
+  T3 (high) & 9 & 0.42218000 & 0.0018248593 & Tercile \\
+\addlinespace
+  Q1 (low) & 7 & 0.25731972 & 0.0003060842 & Quartile \\
+  Q2 & 6 & 0.31979584 & 0.0001544247 & Quartile \\
+  Q3 & 7 & 0.36218497 & 0.0002080999 & Quartile \\
+  Q4 (high) & 7 & 0.43475158 & 0.0016297180 & Quartile \\
+\midrule
+  \multicolumn{5}{@{}l@{}}{$\eta^2$ (official) $= 0.482701$; Gini $= 0.115463$} \\
+\bottomrule
+\end{tabular}
+\end{table}

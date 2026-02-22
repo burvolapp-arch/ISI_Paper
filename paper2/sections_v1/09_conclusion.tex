@@ -1,0 +1,90 @@
+% =============================================================================
+% Section 9: Conclusion
+% =============================================================================
+\section{Conclusion}\label{sec:conclusion}
+
+This paper has presented the first comprehensive empirical application
+of the Import Strategicness Index (ISI) to the~27 member states of
+the European Union.  Drawing on a unified data snapshot (ISI~v1.0,
+reference year~2024), we have computed composite scores for all
+countries, decomposed the composite into its six constituent axes,
+and subjected the resulting ranking to a four-part robustness
+programme.
+
+\subsection{Summary of contributions}
+
+The paper makes seven distinct contributions:
+
+\begin{enumerate}[leftmargin=2em]
+  \item It produces the first complete \textbf{ISI composite ranking}
+    for the EU-27, identifying Malta as the most concentrated and
+    France as the least concentrated member state.
+
+  \item It provides \textbf{distributional diagnostics} for the
+    composite (histogram, ECDF, Lorenz curve with Gini = \num{0.1155}),
+    establishing that the EU-27 distribution is compressed and
+    unimodal.
+
+  \item It reports \textbf{axis-level statistics}, identifying defence
+    and logistics as the axes with the highest dispersion and the
+    financial axis as the most compressed.
+
+  \item It documents the \textbf{axis dominance structure}: defence is
+    the dominant axis for 16~countries, logistics for 11, and no other
+    axis is ever the maximum.
+
+  \item It computes a \textbf{variance contribution decomposition},
+    finding that defence (35.10\%) and logistics (34.26\%) jointly
+    account for 69.36\% of composite variance.
+
+  \item It executes a \textbf{four-exercise robustness programme}
+    (LOO, z-score, Dirichlet MC, winsorization) and finds the
+    ranking robust to outlier capping ($\rho = 1.000$) and random
+    weight perturbation ($\bar{\rho} = 0.979$), with moderate
+    sensitivity to defence-axis removal ($\rho = 0.833$) and
+    z-score standardisation ($\rho = 0.896$).
+
+  \item It profiles \textbf{eight representative countries} via
+    radar charts, illustrating three archetypal concentration
+    patterns: small-island, sector-specific spike, and broad
+    diversification.
+\end{enumerate}
+
+\subsection{Directions for future research}
+
+Several extensions are planned:
+
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Time-series extension.}  Computing the ISI for
+    multiple reference years (2015--2024) to analyse trend dynamics,
+    structural breaks, and the effect of geopolitical shocks (e.g.,
+    the 2022 Russia--Ukraine conflict) on concentration patterns.
+
+  \item \textbf{Geographic expansion.}  Extending the ISI to G-20
+    or OECD countries to enable broader cross-country comparisons
+    and identify global concentration patterns.
+
+  \item \textbf{Sub-indicator disaggregation.}  Reporting
+    sub-indicator-level results for each axis to provide more
+    granular policy guidance.
+
+  \item \textbf{Endogenous weighting.}  Exploring data-driven
+    weighting schemes (e.g., principal-component weights, benefit-of-
+    the-doubt weights) as alternatives to equal weighting.
+
+  \item \textbf{Interaction with macroeconomic outcomes.}  Testing
+    whether high ISI scores are associated with greater GDP
+    volatility, trade disruptions, or supply-chain bottlenecks.
+\end{itemize}
+
+\subsection{Closing remark}
+
+The ISI is designed as a transparent, reproducible measurement tool
+for strategic import dependence.  Its value lies not in producing a
+single ``correct'' ranking but in providing a structured empirical
+basis for policy deliberation.  The robustness programme demonstrates
+that the ranking is stable under most perturbations, and the
+axis-level disaggregation enables targeted analysis of specific
+vulnerability domains.  We hope that this empirical application will
+serve as a reference for researchers and policy-makers working on
+European strategic autonomy.

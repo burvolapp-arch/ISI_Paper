@@ -100,5 +100,6 @@
     "output/*.fdb_latexmk": true,
     "output/*.synctex.gz": true,
     "output/*.xdv": true
-  }
+},
+"python-envs.pythonProjects": []
 }

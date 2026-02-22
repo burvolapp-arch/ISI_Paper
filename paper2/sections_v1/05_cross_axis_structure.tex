@@ -4,11 +4,10 @@
 \section{Cross-Axis Correlation Structure}\label{sec:cross-axis}
 
 This section examines the pairwise linear and rank-order associations
-among the six axes, tests them for statistical significance, and
-explores the eigenvalue structure.  Strong inter-axis correlations
-could indicate redundant information content; near-zero correlations
-would indicate that the axes capture genuinely distinct dimensions of
-strategic dependence.
+among the six axes.  Strong inter-axis correlations could indicate
+redundant information content; near-zero correlations would indicate
+that the axes capture genuinely distinct dimensions of strategic
+dependence.
 
 \subsection{Pearson and Spearman correlation matrices}
 
@@ -64,61 +63,35 @@ Logistics       & -0.034 & +0.236 & +0.042 & +0.220 & \textbf{+0.545} & {1.000} 
 \end{tabular}
 \end{table}
 
-\subsection{Significance testing}\label{sec:corr-tstat}
-
-Because $N = 27$ is small, moderate correlations may not be
-statistically distinguishable from zero.  We test each pairwise
-Pearson correlation using the $t$-statistic:
-\begin{equation}\label{eq:corr-t}
-  t = r \sqrt{\frac{N - 2}{1 - r^2}}\,,
-\end{equation}
-with $N - 2 = 25$ degrees of freedom.  The two-sided critical value
-at $\alpha = 0.05$ is $t_{0.025,25} = 2.060$.
-
-\Cref{tab:corr-tstat} reports the $t$-statistics and significance
-flags for all 15~unique pairwise correlations.
-
-\input{tables/TE3_corr_tstat}
-
-Only two pairwise correlations are significant at the 5\% level:
-\begin{enumerate}[leftmargin=2em]
-  \item \textbf{Critical inputs--Logistics} ($r = 0.549$,
-    $t = 3.280$, $p < 0.01$).
-  \item \textbf{Energy--Technology} ($r = 0.530$,
-    $t = 3.124$, $p < 0.01$).
-\end{enumerate}
-
-Two additional correlations approach but do not reach the 5\%
-threshold:
-\begin{itemize}[leftmargin=2em]
-  \item Energy--Critical inputs ($r = 0.372$, $t = 2.006$,
-    $p \approx 0.056$).
-  \item Defence--Logistics ($r = 0.286$, $t = 1.487$, $p > 0.10$).
-\end{itemize}
-
-All 10~remaining pairwise correlations have $|t| < 1.15$ and are
-clearly non-significant.  The financial axis in particular has
-$|t| < 1.15$ with \emph{all} other axes, confirming its orthogonality
-to the goods-trade and infrastructure dimensions.
-
 \subsection{Interpretation}
 
-The two significant correlations have plausible structural
-interpretations:
+Four correlations exceed $|r| = 0.30$ in Pearson terms:
 
 \begin{enumerate}[leftmargin=2em]
-  \item \textbf{Critical inputs--Logistics} ($r = 0.549$).
+  \item \textbf{Critical inputs--Logistics} ($r = 0.549$,
+    $\rho = 0.545$).  This is the strongest bivariate association.
     Countries with concentrated critical-material suppliers also tend
     to have concentrated logistics corridors.  This may reflect a
     common exposure to a narrow set of extra-EU partner countries
     (e.g., Turkey, China) that supply both raw materials and transit
     routes.
 
-  \item \textbf{Energy--Technology} ($r = 0.530$).
+  \item \textbf{Energy--Technology} ($r = 0.530$, $\rho = 0.487$).
     Countries with high energy-supply concentration tend also to have
     concentrated technology-import patterns.  One plausible channel is
     that smaller EU countries with fewer diversified trade partnerships
     exhibit concentration on both axes simultaneously.
+
+  \item \textbf{Energy--Critical inputs} ($r = 0.372$,
+    $\rho = 0.409$).  A moderate positive association, consistent with
+    overlapping geographic supply chains for energy commodities and
+    critical raw materials.
+
+  \item \textbf{Defence--Logistics} ($r = 0.286$, $\rho = 0.220$).
+    A weak-to-moderate positive association.  Countries with
+    concentrated defence-import partners also tend to have
+    concentrated port/logistics structures, though the relationship is
+    not strong.
 \end{enumerate}
 
 Several near-zero correlations are equally notable:
@@ -133,7 +106,7 @@ Several near-zero correlations are equally notable:
   \item \textbf{Technology--Defence} ($r = -0.222$).  A mild negative
     association, suggesting that countries with diversified technology
     imports may tend toward concentrated defence suppliers, and vice
-    versa.  The $t$-statistic ($-1.133$) is not significant.
+    versa.
 \end{itemize}
 
 \subsection{Correlation heatmap}
@@ -200,14 +173,6 @@ jointly explaining 76.1\% of total variance.  The first two principal
 components explain 58.0\%.  No single dominant eigenvalue emerges,
 confirming that the six axes cannot be collapsed to one or two
 dimensions without substantial information loss.
-
-The effective number of dimensions, computed as the exponential of
-the Shannon entropy of the normalised eigenvalues
-($e^{-\sum \lambda_k \ln \lambda_k}$ where $\lambda_k$ are
-normalised to sum to~1), is approximately 4.4, indicating that the
-six axes carry approximately 4.4 effective dimensions of independent
-information.  This supports the retention of all six axes in the
-composite.
 
 \medskip\noindent\textbf{Implications for composite construction.}
 The moderate inter-axis correlations and multi-dimensional eigenvalue
