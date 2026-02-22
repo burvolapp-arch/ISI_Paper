@@ -1,0 +1,166 @@
+% =============================================================================
+% Section 8: Discussion
+% =============================================================================
+\section{Discussion}\label{sec:discussion}
+
+\subsection{Principal findings}
+
+This paper has presented the first complete empirical application of
+the ISI methodology to the EU-27, producing a composite ranking that
+integrates concentration indices across six strategic domains.  The
+principal empirical findings can be summarised as follows.
+
+\begin{enumerate}[leftmargin=2em]
+  \item \textbf{The EU-27 is moderately concentrated on average.}
+    The mean composite ISI is \num{0.33815860} with a standard
+    deviation of \num{0.06644399}.  Only one country (Malta) exceeds
+    the ``highly concentrated'' threshold of 0.50.
+
+  \item \textbf{The ranking is compressed.}  The interquartile range
+    is \num{0.09952662} and the Gini coefficient is \num{0.1155},
+    indicating that the bulk of EU countries cluster in a narrow
+    band of moderate concentration.  This compression has policy
+    implications: small changes in underlying data could shift
+    individual ranks by several positions, even though the
+    substantive concentration level changes little.
+
+  \item \textbf{Defence and logistics drive the ranking.}
+    These two axes jointly account for 69.36\% of composite variance
+    (\cref{tab:variance-decomp}).  Defence is the dominant axis for
+    16 of 27 countries; logistics for the remaining 11.  No other
+    axis ever holds the maximum position.
+
+  \item \textbf{The financial axis is informationally redundant for
+    ranking purposes.}  Its variance contribution is 1.03\%, its CV
+    is low, and its LOO Spearman correlation with the baseline is
+    0.993.  However, it may carry independent policy significance
+    (e.g., for financial stability assessment).
+
+  \item \textbf{The ranking is robust to most perturbations.}
+    Winsorization preserves the ranking perfectly ($\rho = 1.000$).
+    Dirichlet weight perturbation produces a mean $\rho$ of 0.979.
+    Only defence-axis removal ($\rho = 0.833$) and z-score
+    standardisation ($\rho = 0.896$) produce moderate rank changes.
+
+  \item \textbf{Country profiles are heterogeneous.}  The radar
+    charts (\cref{sec:country-profiles}) reveal three archetypal
+    patterns: small-island concentration (Malta, Cyprus),
+    sector-specific spikes (Ireland on technology, Netherlands on
+    defence), and broad diversification (Germany, France).
+\end{enumerate}
+
+\subsection{The small-island hypothesis}
+
+Malta and Cyprus occupy the top two positions.  Both are small island
+economies with limited domestic production capacity, narrow port
+infrastructure, and concentrated defence procurement channels.  This
+raises the question of whether the ISI mechanically penalises small
+countries.
+
+The answer is nuanced.  The ISI measures \emph{concentration of
+external dependencies}, not economic size per se.  However, small
+economies have fewer feasible counterparties and less diversified
+infrastructure, which leads to structurally higher concentration
+scores.  This is not a measurement artefact---it reflects a genuine
+strategic vulnerability.  A small country with a single deep-water
+port \emph{is} more logistics-concentrated than a large country with
+multiple ports, and this concentration represents a real policy
+challenge.
+
+Nevertheless, users of the ISI should interpret the ranking with
+awareness of the size confound.  Future versions of the index could
+explore size-normalised variants (e.g., conditioning on GDP or
+population) as a complementary perspective, though such normalisation
+would alter the index's strategic interpretation.
+
+\subsection{Interpretation boundaries}
+
+Several limitations bound the interpretation of the results presented
+in this paper:
+
+\begin{enumerate}[leftmargin=2em]
+  \item \textbf{Single time period.}  The ISI~v1.0 snapshot is
+    cross-sectional (2024 reference year).  No inference about trends
+    or dynamic adjustment is possible.  A time-series extension is
+    planned for future work.
+
+  \item \textbf{Equal weighting.}  The composite assigns
+    $w_j = 1/6$ to each axis.  While the Dirichlet perturbation
+    exercise demonstrates robustness to moderate weight variation,
+    a policy-maker who judges defence concentration to be
+    \emph{more important} than financial concentration could
+    legitimately prefer a weighted variant.  The ISI methodology
+    (\cite{isi_paper1}) explicitly supports user-specified weights.
+
+  \item \textbf{Axis construction choices.}  Each axis relies on
+    specific data sources and normalisation procedures.  The
+    z-score exercise (\cref{sec:zscore}) demonstrates that
+    alternative normalisation can produce moderately different
+    rankings ($\rho = 0.896$).
+
+  \item \textbf{Missing granularity.}  The ISI aggregates
+    sub-indicators within each axis.  Countries that score
+    identically on the composite may have very different
+    sub-indicator profiles.  The axis-level radar charts provide
+    partial disaggregation, but sub-indicator-level analysis is
+    beyond the scope of this paper.
+
+  \item \textbf{No causal claims.}  The ISI is a descriptive
+    measurement instrument.  High ISI scores indicate concentrated
+    dependencies; they do not, by themselves, predict adverse
+    outcomes such as supply disruptions or coercive leverage.
+\end{enumerate}
+
+\subsection{Comparison with related indices}
+
+The ISI occupies a distinct position relative to existing
+vulnerability and resilience indices:
+
+\begin{itemize}[leftmargin=2em]
+  \item The \textbf{EU Critical Raw Materials} assessment
+    (\cite{ec_critical_raw}) focuses on material-level supply risk
+    and economic importance.  The ISI subsumes a related concept
+    within its critical-inputs axis but extends coverage to five
+    additional domains.
+
+  \item The \textbf{OECD Composite Indicators Handbook}
+    (\cite{oecd_handbook_2008}) provides general methodological
+    guidance.  The ISI follows its recommendations on normalisation,
+    weighting transparency, and robustness testing.
+
+  \item Trade-concentration indices such as the Herfindahl--Hirschman
+    Index (\cite{herfindahl1950,hirschman1964}) underpin individual
+    ISI axes but do not aggregate across domains.  The ISI's
+    contribution is precisely this multi-domain aggregation.
+\end{itemize}
+
+\subsection{Policy implications}
+
+The results suggest several actionable policy directions:
+
+\begin{enumerate}[leftmargin=2em]
+  \item \textbf{Prioritise defence and logistics diversification.}
+    Because these two axes dominate composite variance and axis
+    dominance counts, policies aimed at reducing strategic
+    dependence should focus on diversifying defence procurement
+    partnerships and logistics infrastructure.
+
+  \item \textbf{Monitor rank-volatile countries.}  Countries with
+    high Dirichlet rank volatility (Netherlands, Finland, Estonia)
+    are positioned near tipping points where modest changes in
+    underlying concentration could shift their ranking substantially.
+    These countries merit closer monitoring.
+
+  \item \textbf{Distinguish between axes for tailored policy.}
+    The near-zero inter-axis correlations between the financial
+    axis and all others suggest that financial-dependence reduction
+    policies operate independently of trade or infrastructure
+    policies.  A country can diversify its financial exposures
+    without affecting its logistics or defence concentration, and
+    vice versa.
+
+  \item \textbf{Small-state awareness.}  Malta and Cyprus face
+    structural concentration that cannot be fully mitigated through
+    policy alone.  For these countries, the ISI is best read as a
+    risk identifier rather than a performance benchmark.
+\end{enumerate}

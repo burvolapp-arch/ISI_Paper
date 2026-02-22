@@ -1,0 +1,117 @@
+% =============================================================================
+% Section 2: Data & Construction
+% =============================================================================
+\section{Data and Construction}\label{sec:data-construction}
+
+This section provides a concise overview of the ISI's data inputs,
+aggregation rule, and classification thresholds.  Full construction
+details---including normalisation procedures, missing-data protocols,
+fallback basis rules, and the integrity chain---are documented in
+Paper~1~\cite{isi_paper1}.
+
+\subsection{Scope and vintage}
+
+The results in this paper are computed from the ISI v1.0 snapshot for
+vintage year 2024.  The scope covers $N = 27$ EU member states.  All
+27~countries have complete data across all six axes
+(\texttt{complete = true}).
+
+\subsection{Axes and data windows}
+
+The ISI comprises six axes, each measuring counterparty concentration
+in a distinct domain of cross-border exposure.  \Cref{tab:axis-sources}
+summarises each axis, its primary data source, and the observation
+window used for the 2024 vintage.
+
+\begin{table}[htbp]
+\centering
+\caption{ISI axes: definitions, primary data sources, and observation
+  windows for vintage~2024.}
+\label{tab:axis-sources}
+\small
+\begin{tabular}{@{}clll@{}}
+\toprule
+\textbf{Axis} & \textbf{Domain} & \textbf{Primary Source}
+  & \textbf{Window} \\
+\midrule
+1 & Financial sovereignty
+  & BIS LBS, IMF CPIS~\cite{bis_lbs,imf_cpis}
+  & 2022--2024 \\
+2 & Energy dependency
+  & IEA, Eurostat~\cite{iea_wes,eurostat_comext}
+  & 2022--2024 \\
+3 & Technology / semiconductor dependency
+  & Eurostat Comext~\cite{eurostat_comext}
+  & 2022--2024 \\
+4 & Defence industrial dependency
+  & SIPRI TIV~\cite{sipri_transfers}
+  & 2019--2024 \\
+5 & Critical inputs / raw materials
+  & UN Comtrade, Eurostat~\cite{uncomtrade,eurostat_comext}
+  & 2022--2024 \\
+6 & Logistics / freight dependency
+  & Eurostat Comext~\cite{eurostat_comext}
+  & 2022--2024 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent\textit{Note.}  The defence axis uses a six-year rolling
+window (2019--2024) rather than the three-year window applied to other
+axes.  This reflects the lower frequency and higher lumpiness of
+arms-transfer flows, as documented in Paper~1~\cite{isi_paper1}.
+
+\subsection{Aggregation rule}
+
+The ISI composite for country~$i$ is the unweighted arithmetic mean
+of the six axis-level scores:
+\begin{equation}\label{eq:composite}
+  \text{ISI}_i
+  = \frac{1}{6}\sum_{j=1}^{6} A_{j,i}
+  \,,\qquad
+  A_{j,i} \in [0,\,1]
+  \,,
+\end{equation}
+where $A_{j,i}$ denotes the normalised score of country~$i$ on axis~$j$.
+Each axis score is bounded to the unit interval by the normalisation
+procedure defined in Paper~1.
+
+The equal-weight specification is the baseline.  \Cref{sec:robustness}
+examines sensitivity to alternative weighting schemes through Dirichlet
+perturbation.
+
+\subsection{Classification thresholds}\label{sec:classification}
+
+Countries are classified into four tiers based on the composite score:
+
+\begin{table}[htbp]
+\centering
+\caption{ISI classification tiers.}
+\label{tab:classification-tiers}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Tier} & \textbf{Composite range} & \textbf{Count (EU-27)} \\
+\midrule
+Highly concentrated     & $\text{ISI} \geq 0.50$ & 1 (Malta) \\
+Moderately concentrated & $0.25 \leq \text{ISI} < 0.50$ & 23 \\
+Mildly concentrated     & $0.15 \leq \text{ISI} < 0.25$ & 3 (Latvia, Slovakia, France) \\
+Unconcentrated          & $\text{ISI} < 0.15$ & 0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent The thresholds are structurally analogous to the
+Herfindahl--Hirschman Index (HHI) tiers used in antitrust analysis
+(see~\cite{doj_hhi_2010}), adapted to the ISI's unit-interval scale.
+The threshold values are defined in methodology v1.0 and documented
+in Paper~1.
+
+\subsection{Rounding and precision}
+
+All axis-level and composite scores are reported to eight decimal
+places, matching the precision of the authoritative ISI snapshot.
+Population-level statistics (mean, standard deviation, percentiles)
+are computed with full floating-point precision and reported to eight
+decimal places unless otherwise noted.  The population standard
+deviation ($\sigma$, with $N$ denominator) is used throughout, as the
+27~EU member states constitute the complete target population.

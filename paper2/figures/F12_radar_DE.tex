@@ -1,0 +1,36 @@
+% F12_radar_DE: Radar chart for Germany (DE)
+% Values: Fin=0.102, Ene=0.329, Tec=0.098, Def=0.583, Cri=0.223, Log=0.273
+\begin{tikzpicture}[scale=1.0]
+  % Grid rings
+  \foreach \r in {0.2, 0.4, 0.6, 0.8, 1.0} {
+    \draw[gray!30, thin]
+      ( 90:\r*3cm) -- ( 30:\r*3cm) -- (330:\r*3cm) --
+      (270:\r*3cm) -- (210:\r*3cm) -- (150:\r*3cm) -- cycle;
+  }
+  % Axis spokes
+  \foreach \a in {90, 30, 330, 270, 210, 150} {
+    \draw[gray!50, thin] (0,0) -- (\a:3cm);
+  }
+  % Axis labels
+  \node[font=\footnotesize, above] at ( 90:3.4cm) {Financial};
+  \node[font=\footnotesize, right] at ( 30:3.4cm) {Energy};
+  \node[font=\footnotesize, right] at (330:3.4cm) {Technology};
+  \node[font=\footnotesize, below] at (270:3.4cm) {Defence};
+  \node[font=\footnotesize, left] at (210:3.4cm) {Crit.~Inputs};
+  \node[font=\footnotesize, left] at (150:3.4cm) {Logistics};
+  % Ring labels
+  \foreach \r/\lab in {0.2/0.2, 0.4/0.4, 0.6/0.6, 0.8/0.8, 1.0/1.0} {
+    \node[font=\tiny, gray, anchor=south west] at (90:\r*3cm) {\lab};
+  }
+  % Data polygon: DE
+  \filldraw[orange!20, draw=orange!70, thick, fill opacity=0.3]
+    ( 90:0.102*3cm) -- ( 30:0.329*3cm) -- (330:0.098*3cm) --
+    (270:0.583*3cm) -- (210:0.223*3cm) -- (150:0.273*3cm) -- cycle;
+  % Data points
+  \fill[orange!70] ( 90:0.102*3cm) circle (2pt);
+  \fill[orange!70] ( 30:0.329*3cm) circle (2pt);
+  \fill[orange!70] (330:0.098*3cm) circle (2pt);
+  \fill[orange!70] (270:0.583*3cm) circle (2pt);
+  \fill[orange!70] (210:0.223*3cm) circle (2pt);
+  \fill[orange!70] (150:0.273*3cm) circle (2pt);
+\end{tikzpicture}

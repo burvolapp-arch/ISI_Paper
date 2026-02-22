@@ -1,0 +1,209 @@
+% =============================================================================
+% Section 6: Robustness Programme
+% =============================================================================
+\section{Robustness Programme}\label{sec:robustness}
+
+This section subjects the ISI composite ranking to four distinct
+perturbation exercises.  Each test isolates a different source of
+methodological sensitivity: (i)~axis inclusion, (ii)~standardisation
+choice, (iii)~weight specification, and (iv)~outlier treatment.  The
+baseline is the ISI~v1.0 ranking (\cref{tab:ranking}).
+
+\subsection{Leave-one-axis-out (LOO)}\label{sec:loo}
+
+For each of the six axes in turn, we recompute the composite as the
+simple average of the remaining five axes and re-rank the~27 countries.
+The Spearman rank correlation~$\rho$ between the reduced ranking and
+the baseline ranking measures the influence of the omitted axis.
+
+\input{tables/T09_loo_summary}
+
+\Cref{tab:loo-summary} reports the results.  Key findings:
+
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Financial axis removal} ($\rho = 0.993$).
+    Dropping the financial axis barely perturbs the ranking.
+    This is consistent with its low variance contribution
+    (1.03\%, \cref{tab:variance-decomp}) and near-zero
+    correlations with other axes.
+
+  \item \textbf{Energy axis removal} ($\rho = 0.992$).
+    Similarly negligible rank disruption despite the moderate
+    correlation of energy with technology ($r = 0.53$).
+
+  \item \textbf{Technology axis removal} ($\rho = 0.968$).
+    Modest rank perturbation.  Ireland, the highest-scoring
+    country on the technology axis (0.587), loses relative
+    position when this axis is removed.
+
+  \item \textbf{Defence axis removal} ($\rho = 0.833$).
+    The most disruptive single omission.  Defence contributes
+    35.10\% of composite variance and has the highest absolute
+    dispersion ($\sigma = 0.226$).  Removing it reshuffles the
+    middle ranks substantially, particularly for countries like
+    the Netherlands (defence score = 0.960) and Bulgaria
+    (0.861) whose high composite positions depend heavily on
+    their defence concentration.
+
+  \item \textbf{Critical inputs removal} ($\rho = 0.941$).
+    Moderate disruption, consistent with its 20.92\% variance
+    contribution.
+
+  \item \textbf{Logistics axis removal} ($\rho = 0.926$).
+    Moderate disruption, consistent with its 34.26\% variance
+    contribution.  Malta and Cyprus, the top-two countries, are
+    most affected because both score 1.00 and 0.94 respectively
+    on logistics.
+\end{itemize}
+
+The full country-by-country LOO ranking table is provided in
+\cref{tab:loo-detail} (\cref{app:robustness}).
+
+\subsection{Z-score standardisation}\label{sec:zscore}
+
+The baseline ISI uses raw (min--max bounded) axis scores.  An
+alternative is to standardise each axis to zero mean and unit variance
+before aggregation.  Z-score standardisation implicitly upweights
+axes with higher absolute dispersion (because a one-unit change in
+a high-$\sigma$ axis maps to a smaller z-increment than a one-unit
+change in a low-$\sigma$ axis after rescaling).
+
+We compute:
+\begin{equation}\label{eq:zscore}
+  z_{ij} = \frac{A_{ij} - \bar{A}_j}{\sigma_j}\,,
+  \qquad
+  \text{ISI}^{z}_i = \frac{1}{6}\sum_{j=1}^{6} z_{ij}\,,
+\end{equation}
+and re-rank the countries.
+
+\input{tables/T10_zscore_ranks}
+
+\Cref{tab:zscore-ranks} compares the z-score-based ranking with the
+baseline.  The Spearman rank correlation is $\rho = 0.896$---lower
+than any single LOO perturbation except defence removal.  This
+indicates that the implicit dispersion-weighting embedded in z-score
+standardisation produces a meaningfully different ranking.
+
+The largest rank changes under z-score standardisation include:
+\begin{itemize}[leftmargin=2em]
+  \item Countries with extreme scores on high-CV axes (technology,
+    critical inputs) gain or lose relative position depending on
+    whether the z-score upweighting favours their profile.
+  \item Countries whose composite depends predominantly on the
+    defence axis (which has moderate CV but the largest absolute
+    $\sigma$) are less affected, because z-score standardisation
+    compresses defence scores toward the mean.
+\end{itemize}
+
+The result underscores that the choice of standardisation is not
+innocuous.  The ISI~v1.0 deliberately avoids z-score normalisation
+because the underlying data (HHI-normalised scores) already inhabit
+a common $[0, 1]$ scale, making further rescaling conceptually
+unnecessary and potentially distortive.
+
+\subsection{Dirichlet weight perturbation (Monte Carlo)}\label{sec:dirichlet}
+
+The baseline ISI assigns equal weight ($w_j = 1/6$) to each axis.
+To assess sensitivity to this choice, we draw $K = 10{,}000$
+weight vectors from a symmetric $\text{Dirichlet}(\alpha = 1)$
+distribution (uniform over the 5-simplex), compute the weighted
+composite for each draw, rank the countries, and record the rank
+distribution.
+
+\input{tables/T11_dirichlet_volatility}
+
+\Cref{tab:dirichlet-volatility} reports the mean and standard
+deviation of each country's rank across the 10\,000 draws, along
+with the 5th and 95th percentile ranks.  Aggregate summary
+statistics:
+
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Mean Spearman~$\rho$} between each draw's ranking
+    and the baseline: \num{0.979} (std~=~\num{0.017}).
+  \item \textbf{Minimum~$\rho$}: \num{0.863}; \textbf{Maximum~$\rho$}:
+    \num{1.000}.
+  \item In more than 95\% of draws, $\rho > 0.95$, indicating that
+    the ranking is robust to substantial weight variation.
+\end{itemize}
+
+\textbf{Most rank-volatile countries:}
+\begin{enumerate}[leftmargin=2em]
+  \item Netherlands ($\sigma_{\text{rank}} = 3.07$) --- rank 15 on
+    average, but ranges from 3 to 25 across draws.  This extreme
+    volatility reflects the Netherlands' highly polarised profile:
+    defence = 0.960 but financial = 0.121 and technology = 0.125.
+  \item Finland ($\sigma_{\text{rank}} = 2.39$) --- sensitive to
+    the weight placed on critical inputs (highest score: 0.547) vs
+    defence (low score: 0.390).
+  \item Estonia ($\sigma_{\text{rank}} = 2.21$).
+  \item Italy ($\sigma_{\text{rank}} = 2.17$).
+  \item Bulgaria ($\sigma_{\text{rank}} = 2.03$).
+\end{enumerate}
+
+\textbf{Most rank-stable countries:}  Malta ($\sigma_{\text{rank}} <
+0.5$) and France ($\sigma_{\text{rank}} < 0.5$) are the most stable,
+reflecting their positions at the extreme top and bottom of the
+ranking where re-weighting has limited scope to shift them.
+
+\subsection{Winsorization at the 95th percentile}\label{sec:winsorization}
+
+Two axes---defence and logistics---contain country scores at the
+boundary value of~1.0.  To assess whether these extreme values
+drive the ranking, we cap both axes at their respective 95th
+percentiles:
+
+\begin{itemize}[leftmargin=2em]
+  \item Defence: P95 cap = \num{0.94786072}.
+  \item Logistics: P95 cap = \num{0.89794180}.
+\end{itemize}
+
+Any country-axis score exceeding the cap is replaced by the cap value.
+The composite is then recomputed and re-ranked.
+
+\input{tables/T12_winsorization}
+
+\Cref{tab:winsorization} compares the winsorized ranking with the
+baseline.  The Spearman rank correlation is $\rho = 1.000$: the
+ranking is entirely preserved.  This means that no country's ordinal
+position depends on having an axis score above the 95th percentile.
+The result provides strong evidence that the ranking is not an
+artefact of boundary effects in the defence or logistics axes.
+
+\subsection{Robustness summary}
+
+\Cref{tab:robustness-summary} consolidates the four robustness
+exercises.
+
+\begin{table}[htbp]
+\centering
+\caption{Robustness programme summary.  Spearman~$\rho$ between
+  each perturbed ranking and the ISI~v1.0 baseline.}
+\label{tab:robustness-summary}
+\begin{tabular}{@{}llS[table-format=1.3]l@{}}
+\toprule
+\textbf{Exercise} & \textbf{Perturbation} & {$\boldsymbol{\rho}$}
+  & \textbf{Verdict} \\
+\midrule
+LOO (Financial)   & Drop axis 1 & 0.993 & Stable \\
+LOO (Energy)      & Drop axis 2 & 0.992 & Stable \\
+LOO (Technology)  & Drop axis 3 & 0.968 & Stable \\
+LOO (Defence)     & Drop axis 4 & 0.833 & Moderate sensitivity \\
+LOO (Critical)    & Drop axis 5 & 0.941 & Stable \\
+LOO (Logistics)   & Drop axis 6 & 0.926 & Stable \\
+Z-score           & Re-standardise & 0.896 & Moderate sensitivity \\
+Dirichlet MC      & Random weights & 0.979 & Stable (mean) \\
+Winsorization     & Cap at P95 & 1.000 & Fully stable \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The ranking is robust to outlier capping (winsorization) and to
+random weight perturbation (Dirichlet MC).  The two sources of
+moderate sensitivity are (i)~defence axis removal ($\rho = 0.833$)
+and (ii)~z-score standardisation ($\rho = 0.896$).  Both of these
+are structural: defence is the single most dispersed and
+variance-contributing axis, and z-score standardisation introduces
+implicit dispersion-based reweighting.  Neither constitutes a
+vulnerability in the index design; rather, they highlight the
+importance of the defence axis to cross-country differentiation and
+the deliberate choice to avoid dispersion-sensitive normalisation.

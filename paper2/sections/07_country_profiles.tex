@@ -1,0 +1,205 @@
+% =============================================================================
+% Section 7: Country Profiles
+% =============================================================================
+\section{Country Profiles}\label{sec:country-profiles}
+
+This section presents radar-chart profiles for eight selected
+countries, chosen to represent the full range of ISI composites
+and diverse axis configurations.  Each radar chart displays the
+country's score on each of the six axes, with the outer ring fixed
+at~1.0.
+
+\subsection{Selection rationale}
+
+The eight countries were selected to cover:
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Top of the ranking}: Malta (rank~1), Cyprus (rank~2).
+  \item \textbf{Upper-middle}: Ireland (rank~3), Netherlands (rank~15).
+  \item \textbf{Lower ranks}: Germany (rank~22), Slovakia (rank~26),
+    Finland (rank~6), France (rank~27).
+  \item \textbf{Diverse axis profiles}: Ireland (technology-peaked),
+    Netherlands (defence-peaked), Finland (logistics-peaked), Slovakia
+    (zero-defence outlier).
+\end{itemize}
+
+\subsection{Malta (Rank 1, ISI = 0.5175)}
+
+Malta records the highest composite score in the EU-27 and is the
+only country classified as \emph{highly concentrated}.  Its profile
+is dominated by defence (1.000) and logistics (1.000)---both at the
+theoretical maximum.  The financial axis (0.140) and technology axis
+(0.205) are comparatively moderate.  Malta's small-island economy
+and NATO membership channel its defence imports through a single
+dominant supplier, while its port infrastructure concentrates
+logistics flows.
+
+\begin{figure}[htbp]
+\centering
+\input{figures/F08_radar_MT}
+\caption{ISI axis profile: Malta.  Composite ISI = 0.5175 (rank~1,
+  highly concentrated).}
+\label{fig:radar-MT}
+\end{figure}
+
+\subsection{Cyprus (Rank 2, ISI = 0.4682)}
+
+Cyprus ranks second with a profile similar to Malta's: defence
+(0.748) and logistics (0.941) dominate, but neither reaches the
+boundary.  Critical inputs (0.424) is also elevated relative to
+the EU-27 mean.
+
+\begin{figure}[htbp]
+\centering
+\input{figures/F09_radar_CY}
+\caption{ISI axis profile: Cyprus.  Composite ISI = 0.4682 (rank~2,
+  moderately concentrated).}
+\label{fig:radar-CY}
+\end{figure}
+
+\subsection{Ireland (Rank 3, ISI = 0.4280)}
+
+Ireland presents a distinctive profile: the technology axis (0.587)
+is the highest among all EU-27 countries, reflecting Ireland's
+dependence on a narrow set of high-technology import partners
+(notably the United States and China).  Defence (0.449) and
+logistics (0.614) are moderately elevated, while energy (0.465) is
+also above the EU-27 mean.
+
+\begin{figure}[htbp]
+\centering
+\input{figures/F10_radar_IE}
+\caption{ISI axis profile: Ireland.  Composite ISI = 0.4280 (rank~3,
+  moderately concentrated).}
+\label{fig:radar-IE}
+\end{figure}
+
+\subsection{Netherlands (Rank 15, ISI = 0.3352)}
+
+The Netherlands exhibits the most polarised profile in the dataset.
+Its defence axis score (0.960) is the third-highest in the EU-27,
+while its financial (0.121), technology (0.125), and critical inputs
+(0.130) scores are among the lowest.  This extreme polarisation
+explains the Netherlands' high rank volatility under Dirichlet
+weight perturbation ($\sigma_{\text{rank}} = 3.07$).
+
+\begin{figure}[htbp]
+\centering
+\input{figures/F11_radar_NL}
+\caption{ISI axis profile: Netherlands.  Composite ISI = 0.3352
+  (rank~15, moderately concentrated).}
+\label{fig:radar-NL}
+\end{figure}
+
+\subsection{Germany (Rank 22, ISI = 0.2679)}
+
+Germany ranks 22nd, reflecting a broadly diversified dependence
+structure.  No axis exceeds 0.583 (defence), and both technology
+(0.098) and financial (0.102) are near the bottom of the EU-27
+distribution.  Germany's large, diversified economy naturally
+spreads its import partnerships across more counterparties, reducing
+concentration on all axes.
+
+\begin{figure}[htbp]
+\centering
+\input{figures/F12_radar_DE}
+\caption{ISI axis profile: Germany.  Composite ISI = 0.2679
+  (rank~22, moderately concentrated).}
+\label{fig:radar-DE}
+\end{figure}
+
+\subsection{Slovakia (Rank 26, ISI = 0.2364)}
+
+Slovakia is the only EU-27 country with a defence axis score of
+exactly zero, meaning its defence import concentration index is at
+the minimum possible value.  This reflects Slovakia's recent and
+rapid diversification of defence suppliers following the 2022
+geopolitical realignment.  Despite this, its energy (0.400) and
+logistics (0.486) scores are above the EU-27 median.
+
+\begin{figure}[htbp]
+\centering
+\input{figures/F13_radar_SK}
+\caption{ISI axis profile: Slovakia.  Composite ISI = 0.2364
+  (rank~26, mildly concentrated).  Note the zero defence-axis score.}
+\label{fig:radar-SK}
+\end{figure}
+
+\subsection{Finland (Rank 6, ISI = 0.4021)}
+
+Finland ranks sixth with an elevated critical-inputs axis (0.547,
+highest in the EU-27) and logistics (0.797).  Its defence score
+(0.390) is below the EU-27 mean, but the combined effect of high
+critical-inputs and logistics concentration places it in the upper
+tier.
+
+\begin{figure}[htbp]
+\centering
+\input{figures/F14_radar_FI}
+\caption{ISI axis profile: Finland.  Composite ISI = 0.4021
+  (rank~6, moderately concentrated).}
+\label{fig:radar-FI}
+\end{figure}
+
+\subsection{France (Rank 27, ISI = 0.2357)}
+
+France records the lowest composite ISI in the EU-27.  All six
+axis scores are below the respective EU-27 means: financial
+(0.100), energy (0.309), technology (0.120), defence (0.370),
+critical inputs (0.161), and logistics (0.353).  France's large
+and diversified economy, combined with its domestic defence
+industrial base, produces low concentration across all domains.
+
+\begin{figure}[htbp]
+\centering
+\input{figures/F15_radar_FR}
+\caption{ISI axis profile: France.  Composite ISI = 0.2357
+  (rank~27, mildly concentrated).}
+\label{fig:radar-FR}
+\end{figure}
+
+\subsection{Cross-profile comparison}
+
+\Cref{tab:profile-comparison} provides a compact numeric comparison
+of the eight profiled countries.
+
+\begin{table}[htbp]
+\centering
+\caption{Axis scores for the eight profiled countries.}
+\label{tab:profile-comparison}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}l
+  S[table-format=1.3]
+  S[table-format=1.3]
+  S[table-format=1.3]
+  S[table-format=1.3]
+  S[table-format=1.3]
+  S[table-format=1.3]
+  S[table-format=1.3]@{}}
+\toprule
+\textbf{Country} & {\textbf{ISI}} & {\textbf{Fin.}} & {\textbf{Ene.}}
+  & {\textbf{Tec.}} & {\textbf{Def.}} & {\textbf{Crit.}}
+  & {\textbf{Log.}} \\
+\midrule
+Malta        & 0.517 & 0.140 & 0.351 & 0.205 & 1.000 & 0.409 & 1.000 \\
+Cyprus       & 0.468 & 0.124 & 0.348 & 0.224 & 0.748 & 0.424 & 0.941 \\
+Ireland      & 0.428 & 0.147 & 0.465 & 0.587 & 0.449 & 0.307 & 0.614 \\
+Netherlands  & 0.335 & 0.121 & 0.320 & 0.125 & 0.960 & 0.130 & 0.355 \\
+Germany      & 0.268 & 0.102 & 0.329 & 0.098 & 0.583 & 0.223 & 0.273 \\
+Slovakia     & 0.236 & 0.162 & 0.400 & 0.216 & 0.000 & 0.155 & 0.486 \\
+Finland      & 0.402 & 0.118 & 0.363 & 0.198 & 0.390 & 0.547 & 0.797 \\
+France       & 0.236 & 0.100 & 0.309 & 0.120 & 0.370 & 0.161 & 0.353 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The profiles illustrate three archetypal patterns:
+\begin{enumerate}[leftmargin=2em]
+  \item \textbf{Small-island concentration} (Malta, Cyprus): high
+    across defence and logistics, moderate elsewhere.
+  \item \textbf{Sector-specific spike} (Ireland: technology;
+    Netherlands: defence): one axis sharply elevated, others
+    dispersed.
+  \item \textbf{Broad diversification} (Germany, France): all axes
+    near or below the EU-27 mean, reflecting large-economy effects.
+\end{enumerate}

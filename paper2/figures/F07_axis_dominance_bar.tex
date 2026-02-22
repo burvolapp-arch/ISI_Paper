@@ -1,0 +1,29 @@
+% F07: Axis dominance bar chart
+\begin{tikzpicture}
+\begin{axis}[
+  xbar,
+  width=0.80\textwidth,
+  height=0.40\textwidth,
+  xlabel={Number of countries (max axis)},
+  xmin=0, xmax=20,
+  ytick={1,2,3,4,5,6},
+  yticklabels={Financial, Energy, Technology, Defence, Crit.~Inputs, Logistics},
+  y tick label style={font=\small},
+  tick label style={font=\small},
+  label style={font=\small},
+  nodes near coords,
+  nodes near coords style={font=\small},
+  grid=major,
+  grid style={gray!30},
+  bar width=12pt,
+]
+\addplot[fill=blue!40, draw=blue!70] coordinates {
+  (0,1)
+  (0,2)
+  (0,3)
+  (16,4)
+  (0,5)
+  (11,6)
+};
+\end{axis}
+\end{tikzpicture}

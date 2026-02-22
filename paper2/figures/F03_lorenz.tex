@@ -1,0 +1,26 @@
+% F03: Lorenz curve of ISI composite scores
+\begin{tikzpicture}
+\begin{axis}[
+  width=0.65\textwidth,
+  height=0.65\textwidth,
+  xlabel={Cumulative share of countries},
+  ylabel={Cumulative share of ISI composite},
+  xmin=0, xmax=1,
+  ymin=0, ymax=1,
+  grid=major,
+  grid style={gray!30},
+  tick label style={font=\small},
+  label style={font=\small},
+  legend pos=north west,
+  legend style={font=\footnotesize},
+  axis equal image,
+]
+% 45-degree line of perfect equality
+\addplot[gray, dashed, thin] coordinates {(0,0) (1,1)};
+\addlegendentry{Perfect equality}
+% Lorenz curve from data
+\addplot[blue!70, thick] table[x index=0, y index=1]
+  {tables/lorenz_coords.dat};
+\addlegendentry{Lorenz curve (Gini = 0.1155)}
+\end{axis}
+\end{tikzpicture}

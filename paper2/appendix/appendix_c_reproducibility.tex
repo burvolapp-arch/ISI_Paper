@@ -1,0 +1,105 @@
+% =============================================================================
+% Appendix C: Reproducibility Protocol
+% =============================================================================
+\section{Reproducibility Protocol}\label{app:reproducibility}
+
+This appendix documents the complete procedure for reproducing all
+results presented in this paper.
+
+\subsection{Software requirements}
+
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Python} $\geq$ 3.10 (tested with 3.14.0).
+  \item \textbf{NumPy} $\geq$ 2.0 (tested with 2.2.6).
+    NumPy is the only external dependency.
+  \item \textbf{LaTeX} distribution with pdfLaTeX (tested with
+    TeX~Live 2024), including packages: \texttt{pgfplots} ($\geq$
+    1.18), \texttt{tikz}, \texttt{siunitx}, \texttt{longtable},
+    \texttt{booktabs}, \texttt{natbib}, \texttt{cleveref},
+    \texttt{threeparttable}, \texttt{pdflscape}, \texttt{adjustbox},
+    \texttt{subcaption}, \texttt{listings}, \texttt{xcolor}.
+\end{itemize}
+
+\subsection{Directory structure}
+
+The project is organised as follows:
+
+\begin{verbatim}
+paper2/
++-- main.tex                 % Master document
++-- references.bib           % Bibliography
++-- sections/
+|   +-- 00_executive_summary.tex
+|   +-- 01_introduction.tex
+|   +-- ...
+|   +-- 10_data_availability.tex
++-- tables/                  % Generated .tex table fragments
+|   +-- T06_axis_top_bottom.tex
+|   +-- T07_axis_dominance.tex
+|   +-- ...
+|   +-- radar_*.dat
++-- figures/                 % TikZ figure source files
+|   +-- F01_histogram.tex
+|   +-- ...
+|   +-- F15_radar_FR.tex
++-- appendix/
+|   +-- appendix_a_tables.tex
+|   +-- appendix_b_robustness.tex
+|   +-- appendix_c_reproducibility.tex
+|   +-- appendix_d_code.tex
++-- scripts/
+    +-- isi_results_paper2.py
+\end{verbatim}
+
+\subsection{Step-by-step reproduction}
+
+\begin{enumerate}[leftmargin=2em]
+  \item \textbf{Install Python and NumPy.}
+    \begin{verbatim}
+    python -m venv .venv
+    source .venv/bin/activate
+    pip install numpy
+    \end{verbatim}
+
+  \item \textbf{Run the computation script.}
+    \begin{verbatim}
+    cd paper2/scripts
+    python isi_results_paper2.py
+    \end{verbatim}
+    This generates all \texttt{.tex} table fragments and
+    \texttt{.dat} coordinate files in the \texttt{tables/} directory.
+    The script embeds the full ISI~v1.0 data snapshot and performs
+    all computations (LOO, z-score, Dirichlet MC, winsorization,
+    variance decomposition, Lorenz curve, ECDF, histograms, radar
+    coordinates).
+
+  \item \textbf{Compile the LaTeX document.}
+    \begin{verbatim}
+    cd paper2
+    pdflatex main.tex
+    bibtex main
+    pdflatex main.tex
+    pdflatex main.tex
+    \end{verbatim}
+    Three passes are required to resolve cross-references and the
+    bibliography.
+
+  \item \textbf{Verify.}  The final PDF should compile with
+    0~errors, 0~warnings (excluding font-related warnings), and
+    0~overfull boxes.
+\end{enumerate}
+
+\subsection{Random seed}
+
+The Dirichlet Monte Carlo exercise uses a fixed random seed
+(\texttt{np.random.seed(42)}) to ensure exact reproducibility of
+rank volatility statistics.  Changing the seed will produce
+quantitatively similar but not identical results.
+
+\subsection{Data integrity}
+
+The ISI~v1.0 data snapshot is embedded directly in the Python script
+(\texttt{isi\_results\_\allowbreak paper2.py}, lines 37--77) as a list of tuples.
+No external data files need to be downloaded or configured.  The
+embedded data constitutes the single authoritative source for all
+computations in this paper.

@@ -1,0 +1,78 @@
+% F04: Boxplots of the six ISI axes
+\begin{tikzpicture}
+\begin{axis}[
+  width=0.90\textwidth,
+  height=0.50\textwidth,
+  boxplot/draw direction=y,
+  ylabel={Axis score},
+  ymin=-0.05, ymax=1.10,
+  xtick={1,2,3,4,5,6},
+  xticklabels={Financial, Energy, Technology, Defence, Crit.~Inputs, Logistics},
+  x tick label style={font=\small, rotate=25, anchor=east},
+  tick label style={font=\small},
+  label style={font=\small},
+  grid=major,
+  grid style={gray!30},
+]
+% Financial: Q1=0.1217 Med=0.1400 Q3=0.1614 Lo=0.1004 Hi=0.2008 Out_hi=1 (0.2730)
+\addplot+[boxplot prepared={
+  lower whisker=0.1004,
+  lower quartile=0.1217,
+  median=0.1400,
+  upper quartile=0.1614,
+  upper whisker=0.2008},
+  fill=blue!20, draw=blue!60
+] coordinates {(1,0.2730)};
+
+% Energy: Q1=0.3320 Med=0.3513 Q3=0.3929 Lo=0.3019 Hi=0.4703 Out=0
+\addplot+[boxplot prepared={
+  lower whisker=0.3019,
+  lower quartile=0.3320,
+  median=0.3513,
+  upper quartile=0.3929,
+  upper whisker=0.4703},
+  fill=green!20, draw=green!60
+] coordinates {};
+
+% Technology: Q1=0.1510 Med=0.1979 Q3=0.2263 Lo=0.0976 Hi=0.2969 Out_hi=2 (0.3574, 0.5870)
+\addplot+[boxplot prepared={
+  lower whisker=0.0976,
+  lower quartile=0.1510,
+  median=0.1979,
+  upper quartile=0.2263,
+  upper whisker=0.2969},
+  fill=orange!20, draw=orange!60
+] coordinates {(3,0.3574) (3,0.5870)};
+
+% Defence: Q1=0.4180 Med=0.5515 Q3=0.7351 Lo=0.0000 Hi=1.0000 Out=0
+\addplot+[boxplot prepared={
+  lower whisker=0.0000,
+  lower quartile=0.4180,
+  median=0.5515,
+  upper quartile=0.7351,
+  upper whisker=1.0000},
+  fill=red!20, draw=red!60
+] coordinates {};
+
+% Critical Inputs: Q1=0.1597 Med=0.2220 Q3=0.3129 Lo=0.1124 Hi=0.5239 Out_hi=1 (0.5470)
+\addplot+[boxplot prepared={
+  lower whisker=0.1124,
+  lower quartile=0.1597,
+  median=0.2220,
+  upper quartile=0.3129,
+  upper whisker=0.5239},
+  fill=purple!20, draw=purple!60
+] coordinates {(5,0.5470)};
+
+% Logistics: Q1=0.3604 Med=0.4778 Q3=0.6162 Lo=0.2730 Hi=0.9411 Out_hi=1 (1.0000)
+\addplot+[boxplot prepared={
+  lower whisker=0.2730,
+  lower quartile=0.3604,
+  median=0.4778,
+  upper quartile=0.6162,
+  upper whisker=0.9411},
+  fill=cyan!20, draw=cyan!60
+] coordinates {(6,1.0000)};
+
+\end{axis}
+\end{tikzpicture}

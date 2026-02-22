@@ -1,0 +1,182 @@
+% =============================================================================
+% International Sovereignty Index (ISI) — Results Paper
+% EU-27, Vintage 2024, Methodology v1.0
+%
+% ISI Paper Series — Paper 2
+% International Sovereignty Institute — Research Unit
+% February 2026
+% =============================================================================
+\documentclass[12pt,a4paper]{article}
+
+% ── Encoding & Fonts ─────────────────────────────────────────────────────────
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{lmodern}
+
+% ── Page Layout ──────────────────────────────────────────────────────────────
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+\setlength{\parindent}{0pt}
+\usepackage{parskip}
+\usepackage{microtype}
+
+% ── Mathematics ──────────────────────────────────────────────────────────────
+\usepackage{amsmath,amssymb}
+
+% ── Tables ───────────────────────────────────────────────────────────────────
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{threeparttable}
+\usepackage{multirow}
+\usepackage{siunitx}
+\sisetup{
+  round-mode = places,
+  round-precision = 8,
+  group-separator = {},
+  table-format = 1.8,
+}
+\usepackage{adjustbox}
+\usepackage{pdflscape}
+
+% ── Figures & Graphics ───────────────────────────────────────────────────────
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[table]{xcolor}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{statistics}
+\usetikzlibrary{calc,positioning,shapes.geometric}
+
+% ── Cross-references & Hyperlinks ────────────────────────────────────────────
+\usepackage[
+  colorlinks=true,
+  linkcolor={blue!60!black},
+  citecolor={blue!60!black},
+  urlcolor={blue!60!black}
+]{hyperref}
+\usepackage[capitalise,noabbrev]{cleveref}
+
+% ── Bibliography ─────────────────────────────────────────────────────────────
+\usepackage[numbers,sort&compress]{natbib}
+\bibliographystyle{unsrtnat}
+
+% ── Miscellaneous ────────────────────────────────────────────────────────────
+\usepackage{enumitem}
+\usepackage{listings}
+\hfuzz=6pt  % suppress trivial overfull hbox warnings from siunitx tables
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  breaklines=true,
+  frame=single,
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  language=Python,
+  keywordstyle=\color{blue!70!black},
+  commentstyle=\color{green!50!black},
+  stringstyle=\color{red!60!black},
+}
+
+% ── Custom Commands ──────────────────────────────────────────────────────────
+\newcommand{\ISI}{\textsc{isi}}
+\newcommand{\Axis}[1]{Axis~#1}
+\newcommand{\country}[1]{\textit{#1}}
+
+% ── Document ─────────────────────────────────────────────────────────────────
+\begin{document}
+
+% ---------- Title Page ----------
+\begin{titlepage}
+\centering
+\vspace*{3cm}
+{\Large\textsc{ISI Paper Series --- Paper 2}}\\[1.5cm]
+{\LARGE\bfseries Empirical Results and Distributional Structure\\
+of the International Sovereignty Index (ISI)\\[0.5cm]
+EU-27, Vintage 2024, Methodology v1.0}\\[2cm]
+{\large International Sovereignty Institute --- Research Unit}\\[1cm]
+{\large February 2026}\\[3cm]
+\begin{abstract}
+\noindent
+This paper reports the first empirical application of the International
+Sovereignty Index (ISI) to the 27~member states of the European Union
+using vintage-2024 data under methodology v1.0.  The ISI composite,
+defined as the unweighted arithmetic mean of six normalised axes
+(financial, energy, technology, defence, critical inputs, logistics),
+ranges from \num{0.23567126} (France, rank~27) to \num{0.51748148}
+(Malta, rank~1) with a population mean of \num{0.34439144} and
+population standard deviation of \num{0.06992188}.  One country is
+classified as \emph{highly concentrated}, 23~as \emph{moderately
+concentrated}, and three as \emph{mildly concentrated}.
+A variance decomposition shows that defence (35.1\%) and logistics
+(34.3\%) together account for 69.4\% of cross-country composite
+variance.  Leave-one-axis-out analysis confirms that removing the
+defence axis produces the largest rank disruption (Spearman $\rho =
+0.833$).  Dirichlet weight perturbation (10\,000 draws, $\alpha_j=10$)
+yields a mean rank-order correlation of $\rho = 0.979$, with the
+Netherlands exhibiting the highest rank volatility ($\sigma = 3.07$).
+Z-score standardisation produces $\rho = 0.896$ against the baseline,
+indicating moderate sensitivity to implicit axis scaling.
+Winsorisation of the two highest-variance axes at the 95th percentile
+preserves the full rank order ($\rho = 1.000$).  The paper provides
+radar profiles for eight selected countries, full axis-level rankings,
+and a complete reproducibility protocol.
+\end{abstract}
+\vfill
+\noindent\textbf{JEL codes:} F02, F15, F52, O30, Q43
+\quad\textit{[to confirm]}\\[0.3cm]
+\noindent\textbf{Keywords:} sovereignty index, EU-27, concentration measurement,
+composite indicator, supply-chain dependence, defence dependence
+\end{titlepage}
+
+% ---------- Table of Contents ----------
+\newpage
+\tableofcontents
+\newpage
+
+% ---------- Executive Summary ----------
+\input{sections/00_executive_summary}
+\newpage
+
+% ---------- Main Sections ----------
+\input{sections/01_introduction}
+\newpage
+\input{sections/02_data_construction}
+\newpage
+\input{sections/03_composite_results}
+\newpage
+\input{sections/04_axis_diagnostics}
+\newpage
+\input{sections/05_cross_axis_structure}
+\newpage
+\input{sections/06_robustness}
+\newpage
+\input{sections/07_country_profiles}
+\newpage
+\input{sections/08_discussion}
+\newpage
+\input{sections/09_conclusion}
+
+% ---------- Data Availability ----------
+\newpage
+\input{sections/10_data_availability}
+
+% ---------- References ----------
+\newpage
+\bibliography{references}
+
+% ---------- Appendices ----------
+\newpage
+\appendix
+\input{appendix/appendix_a_tables}
+\newpage
+\input{appendix/appendix_b_robustness}
+\newpage
+\input{appendix/appendix_c_reproducibility}
+\newpage
+\input{appendix/appendix_d_code}
+
+\end{document}

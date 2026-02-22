@@ -1,0 +1,24 @@
+% F02: ECDF of ISI composite scores
+\begin{tikzpicture}
+\begin{axis}[
+  width=0.85\textwidth,
+  height=0.50\textwidth,
+  xlabel={ISI composite score},
+  ylabel={Cumulative proportion},
+  xmin=0.22, xmax=0.54,
+  ymin=0, ymax=1.05,
+  grid=major,
+  grid style={gray!30},
+  tick label style={font=\small},
+  label style={font=\small},
+  legend pos=south east,
+  legend style={font=\footnotesize},
+]
+\addplot[blue!70, thick, const plot mark right] table[x index=0, y index=1]
+  {tables/ecdf_coords.dat};
+\addlegendentry{Empirical CDF}
+% Reference line at mean
+\draw[red, dashed, thin] (axis cs:0.33815860,0) -- (axis cs:0.33815860,1.05);
+\node[red, font=\tiny, anchor=south west] at (axis cs:0.34,0.5) {Mean};
+\end{axis}
+\end{tikzpicture}

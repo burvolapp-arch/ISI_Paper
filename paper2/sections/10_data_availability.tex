@@ -1,0 +1,38 @@
+% =============================================================================
+% Section 10: Data Availability
+% =============================================================================
+\section{Data Availability Statement}\label{sec:data-availability}
+
+The ISI~v1.0 dataset used in this paper is available on request from
+the corresponding author.  All axis-level scores, composite scores,
+and country classifications are reproduced in full in the tables of
+this paper and its appendices.
+
+The computation script (\texttt{isi\_results\_paper2.py}) that
+generates all derived tables, robustness statistics, and coordinate
+files for figures is included in \cref{app:code}.  The script embeds
+the complete authoritative data snapshot and has no dependencies
+beyond NumPy~$\geq$~2.0.
+
+The underlying source data for each axis is drawn from the following
+publicly available databases:
+
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Financial axis:} BIS Locational Banking Statistics
+    (\cite{bis_lbs}); IMF Coordinated Portfolio Investment Survey
+    (\cite{imf_cpis}).
+  \item \textbf{Energy axis:} IEA World Energy Statistics
+    (\cite{iea_wes}).
+  \item \textbf{Technology axis:} UN Comtrade (\cite{uncomtrade}).
+  \item \textbf{Defence axis:} SIPRI Arms Transfers Database
+    (\cite{sipri_transfers}).
+  \item \textbf{Critical inputs axis:} Eurostat Comext
+    (\cite{eurostat_comext}); European Commission Critical Raw
+    Materials assessment (\cite{ec_critical_raw}).
+  \item \textbf{Logistics axis:} Eurostat Comext
+    (\cite{eurostat_comext}).
+\end{itemize}
+
+\noindent Specific access procedures, vintages, and extraction
+parameters for each source are documented in the ISI methodology
+paper (\cite{isi_paper1}).

@@ -1,0 +1,216 @@
+% =============================================================================
+% Section 3: Composite Results
+% =============================================================================
+\section{Composite Results: Distribution, Ranking, and Tier
+  Compression}\label{sec:composite-results}
+
+\subsection{Summary statistics}
+
+\Cref{tab:summary-stats} reports the distributional summary of the
+ISI composite across the 27~EU member states.
+
+\begin{table}[htbp]
+\centering
+\caption{ISI composite: summary statistics, EU-27, 2024.}
+\label{tab:summary-stats}
+\begin{tabular}{@{}lS[table-format=1.8]@{}}
+\toprule
+\textbf{Statistic} & {\textbf{Value}} \\
+\midrule
+$N$                         & 27 \\
+Minimum                     & 0.23567126 \\
+Maximum                     & 0.51748148 \\
+Range                       & 0.28181022 \\
+Mean                        & 0.34439144 \\
+Median (P50)                & 0.34027984 \\
+Std.\ dev.\ (pop.)         & 0.06992188 \\
+Std.\ dev.\ (sample)       & 0.07125384 \\
+Coeff.\ of variation (pop.) & 0.20303651 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The composite mean (\num{0.34439144}) slightly exceeds the median
+(\num{0.34027984}), indicating a mild positive skew driven by Malta's
+outlying score of \num{0.51748148}.  The coefficient of variation
+(0.203) is relatively low, suggesting that the composite scores are
+compressed relative to the full unit-interval range.
+
+\subsection{Percentiles}
+
+\begin{table}[htbp]
+\centering
+\caption{ISI composite: selected percentiles.}
+\label{tab:percentiles}
+\begin{tabular}{@{}lS[table-format=1.8]@{}}
+\toprule
+\textbf{Percentile} & {\textbf{Value}} \\
+\midrule
+P10  & 0.25534441 \\
+P25  & 0.29179051 \\
+P50  & 0.34027984 \\
+P75  & 0.39060669 \\
+P90  & 0.42586650 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The interquartile range (IQR = P75 $-$ P25 = \num{0.09881618})
+spans approximately 9.9 percentage points of the unit interval.
+The P10--P90 range is \num{0.17052209}, indicating that the central
+80\% of the distribution occupies roughly 17 percentage points.
+
+\subsection{Composite distribution}\label{sec:composite-distribution}
+
+\Cref{fig:histogram} presents a histogram of the composite scores.
+The distribution is unimodal with its mode in the 0.30--0.35 bin.
+A visible right tail is produced by Malta and Cyprus.
+
+\begin{figure}[htbp]
+\centering
+\input{figures/F01_histogram}
+\caption{Histogram of ISI composite scores, EU-27, 2024.  Bin width
+  = 0.05.  The dashed vertical line marks the population mean
+  (\num{0.34439144}).}
+\label{fig:histogram}
+\end{figure}
+
+\Cref{fig:ecdf} shows the empirical cumulative distribution function
+(ECDF), which rises steeply between 0.26 and 0.42 and flattens at
+the tails, confirming the compressed mid-range clustering.
+
+\begin{figure}[htbp]
+\centering
+\input{figures/F02_ecdf}
+\caption{Empirical cumulative distribution function (ECDF) of ISI
+  composite scores, EU-27, 2024.}
+\label{fig:ecdf}
+\end{figure}
+
+\subsection{Lorenz curve and Gini coefficient}
+
+To further characterise the distribution, \cref{fig:lorenz} plots
+the Lorenz curve of the composite scores (countries ordered from
+lowest to highest ISI, cumulative share of total ISI on the vertical
+axis).  The Gini coefficient is 0.1155, indicating a relatively
+egalitarian distribution of composite scores across countries.  This
+is consistent with the tier compression observed above.
+
+\begin{figure}[htbp]
+\centering
+\input{figures/F03_lorenz}
+\caption{Lorenz curve of ISI composite scores, EU-27, 2024.
+  Gini coefficient $= 0.1155$.  The diagonal represents perfect
+  equality.}
+\label{fig:lorenz}
+\end{figure}
+
+\subsection{Full ranking}\label{sec:ranking}
+
+\Cref{tab:ranking} presents the complete ranking of all 27~EU member
+states.  Countries are ordered by descending composite score (rank~1
+= most concentrated).
+
+{\footnotesize
+\setlength{\tabcolsep}{1pt}
+\begin{longtable}{@{}r l S[table-format=1.8] S[table-format=1.8]
+  S[table-format=1.8] S[table-format=1.8] S[table-format=1.8]
+  S[table-format=1.8] S[table-format=1.8] l@{}}
+  \caption{ISI composite and axis-level scores, EU-27, 2024.  Rank~1
+    = most concentrated.}%
+  \label{tab:ranking} \\
+  \toprule
+  {\textbf{Rk}} & {\textbf{Country}} & {\textbf{Comp.}}
+    & {\textbf{Fin.}} & {\textbf{Ene.}} & {\textbf{Tech.}}
+    & {\textbf{Def.}} & {\textbf{Crit.}} & {\textbf{Log.}}
+    & {\textbf{Class.}} \\
+  \midrule
+  \endfirsthead
+  \caption[]{ISI composite and axis-level scores (continued).} \\
+  \toprule
+  {\textbf{Rk}} & {\textbf{Country}} & {\textbf{Comp.}}
+    & {\textbf{Fin.}} & {\textbf{Ene.}} & {\textbf{Tech.}}
+    & {\textbf{Def.}} & {\textbf{Crit.}} & {\textbf{Log.}}
+    & {\textbf{Class.}} \\
+  \midrule
+  \endhead
+  \midrule
+  \multicolumn{10}{r@{}}{\scriptsize\itshape Continued on next page} \\
+  \endfoot
+  \bottomrule
+  \endlastfoot
+  1  & Malta        & 0.51748148 & 0.13998786 & 0.35068126 & 0.20546991 & 1.00000000 & 0.40874987 & 1.00000000 & high.     \\
+  2  & Cyprus       & 0.46821264 & 0.12407171 & 0.34768252 & 0.22438354 & 0.74847998 & 0.42359750 & 0.94106062 & mod.      \\
+  3  & Ireland      & 0.42802519 & 0.14666620 & 0.46472525 & 0.58695939 & 0.44887460 & 0.30719544 & 0.61373023 & mod.      \\
+  4  & Denmark      & 0.42442738 & 0.12401663 & 0.47029821 & 0.14995928 & 0.72368274 & 0.43629935 & 0.64230809 & mod.      \\
+  5  & Croatia      & 0.40434768 & 0.27299265 & 0.35125471 & 0.17343982 & 0.74648317 & 0.52392772 & 0.35798800 & mod.      \\
+  6  & Finland      & 0.40205136 & 0.11775073 & 0.36268783 & 0.19789321 & 0.38964518 & 0.54699996 & 0.79733123 & mod.      \\
+  7  & Sweden       & 0.39871532 & 0.11646504 & 0.32721403 & 0.11982797 & 0.88107943 & 0.19257891 & 0.75512656 & mod.      \\
+  8  & Austria      & 0.38249806 & 0.14903467 & 0.45581191 & 0.26057910 & 0.58506379 & 0.31857781 & 0.52592111 & mod.      \\
+  9  & Italy        & 0.37386086 & 0.18753526 & 0.30781423 & 0.14103384 & 0.92057651 & 0.20839534 & 0.47781001 & mod.      \\
+  10 & Slovenia     & 0.36979186 & 0.11917574 & 0.40540014 & 0.35739912 & 0.66661871 & 0.22301125 & 0.44714621 & mod.      \\
+  11 & Greece       & 0.36537350 & 0.20078311 & 0.33541623 & 0.16272142 & 0.55148593 & 0.22200621 & 0.71982808 & mod.      \\
+  12 & Luxembourg   & 0.36016893 & 0.11462818 & 0.35980871 & 0.20019721 & 0.64483831 & 0.22295831 & 0.61858285 & mod.      \\
+  13 & Estonia      & 0.34332177 & 0.18172493 & 0.43935251 & 0.22713142 & 0.35561474 & 0.38622776 & 0.46987927 & mod.      \\
+  14 & Bulgaria     & 0.34027984 & 0.16052965 & 0.35711773 & 0.15204272 & 0.86064518 & 0.14843767 & 0.36290606 & mod.      \\
+  15 & Netherlands  & 0.33515702 & 0.12107826 & 0.31992851 & 0.12527375 & 0.95955396 & 0.13018835 & 0.35491930 & mod.      \\
+  16 & Hungary      & 0.32966227 & 0.12222969 & 0.38580312 & 0.22538122 & 0.54471981 & 0.23405214 & 0.46578765 & mod.      \\
+  17 & Portugal     & 0.32173430 & 0.18303606 & 0.34860414 & 0.19766062 & 0.43376254 & 0.25955617 & 0.50778629 & mod.      \\
+  18 & Romania      & 0.31864192 & 0.20033340 & 0.40546401 & 0.29691153 & 0.56353195 & 0.15814280 & 0.28746783 & mod.      \\
+  19 & Czechia      & 0.31796630 & 0.16116762 & 0.38082003 & 0.18242269 & 0.48413737 & 0.16976911 & 0.52948100 & mod.      \\
+  20 & Poland       & 0.29561321 & 0.13314812 & 0.33487780 & 0.20845359 & 0.44326493 & 0.16532767 & 0.48860717 & mod.      \\
+  21 & Belgium      & 0.28796781 & 0.15348744 & 0.30789144 & 0.29454573 & 0.44734854 & 0.17248330 & 0.35205038 & mod.      \\
+  22 & Germany      & 0.26788694 & 0.10186464 & 0.32908790 & 0.09762824 & 0.58266751 & 0.22312039 & 0.27295297 & mod.      \\
+  23 & Lithuania    & 0.26540520 & 0.13349636 & 0.33747627 & 0.24172279 & 0.40227798 & 0.13056067 & 0.34689716 & mod.      \\
+  24 & Spain        & 0.26093977 & 0.14554195 & 0.30187479 & 0.19263249 & 0.38088569 & 0.11235234 & 0.43235135 & mod.      \\
+  25 & Latvia       & 0.24695137 & 0.12316988 & 0.36522282 & 0.13309607 & 0.34079636 & 0.15120012 & 0.36822299 & mild      \\
+  26 & Slovakia     & 0.23641567 & 0.16163673 & 0.39995460 & 0.21649186 & 0.00000000 & 0.15490434 & 0.48550648 & mild      \\
+  27 & France       & 0.23567126 & 0.10039135 & 0.30911838 & 0.12001059 & 0.37034617 & 0.16122463 & 0.35293643 & mild      \\
+\end{longtable}
+}
+
+\subsection{Tier-compression analysis}
+
+The classification distribution is highly compressed: 85.2\% of
+countries fall in the moderately concentrated tier.  To quantify the
+within-tier dispersion, \cref{tab:tier-compression} reports summary
+statistics for each occupied tier.
+
+\begin{table}[htbp]
+\centering
+\caption{Within-tier composite statistics.}
+\label{tab:tier-compression}
+\begin{tabular}{@{}lrS[table-format=1.8]S[table-format=1.8]S[table-format=1.8]S[table-format=1.8]@{}}
+\toprule
+\textbf{Tier} & {$n$} & {\textbf{Min}} & {\textbf{Max}} & {\textbf{Mean}}
+  & {\textbf{Std (pop.)}} \\
+\midrule
+Highly concentrated & 1 & 0.51748148 & 0.51748148 & 0.51748148 & 0.00000000 \\
+Moderately conc.    & 23 & 0.26093977 & 0.46821264 & 0.35327637 & 0.05339393 \\
+Mildly concentrated & 3  & 0.23567126 & 0.24695137 & 0.24301277 & 0.00504709 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Within the moderately concentrated tier, the range spans
+\num{0.20727287} (from Spain at \num{0.26093977} to Cyprus at
+\num{0.46821264}).  This wide within-tier range suggests that the
+four-tier classification groups countries with meaningfully different
+concentration profiles into the same category.  The tier structure is
+informative at the extremes (Malta stands alone; the three mildly
+concentrated countries cluster tightly) but provides limited
+discriminatory power in the middle of the distribution.
+
+\Cref{fig:rank-scatter} visualises the relationship between rank and
+composite score, with horizontal colour bands indicating the tier
+boundaries.
+
+\begin{figure}[htbp]
+\centering
+\input{figures/F06_rank_scatter}
+\caption{Rank vs.\ ISI composite score with tier colour banding.
+  The vertical axis shows the composite; horizontal position is
+  the rank.  Colour bands: red ($\geq 0.50$, highly concentrated),
+  amber ($[0.25, 0.50)$, moderately), green ($[0.15, 0.25)$, mildly).}
+\label{fig:rank-scatter}
+\end{figure}
