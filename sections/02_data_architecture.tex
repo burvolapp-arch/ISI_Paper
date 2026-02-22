@@ -19,11 +19,11 @@ more thematic axes.  \Cref{tab:source-registry} summarises the registry.
     2\,---\,Energy      & Eurostat \texttt{nrg\_ti\_*}
       & Fuel, partner, annual     & 2024 \\
     3\,---\,Tech./Semi. & Eurostat Comext ds-045409
-      & CN8, bilateral, annual    & 2023--2024 \\
+      & CN8, bilateral, annual    & 2022--2024 \\
     4\,---\,Defence     & SIPRI ATD (TIV)
       & System, bilateral, annual & 2019--2024 \\
     5\,---\,Crit.\ Inputs & Eurostat Comext CN8
-      & CN8, bilateral, annual    & 2023--2024 \\
+      & CN8, bilateral, annual    & 2022--2024 \\
     6\,---\,Logistics   & Eurostat transport stats
       & Mode, partner, annual     & 2022--2024 \\
     \bottomrule
@@ -33,11 +33,10 @@ more thematic axes.  \Cref{tab:source-registry} summarises the registry.
 \subsection{Coverage}\label{sec:data:coverage}
 
 The unit of observation is the country--year pair \((i, t)\).  The reference
-population for \ISI v\,1.0 is the EU-27.  The architecture is international by
-design: the computation pipeline, integrity chain, and classification logic are
-country-set agnostic.  Extension to non-EU countries requires source-level data
-availability, harmonisation, and integrity validation for each additional
-jurisdiction.
+population for \ISI v\,1.0 is the EU-27.  The computation pipeline, integrity
+chain, and classification logic are country-set agnostic.  Extension to non-EU
+countries is conditional on source-level data availability, cross-source
+harmonisation, and integrity validation for each additional jurisdiction.
 
 For a given vintage year~\(t\), a country~\(i\) is included in the published
 snapshot if and only if at least four of the six axes yield a computable
@@ -91,7 +90,7 @@ Data ingestion follows a four-stage pipeline:
 
 \subsection{Quality Controls}\label{sec:data:quality}
 
-Three quality controls apply at the axis level:
+Two quality controls apply at the axis level:
 
 \begin{description}[style=nextline]
   \item[Temporal gap detection.]
@@ -99,10 +98,6 @@ Three quality controls apply at the axis level:
     predates the snapshot vintage year~\(t\) by more than two years, the axis
     score is computed from the latest available year and warning
     code~\texttt{W-LAG} is attached.
-  \item[Partner-set completeness.]
-    If the share vector for axis~\(a\) and country~\(i\) covers fewer than
-    \SI{90}{\percent} of the total reported flow (due to missing partner
-    disaggregation), warning code~\texttt{W-PAR} is attached.
   \item[Channel fallback basis.]
     Where an axis defines two channels but only one is computable for a given
     country, the axis score reverts to the surviving channel.  The fallback

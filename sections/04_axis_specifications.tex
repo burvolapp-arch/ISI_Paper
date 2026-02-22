@@ -61,10 +61,10 @@ Eurostat energy tables (\texttt{nrg\_ti\_*}).  Annual frequency.  Scope:
 natural gas, crude oil, and solid fossil fuels.
 
 \paragraph{Aggregation variant.}
-Axis~2 does \emph{not} use a two-channel decomposition.  Instead, a
-per-fuel \HHI is computed for each fossil-fuel category, and the axis
-score is the arithmetic average across fuels with non-zero imports
-(\cref{eq:fuel-avg}):
+Axis~2 does \emph{not} use a two-channel decomposition.  It produces a single
+score via fuel averaging.  A per-fuel \HHI is computed for each fossil-fuel
+category with non-zero imports, and the axis score is the arithmetic average
+across those fuels (\cref{eq:fuel-avg}):
 %
 \[
   M_i^{(2)}
@@ -78,10 +78,11 @@ where \(\mathcal{F}_i \subseteq \{\text{gas},\, \text{oil},\,
 country~\(i\) has non-zero imports.
 
 \paragraph{Boundary conditions.}
-Countries with zero fossil-fuel imports across all three categories
-receive axis score null and are flagged \texttt{W-ZER}.  Countries with
-imports in only one or two categories are scored over the available
-fuels (denominator adjusts automatically).
+If a country records zero fossil-fuel imports across all three categories,
+the axis score is null and flagged \texttt{W-ZER}; the country is then
+subject to the missing-axis coverage rule (\cref{sec:agg:missing}).  If
+imports exist for only one or two fuel categories, the denominator
+\(|\mathcal{F}_i|\) adjusts to the number of non-zero categories.
 
 % =========================================================================
 \subsection{Axis~3: Technology and Semiconductor Dependency}%
@@ -132,6 +133,10 @@ transfers of different weapons systems.
 Defence transfers are lumpy.  To mitigate year-to-year volatility, a
 \textbf{six-year} rolling window is applied: share vectors are computed
 from the sum of TIV flows over years \(2019\)--\(2024\) for v\,1.0.
+The six-year aggregation window is a fixed parameter of the v\,1.0
+methodology definition.  Shortening or extending the window constitutes
+a major-version change under the governance protocol
+(\cref{sec:governance}).
 
 \paragraph{Channel decomposition.}
 \begin{itemize}

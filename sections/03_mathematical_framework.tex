@@ -144,7 +144,8 @@ The rounded composite score is mapped to a four-tier ordinal classification:
 
 The threshold values are adapted from the US Department of Justice \HHI
 guidelines for market concentration \parencite{doj2023merger}, rescaled to
-the unit interval.  They are defined in the methodology registry and enforced
-by a single classification function (\texttt{methodology.py}).  The thresholds
-are fixed parameters of \ISI v\,1.0 and may only be revised through the
-governance protocol specified in \cref{sec:governance}.
+the unit interval.  They are defined in \texttt{registry.json} and enforced
+by a single classification function in \texttt{methodology.py}.  The
+thresholds are fixed parameters of \ISI v\,1.0.  Any modification to the
+threshold values constitutes a major-version increment under the governance
+protocol (\cref{sec:governance}).

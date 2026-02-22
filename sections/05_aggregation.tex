@@ -50,6 +50,13 @@ where \(\mathcal{A}_i \subseteq \{1, \ldots, 6\}\) is the set of computable
 axes for country~\(i\).  If \(|\mathcal{A}_i| < 4\), the country is excluded
 from the ranked output and flagged \texttt{W-COV}.
 
+\paragraph{v\,1.0 status.}
+In the \ISI v\,1.0 snapshot (EU-27, vintage~2024), all six axes are computable
+for all 27~countries.  The denominator in \cref{eq:composite} is therefore
+fixed at~6 for every country in the published output.  The fallback rule
+defined above is not triggered in v\,1.0 but remains part of the versioned
+methodology specification.
+
 \subsection{Ranking Methodology}\label{sec:agg:ranking}
 
 Countries are ranked in descending order of the composite score.  Ties are

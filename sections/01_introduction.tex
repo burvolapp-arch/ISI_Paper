@@ -16,9 +16,10 @@ composite score on the unit interval \([0,1]\) and a categorical
 classification.  Higher values denote greater concentration and, by
 implication, greater structural exposure to partner-specific disruption.
 
-\ISI v\,1.0 is materialised for the EU-27.  The architecture is international
-by design and extensible to global coverage pending data harmonisation and
-integrity validation across additional statistical sources.
+\ISI v\,1.0 covers the EU-27.  The computation pipeline, integrity chain,
+and classification logic are country-set agnostic.  Extension to non-EU
+countries is conditional on source-level data availability, cross-source
+harmonisation, and integrity validation for each additional jurisdiction.
 
 \subsection{Context}\label{sec:intro:context}
 
@@ -27,13 +28,9 @@ Existing composite indicators in the sovereignty-adjacent space---the
 \textcite{unctad2023productive} Productive Capacities Index, and the
 EU~Global Gateway scorecards---measure either \emph{openness} or
 \emph{capacity}.  None directly measures \emph{concentration} of external
-dependence.  The analytical gap is consequential: a highly open economy with
-diversified partners faces a qualitatively different risk profile from one
-whose openness is channelled through a single counterparty.
-
-The \ISI addresses this gap.  It is not a substitute for openness or capacity
-indicators; it is a complement that captures the structural geometry of
-dependence.
+dependence.  The \ISI occupies a distinct methodological position: it
+quantifies the structural geometry of dependence, complementing---not
+substituting---openness and capacity measures.
 
 \subsection{Design Principles}\label{sec:intro:principles}
 
@@ -49,7 +46,7 @@ Five principles constrain the index architecture:
     and digital signatures) accompany every published snapshot, enabling
     verification without access to the original computation environment.
   \item \textbf{Parsimony.}  The index uses exactly one concentration
-    measure---the Herfindahl--Hirschman Index---applied uniformly across all
+    measure, the Herfindahl--Hirschman Index, applied uniformly across all
     axes.  No axis receives preferential weighting in the composite.
   \item \textbf{Conservatism.}  Where methodological choices are ambiguous,
     the index defaults to the option that is simpler, more established, and

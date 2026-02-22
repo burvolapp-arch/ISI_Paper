@@ -47,8 +47,9 @@ The country-level hash is:
 \]
 
 The exact serialisation format (field separators, encoding) is defined in
-the backend module \texttt{snapshot\_integrity.py} and is kept stable within
-a major version.
+the backend module \texttt{snapshot\_integrity.py} and is frozen under
+major version~1.x.  Any change to the serialisation order or encoding
+constitutes a major-version increment.
 
 \subsection{Snapshot Hash}\label{sec:integrity:snapshot}
 
