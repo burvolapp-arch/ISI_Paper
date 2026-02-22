@@ -7,11 +7,19 @@
 % =============================================================================
 \documentclass[12pt,a4paper]{article}
 
+\emergencystretch=2em
+
 % --- Preamble (order matters) ------------------------------------------------
 \input{preamble/packages}      % Package loading
 \input{preamble/formatting}    % Page layout, fonts, headings, captions
 \input{preamble/macros}        % Project macros, helpers, colours
 \input{preamble/metadata}      % Title, authors, date, PDF metadata
+% --- Hyperref PDF string sanitization (eliminate bookmark warnings) ------
+\pdfstringdefDisableCommands{%
+  \def\kern#1{}%
+  \def\leavevmode{}%
+  \def\leavevmode@ifvmode{}%
+}
 
 % --- Graphics Path -----------------------------------------------------------
 \graphicspath{{figures/}}

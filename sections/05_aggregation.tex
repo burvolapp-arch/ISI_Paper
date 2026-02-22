@@ -24,10 +24,13 @@ sequential stages:
     (\cref{eq:composite}).
   \item \textbf{Rounding.}  All published scores---axis-level and
     composite---are rounded to eight decimal places
-    (\texttt{ROUND\_PRECISION\,=\,8}, round-half-to-even).
+    (\texttt{ROUND\_PRECISION\,=\,8}, round-half-to-even).  Rounding is
+    applied before classification (step~6) and before hashing
+    (\cref{sec:integrity:country}).  Classification operates exclusively
+    on rounded values.
   \item \textbf{Classification.}  The rounded composite is mapped to one of
-    four ordinal tiers (\cref{tab:thresholds}) by the single classification
-    function in \texttt{methodology.py}.
+    four ordinal tiers (\cref{tab:thresholds}) by a single classification
+    function in the classification module.
 \end{enumerate}
 
 No step in this pipeline involves discretionary judgement.  Given identical

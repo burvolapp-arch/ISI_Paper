@@ -2,8 +2,8 @@
 \section{Mathematical Framework}\label{sec:math-framework}
 
 This section defines the core formulae that transform raw bilateral flow data
-into normalised concentration scores.  All notation introduced here applies
-throughout the remainder of the document.
+into concentration scores on the unit interval.  All notation introduced here
+applies throughout the remainder of the document.
 
 \subsection{Notation}\label{sec:math:notation}
 
@@ -142,10 +142,12 @@ The rounded composite score is mapped to a four-tier ordinal classification:
   \end{tabular}
 \end{table}
 
-The threshold values are adapted from the US Department of Justice \HHI
-guidelines for market concentration \parencite{doj2023merger}, rescaled to
-the unit interval.  They are defined in \texttt{registry.json} and enforced
-by a single classification function in \texttt{methodology.py}.  The
-thresholds are fixed parameters of \ISI v\,1.0.  Any modification to the
+The threshold values represent a proportional transposition of the
+US~Department of Justice / FTC Horizontal Merger Guidelines \HHI bands
+\parencite{doj2023merger} to the fractional scale, with an additional tier
+boundary at~\num{0.15} introduced to separate mildly concentrated from
+unconcentrated states.  They are defined in the version-controlled methodology
+registry and enforced by a single classification function in the classification
+module.  The thresholds are fixed parameters of \ISI v\,1.0.  Any modification to the
 threshold values constitutes a major-version increment under the governance
 protocol (\cref{sec:governance}).

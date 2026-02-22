@@ -102,7 +102,9 @@ Two quality controls apply at the axis level:
     Where an axis defines two channels but only one is computable for a given
     country, the axis score reverts to the surviving channel.  The fallback
     basis (\texttt{BOTH}, \texttt{A\_ONLY}, \texttt{B\_ONLY}, \texttt{NONE})
-    is recorded in the output metadata.
+    is recorded in the output metadata per country--axis pair and is included
+    in the country-level hash of the integrity chain
+    (\cref{sec:integrity:country}).
 \end{description}
 
 Warning codes are propagated to the published output but do not alter the

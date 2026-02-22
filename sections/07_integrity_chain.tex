@@ -38,6 +38,8 @@ fixed order:
   \item Weight vector (the axis weights used; \(\tfrac{1}{6}\) for all six
     axes in v\,1.0).
   \item Classification thresholds (the four boundary values).
+  \item Fallback-basis vector (one entry per axis: \texttt{BOTH},
+    \texttt{A\_ONLY}, \texttt{B\_ONLY}, or \texttt{NONE}).
 \end{enumerate}
 
 The country-level hash is:
@@ -47,7 +49,7 @@ The country-level hash is:
 \]
 
 The exact serialisation format (field separators, encoding) is defined in
-the backend module \texttt{snapshot\_integrity.py} and is frozen under
+the integrity serialisation module of the backend and is frozen under
 major version~1.x.  Any change to the serialisation order or encoding
 constitutes a major-version increment.
 
@@ -100,8 +102,8 @@ A consumer verifying snapshot~\(t\) performs the following steps:
 
 \begin{enumerate}
   \item Recompute each country hash~\(h_i\) from the published score record
-    using the canonical serialisation defined in
-    \texttt{snapshot\_integrity.py}.
+    using the canonical serialisation defined in the integrity serialisation
+    module.
   \item Concatenate country hashes in lexicographic order and compute
     \(H_t'\).
   \item Verify that \(H_t' = H_t\) (the published snapshot hash in
