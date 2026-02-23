@@ -30,12 +30,12 @@ Coeff.\ of variation (pop.) & 0.2030 \\
 \end{tabular}
 \end{table}
 
-The composite mean (\num{0.3444}) slightly exceeds the median
-(\num{0.3403}), indicating a mild positive skew driven by Malta's
-outlying score of \num{0.5175}.  The coefficient of variation
+The composite mean (0.344) slightly exceeds the median
+(0.340), indicating a mild positive skew driven by Malta's
+outlying score of 0.517.  The coefficient of variation
 (0.203) is relatively low, indicating that the composite scores are
 compressed relative to the full unit-interval range.  The range
-(\num{0.2818}) occupies only 28.2\% of the theoretical $[0, 1]$
+(0.282) occupies only 28.2\% of the theoretical $[0, 1]$
 interval, and the standard deviation is approximately one-fifth of
 the mean.  These statistics indicate that the ISI composite
 differentiates countries along a relatively narrow band rather than
@@ -62,11 +62,11 @@ P95  & 0.4713 \\
 \end{tabular}
 \end{table}
 
-The interquartile range (IQR = P75 $-$ P25 = \num{0.0988})
+The interquartile range (IQR = P75 $-$ P25 = 0.099)
 spans approximately 9.9 percentage points of the unit interval.
-The P10--P90 range is \num{0.1705}, indicating that the central
+The P10--P90 range is 0.170, indicating that the central
 80\% of the distribution occupies roughly 17 percentage points.
-The P5--P95 range extends to \num{0.2353}, still well within the
+The P5--P95 range extends to 0.235, still well within the
 unit interval.  The narrowness of the distribution has direct
 implications for the classification scheme discussed in
 \cref{sec:compression-diagnostics}: when most countries cluster in
@@ -123,16 +123,16 @@ where $L(p)$ is the Lorenz ordinate at population fraction $p$.
 \centering
 \input{figures/F03_lorenz}
 \caption{Lorenz curve of ISI composite scores, EU-27, 2024.
-  Gini coefficient $= 0.1155$.  The diagonal represents perfect
+  Gini coefficient $= 0.116$.  The diagonal represents perfect
   equality.}
 \label{fig:lorenz}
 \end{figure}
 
-The Gini coefficient of \num{0.1155} indicates a relatively egalitarian
+The Gini coefficient of 0.116 indicates a relatively egalitarian
 distribution.  For comparison, the Gini coefficient of GDP per capita
 across EU countries typically ranges between 0.10 and 0.20, and the
 Gini of income distributions within individual countries ranges from
-0.25 to 0.40.  An ISI Gini of 0.115 places the cross-country
+0.25 to 0.40.  An ISI Gini of 0.116 places the cross-country
 concentration distribution at the low end of cross-country inequality
 measures, indicating that the EU-27 countries share broadly similar
 levels of import concentration---albeit with substantial axis-level
@@ -206,11 +206,29 @@ bottom three countries include two large economies (Germany rank~22,
 France rank~27) and one small economy with anomalous defence data
 (Slovakia rank~26).  Third, the mid-range (ranks 8--20) is
 exceptionally compressed: the composite scores of Austria (rank~8,
-\num{0.3825}) and Poland (rank~20, \num{0.2956}) differ by
+0.383) and Poland (rank~20, 0.296) differ by
 only \num{0.0869}, yet span 13~rank positions.  This compression
 implies that small perturbations to the underlying data could produce
 substantial rank reshuffling in the mid-range, a prediction confirmed
 by the robustness exercises in \cref{sec:robustness}.
+
+\begin{tcolorbox}[
+  colback=blue!3, colframe=blue!60!black,
+  title={\small\bfseries Interpretive note: what the ISI measures},
+  fonttitle=\small, boxrule=0.5pt, arc=2pt,
+  left=4pt, right=4pt, top=3pt, bottom=3pt
+]
+\small
+The ISI is a \emph{structural concentration metric}.  A higher
+composite score indicates that a country's external flows are more
+heavily concentrated among a small number of counterparty partners.
+Rank~1 denotes the \emph{most concentrated} country, not the most
+vulnerable, fragile, or strategically compromised.  The ISI does
+not measure legal, military, constitutional, or political
+sovereignty.  It captures one structural dimension---counterparty
+concentration---that is a necessary input to, but not a substitute
+for, broader assessments of strategic autonomy.
+\end{tcolorbox}
 
 \subsection{Tier-compression analysis}
 
@@ -238,8 +256,8 @@ Mildly concentrated & 3  & 0.2356 & 0.2469 & 0.2430 & 0.0050 \\
 \end{table}
 
 Within the moderately concentrated tier, the range spans
-\num{0.2073} (from Spain at \num{0.2609} to Cyprus at
-\num{0.4682}).  This wide within-tier range indicates that the
+0.207 (from Spain at 0.261 to Cyprus at
+0.468).  This wide within-tier range indicates that the
 four-tier classification groups countries with meaningfully different
 concentration profiles into the same category.  The tier structure is
 informative at the extremes (Malta stands alone; the three mildly
@@ -323,9 +341,16 @@ of the empirical regularity that EU-27 countries exhibit similar
 \emph{overall} concentration levels despite substantial heterogeneity
 at the axis level.
 
-The practical implication is that the tier label (``moderately
-concentrated'') conveys limited information for the 23~countries in
-that category.  For policy and analytical purposes, the full
-composite ranking (\cref{tab:ranking}) and axis-level profiles
-(\cref{sec:country-profiles}) provide far more discriminatory
-information than the tier classification alone.
+Accordingly, the four-tier classification should be understood as
+\emph{communication shorthand}---a coarse labelling device that
+provides qualitative orientation for non-specialist audiences---rather
+than as an analytical instrument.  The tier label ``moderately
+concentrated'' conveys that a country's aggregate dependence is
+neither extreme nor negligible, but it does not discriminate among
+the 23~countries in that category.  For analytical and policy
+purposes, the continuous composite score (\cref{tab:ranking}),
+axis-level profiles (\cref{sec:country-profiles}), and structural
+typology (\cref{sec:structural-typology}) provide the requisite
+discriminatory resolution.  Throughout the remainder of this paper,
+tier labels are reported for completeness but are not used as a
+basis for analytical inference.

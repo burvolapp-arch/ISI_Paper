@@ -1,0 +1,91 @@
+% Conceptual architecture of the ISI composite construction
+\begin{tikzpicture}[
+  >=Stealth,
+  node distance=0.9cm and 1.2cm,
+  box/.style={
+    draw=blue!60!black, fill=blue!5, thick,
+    rounded corners=2pt, minimum height=0.7cm,
+    text width=3.0cm, align=center, font=\small
+  },
+  axisbox/.style={
+    draw=blue!60!black, fill=blue!5, thick,
+    rounded corners=2pt, minimum height=0.55cm,
+    text width=2.2cm, align=center, font=\scriptsize
+  },
+  procbox/.style={
+    draw=blue!60!black, fill=orange!8, thick,
+    rounded corners=2pt, minimum height=0.7cm,
+    text width=3.0cm, align=center, font=\small
+  },
+  outbox/.style={
+    draw=blue!60!black, fill=green!8, thick,
+    rounded corners=2pt, minimum height=0.7cm,
+    text width=3.0cm, align=center, font=\small
+  },
+  robbox/.style={
+    draw=blue!60!black, fill=red!6, thick,
+    rounded corners=2pt, minimum height=0.7cm,
+    text width=3.0cm, align=center, font=\small
+  },
+  arr/.style={->, thick, blue!60!black},
+  darr/.style={->, thick, blue!60!black, dashed},
+]
+
+% === Column 1: Data Sources ===
+\node[box] (src) {Bilateral trade \&\\ flow databases};
+
+% === Column 2: Axis-level HHI ===
+\node[procbox, right=2.0cm of src] (hhi) {Axis-level HHI\\computation};
+
+% === Six axes (stacked right of HHI) ===
+\node[axisbox, right=2.0cm of hhi, yshift=1.65cm]  (a1) {Axis 1: Financial};
+\node[axisbox, below=0.15cm of a1]                  (a2) {Axis 2: Energy};
+\node[axisbox, below=0.15cm of a2]                  (a3) {Axis 3: Technology};
+\node[axisbox, below=0.15cm of a3]                  (a4) {Axis 4: Defence};
+\node[axisbox, below=0.15cm of a4]                  (a5) {Axis 5: Crit.\ inputs};
+\node[axisbox, below=0.15cm of a5]                  (a6) {Axis 6: Logistics};
+
+% === Normalisation ===
+\node[procbox, right=2.0cm of hhi, yshift=-2.1cm] (norm) {Min--max\\normalisation\\to $[0,1]$};
+
+% === Aggregation ===
+\node[outbox, right=2.0cm of norm] (agg) {Equal-weight\\arithmetic mean\\$\mathrm{ISI}_i = \tfrac{1}{6}\sum A_{j,i}$};
+
+% === Robustness ===
+\node[robbox, below=0.7cm of agg] (rob) {Robustness\\diagnostics};
+
+% === Arrows ===
+\draw[arr] (src) -- (hhi);
+\draw[arr] (hhi) -- ++(1.1cm,0) |- (a1.west);
+\draw[arr] (hhi) -- ++(1.1cm,0) |- (a2.west);
+\draw[arr] (hhi) -- ++(1.1cm,0) |- (a3.west);
+\draw[arr] (hhi) -- ++(1.1cm,0) |- (a4.west);
+\draw[arr] (hhi) -- ++(1.1cm,0) |- (a5.west);
+\draw[arr] (hhi) -- ++(1.1cm,0) |- (a6.west);
+
+% Axes to normalisation
+\draw[arr] (a1.east) -- ++(0.3cm,0) |- (norm.north -| norm.east) -- (norm.east);
+\draw[arr] (a6.east) -- ++(0.3cm,0) |- (norm.south -| norm.east) -- (norm.east);
+
+% Group bracket hint (use plain lines)
+\draw[thick, blue!60!black] ([xshift=0.3cm]a1.east) -- ([xshift=0.3cm]a6.east);
+
+% Normalisation to aggregation
+\draw[arr] (norm) -- (agg);
+
+% Aggregation to robustness
+\draw[darr] (agg) -- (rob);
+
+% === Labels ===
+\node[font=\footnotesize\itshape, text=gray, above=0.15cm of src]
+  {Stage 1: Data};
+\node[font=\footnotesize\itshape, text=gray, above=0.15cm of hhi]
+  {Stage 2: Concentration};
+\node[font=\footnotesize\itshape, text=gray, above=1.9cm of norm, xshift=1.3cm]
+  {Stage 3: Normalisation};
+\node[font=\footnotesize\itshape, text=gray, above=0.15cm of agg]
+  {Stage 4: Aggregation};
+\node[font=\footnotesize\itshape, text=gray, below=0.15cm of rob]
+  {Stage 5: Validation};
+
+\end{tikzpicture}

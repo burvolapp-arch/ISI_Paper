@@ -63,6 +63,26 @@ window (2019--2024) rather than the three-year window applied to other
 axes.  This reflects the lower frequency and higher lumpiness of
 arms-transfer flows, as documented in Paper~1~\cite{isi_paper1}.
 
+\subsection{Conceptual architecture}
+
+\Cref{fig:architecture} presents the five-stage construction pipeline
+of the ISI composite.  Bilateral trade and flow data enter the
+pipeline at Stage~1; axis-level HHI values are computed at Stage~2;
+scores are normalised to $[0,1]$ at Stage~3; the equal-weight
+arithmetic mean is computed at Stage~4; and the composite is
+subjected to a comprehensive robustness programme at Stage~5.
+
+\begin{figure}[htbp]
+\centering
+\resizebox{\textwidth}{!}{%
+\input{figures/F00_architecture}%
+}
+\caption{Conceptual architecture of the ISI composite.
+  Five stages: data ingestion, axis-level concentration measurement,
+  normalisation, equal-weight aggregation, and robustness validation.}
+\label{fig:architecture}
+\end{figure}
+
 \subsection{Aggregation rule}
 
 The ISI composite for country~$i$ is the unweighted arithmetic mean
@@ -81,6 +101,46 @@ procedure defined in Paper~1.
 The equal-weight specification is the baseline.  \Cref{sec:robustness}
 examines sensitivity to alternative weighting schemes through Dirichlet
 perturbation.
+
+\subsection{Normative justification of equal weighting}\label{sec:equal-weight-defence}
+
+The choice of equal weights ($w_j = 1/6$ for all $j$) is not an
+arbitrary default but a deliberate methodological decision resting
+on four arguments.
+
+\textbf{Neutrality prior.}  Equal weighting embodies a principle of
+normative neutrality: in the absence of an externally validated
+criterion for ranking the relative importance of financial, energy,
+technology, defence, critical-inputs, and logistics dependence, the
+analyst assigns no axis a privileged role.  This is the standard
+recommendation of the OECD Handbook on Constructing Composite
+Indicators when axes are conceptually
+non-hierarchical~\cite{oecd_handbook_2008}.
+
+\textbf{Rejection of PCA-based weighting.}  A data-driven alternative
+would weight axes proportionally to their loadings on the first
+principal component.  The PCA results (\cref{tab:pca-loadings}) show
+that defence loads predominantly on PC2, not PC1; PC1-proportional
+weighting would therefore suppress the axis that contributes the
+largest share (35.1\%) of composite variance.  More fundamentally,
+variance is not importance: high cross-country dispersion on an axis
+may reflect measurement noise rather than substantive policy
+relevance.  PCA-derived weights maximise explained variance, not
+policy informativeness.
+
+\textbf{Circularity of endogenous weights.}  Any weighting scheme
+derived from the data it is used to aggregate introduces circularity:
+the composite is a function of the weights, and the weights are a
+function of the composite's variance structure.  Equal weighting
+breaks this circularity by fixing weights \emph{a priori}.
+
+\textbf{Empirical stability.}  The Dirichlet weight perturbation
+exercise (\cref{sec:dirichlet}; 10\,000 random draws from
+$\text{Dir}(\alpha_j = 10)$) yields a mean rank-order correlation
+of $\rho = 0.979$ between randomly weighted and equally weighted
+composites.  This demonstrates that the ranking is not an artefact of
+the specific weight vector: the structural ordering is robust across
+a wide neighbourhood of the equal-weight point.
 
 \subsection{Classification thresholds}\label{sec:classification}
 
@@ -108,12 +168,31 @@ Herfindahl--Hirschman Index (HHI) tiers used in antitrust analysis
 The threshold values are defined in methodology v1.0 and documented
 in Paper~1.
 
-\subsection{Rounding and precision}
+\subsection{Rounding and precision}\label{sec:rounding}
 
-All axis-level and composite scores are reported to eight decimal
-places, matching the precision of the authoritative ISI snapshot.
-Population-level statistics (mean, standard deviation, percentiles)
-are computed with full floating-point precision and reported to eight
-decimal places unless otherwise noted.  The population standard
-deviation ($\sigma$, with $N$ denominator) is used throughout, as the
-27~EU member states constitute the complete target population.
+All axis-level and composite scores are computed and stored with full
+floating-point precision (eight decimal places in the authoritative
+snapshot).  The presentation of numeric results follows a layered
+precision discipline:
+
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Narrative text:} at most three decimal places
+    (e.g., ISI = 0.344, $\sigma = 0.070$).
+  \item \textbf{Main analytical tables:} four decimal places via
+    \texttt{siunitx} rounding (e.g., 0.3444).
+  \item \textbf{Full-ranking and appendix tables:} three to four
+    decimal places, matching the resolution required for
+    rank discrimination.
+  \item \textbf{Interpreted metrics} (Gini, CV, correlations,
+    variance shares): two to three decimal places unless
+    additional precision is analytically material.
+\end{itemize}
+
+\noindent This policy ensures that no result is presented with
+machine-precision digits that exceed the index's discriminatory
+resolution, while preserving full-precision reproducibility in the
+appendix tables and computational code.
+
+The population standard deviation ($\sigma$, with $N$ denominator)
+is used throughout, as the 27~EU member states constitute the
+complete target population.

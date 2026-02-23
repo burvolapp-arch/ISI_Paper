@@ -58,7 +58,8 @@
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
 \usepgfplotslibrary{statistics}
-\usetikzlibrary{calc,positioning,shapes.geometric}
+\usetikzlibrary{calc,positioning,shapes.geometric,arrows.meta}
+\usepackage[most]{tcolorbox}
 
 % ── Cross-references & Hyperlinks ────────────────────────────────────────────
 \usepackage[
@@ -123,9 +124,9 @@ Sovereignty Index (ISI) to the 27~member states of the European Union
 using vintage-2024 data under methodology v1.0.  The ISI composite,
 defined as the unweighted arithmetic mean of six normalised axes
 (financial, energy, technology, defence, critical inputs, logistics),
-ranges from \num{0.23567126} (France, rank~27) to \num{0.51748148}
-(Malta, rank~1) with a population mean of \num{0.34439144} and
-population standard deviation of \num{0.06992188}.  One country is
+ranges from 0.236 (France, rank~27) to 0.517
+(Malta, rank~1) with a population mean of 0.344 and
+population standard deviation of 0.070.  One country is
 classified as \emph{highly concentrated}, 23~as \emph{moderately
 concentrated}, and three as \emph{mildly concentrated}.
 A full variance decomposition with formal proof shows that defence

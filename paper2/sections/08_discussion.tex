@@ -3,10 +3,12 @@
 % =============================================================================
 \section{Discussion}\label{sec:discussion}
 
-This section synthesises the empirical findings into five structural
-conclusions, situates them within the broader context of composite
-indicator methodology and strategic autonomy measurement, and
-addresses the principal methodological implications and limitations.
+The empirical results converge on five structural conclusions about
+the ISI's informational architecture, each with distinct implications
+for measurement practice and policy application.  This section
+presents those conclusions, derives their measurement and policy
+implications, and articulates the methodological limitations that
+bound their interpretation.
 
 \subsection{Five structural conclusions}
 
@@ -153,7 +155,7 @@ the financial axis.  The financial axis contributes only 1.03\% of
 composite variance precisely because its cross-country dispersion
 is so low ($\sigma = 0.037$).
 
-\subsection{Methodological implications}
+\subsection{Measurement implications}
 
 \paragraph{Equal weighting is defensible and empirically supported.}
 The Dirichlet Monte Carlo exercise demonstrates that equal weighting
@@ -193,47 +195,122 @@ score are therefore insufficient; the axis-level profile and the
 structural typology (\cref{sec:structural-typology}) are necessary
 complements.
 
-\paragraph{Threshold-based classification is inherently information-lossy.}
+\paragraph{Threshold-based classification is communication shorthand.}
 The compression diagnostics establish that any threshold-based
 classification of the ISI distribution will produce a crowded middle
 tier ($\eta^2 = 0.483$ for the ISI scheme vs.\ $\eta^2 = 0.890$
-for data-driven terciles).  Users of the ISI should treat the
-four-tier classification as a coarse summary and consult the
-continuous composite and axis-level scores for analytical work
-requiring fine-grained country comparisons.
+for data-driven terciles).  The four-tier labels are retained as
+communication shorthand for non-specialist audiences but should not
+be treated as analytically binding categories.  Users of the ISI
+should consult the continuous composite and axis-level scores for
+work requiring fine-grained country comparisons.
 
-\subsection{Limitations}
+\subsection{Policy implications}
+
+The five structural conclusions above carry direct implications for
+policy design:
+
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Prioritise defence and logistics diversification.}
+    The dominance of defence and logistics variance implies that
+    EU strategic-autonomy policy should focus diversification
+    efforts on these two domains, which together account for
+    69.4\% of cross-country composite variation.
+  \item \textbf{Present rankings with uncertainty bands.}
+    Mid-tier ranking fragility implies that country positions
+    in the 0.30--0.40 ISI range should be reported with
+    confidence intervals or rank ranges derived from the
+    Dirichlet perturbation exercise, rather than as point
+    estimates.
+  \item \textbf{Deploy axis-level dashboards.}
+    The compensability findings argue for policy dashboards
+    that display axis-level profiles alongside the composite,
+    to avoid masking single-axis vulnerabilities behind an
+    innocuous composite average.
+  \item \textbf{Treat financial diversification independently.}
+    The orthogonality of the financial axis indicates that
+    financial-service diversification and goods-trade
+    diversification can be pursued as independent policy
+    tracks with distinct institutional mechanisms.
+\end{itemize}
+
+\subsection{Methodological limitations}\label{sec:limitations}
 
 Several limitations constrain the interpretation of these results.
+They are stated explicitly to delimit the index's evidential scope
+and to guide the design of future extensions.
 
 \begin{enumerate}[leftmargin=2em]
-  \item \textbf{Cross-sectional design.}  The ISI~v1.0 is computed
-    for a single year (reference year 2024).  Temporal dynamics---how
-    concentration changes in response to policy interventions or
-    geopolitical shocks---cannot be assessed without panel data.
+  \item \textbf{Concentration as a proxy for vulnerability.}
+    The ISI measures \emph{counterparty concentration}, which is
+    a necessary but not sufficient condition for strategic
+    vulnerability.  A country may have a highly concentrated
+    supplier base composed entirely of stable, allied partners,
+    in which case high concentration does not translate into
+    coercive leverage or supply-disruption risk.  The ISI
+    intentionally excludes partner-identity assessment in v1.0;
+    incorporating geopolitical risk weighting is a planned
+    extension.
 
-  \item \textbf{HHI as the sole concentration measure.}  The axes
-    use Herfindahl--Hirschman indices or comparable concentration
-    statistics.  Alternative measures (entropy, Gini of trade shares,
-    bilateral dependency ratios) might produce different rankings,
-    particularly for countries near the median.
+  \item \textbf{Static single-vintage design.}
+    The ISI~v1.0 is computed for a single reference year
+    (vintage~2024).  Temporal dynamics---how concentration changes
+    in response to policy interventions, geopolitical shocks, or
+    trade-diversion effects---cannot be assessed without panel
+    data.  A country's current rank may reflect transient
+    conditions rather than persistent structural features.
 
-  \item \textbf{Equal weighting.}  Although the Dirichlet exercise
-    shows rank stability under random weighting, specific policy
-    contexts exist in which defence concentration should receive higher
-    weight than financial concentration.  The ISI framework
-    accommodates differential weighting but does not prescribe it.
+  \item \textbf{Small-state structural amplification.}
+    Small economies (Malta, Cyprus, Luxembourg) face inherently
+    fewer bilateral trade partners, mechanically elevating their
+    HHI scores.  The ISI captures this size effect faithfully---it
+    \emph{is} a structural feature of small-state dependence---but
+    users should be aware that high ISI scores for small states
+    partly reflect market-size constraints rather than policy
+    choices.
 
-  \item \textbf{Data availability.}  Some axis scores rely on
-    publicly available Eurostat and Comtrade data; others
-    (particularly defence) may incorporate restricted or modelled
-    data.  The reproducibility of individual axis scores depends on
-    the transparency of the underlying data sources.
+  \item \textbf{Re-export and transit-trade masking.}
+    Trade statistics record the \emph{declared} partner country,
+    which may be a re-export hub (e.g., the Netherlands, Belgium)
+    rather than the ultimate origin.  This can understate the true
+    concentration of ultimate-source dependence for countries whose
+    imports transit through intermediary economies.  The magnitude
+    of this effect varies by axis and is not corrected in v1.0.
 
-  \item \textbf{Small $N$.}  With $N = 27$, many pairwise correlations
-    fail to reach statistical significance even when the point
-    estimates are moderate (\cref{tab:corr-tstat}).  The geographic
-    correlates (\cref{sec:geo-correlates}) are descriptive, not
-    inferential, because the small sample precludes multivariate
-    regression with more than a few covariates.
+  \item \textbf{Equal weighting as a normative choice.}
+    Although the Dirichlet exercise demonstrates rank stability
+    under random weighting, specific policy contexts exist in
+    which defence concentration should receive higher weight than
+    financial concentration.  The ISI framework accommodates
+    differential weighting but does not prescribe it.  Users
+    with domain-specific priors should apply the axis-level
+    scores directly.
+
+  \item \textbf{Data-window heterogeneity.}
+    The defence axis uses a six-year rolling window (2019--2024)
+    while all other axes use a three-year window (2022--2024).
+    This reflects the lower frequency of arms-transfer
+    flows but introduces temporal asymmetry: the defence axis
+    may reflect structural patterns that pre-date the observation
+    windows of other axes.
+
+  \item \textbf{HHI as the sole concentration measure.}
+    The axes use Herfindahl--Hirschman indices or comparable
+    concentration statistics.  Alternative measures (entropy,
+    Gini of trade shares, bilateral dependency ratios) might
+    produce different rankings, particularly for countries near
+    the median where score gaps are smallest.
+
+  \item \textbf{Small $N$.}  With $N = 27$, many pairwise
+    correlations fail to reach statistical significance even when
+    point estimates are moderate (\cref{tab:corr-tstat}).  The
+    geographic correlates (\cref{sec:geo-correlates}) are
+    descriptive, not inferential, because the small sample
+    precludes multivariate regression with more than a few
+    covariates.
 \end{enumerate}
+
+\noindent These limitations are inherent to the v1.0 design and do
+not invalidate the empirical findings.  They define the boundary
+conditions within which the ISI results should be interpreted and
+provide a structured agenda for methodological extension.
