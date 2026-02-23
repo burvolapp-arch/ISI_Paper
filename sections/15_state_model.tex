@@ -269,6 +269,43 @@ Every transition function \(f_n\) SHALL satisfy the following properties:
 \end{enumerate}
 
 % -------------------------------------------------------------------------
+\subsection{Axis-Completeness Invariant}\label{sec:state:completeness}
+
+The pipeline enforces a formal completeness requirement at
+transition~\textbf{T5}.  Let \(A_{\mathrm{required}} = 6\) denote the
+number of axes defined in the methodology, and let \(\mathcal{A}_i\)
+denote the set of axes with valid rounded scores for country~\(i\) at
+state~\textbf{S5}.
+
+\paragraph{Completeness predicate.}
+\[
+  \mathrm{complete}(i) \;\iff\; |\mathcal{A}_i| = A_{\mathrm{required}}
+\]
+
+\paragraph{Materialisation rule.}
+The following rules SHALL be enforced at transition~\textbf{T5}:
+
+\begin{enumerate}
+  \item If \(|\mathcal{A}_i| = A_{\mathrm{required}}\), the country record
+    is complete and proceeds to \textbf{T6} (country hashing).
+
+  \item If \(4 \leq |\mathcal{A}_i| < A_{\mathrm{required}}\), the composite
+    is computed over the available axes with divisor
+    \(|\mathcal{A}_i|\) (\cref{eq:composite-partial}).  The country record
+    is flagged with warning code \texttt{W-COV} and proceeds to
+    \textbf{T6}.  The hash preimage includes the reduced axis set.
+
+  \item If \(|\mathcal{A}_i| < 4\), the composite SHALL NOT be materialised.
+    The country SHALL be excluded from the ranked output.  No country
+    hash SHALL be computed.  The country is recorded in
+    \texttt{warnings.csv} with code \texttt{W-EXCL}.
+\end{enumerate}
+
+This rule ensures that no country enters the integrity chain
+(\textbf{S6}--\textbf{S8}) without a well-defined composite score
+and a complete or explicitly flagged axis set.
+
+% -------------------------------------------------------------------------
 \subsection{State Diagram Summary}\label{sec:state:diagram}
 
 The following notation summarises the state machine.  Each arrow is labelled

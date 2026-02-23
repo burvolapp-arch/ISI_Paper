@@ -70,6 +70,13 @@ only if \emph{all} of the following conditions hold:
 Patch versions do not alter the computation and therefore do not
 require a new snapshot.
 
+\paragraph{Version-definition immutability.}
+Once a version number has been assigned to a published snapshot, the
+association between that version number and the corresponding methodology
+parameters SHALL NOT be altered.  The methodology registry SHALL be
+append-only: existing entries SHALL NOT be mutated or removed.  This
+rule applies to all three version components (major, minor, patch).
+
 \subsection{Change Protocol}\label{sec:gov:change}
 
 Proposed methodology changes follow a four-stage protocol:

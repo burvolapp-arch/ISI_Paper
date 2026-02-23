@@ -149,7 +149,7 @@ any assumption invalidates the corresponding security goal.
     A verifier with access to the snapshot directory and the public key
     SHALL be able to perform full integrity verification without network
     connectivity.  The verification algorithm is specified in
-    \\cref{sec:integrity:verify} and is reproducible from this
+    \cref{sec:integrity:verify} and is reproducible from this
     document alone.
 
   \item[\textbf{TA-4}] \textbf{Signing-key confidentiality.}\enspace
@@ -236,4 +236,59 @@ The following normative rules govern the Ed25519 signing key lifecycle:
     random number generator conforming to the requirements of
     \textcite{rfc8032}.  The private key SHALL be stored in an
     access-controlled environment with audit logging.
+\end{enumerate}
+
+% -------------------------------------------------------------------------
+\subsection{Security Guarantees and Cryptographic Assumptions}%
+\label{sec:threat:crypto}
+
+The integrity system rests on two standard cryptographic hardness
+assumptions.  If both hold, the security goals stated in
+\cref{sec:threat:goals} are satisfied.
+
+\paragraph{Assumption~CR (Collision resistance).}
+SHA-256 is collision-resistant: no computationally bounded adversary can
+find distinct inputs \(x \neq x'\) such that
+\(\mathrm{SHA\text{-}256}(x) = \mathrm{SHA\text{-}256}(x')\).
+Under this assumption, any modification to any axis score, composite
+score, classification label, country ordering, warning code, or
+serialised field in a country record SHALL produce a different country
+hash~\(h_i\) and therefore a different snapshot hash~\(H_t\).
+
+\paragraph{Assumption~EU (Existential unforgeability).}
+Ed25519 is existentially unforgeable under chosen-message attack: no
+computationally bounded adversary, given the public key and access to a
+signing oracle, can produce a valid signature over a message not
+previously signed.  Under this assumption, a valid signature~\(\sigma_t\)
+over~\(H_t\) constitutes proof that the custodian authorised the snapshot.
+
+\paragraph{Formal integrity guarantee.}
+Let \(\mathcal{S}\) be a published snapshot with signature
+\[
+  \sigma_t = \mathrm{Ed25519\text{-}Sign}(sk,\; H_t).
+\]
+Under Assumptions~CR and~EU, the following holds:
+
+\begin{quote}\itshape
+If a verifier possesses the authentic public key and executes the
+verification procedure of\/ \cref{sec:integrity:verify}, then any
+post-materialisation modification to any file in~\(\mathcal{S}\)
+SHALL cause verification to fail.
+\end{quote}
+
+This guarantee covers all adversary classes \textbf{A-1} through
+\textbf{A-4}.  It does not cover \textbf{A-5} (floating-point drift),
+which is mitigated by the determinism invariants (\textbf{D-1} through
+\textbf{D-10}), or \textbf{A-6} (key compromise), which is mitigated by
+the key-rotation protocol (\cref{sec:threat:key-rotation}).
+
+\paragraph{Trust assumptions restated.}
+The guarantee above is conditional on:
+\begin{enumerate}
+  \item Public key authenticity (\textbf{TA-1}).
+  \item Raw data provider honesty is \emph{not} assumed; the guarantee
+    covers computation integrity, not input veracity.
+  \item The offline verification path (\textbf{TA-3}) is sufficient for
+    independent validation; no trust in the serving infrastructure is
+    required.
 \end{enumerate}

@@ -1,0 +1,90 @@
+% sections/16_architecture_overview.tex
+\section{System Architecture Overview}\label{sec:architecture-overview}
+
+The \ISI system is organised into four layers.  Each layer encapsulates a
+distinct set of responsibilities and invariants.  The layers are strictly
+ordered: each layer depends only on the layer below it; no upward or
+circular dependency exists.
+
+% -------------------------------------------------------------------------
+\subsection*{Layer~1\enspace Mathematical Layer}
+
+\begin{description}[style=sameline, leftmargin=1em]
+  \item[Scope.]  Concentration measurement, aggregation, and composite
+    construction.
+  \item[Core operations.]  Herfindahl--Hirschman concentration
+    (\cref{eq:hhi}), cross-channel aggregation
+    (\cref{eq:dual-channel,eq:weighted-b,eq:fuel-avg}), arithmetic
+    composite mean (\cref{eq:composite}), four-tier classification
+    (\cref{tab:thresholds}).
+  \item[Invariants.]  All formulas are fixed for the lifetime of a major
+    version.  Axis weights are equal.  Rounding precision is eight decimal
+    places, round-half-to-even.  No stochastic or discretionary element
+    enters the computation.
+  \item[State coverage.]  S0\,--\,S4 in the formal state model
+    (\cref{sec:state-model}).
+\end{description}
+
+% -------------------------------------------------------------------------
+\subsection*{Layer~2\enspace Deterministic Computation Layer}
+
+\begin{description}[style=sameline, leftmargin=1em]
+  \item[Scope.]  Platform-independent determinism, canonical serialisation,
+    and prohibited-operation enforcement.
+  \item[Core operations.]  Rounding gate (\textbf{T5}), canonical
+    UTF-8/LF/lexicographic-JSON serialisation
+    (\cref{sec:det:serialisation}), country-code ordering, locale
+    independence, prohibited-operation enforcement
+    (\cref{sec:det:prohibited}).
+  \item[Invariants.]  D-1 through D-10
+    (\cref{sec:det:invariants}).  IEEE~754 binary64 arithmetic
+    (\cref{sec:det:floating-point}).  Hash-breakage clause: any
+    serialisation deviation changes the snapshot hash.
+  \item[State coverage.]  Transition T5 (rounding gate) at boundary
+    S4\,\(\to\)\,S5.
+\end{description}
+
+% -------------------------------------------------------------------------
+\subsection*{Layer~3\enspace Integrity Layer}
+
+\begin{description}[style=sameline, leftmargin=1em]
+  \item[Scope.]  Cryptographic binding, tamper detection, and
+    non-repudiation.
+  \item[Core operations.]  Country-level SHA-256 hashing (\textbf{T6}),
+    snapshot hash construction (\textbf{T7}), Ed25519 signing
+    (\textbf{T8}), manifest binding (\textbf{C-3}), hash cascade
+    (\cref{sec:snapshot:cascade}).
+  \item[Invariants.]  Collision resistance and preimage resistance of
+    SHA-256.  Existential unforgeability of Ed25519.  Immutable Snapshot
+    Law (\cref{sec:snapshot:immutability}).  Tamper propagation
+    (\textbf{C-5}).
+  \item[State coverage.]  S5\,--\,S8 (post-rounding through signed
+    snapshot).
+  \item[Security model.]  Adversary classes A-1 through A-6, security
+    goals G-1 through G-4 (\cref{sec:threat-model}).
+\end{description}
+
+% -------------------------------------------------------------------------
+\subsection*{Layer~4\enspace Governance Layer}
+
+\begin{description}[style=sameline, leftmargin=1em]
+  \item[Scope.]  Versioning law, registry management, immutability policy,
+    key lifecycle, and publication protocol.
+  \item[Core operations.]  Three-part version numbering
+    (\cref{sec:gov:versioning}), append-only registry (\textbf{TA-2}),
+    change protocol (\cref{sec:gov:change}), key rotation
+    (\cref{sec:threat:key-rotation}), archival policy
+    (\cref{sec:gov:archival}).
+  \item[Invariants.]  Version-definition immutability.  No retroactive
+    recomputation.  Published snapshots are permanent.  Superseded keys
+    remain accessible.
+  \item[State coverage.]  Post-S8 policy constraints and S9 (serving).
+\end{description}
+
+\bigskip
+
+The four layers collectively ensure that the \ISI system is
+mathematically specified (Layer~1), deterministically reproducible
+(Layer~2), cryptographically verifiable (Layer~3), and institutionally
+governed (Layer~4).  No layer may be removed or weakened without a
+major-version increment.
