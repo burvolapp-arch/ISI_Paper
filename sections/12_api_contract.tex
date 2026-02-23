@@ -13,8 +13,8 @@ computation, ingestion, or administrative functions.
   \item \textbf{Protocol.}  HTTPS (TLS~1.2 or later).  Plaintext HTTP
     requests receive a \texttt{301 Moved Permanently} redirect to the HTTPS
     endpoint.
-  \item \textbf{Content type.}  All responses use
-    \texttt{Content-Type:\ application/json;\ charset=utf-8} unless
+  \item \textbf{Content type.}  All responses are served as
+    JSON (\texttt{application/json}) with UTF-8 encoding unless
     otherwise specified per endpoint.
   \item \textbf{Authentication.}  The public API is unauthenticated.  Rate
     limiting is enforced per source IP address (see
@@ -63,8 +63,8 @@ Returns country-level scores for the specified vintage.
   \item[\texttt{country}] Optional.  Comma-separated list of ISO~3166-1
     alpha-2 codes.  Filters the response to the specified countries.
   \item[\texttt{format}]  Optional.  One of \texttt{json} (default) or
-    \texttt{csv}.  When \texttt{csv}, the response uses
-    \texttt{Content-Type:\ text/csv;\ charset=utf-8} and returns the
+    \texttt{csv}.  When \texttt{csv}, the response content type is
+    \texttt{text/csv;\,charset=utf-8} and the body contains the
     \texttt{country\_scores.csv} content directly.
 \end{description}
 

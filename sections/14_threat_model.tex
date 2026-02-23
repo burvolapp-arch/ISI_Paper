@@ -67,10 +67,10 @@ The integrity system SHALL provide the following guarantees:
     and \textbf{A-2}.
 
   \item[\textbf{G-2}] \textbf{Deterministic reproducibility.}\enspace
-    Any conforming implementation executing the pipeline on identical inputs
-    and methodology parameters SHALL produce byte-identical output, including
-    identical hash digests and an identical signature preimage.
-    This goal mitigates \textbf{A-5}.
+    Any conforming implementation that executes the ISI pipeline on
+    identical inputs and identical methodology parameters SHALL produce
+    byte-identical output, including identical hash digests and an
+    identical signature preimage.  This goal mitigates \textbf{A-5}.
 
   \item[\textbf{G-3}] \textbf{Tamper detectability.}\enspace
     Verification of a snapshot SHALL require only the snapshot directory,
@@ -101,8 +101,8 @@ The following threats are explicitly excluded from the security model:
     responsibility of the data providers, not of the \ISI integrity system.
 
   \item \textbf{Upstream statistical bias.}\enspace  Systematic biases in
-    source-data collection (e.g., under-reporting of certain trade flows)
-    are not detectable or correctable by the integrity chain.
+    source-data collection methodologies (e.g., under-reporting of certain
+    trade flows) are not detectable or correctable by the integrity chain.
 
   \item \textbf{Compromised data providers.}\enspace  If a data provider is
     coerced or incentivised to publish misleading data, the \ISI system has
