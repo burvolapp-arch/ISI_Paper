@@ -99,5 +99,27 @@ It does not capture:
     counterfactuals.
 \end{itemize}
 
+\subsection{Isolation Guarantee}\label{sec:scenario:isolation}
+
+The scenario engine is a read-only branch of the computation pipeline
+(\cref{sec:state:scenario}).  The following normative constraints SHALL
+hold for every scenario invocation:
+
+\begin{enumerate}
+  \item Scenario execution SHALL NOT modify any file in the snapshot
+    directory.
+  \item Scenario execution SHALL NOT write to the methodology registry.
+  \item Scenario execution SHALL NOT produce, modify, or invalidate
+    country hashes, snapshot hashes, or signatures.
+  \item Scenario outputs SHALL NOT be signed.
+  \item Scenario results are ephemeral: they exist only in the API
+    response body and are not persisted in any durable store visible to
+    the canonical pipeline.
+  \item Scenario results are outside the integrity chain.  No hash
+    digest or signature covers scenario-derived scores.
+\end{enumerate}
+
+Consumers of scenario data MUST treat it as unsigned and non-authoritative.
+
 Users should treat scenario outputs as indicative sensitivity measures, not
 as predictions.

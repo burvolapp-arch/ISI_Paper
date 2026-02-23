@@ -55,7 +55,7 @@ Five principles constrain the index architecture:
 
 \subsection{Document Map}\label{sec:intro:map}
 
-The remainder of this paper is organised as follows.
+The remainder of this document is organised as follows.
 \Cref{sec:data-architecture} describes the data sources, ingestion protocol,
 and quality controls.  \Cref{sec:math-framework} presents the mathematical
 framework---the concentration formula, rounding rules, and classification
@@ -65,4 +65,15 @@ procedure.  \Cref{sec:scenario-engine} documents the scenario simulation
 model.  \Cref{sec:integrity-chain} describes the cryptographic integrity
 mechanism.  \Cref{sec:limitations} enumerates the structural limitations of the
 index.  \Cref{sec:governance} sets out the governance and versioning protocol.
-Three reference appendices follow.
+\Cref{sec:determinism} formalises the determinism guarantees and computational
+invariants of the pipeline.  \Cref{sec:snapshot-architecture} specifies the
+snapshot materialisation architecture, output schemas, and immutability
+contract.  \Cref{sec:api-contract} defines the read-only API contract,
+endpoint taxonomy, and backward-compatibility rules.
+\Cref{sec:verification} documents the verification test suite and coverage
+requirements.  \Cref{sec:threat-model} defines the threat model, adversary
+classes, security goals, trust anchors, and key-rotation policy.
+\Cref{sec:state-model} presents a formal computational state model that
+specifies the ten pipeline states, nine transition functions, two
+irreversibility gates, and the scenario engine's isolation as a non-state-altering
+branch.  Three reference appendices follow.

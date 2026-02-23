@@ -1,0 +1,311 @@
+% sections/10_determinism.tex
+\section{Determinism and Computational Guarantees}\label{sec:determinism}
+
+This section formalises the determinism properties of the \ISI computation
+pipeline.  Every guarantee stated here is a binding contract: a conforming
+implementation \emph{must} satisfy all invariants, and a failure to satisfy
+any single invariant constitutes a non-conforming build.
+
+\subsection{Scope of Determinism}\label{sec:det:scope}
+
+The \ISI pipeline is \textbf{fully deterministic}: given identical input data,
+identical methodology-version parameters, and a conforming arithmetic
+environment, the pipeline produces bit-identical output across invocations,
+platforms, and calendar time.  Determinism is not a best-effort aspiration; it
+is an architectural invariant enforced by the design constraints enumerated
+below.
+
+Determinism extends to all published artefacts: axis scores, composite scores,
+classifications, rankings, warning codes, hash digests, and the snapshot
+signature.  It does \emph{not} extend to execution time, memory consumption,
+or log output, which are platform-dependent observables.
+
+\subsection{Formal Invariants}\label{sec:det:invariants}
+
+The following invariants hold for every conforming implementation of the
+\ISI v\,1.0 pipeline.  Each invariant is designated \textbf{D-\textit{n}} and
+is referenced in the test-suite specification (\cref{sec:verification}).
+
+\begin{description}[style=nextline, leftmargin=3.5em, labelwidth=3em]
+
+  \item[\textbf{D-1}] \textbf{Input--output identity.}\enspace
+    Let \(\mathcal{D}\) be a fixed input dataset and \(\theta\) a fixed
+    methodology-parameter vector.  For any two invocations \(r_1, r_2\) of
+    the pipeline on \((\mathcal{D}, \theta)\):
+    \[
+      \mathrm{output}(r_1) \;=\; \mathrm{output}(r_2)
+    \]
+    where equality is byte-level identity of the serialised output.
+
+  \item[\textbf{D-2}] \textbf{Platform invariance.}\enspace
+    Let \(P_1, P_2\) be any two platforms satisfying the arithmetic
+    assumptions of \cref{sec:det:floating-point}.  Then:
+    \[
+      \mathrm{output}(P_1, \mathcal{D}, \theta)
+      \;=\;
+      \mathrm{output}(P_2, \mathcal{D}, \theta)
+    \]
+
+  \item[\textbf{D-3}] \textbf{Time invariance.}\enspace
+    The pipeline output depends only on \((\mathcal{D}, \theta)\).  No
+    timestamp, random seed, environment variable, locale setting, or
+    system clock reading enters the computation.  Formally: for any
+    calendar times \(t_1, t_2\):
+    \[
+      \mathrm{output}(t_1, \mathcal{D}, \theta)
+      \;=\;
+      \mathrm{output}(t_2, \mathcal{D}, \theta)
+    \]
+
+  \item[\textbf{D-4}] \textbf{Order invariance of input rows.}\enspace
+    The pipeline sorts all input records into a canonical order before
+    computation.  Permuting the row order of the input dataset produces
+    identical output:
+    \[
+      \forall \pi \in \mathcal{S}_{|\mathcal{D}|}:\quad
+      \mathrm{output}(\pi(\mathcal{D}), \theta)
+      \;=\;
+      \mathrm{output}(\mathcal{D}, \theta)
+    \]
+
+  \item[\textbf{D-5}] \textbf{Rounding closure.}\enspace
+    All published scores are rounded to eight decimal places
+    (round-half-to-even) \emph{before} any downstream consumption
+    (classification, hashing, serialisation).  Formally: let \(R_8(x)\)
+    denote the round-half-to-even function at precision~8.  Then for every
+    published score~\(s\):
+    \[
+      R_8(s) \;=\; s
+    \]
+    That is, every published score is a fixed point of the rounding operator.
+
+  \item[\textbf{D-6}] \textbf{Hash determinism.}\enspace
+    The country-level hash (\cref{sec:integrity:country}) and snapshot hash
+    (\cref{sec:integrity:snapshot}) are fully determined by the published
+    scores and the canonical serialisation format.  No non-deterministic
+    input (timestamp, hostname, process identifier) enters the hash
+    preimage.
+
+  \item[\textbf{D-7}] \textbf{Classification determinism.}\enspace
+    Classification is a pure function of the rounded composite score and
+    the threshold vector.  For a given rounded composite~\(s\) and threshold
+    vector~\(\tau = (0.15,\; 0.25,\; 0.50)\):
+    \[
+      \mathrm{classify}(s, \tau) \;=\;
+      \begin{cases}
+        \texttt{highly\_concentrated}     & \text{if } s \geq 0.50 \\
+        \texttt{moderately\_concentrated} & \text{if } 0.25 \leq s < 0.50 \\
+        \texttt{mildly\_concentrated}     & \text{if } 0.15 \leq s < 0.25 \\
+        \texttt{unconcentrated}           & \text{if } s < 0.15
+      \end{cases}
+    \]
+    No stochastic or environment-dependent branching is permitted.
+
+  \item[\textbf{D-8}] \textbf{Ranking determinism.}\enspace
+    The ranking function is a deterministic total order.  The primary sort
+    key is the rounded composite score (descending).  The secondary sort key
+    (tie-breaker) is the ISO~3166-1 alpha-2 code (ascending,
+    lexicographic).  This total order is unique for any distinct set of
+    (score, code) pairs.
+
+  \item[\textbf{D-9}] \textbf{Scenario determinism.}\enspace
+    The scenario engine (\cref{sec:scenario-engine}) is a deterministic
+    function of the baseline scores and the adjustment vector
+    \((\alpha_1, \ldots, \alpha_6)\).  Clamping (\cref{eq:scenario}) is
+    deterministic; no randomised rounding or stochastic perturbation is
+    applied.
+
+  \item[\textbf{D-10}] \textbf{Missing-axis determinism.}\enspace
+    The missing-axis protocol (\cref{sec:agg:missing}) is a deterministic
+    function of the set of computable axes \(\mathcal{A}_i\).  The
+    composite denominator is \(|\mathcal{A}_i|\), not a stochastic or
+    heuristic estimate.
+
+\end{description}
+
+\subsection{Floating-Point Assumptions}\label{sec:det:floating-point}
+
+The pipeline assumes \textbf{IEEE~754 binary64} (double-precision)
+floating-point arithmetic with the following constraints:
+
+\begin{enumerate}
+  \item \textbf{Rounding mode.}  The default IEEE~754 rounding mode
+    (\emph{round-to-nearest, ties-to-even}) must be active throughout the
+    computation.  No midstream rounding-mode changes are permitted.
+
+  \item \textbf{Operation order.}  Summations over partner shares and over
+    axis scores follow a fixed left-to-right accumulation order after
+    sorting the operands into canonical sequence (partner code ascending for
+    share vectors; axis index ascending for composite averaging).  The
+    accumulation order is specified to eliminate platform-dependent
+    reordering that could produce different floating-point round-off
+    patterns.
+
+  \item \textbf{No fused multiply-add.}  Fused multiply-add (FMA)
+    instructions may produce different round-off behaviour from separate
+    multiply-then-add sequences.  Conforming implementations must disable
+    FMA contraction or demonstrate bit-identical results under FMA.
+
+  \item \textbf{Decimal rounding.}  The final rounding step
+    (\texttt{ROUND\_PRECISION\,=\,8}, round-half-to-even) is performed
+    using Python's \texttt{decimal.Decimal} module or an equivalent
+    arbitrary-precision decimal library, not by native binary64 rounding.
+    This eliminates the double-rounding problem inherent in converting
+    binary64 to decimal.
+
+  \item \textbf{No extended precision.}  Intermediate calculations must not
+    use x87 80-bit extended precision.  All intermediates are stored and
+    operated upon as binary64.  On x86 platforms, the compiler must be
+    configured to use SSE2 instructions (not x87 FPU) for floating-point
+    arithmetic, or the FPU control word must be set to 64-bit precision.
+\end{enumerate}
+
+These constraints are sufficient to guarantee \textbf{D-1} and \textbf{D-2}
+across all platforms that conform to IEEE~754-2008.
+
+\subsection{Canonical Serialisation}\label{sec:det:serialisation}
+
+Deterministic output requires a deterministic serialisation format.  The
+\ISI pipeline serialises all published data according to the following
+normative rules.  Violation of any rule produces a non-conforming snapshot
+whose hash MUST differ from that of a conforming snapshot.
+
+\begin{enumerate}
+  \item \textbf{Character encoding.}  All output files SHALL use UTF-8
+    without byte-order mark (BOM).  No other encoding is permitted.
+
+  \item \textbf{Newline convention.}  Line endings SHALL be Unix-style
+    (\texttt{LF}, U+000A).  No carriage-return characters (\texttt{CR},
+    U+000D) SHALL appear in any output file.
+
+  \item \textbf{No trailing whitespace.}  No line in any output file
+    SHALL end with a space (U+0020) or horizontal tab (U+0009) character
+    before the line-feed terminator.
+
+  \item \textbf{JSON formatting.}  JSON output files SHALL use two-space
+    indentation, no trailing commas, and keys sorted in \emph{ascending
+    lexicographic order} (byte-wise comparison of UTF-8 code units) at
+    every nesting level.  Floating-point values SHALL be serialised as
+    fixed-point decimal strings with exactly eight digits after the
+    decimal point and a period (U+002E) as the decimal separator
+    (e.g., \texttt{"0.34218753"}, not \texttt{0.34218753} or
+    \texttt{"3.4218753e-01"}).  No locale-dependent thousands separator,
+    comma-as-decimal, or scientific notation is permitted.
+
+  \item \textbf{CSV formatting.}  CSV output files SHALL use comma
+    delimiters, double-quote text-field quoting, and header rows matching
+    the schema defined in the output specification
+    (\cref{sec:snapshot:output}).  Fields SHALL be ordered by the fixed
+    column schema; no column reordering is permitted across versions.
+
+  \item \textbf{Locale independence.}  No serialisation step SHALL read
+    or depend on the system locale, the \texttt{LC\_NUMERIC} environment
+    variable, or any locale-sensitive formatting library.  All numeric
+    formatting SHALL use the explicit rules defined in items~4 and~5.
+
+  \item \textbf{Stable dictionary ordering.}  Where an output structure is
+    constructed from an in-memory dictionary or hash map, the serialisation
+    step SHALL sort keys into ascending lexicographic order before writing.
+    Reliance on insertion-order preservation (e.g., Python~3.7+ dictionary
+    ordering) is insufficient; an explicit \texttt{sorted()} call is
+    REQUIRED.
+
+  \item \textbf{Deterministic country-code sorting.}  Country codes
+    in all output files (CSV rows, JSON arrays, hash-input concatenation)
+    SHALL be sorted in ascending lexicographic order of the two-character
+    ISO~3166-1 alpha-2 code.
+
+  \item \textbf{Hash-input strings.}  The canonical string used as the
+    SHA-256 preimage for country-level hashing
+    (\cref{sec:integrity:country}) concatenates fields using the pipe
+    character (\texttt{|}) as a delimiter, in the fixed order specified
+    in the integrity-chain section.  No whitespace padding is applied.
+    Null axis scores are encoded as the literal string \texttt{null}.
+\end{enumerate}
+
+\paragraph{Hash-breakage clause.}
+If any of the serialisation rules above is violated---even if the
+underlying numeric values are correct---the resulting SHA-256 hash
+SHALL differ from the hash of a conforming serialisation.  This is a
+design feature, not a defect: it ensures that serialisation conformance
+is verifiable through the integrity chain.
+
+\subsection{Prohibited Operations}\label{sec:det:prohibited}
+
+The following operations are prohibited in the computation pipeline:
+
+\begin{itemize}
+  \item \textbf{Random number generation.}  No call to a pseudo-random or
+    true-random number generator is permitted at any stage.
+  \item \textbf{System clock queries.}  No timestamp or system clock
+    reading may influence a computation step.  Timestamps in metadata
+    (e.g., the \texttt{computed\_at} field in the snapshot manifest) are
+    recorded as post-computation annotations and are excluded from the
+    hash preimage.
+  \item \textbf{Environment-dependent branching.}  No control-flow decision
+    may depend on the hostname, operating system, CPU architecture, locale,
+    timezone, or any environment variable.
+  \item \textbf{Unordered iteration.}  No computation may iterate over a
+    hash-map, set, or dictionary without first imposing a canonical sort
+    order.  In Python, this implies explicit \texttt{sorted()} calls on
+    dictionary keys wherever iteration order affects the result.
+  \item \textbf{Floating-point equality comparison for branching.}
+    Classification uses strict inequality comparisons against decimal
+    threshold constants.  No floating-point equality test
+    (e.g., \texttt{==\,0.25}) is used in any branching condition, except
+    where both operands are known to be exactly representable in binary64.
+\end{itemize}
+
+\subsection{Hash Dependency Graph}\label{sec:det:hash-graph}
+
+The integrity chain imposes a strict dependency order on computed values.
+No hash may be computed until all of its upstream inputs have been finalised
+(rounded and serialised).  The dependency graph is:
+
+\begin{quote}\small
+\begin{enumerate}[label=\textbf{Stage~\arabic*}., leftmargin=4em]
+  \item \textbf{Channel scores.}\enspace  Per-partner share vectors
+    \(\to\) channel-level \HHI (\cref{eq:hhi}).
+  \item \textbf{Axis scores.}\enspace  Channel scores \(\to\)
+    axis-level aggregation (\cref{eq:dual-channel,eq:weighted-b,eq:fuel-avg}).
+  \item \textbf{Composite score.}\enspace  Six axis scores \(\to\)
+    arithmetic mean (\cref{eq:composite}).
+  \item \textbf{Rounding.}\enspace  All scores rounded to 8~decimal
+    places (round-half-to-even).
+  \item \textbf{Classification.}\enspace  Rounded composite \(\to\)
+    four-tier label (\cref{tab:thresholds}).
+  \item \textbf{Country hash.}\enspace  Canonical serialisation of
+    rounded scores, classification, and metadata \(\to\)
+    \(h_i = \mathrm{SHA\text{-}256}(\text{canonical}_i)\)
+    (\cref{sec:integrity:country}).
+  \item \textbf{Snapshot hash.}\enspace  Sorted country hashes
+    \(\to\) \(H_t = \mathrm{SHA\text{-}256}(h_{\mathrm{AT}} \| \cdots \|
+    h_{\mathrm{SK}})\) (\cref{sec:integrity:snapshot}).
+  \item \textbf{Signature.}\enspace  Snapshot hash \(\to\)
+    \(\sigma_t = \mathrm{Ed25519\text{-}Sign}(sk, H_t)\)
+    (\cref{sec:integrity:signature}).
+\end{enumerate}
+\end{quote}
+
+A stage may commence only after all inputs from the preceding stage are
+finalised.  Rounding (Stage~4) is the single irreversible precision-reduction
+step; all subsequent stages (5--8) consume only rounded values.  Reversing
+the order of Stages~4 and~5 (i.e., classifying before rounding) would violate
+invariant \textbf{D-5} and produce inconsistent hash preimages.
+
+\subsection{Determinism Certification}\label{sec:det:certification}
+
+A conforming implementation is certified deterministic if it passes the
+full test suite defined in \cref{sec:verification}, including:
+
+\begin{enumerate}
+  \item \textbf{Golden-file tests.}  The output for a fixed reference
+    dataset matches a pre-computed golden file byte-for-byte.
+  \item \textbf{Cross-platform tests.}  The same golden-file comparison
+    passes on at least two distinct platforms (e.g., x86-64 Linux and
+    ARM64 macOS).
+  \item \textbf{Idempotency tests.}  Running the pipeline twice on the same
+    input produces byte-identical output (verifying \textbf{D-1}).
+  \item \textbf{Permutation tests.}  Randomly permuting the input-row order
+    produces identical output (verifying \textbf{D-4}).
+\end{enumerate}

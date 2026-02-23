@@ -1,0 +1,239 @@
+% sections/14_threat_model.tex
+\section{Threat Model and Trust Assumptions}\label{sec:threat-model}
+
+This section defines the adversary model, security goals, trust anchors,
+and key-management policy governing the \ISI integrity system.  The model
+is scoped to the computational pipeline, snapshot artefacts, and serving
+layer.  Raw-data veracity is explicitly out of scope.
+
+Normative keywords (SHALL, SHALL NOT, MUST, MUST NOT, MAY, RECOMMENDED)
+are used in the sense defined by \textcite{rfc2119} throughout this section.
+
+% -------------------------------------------------------------------------
+\subsection{Adversary Classes}\label{sec:threat:adversaries}
+
+The following adversary classes are considered.  Each class is designated
+\textbf{A-\textit{n}} and is referenced in the mitigation analysis below.
+
+\begin{description}[style=nextline, leftmargin=3.5em, labelwidth=3em]
+
+  \item[\textbf{A-1}] \textbf{Post-materialisation file tampering.}\enspace
+    An adversary modifies one or more files in a published snapshot directory
+    after the snapshot has been signed.  The attack surface includes score
+    files, the methodology registry, and metadata files.  The adversary does
+    not possess the signing key.
+
+  \item[\textbf{A-2}] \textbf{Partial snapshot substitution.}\enspace
+    An adversary replaces a subset of files in a snapshot directory
+    with files from a different vintage or methodology version while
+    leaving the remaining files intact.  The goal is to produce a snapshot
+    that passes superficial inspection but contains inconsistent data.
+
+  \item[\textbf{A-3}] \textbf{API response manipulation.}\enspace
+    A network-level adversary intercepts and modifies API responses between
+    the serving infrastructure and the client.  This includes modification
+    of JSON payloads, HTTP headers, and ETag values.
+
+  \item[\textbf{A-4}] \textbf{Registry mutation.}\enspace
+    An adversary with write access to the deployment environment modifies
+    the \texttt{methodology\_registry.json} to alter parameter values
+    (e.g., classification thresholds, rounding precision) without
+    recomputing the affected scores.
+
+  \item[\textbf{A-5}] \textbf{Floating-point drift.}\enspace
+    A non-conforming implementation produces scores that differ from the
+    canonical output due to platform-specific floating-point behaviour
+    (extended precision, FMA contraction, non-IEEE rounding mode).  The
+    divergence is unintentional but produces hash mismatches and
+    potentially different classifications.
+
+  \item[\textbf{A-6}] \textbf{Key compromise.}\enspace
+    The Ed25519 signing key is obtained by an adversary, enabling
+    production of valid signatures over fabricated snapshots.
+
+\end{description}
+
+% -------------------------------------------------------------------------
+\subsection{Security Goals}\label{sec:threat:goals}
+
+The integrity system SHALL provide the following guarantees:
+
+\begin{description}[style=nextline, leftmargin=3.5em, labelwidth=3em]
+
+  \item[\textbf{G-1}] \textbf{Snapshot integrity.}\enspace
+    Any modification to any file within a signed snapshot SHALL be
+    detectable by a verifier with access to the public key and the
+    snapshot's \texttt{SIGNATURE.json}.  This goal mitigates \textbf{A-1}
+    and \textbf{A-2}.
+
+  \item[\textbf{G-2}] \textbf{Deterministic reproducibility.}\enspace
+    Any conforming implementation executing the pipeline on identical inputs
+    and methodology parameters SHALL produce byte-identical output, including
+    identical hash digests and an identical signature preimage.
+    This goal mitigates \textbf{A-5}.
+
+  \item[\textbf{G-3}] \textbf{Tamper detectability.}\enspace
+    Verification of a snapshot SHALL require only the snapshot directory,
+    the public key, and the verification algorithm.  No network access,
+    database query, or access to the computation environment SHALL be
+    required.  A failed verification SHALL produce an unambiguous rejection.
+
+  \item[\textbf{G-4}] \textbf{Non-repudiation.}\enspace
+    A validly signed snapshot constitutes a binding commitment by the
+    custodian (\cref{sec:gov:custodian}) to the scores, classifications,
+    and rankings contained therein.  The custodian SHALL NOT deny
+    authorship of a snapshot bearing a valid signature under a key they
+    have published.
+
+\end{description}
+
+% -------------------------------------------------------------------------
+\subsection{Out-of-Scope Threats}\label{sec:threat:out-of-scope}
+
+The following threats are explicitly excluded from the security model:
+
+\begin{enumerate}
+  \item \textbf{Raw data falsification.}\enspace  The integrity chain
+    authenticates the \emph{computation}, not the veracity of the
+    underlying source data.  If a statistical agency publishes erroneous
+    trade data, the \ISI pipeline will faithfully compute and sign a
+    snapshot reflecting that error.  Source-data validation is the
+    responsibility of the data providers, not of the \ISI integrity system.
+
+  \item \textbf{Upstream statistical bias.}\enspace  Systematic biases in
+    source-data collection (e.g., under-reporting of certain trade flows)
+    are not detectable or correctable by the integrity chain.
+
+  \item \textbf{Compromised data providers.}\enspace  If a data provider is
+    coerced or incentivised to publish misleading data, the \ISI system has
+    no mechanism to detect or correct the resulting distortion.  The
+    integrity chain guarantees that the published snapshot correctly reflects
+    the computation; it does not guarantee that the inputs to the
+    computation are truthful.
+
+  \item \textbf{Side-channel attacks on the computation environment.}\enspace
+    Timing attacks, power analysis, and electromagnetic emanation attacks
+    against the hardware executing the pipeline are not considered.  The
+    pipeline is not a cryptographic primitive and does not process secret
+    inputs.
+
+  \item \textbf{Denial of service.}\enspace  Availability of the API
+    serving layer is an operational concern governed by infrastructure
+    policy, not by this specification.  Rate limiting
+    (\cref{sec:api:rate-limiting}) provides a baseline defence but does not
+    constitute a formal availability guarantee.
+\end{enumerate}
+
+% -------------------------------------------------------------------------
+\subsection{Trust Anchors}\label{sec:threat:trust-anchors}
+
+The security model rests on the following trust assumptions.  Violation of
+any assumption invalidates the corresponding security goal.
+
+\begin{description}[style=nextline, leftmargin=3.5em, labelwidth=3em]
+
+  \item[\textbf{TA-1}] \textbf{Public key distribution.}\enspace
+    The Ed25519 public key is distributed through an authenticated channel
+    (e.g., the project repository, a TLS-protected webpage, or a published
+    document bearing an institutional identifier).  Verifiers MUST obtain
+    the public key from a trusted source.  If the public key is substituted,
+    \textbf{G-1} and \textbf{G-4} are void.
+
+  \item[\textbf{TA-2}] \textbf{Append-only registry.}\enspace
+    The snapshot's methodology-registry file is append-only at the
+    deployment level.  Existing entries SHALL NOT be
+    modified or deleted.  New entries MAY be appended for new vintages or
+    methodology versions.  This assumption underpins \textbf{G-1}.
+
+  \item[\textbf{TA-3}] \textbf{Offline verification path.}\enspace
+    A verifier with access to the snapshot directory and the public key
+    SHALL be able to perform full integrity verification without network
+    connectivity.  The verification algorithm is specified in
+    \\cref{sec:integrity:verify} and is reproducible from this
+    document alone.
+
+  \item[\textbf{TA-4}] \textbf{Signing-key confidentiality.}\enspace
+    The Ed25519 private key is held exclusively by the custodian
+    (\cref{sec:gov:custodian}) and is not shared with data providers,
+    API operators, or third parties.  This assumption underpins
+    \textbf{G-4}.
+
+\end{description}
+
+% -------------------------------------------------------------------------
+\subsection{Mitigation Matrix}\label{sec:threat:mitigation}
+
+\Cref{tab:threat-mitigation} maps each adversary class to the integrity
+mechanism that mitigates it and the security goal that is preserved.
+
+\begin{table}[htbp]
+  \centering\small
+  \caption{Adversary-class mitigation matrix.}\label{tab:threat-mitigation}
+  \begin{tabularx}{\textwidth}{@{}l l X l@{}}
+    \toprule
+    \textbf{Adversary} & \textbf{Mechanism} & \textbf{Detection method} &
+      \textbf{Goal} \\
+    \midrule
+    \textbf{A-1} & SHA-256 + Ed25519 & Hash mismatch on tampered file;
+      signature verification failure. & \textbf{G-1} \\
+    \textbf{A-2} & Manifest binding (\textbf{C-3}) & Manifest hash covers
+      all files; substituted file produces hash mismatch. & \textbf{G-1} \\
+    \textbf{A-3} & ETag + offline verification & Client recomputes hashes
+      from downloaded snapshot; TLS protects transport. & \textbf{G-3} \\
+    \textbf{A-4} & Registry in manifest & Registry file is hashed in
+      manifest; mutation invalidates snapshot hash. & \textbf{G-1} \\
+    \textbf{A-5} & Determinism invariants (D-1--D-10) & Golden-file and
+      cross-platform tests detect drift. & \textbf{G-2} \\
+    \textbf{A-6} & Key rotation protocol & Revocation + re-signing with
+      new key; see \cref{sec:threat:key-rotation}. & \textbf{G-4} \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+% -------------------------------------------------------------------------
+\subsection{Key Rotation and Revocation Policy}\label{sec:threat:key-rotation}
+
+The following normative rules govern the Ed25519 signing key lifecycle:
+
+\begin{enumerate}
+  \item The custodian SHALL generate a new Ed25519 key pair when the
+    methodology undergoes a major-version increment.
+
+  \item The custodian MAY generate a new key pair at any time for
+    operational reasons (e.g., personnel change, infrastructure migration).
+
+  \item Upon key rotation, the custodian SHALL publish the new public key
+    through the same authenticated channels used for the previous key
+    (\textbf{TA-1}).
+
+  \item The previous public key SHALL remain published and labelled as
+    ``superseded'' with an effective date.  Removal of a superseded public
+    key is prohibited: verifiers of historical snapshots require access to
+    the key that was active at the time of signing.
+
+  \item Snapshots signed with a superseded key SHALL NOT be re-signed with
+    the new key.  Each snapshot's signature is bound to the key that was
+    active at the time of publication.  Re-signing would violate the
+    immutability contract (\cref{sec:snapshot:immutability}).
+
+  \item In the event of suspected or confirmed key compromise
+    (\textbf{A-6}), the custodian SHALL:
+    \begin{enumerate}[label=(\alph*)]
+      \item Immediately revoke the compromised key by publishing a signed
+        revocation notice using the compromised key (if still in possession)
+        or via an authenticated institutional channel.
+      \item Generate and publish a new key pair.
+      \item Audit all snapshots signed with the compromised key and publish
+        an integrity report identifying any snapshots whose authenticity
+        cannot be confirmed.
+      \item Re-sign affected snapshots with the new key only if the
+        custodian can independently verify that the snapshot contents are
+        authentic.  Re-signed snapshots are published in an addendum
+        directory alongside the original (\cref{sec:snapshot:immutability}).
+    \end{enumerate}
+
+  \item Key pairs SHALL be generated using a cryptographically secure
+    random number generator conforming to the requirements of
+    \textcite{rfc8032}.  The private key SHALL be stored in an
+    access-controlled environment with audit logging.
+\end{enumerate}

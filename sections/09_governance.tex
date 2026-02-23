@@ -10,23 +10,65 @@ custodian.
 
 \subsection{Versioning Scheme}\label{sec:gov:versioning}
 
-The \ISI follows a two-part version number: \texttt{major.minor}.
+The \ISI follows a three-part version number: \texttt{major.minor.patch}.
+The current version is \textbf{v\,1.0.0}.
 
-\begin{description}[style=nextline]
-  \item[\texttt{major} increment.]
-    Reserved for changes that break backward comparability of the composite
-    score.  Examples: adding or removing an axis, changing the concentration
-    formula, altering the classification thresholds, modifying the defence
-    temporal window, rotating the signing key.  A major-version change resets
-    the minor counter to~\(0\) and requires a new methodology document.
-  \item[\texttt{minor} increment.]
-    Used for changes that preserve backward comparability.  Examples:
-    extending country coverage, adding a warning code, correcting a data-
-    ingestion bug, updating a supplementary data source.  Minor changes are
-    documented in a changelog appended to the methodology document.
-\end{description}
+\paragraph{Major version increment.}
+A major version increment (e.g., 1.x.x~\(\to\)~2.0.0) is REQUIRED if any
+of the following changes is made:
 
-The current version is \textbf{v\,1.0}.
+\begin{itemize}
+  \item The aggregation rule (\cref{eq:composite}) changes.
+  \item The number of axes changes (axes added or removed).
+  \item Any classification threshold value (\cref{tab:thresholds}) changes.
+  \item The rounding precision changes (currently 8~decimal places).
+  \item The hashing algorithm changes (currently SHA-256).
+  \item The signature algorithm changes (currently Ed25519).
+  \item The canonical serialisation format
+    (\cref{sec:det:serialisation}) changes.
+  \item The hash-input field order or delimiter changes.
+  \item The concentration formula (\cref{eq:hhi}) changes.
+  \item The defence temporal window changes.
+  \item The axis-weighting scheme changes.
+\end{itemize}
+
+A major-version change resets the minor and patch counters to~\(0\)
+and requires a new methodology document.
+
+\paragraph{Minor version increment.}
+A minor version increment (e.g., 1.0.x~\(\to\)~1.1.0) is REQUIRED if
+any of the following changes is made, provided no major-version trigger
+applies:
+
+\begin{itemize}
+  \item Axis description text or metadata is revised without affecting
+    the mathematical definition.
+  \item The warning-code taxonomy (\cref{sec:appendix:warnings}) is expanded.
+  \item The snapshot metadata schema (\cref{sec:snapshot:metadata}) is
+    extended with new optional fields that do not enter the hash preimage.
+  \item Country coverage is extended or reduced.
+  \item A data-ingestion bug is corrected, producing different scores
+    for one or more countries.
+  \item A supplementary data source is added or replaced.
+\end{itemize}
+
+A minor-version change resets the patch counter to~\(0\).
+
+\paragraph{Patch version increment.}
+A patch version increment (e.g., 1.0.0~\(\to\)~1.0.1) is permitted
+only if \emph{all} of the following conditions hold:
+
+\begin{itemize}
+  \item The change is limited to documentation corrections, typographic
+    fixes, or non-normative commentary.
+  \item No materialised output (score files, hash digests, signatures)
+    is affected.
+  \item The \texttt{methodology\_registry.json} semantics are unchanged.
+  \item No snapshot is recomputed.
+\end{itemize}
+
+Patch versions do not alter the computation and therefore do not
+require a new snapshot.
 
 \subsection{Change Protocol}\label{sec:gov:change}
 

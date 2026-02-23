@@ -2,8 +2,8 @@
 \section{Limitations}\label{sec:limitations}
 
 The \ISI is subject to the following structural limitations.  These are
-inherent to the methodology and cannot be resolved by improved parameter
-tuning within the current framework.
+inherent to the methodology and cannot be resolved by parameter tuning,
+software correction, or improved data quality within the v\,1.0 framework.
 
 \begin{enumerate}[label=\textbf{L\arabic*}.]
 
@@ -13,9 +13,9 @@ tuning within the current framework.
     (notably the Netherlands and Belgium within the EU-27) inflate their
     share in partner-level distributions for goods that merely transit
     through their territory.  This affects axes~3 (semiconductors),
-    5~(critical raw materials), and 6~(logistics) most acutely.  The \ISI
-    does not strip out re-export flows because no harmonised re-export
-    adjustment exists across all source datasets.
+    5~(critical raw materials), and 6~(logistics) most acutely.  No
+    harmonised re-export adjustment exists across all source datasets;
+    consequently, the \ISI does not strip out re-export flows.
 
   \item \textbf{Small-economy amplification.}
     Countries with very small absolute import volumes (e.g., CY, MT,
@@ -30,14 +30,14 @@ tuning within the current framework.
     Freight flows are partly determined by geography.  Landlocked countries
     (AT, CZ, HU, LU, SK) necessarily concentrate road and rail freight on
     neighbouring partners, producing high logistics \HHI values that
-    reflect physical proximity, not strategic vulnerability.  The index
-    does not adjust for geographic proximity or contiguity.
+    reflect physical proximity rather than strategic vulnerability.  The
+    index does not adjust for geographic proximity or contiguity.
 
   \item \textbf{No domestic production offset.}
     The \ISI measures concentration of \emph{imports} only.  It does not
     account for domestic production capacity.  A country that imports a
     concentrated bundle of semiconductors but also manufactures a large
-    share domestically will receive the same axis score as a country with
+    share domestically receives the same axis score as a country with
     identical import patterns but no domestic production.  Import
     concentration is therefore a necessary but not sufficient indicator
     of actual supply vulnerability.
@@ -54,12 +54,28 @@ tuning within the current framework.
   \item \textbf{Intra-EU trade inclusion.}
     Bilateral flows between EU~member states are included in the share
     vectors.  A country whose imports are concentrated on a single
-    EU~partner (e.g., Germany) will receive a high \HHI, even though the
+    EU~partner (e.g., Germany) receives a high \HHI, even though the
     flow occurs within the Single Market and is subject to EU regulatory
     safeguards.  This may overstate effective external dependence for
     countries whose concentration is predominantly intra-EU.  An
     alternative specification---excluding intra-EU flows---would require a
     separate methodology variant and is reserved for future consideration.
+
+  \item \textbf{Single vintage; no time-series comparability.}
+    Only \ISI~2024 is materialisable under v\,1.0
+    (\cref{sec:data:constraints}).  Cross-temporal comparisons are not
+    supported.  Users cannot infer trends, convergence, or divergence from a
+    single snapshot.  Time-series extension requires additional source
+    vintages and constitutes a future methodology release.
+
+  \item \textbf{No formal verification of the pipeline.}
+    The computation pipeline is empirically validated through the test suite
+    (\cref{sec:verification}) but has not been subjected to formal
+    verification (proof-carrying code, model checking, or certified
+    compilation).  The determinism invariants (\cref{sec:det:invariants}) are
+    contractual obligations enforced by testing, not by mathematical proof.
+    Residual implementation defects that escape the test suite remain
+    possible.
 
 \end{enumerate}
 

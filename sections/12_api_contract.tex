@@ -1,0 +1,293 @@
+% sections/12_api_contract.tex
+\section{API Contract and Serving Guarantees}\label{sec:api-contract}
+
+This section specifies the programmatic interface through which consumers
+access published \ISI data.  The contract defines endpoint semantics,
+response formats, caching behaviour, error taxonomy, and backward-compatibility
+rules.  The API is a \textbf{read-only} serving layer; it does not expose
+computation, ingestion, or administrative functions.
+
+\subsection{Transport and Protocol}\label{sec:api:transport}
+
+\begin{itemize}
+  \item \textbf{Protocol.}  HTTPS (TLS~1.2 or later).  Plaintext HTTP
+    requests receive a \texttt{301 Moved Permanently} redirect to the HTTPS
+    endpoint.
+  \item \textbf{Content type.}  All responses use
+    \texttt{Content-Type:\ application/json;\ charset=utf-8} unless
+    otherwise specified per endpoint.
+  \item \textbf{Authentication.}  The public API is unauthenticated.  Rate
+    limiting is enforced per source IP address (see
+    \cref{sec:api:rate-limiting}).
+  \item \textbf{Base URL.}  The canonical base URL is published in the
+    project repository.  All endpoint paths in this section are relative to
+    the base URL.
+\end{itemize}
+
+\subsection{Endpoint Taxonomy}\label{sec:api:endpoints}
+
+The API exposes the following endpoints.  All endpoints accept only
+\texttt{GET} requests.  Other HTTP methods receive
+\texttt{405 Method Not Allowed}.
+
+\subsubsection{\texttt{GET /v1/snapshots}}
+
+Returns the list of available snapshots.
+
+\begin{table}[htbp]
+  \centering\small
+  \caption{Response schema for \texttt{GET /v1/snapshots}.}%
+  \label{tab:api-snapshots}
+  \begin{tabularx}{\textwidth}{@{}l l X@{}}
+    \toprule
+    \textbf{Field} & \textbf{Type} & \textbf{Description} \\
+    \midrule
+    \texttt{snapshots}   & \texttt{obj[]} & Array of snapshot summary objects. \\
+    \texttt{.vintage\_year} & \texttt{int} & Vintage year. \\
+    \texttt{.methodology\_version} & \texttt{str} & Version string. \\
+    \texttt{.published\_at} & \texttt{str} & ISO~8601 publication timestamp. \\
+    \texttt{.country\_count} & \texttt{int} & Number of countries in the snapshot. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsubsection{\texttt{GET /v1/snapshots/\{vintage\}/scores}}
+
+Returns country-level scores for the specified vintage.
+
+\paragraph{Path parameters.}
+\texttt{\{vintage\}}: four-digit vintage year (e.g., \texttt{2024}).
+
+\paragraph{Query parameters.}
+\begin{description}[style=nextline, leftmargin=5em, labelwidth=4.5em]
+  \item[\texttt{country}] Optional.  Comma-separated list of ISO~3166-1
+    alpha-2 codes.  Filters the response to the specified countries.
+  \item[\texttt{format}]  Optional.  One of \texttt{json} (default) or
+    \texttt{csv}.  When \texttt{csv}, the response uses
+    \texttt{Content-Type:\ text/csv;\ charset=utf-8} and returns the
+    \texttt{country\_scores.csv} content directly.
+\end{description}
+
+\paragraph{Response.}
+The JSON response body is an object with a \texttt{scores} array whose
+elements follow the column schema of \texttt{country\_scores.csv}
+(\cref{tab:schema-country-scores}).  All numeric scores are returned as
+strings (fixed-point, 8~decimal places).
+
+\subsubsection{\texttt{GET /v1/snapshots/\{vintage\}/axes}}
+
+Returns axis-level scores for all countries in the specified vintage.
+The response schema mirrors \texttt{axis\_scores.csv}
+(\cref{tab:schema-axis-scores}).
+
+\subsubsection{\texttt{GET /v1/snapshots/\{vintage\}/channels}}
+
+Returns channel-level scores.  The response schema mirrors
+\texttt{channel\_scores.csv} (\cref{tab:schema-channel-scores}).
+
+\subsubsection{\texttt{GET /v1/snapshots/\{vintage\}/integrity}}
+
+Returns the integrity artefacts: country-level hashes, the snapshot hash,
+the manifest hash, and the Ed25519 signature.  This endpoint provides
+sufficient information for a consumer to perform the full verification
+procedure (\cref{sec:integrity:verify}) without downloading the snapshot
+archive.
+
+\subsubsection{\texttt{GET /v1/snapshots/\{vintage\}/registry}}
+
+Returns the methodology registry (\cref{sec:snapshot:registry}) as a
+JSON object.
+
+\subsubsection{\texttt{GET /v1/scenario}}
+
+Executes a scenario simulation and returns the results.
+
+\paragraph{Query parameters.}
+\begin{description}[style=nextline, leftmargin=5em, labelwidth=4.5em]
+  \item[\texttt{vintage}] Required.  Four-digit vintage year.
+  \item[\texttt{country}] Required.  Single ISO~3166-1 alpha-2 code.
+  \item[\texttt{a1} \ldots\ \texttt{a6}] Optional.  Axis-level adjustment
+    factors, each a decimal in \([-0.20, +0.20]\).  Omitted axes default
+    to~\(0\).
+\end{description}
+
+\paragraph{Response.}
+The response contains the baseline scores, simulated scores, baseline rank,
+simulated rank, and the applied adjustment vector.  All scores are returned
+as fixed-point strings.
+
+\subsection{ETag and Conditional Requests}\label{sec:api:etag}
+
+Every response includes an \texttt{ETag} header whose value is the
+hex-encoded SHA-256 hash of the response body.  Clients may issue
+conditional requests using \texttt{If-None-Match}; the server returns
+\texttt{304 Not Modified} if the ETag matches.
+
+Because snapshot data is immutable (\cref{sec:snapshot:immutability}),
+ETags for snapshot endpoints are stable: the same request to the same
+vintage always produces the same ETag.  This property is a direct
+consequence of determinism invariant \textbf{D-1}
+(\cref{sec:det:invariants}).
+
+Responses also include a \texttt{Cache-Control} header:
+\begin{itemize}
+  \item Snapshot endpoints: \texttt{Cache-Control:\ public,\ max-age=86400,\ immutable}.
+  \item Scenario endpoint: \texttt{Cache-Control:\ public,\ max-age=3600}.
+  \item Snapshot-list endpoint: \texttt{Cache-Control:\ public,\ max-age=3600}.
+\end{itemize}
+
+The \texttt{immutable} directive on snapshot endpoints signals to
+intermediary caches that the response will never change for the given URL,
+reflecting the immutability contract (\cref{sec:snapshot:immutability}).
+
+\subsection{Error Taxonomy}\label{sec:api:errors}
+
+The API uses the following error response structure:
+
+\begin{quote}
+\ttfamily\small
+\{"error": \{"code": "<CODE>", "message": "<human-readable>"\}\}
+\end{quote}
+
+\Cref{tab:api-errors} enumerates the error codes.
+
+\begin{longtable}{@{}l l l >{\raggedright\arraybackslash}p{5.5cm}@{}}
+  \caption{API error codes.}\label{tab:api-errors} \\
+  \toprule
+  \textbf{HTTP} & \textbf{Code} & \textbf{Scope} & \textbf{Condition} \\
+  \midrule
+  \endfirsthead
+  \caption[]{API error codes (continued).} \\
+  \toprule
+  \textbf{HTTP} & \textbf{Code} & \textbf{Scope} & \textbf{Condition} \\
+  \midrule
+  \endhead
+  \midrule
+  \multicolumn{4}{r@{}}{\footnotesize\itshape Continued on next page} \\
+  \endfoot
+  \bottomrule
+  \endlastfoot
+  400 & \texttt{INVALID\_VINTAGE}     & Path     & Vintage year is not a
+    four-digit integer or is outside the range of published snapshots. \\
+  400 & \texttt{INVALID\_COUNTRY}     & Query    & Country code is not a
+    valid ISO~3166-1 alpha-2 code. \\
+  400 & \texttt{INVALID\_ADJUSTMENT}  & Query    & Scenario adjustment factor
+    is outside \([-0.20, +0.20]\) or is not a valid decimal. \\
+  400 & \texttt{MISSING\_PARAMETER}   & Query    & A required query parameter
+    is absent. \\
+  404 & \texttt{VINTAGE\_NOT\_FOUND}  & Path     & The requested vintage year
+    does not correspond to a published snapshot. \\
+  404 & \texttt{COUNTRY\_NOT\_FOUND}  & Query    & The requested country code
+    is not present in the specified vintage. \\
+  405 & \texttt{METHOD\_NOT\_ALLOWED} & Method   & HTTP method other than
+    \texttt{GET} was used. \\
+  429 & \texttt{RATE\_LIMITED}         & Client   & Client has exceeded the
+    rate limit. \\
+  500 & \texttt{INTERNAL\_ERROR}      & Server   & An unexpected server-side
+    error occurred.  The response includes a correlation identifier for
+    incident tracking. \\
+\end{longtable}
+
+\subsection{Rate Limiting}\label{sec:api:rate-limiting}
+
+Rate limiting is enforced per source IP address using a token-bucket
+algorithm.  The default limits are:
+
+\begin{table}[htbp]
+  \centering\small
+  \caption{Default rate limits.}\label{tab:api-rate-limits}
+  \begin{tabular}{@{}l l l@{}}
+    \toprule
+    \textbf{Endpoint group} & \textbf{Requests/minute} & \textbf{Burst} \\
+    \midrule
+    Snapshot data endpoints   & 60  & 10 \\
+    Scenario endpoint         & 30  & 5 \\
+    Snapshot list              & 60  & 10 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+When a client exceeds the rate limit, the server returns
+\texttt{429 Too Many Requests} with a \texttt{Retry-After} header
+indicating the number of seconds until the next permitted request.
+
+\subsection{Versioned Endpoint Prefix}\label{sec:api:versioning}
+
+All endpoints are prefixed with a version identifier (\texttt{/v1/}).  The
+API version is \emph{independent} of the methodology version: API~v1 may
+serve snapshots from methodology versions~1.0, 1.1, 1.2, etc.
+
+A new API major version (\texttt{/v2/}) is introduced only when the response
+schema undergoes a backward-incompatible change.  When a new API version is
+introduced, the previous version remains operational for a minimum of
+twelve months with a \texttt{Sunset} header indicating the deprecation date.
+
+\subsection{Backward-Compatibility Rules}\label{sec:api:compat}
+
+Within a given API major version, the following changes are
+backward-compatible and do not require a version increment:
+
+\begin{itemize}
+  \item Adding new optional query parameters.
+  \item Adding new fields to JSON response objects.
+  \item Adding new snapshot vintages.
+  \item Adding new warning codes to the \texttt{warnings} field.
+\end{itemize}
+
+The following changes are \textbf{breaking} and require a new API major
+version:
+
+\begin{itemize}
+  \item Removing or renaming an existing response field.
+  \item Changing the type or semantics of an existing response field.
+  \item Removing an endpoint.
+  \item Changing the serialisation format of scores (e.g., from string to
+    number).
+  \item Altering the ETag computation algorithm.
+\end{itemize}
+
+\subsection{Content Negotiation}\label{sec:api:content}
+
+Clients may request CSV output via the \texttt{format=csv} query parameter
+on score endpoints.  The CSV output is byte-identical to the corresponding
+file in the snapshot archive, ensuring that consumers who download the
+snapshot and consumers who use the API receive the same data.
+
+JSON is the default format.  The \texttt{Accept} header is not used for
+content negotiation; the \texttt{format} query parameter takes precedence.
+
+\subsection{Health and Readiness}\label{sec:api:health}
+
+The API exposes two operational endpoints that are excluded from the
+versioned prefix:
+
+\begin{description}[style=nextline]
+  \item[\texttt{GET /healthz}]
+    Returns \texttt{200~OK} with body \texttt{\{"status":"ok"\}} if the
+    server process is running and able to accept connections.  This endpoint
+    performs no database or file-system checks.  It is intended for load
+    balancers and container orchestrators.
+  \item[\texttt{GET /readyz}]
+    Returns \texttt{200~OK} with body \texttt{\{"status":"ready"\}} if
+    the server has loaded at least one snapshot into memory and is able to
+    serve score requests.  If no snapshot is loaded, it returns
+    \texttt{503~Service Unavailable} with
+    \texttt{\{"status":"not\_ready"\}}.
+\end{description}
+
+Neither endpoint is subject to rate limiting or authentication.  Neither
+endpoint returns cache headers.  Both endpoints are excluded from the
+API versioning scheme and may not be removed or renamed.
+
+\subsection{Cross-Origin Resource Sharing}\label{sec:api:cors}
+
+The API sets the following CORS headers on all responses:
+
+\begin{itemize}
+  \item \texttt{Access-Control-Allow-Origin:~*}
+  \item \texttt{Access-Control-Allow-Methods:~GET,~OPTIONS}
+  \item \texttt{Access-Control-Max-Age:~86400}
+\end{itemize}
+
+This permits browser-based clients to access the API directly without a
+server-side proxy.

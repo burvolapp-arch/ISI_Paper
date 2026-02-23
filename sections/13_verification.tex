@@ -1,0 +1,374 @@
+% sections/13_verification.tex
+\section{Verification, Test Coverage, and Formal Assurance}%
+\label{sec:verification}
+
+This section specifies the test suite that a conforming implementation of
+the \ISI v\,1.0 pipeline must pass.  The suite is organised into five
+categories: unit tests, property-based tests, golden-file tests,
+integration tests, and integrity-chain tests.  Each test is designated
+\textbf{T-\textit{n}} and mapped to the determinism invariant(s)
+(\cref{sec:det:invariants}) it verifies.
+
+\subsection{Test Infrastructure}\label{sec:test:infra}
+
+The test suite is executed via a standard test runner (e.g., \texttt{pytest}).
+All tests are deterministic: no test uses random seeds, network access, or
+system clock queries.  Tests that exercise stochastic properties
+(e.g., permutation invariance) use a fixed, reproducible set of permutations
+drawn from a seeded pseudo-random generator whose seed is committed to the
+test codebase.
+
+Test data consists of two reference datasets:
+
+\begin{description}[style=nextline]
+  \item[\texttt{fixtures/reference\_small.json}]
+    A synthetic dataset of five countries and six axes, with known
+    closed-form solutions.  Used for unit tests and property-based tests
+    where exact expected values can be computed by hand.
+  \item[\texttt{fixtures/reference\_eu27.json}]
+    The full EU-27 input dataset for vintage~2024.  Used for golden-file
+    tests and integration tests.  The expected outputs are stored as golden
+    files alongside the fixture.
+\end{description}
+
+\subsection{Unit Tests}\label{sec:test:unit}
+
+Unit tests verify individual functions in isolation.  Each test provides
+a known input and asserts exact equality with the expected output.
+
+\begin{longtable}{@{}l >{\raggedright\arraybackslash}p{6cm} l@{}}
+  \caption{Unit test registry.}\label{tab:test-unit} \\
+  \toprule
+  \textbf{ID} & \textbf{Description} & \textbf{Invariant} \\
+  \midrule
+  \endfirsthead
+  \caption[]{Unit test registry (continued).} \\
+  \toprule
+  \textbf{ID} & \textbf{Description} & \textbf{Invariant} \\
+  \midrule
+  \endhead
+  \midrule
+  \multicolumn{3}{r@{}}{\footnotesize\itshape Continued on next page} \\
+  \endfoot
+  \bottomrule
+  \endlastfoot
+  \textbf{T-01} & \HHI of a uniform share vector
+    \((\tfrac{1}{n}, \ldots, \tfrac{1}{n})\) equals \(\tfrac{1}{n}\). &
+    --- \\
+  \textbf{T-02} & \HHI of a degenerate share vector \((1, 0, \ldots, 0)\)
+    equals~\(1\). & --- \\
+  \textbf{T-03} & Dual-channel arithmetic mean: \(0.5 C^{(A)} + 0.5 C^{(B)}\)
+    matches expected value for three test cases. & --- \\
+  \textbf{T-04} & Category-weighted Channel~B (\cref{eq:weighted-b}) matches
+    hand-computed value for two sub-categories with known volumes. & --- \\
+  \textbf{T-05} & Fuel average (\cref{eq:fuel-avg}) matches expected value
+    when one, two, and three fuel categories are present. & --- \\
+  \textbf{T-06} & Composite (\cref{eq:composite}) matches arithmetic mean of
+    six known axis scores. & --- \\
+  \textbf{T-07} & Missing-axis composite (\cref{eq:composite-partial}) with
+    \(|\mathcal{A}_i| = 4\) matches expected value. & \textbf{D-10} \\
+  \textbf{T-08} & Rounding: input \texttt{"0.123456785"} at precision~8 returns
+    \texttt{"0.12345678"} (ties to even). & \textbf{D-5} \\
+  \textbf{T-09} & Rounding: input \texttt{"0.123456795"} at precision~8 returns
+    \texttt{"0.12345680"} (ties to even). & \textbf{D-5} \\
+  \textbf{T-10} & Classification of boundary values: \(0.50\) maps to
+    \texttt{highly\_concentrated}; \(0.49999999\) maps to
+    \texttt{moderately\_concentrated}. & \textbf{D-7} \\
+  \textbf{T-11} & Classification of all four tier boundaries
+    (\(0.15\), \(0.25\), \(0.50\), and values just below each). &
+    \textbf{D-7} \\
+  \textbf{T-12} & Scenario clamping: input axis score \(0.95\) with
+    \(\alpha = +0.20\) returns \(1.0\), not \(1.14\). & \textbf{D-9} \\
+  \textbf{T-13} & Scenario clamping: input axis score \(0.03\) with
+    \(\alpha = -0.20\) returns \(0.024\), not a negative value. &
+    \textbf{D-9} \\
+  \textbf{T-14} & Ranking tie-break: two countries with identical composite
+    scores are ordered by ISO alpha-2 code (ascending). & \textbf{D-8} \\
+  \textbf{T-15} & Canonical hash string for a known country record matches
+    a pre-computed SHA-256 digest. & \textbf{D-6} \\
+\end{longtable}
+
+\subsection{Property-Based Tests}\label{sec:test:property}
+
+Property-based tests verify algebraic properties that must hold for
+\emph{any} valid input, not merely for specific test vectors.  Inputs are
+generated from constrained domains using a combinatorial or exhaustive
+strategy over small state spaces.
+
+\begin{longtable}{@{}l >{\raggedright\arraybackslash}p{5.5cm} l@{}}
+  \caption{Property-based test registry.}\label{tab:test-property} \\
+  \toprule
+  \textbf{ID} & \textbf{Property} & \textbf{Invariant} \\
+  \midrule
+  \endfirsthead
+  \caption[]{Property-based test registry (continued).} \\
+  \toprule
+  \textbf{ID} & \textbf{Property} & \textbf{Invariant} \\
+  \midrule
+  \endhead
+  \midrule
+  \multicolumn{3}{r@{}}{\footnotesize\itshape Continued on next page} \\
+  \endfoot
+  \bottomrule
+  \endlastfoot
+  \textbf{T-20} & \textbf{Unit-interval bound.}\enspace  For any valid share
+    vector, \(0 < C_i^{(\mathrm{ch})} \leq 1\). & --- \\
+  \textbf{T-21} & \textbf{Share-vector normalisation.}\enspace  Input share
+    vectors that do not sum to~1 (within \(\epsilon = 10^{-9}\)) are rejected
+    by the validation layer. & --- \\
+  \textbf{T-22} & \textbf{Monotonicity of concentration.}\enspace  Shifting
+    share mass from a small partner to the largest partner weakly increases
+    the \HHI. & --- \\
+  \textbf{T-23} & \textbf{Composite bounds.}\enspace
+    \(0 < \mathrm{ISI}_i \leq 1\) for all countries with at least one
+    computable axis. & --- \\
+  \textbf{T-24} & \textbf{Classification monotonicity.}\enspace  If
+    \(s_1 > s_2\), then
+    \(\mathrm{tier}(s_1) \geq \mathrm{tier}(s_2)\) under the ordering
+    \texttt{highly} \(>\) \texttt{moderately} \(>\) \texttt{mildly} \(>\)
+    \texttt{unconcentrated}. & \textbf{D-7} \\
+  \textbf{T-25} & \textbf{Ranking antisymmetry.}\enspace  If country~\(i\)
+    ranks above country~\(j\), then country~\(j\) does not rank above
+    country~\(i\). & \textbf{D-8} \\
+  \textbf{T-26} & \textbf{Ranking totality.}\enspace  Every country in the
+    snapshot receives exactly one rank.  No rank is assigned to two countries
+    unless their composite scores are identical (in which case the tie-break
+    applies). & \textbf{D-8} \\
+  \textbf{T-27} & \textbf{Scenario bounds.}\enspace  For any valid baseline
+    score and any \(\alpha \in [-0.20, +0.20]\), the simulated score lies
+    in \([0, 1]\). & \textbf{D-9} \\
+  \textbf{T-28} & \textbf{Scenario identity.}\enspace  When
+    \(\alpha_a = 0\) for all~\(a\), the simulated scores equal the baseline
+    scores exactly. & \textbf{D-9} \\
+  \textbf{T-29} & \textbf{Rounding idempotency.}\enspace
+    \(R_8(R_8(x)) = R_8(x)\) for all \(x\) in the domain. & \textbf{D-5} \\
+  \textbf{T-30} & \textbf{Hash stability.}\enspace  The SHA-256 digest of
+    a canonical string is invariant across invocations. & \textbf{D-6} \\
+\end{longtable}
+
+\subsection{Golden-File Tests}\label{sec:test:golden}
+
+Golden-file tests compare the full pipeline output against a pre-computed
+reference.  They are the primary mechanism for verifying end-to-end
+determinism.
+
+\begin{longtable}{@{}l >{\raggedright\arraybackslash}p{5.5cm} l@{}}
+  \caption{Golden-file test registry.}\label{tab:test-golden} \\
+  \toprule
+  \textbf{ID} & \textbf{Description} & \textbf{Invariant} \\
+  \midrule
+  \endfirsthead
+  \caption[]{Golden-file test registry (continued).} \\
+  \toprule
+  \textbf{ID} & \textbf{Description} & \textbf{Invariant} \\
+  \midrule
+  \endhead
+  \midrule
+  \multicolumn{3}{r@{}}{\footnotesize\itshape Continued on next page} \\
+  \endfoot
+  \bottomrule
+  \endlastfoot
+  \textbf{T-40} & \textbf{Small-dataset golden file.}\enspace  Pipeline
+    output on \texttt{reference\_small.json} matches the golden file
+    byte-for-byte. & \textbf{D-1}, \textbf{D-2} \\
+  \textbf{T-41} & \textbf{EU-27 golden file.}\enspace  Pipeline output on
+    \texttt{reference\_eu27.json} matches the golden file byte-for-byte.
+    This test verifies the production dataset. & \textbf{D-1}, \textbf{D-2} \\
+  \textbf{T-42} & \textbf{Idempotency.}\enspace  Running the pipeline twice
+    on \texttt{reference\_eu27.json} produces byte-identical output. &
+    \textbf{D-1} \\
+  \textbf{T-43} & \textbf{Row-permutation invariance.}\enspace  Running the
+    pipeline on 10~distinct random permutations of the input rows of
+    \texttt{reference\_small.json} produces identical output each time. &
+    \textbf{D-4} \\
+  \textbf{T-44} & \textbf{Scenario golden file.}\enspace  Running the
+    scenario engine with a fixed adjustment vector on a fixed country
+    produces output matching a pre-computed golden file. &
+    \textbf{D-9} \\
+\end{longtable}
+
+\subsection{Integration Tests}\label{sec:test:integration}
+
+Integration tests verify the end-to-end pipeline including data ingestion,
+validation, computation, serialisation, and integrity-chain construction.
+
+\begin{longtable}{@{}l >{\raggedright\arraybackslash}p{5.5cm} l@{}}
+  \caption{Integration test registry.}\label{tab:test-integration} \\
+  \toprule
+  \textbf{ID} & \textbf{Description} & \textbf{Invariant} \\
+  \midrule
+  \endfirsthead
+  \caption[]{Integration test registry (continued).} \\
+  \toprule
+  \textbf{ID} & \textbf{Description} & \textbf{Invariant} \\
+  \midrule
+  \endhead
+  \midrule
+  \multicolumn{3}{r@{}}{\footnotesize\itshape Continued on next page} \\
+  \endfoot
+  \bottomrule
+  \endlastfoot
+  \textbf{T-50} & \textbf{Snapshot completeness.}\enspace  The materialised
+    snapshot directory contains all mandatory files listed in
+    \cref{sec:snapshot:directory}. & --- \\
+  \textbf{T-51} & \textbf{Manifest consistency.}\enspace  Every file listed
+    in \texttt{MANIFEST.json} exists in the directory, and its SHA-256 hash
+    matches the recorded value. & \textbf{D-6} \\
+  \textbf{T-52} & \textbf{Hash-summary consistency.}\enspace  Recomputing
+    all country hashes from \texttt{country\_scores.csv} yields the same
+    values as \texttt{HASH\_SUMMARY.json}. & \textbf{D-6} \\
+  \textbf{T-53} & \textbf{Snapshot-hash consistency.}\enspace  The snapshot
+    hash \(H_t\) recomputed from sorted country hashes matches the value in
+    \texttt{HASH\_SUMMARY.json}. & \textbf{D-6} \\
+  \textbf{T-54} & \textbf{Signature verification.}\enspace  The Ed25519
+    signature in \texttt{SIGNATURE.json} verifies against \(H_t\) using the
+    published public key. & --- \\
+  \textbf{T-55} & \textbf{CSV schema compliance.}\enspace  All CSV output
+    files conform to the column schemas specified in
+    \cref{sec:snapshot:output}. & --- \\
+  \textbf{T-56} & \textbf{JSON schema compliance.}\enspace  The methodology
+    registry and snapshot metadata files contain all mandatory keys listed in
+    \cref{sec:snapshot:registry,sec:snapshot:metadata}. & --- \\
+  \textbf{T-57} & \textbf{Score-string format.}\enspace  All score strings
+    in CSV and JSON output files match the regex
+    \texttt{\textasciicircum{}(null|-?[0-9]+\textbackslash.[0-9]\{8\})\$}. & \textbf{D-5} \\
+  \textbf{T-58} & \textbf{Warning propagation.}\enspace  Warning codes
+    generated during computation appear in \texttt{warnings.csv} and are
+    correctly associated with the respective country--axis pair. & --- \\
+  \textbf{T-59} & \textbf{Fallback-basis recording.}\enspace  The
+    \texttt{fallback\_basis.csv} file records one entry per country--axis
+    pair, and the recorded basis matches the channel availability in the
+    input data. & --- \\
+\end{longtable}
+
+\subsection{Integrity-Chain Tests}\label{sec:test:integrity}
+
+These tests specifically verify the cryptographic integrity chain in
+isolation.
+
+\begin{longtable}{@{}l >{\raggedright\arraybackslash}p{5.5cm} l@{}}
+  \caption{Integrity-chain test registry.}\label{tab:test-integrity} \\
+  \toprule
+  \textbf{ID} & \textbf{Description} & \textbf{Invariant} \\
+  \midrule
+  \endfirsthead
+  \caption[]{Integrity-chain test registry (continued).} \\
+  \toprule
+  \textbf{ID} & \textbf{Description} & \textbf{Invariant} \\
+  \midrule
+  \endhead
+  \midrule
+  \multicolumn{3}{r@{}}{\footnotesize\itshape Continued on next page} \\
+  \endfoot
+  \bottomrule
+  \endlastfoot
+  \textbf{T-60} & \textbf{Country-hash determinism.}\enspace  The same
+    country record always produces the same SHA-256 digest. &
+    \textbf{D-6} \\
+  \textbf{T-61} & \textbf{Country-hash sensitivity.}\enspace  Changing a
+    single decimal digit in one axis score produces a different country
+    hash. & \textbf{D-6} \\
+  \textbf{T-62} & \textbf{Snapshot-hash order dependence.}\enspace  The
+    snapshot hash changes if the country-hash concatenation order is
+    altered (verifying that lexicographic sorting is enforced). &
+    \textbf{D-6} \\
+  \textbf{T-63} & \textbf{Signature validity.}\enspace  A freshly computed
+    signature over \(H_t\) verifies with the corresponding public key. &
+    --- \\
+  \textbf{T-64} & \textbf{Tamper detection.}\enspace  Modifying one byte in
+    any score file causes the manifest hash to differ from the recorded
+    value, triggering a verification failure. & \textbf{D-6} \\
+  \textbf{T-65} & \textbf{Signature rejection.}\enspace  An Ed25519
+    signature produced with a different private key fails verification
+    against the published public key. & --- \\
+\end{longtable}
+
+\subsection{Coverage Requirements}\label{sec:test:coverage}
+
+A conforming implementation must satisfy the following minimum coverage
+thresholds:
+
+\begin{table}[htbp]
+  \centering\small
+  \caption{Minimum test-coverage requirements.}\label{tab:test-coverage}
+  \begin{tabular}{@{}l l l@{}}
+    \toprule
+    \textbf{Module} & \textbf{Line coverage} & \textbf{Branch coverage} \\
+    \midrule
+    Concentration scoring        & 100\% & 100\% \\
+    Cross-channel aggregation    & 100\% & 100\% \\
+    Composite averaging          & 100\% & 100\% \\
+    Classification               & 100\% & 100\% \\
+    Rounding                     & 100\% & 100\% \\
+    Ranking                      & 100\% & 100\% \\
+    Scenario engine              & 100\% & 100\% \\
+    Integrity chain (hashing)    & 100\% & 100\% \\
+    Integrity chain (signing)    & 100\% & 100\% \\
+    Serialisation (JSON/CSV)     & \(\geq 95\%\) & \(\geq 90\%\) \\
+    Data ingestion / parsing     & \(\geq 90\%\) & \(\geq 85\%\) \\
+    Validation                   & \(\geq 95\%\) & \(\geq 90\%\) \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+All core mathematical and classification modules require 100\% line and
+branch coverage.  This is non-negotiable: any untested branch in a scoring
+or classification function represents a potential determinism violation.
+
+\subsection{Regression Protocol}\label{sec:test:regression}
+
+When a bug is discovered in the pipeline, the following protocol applies:
+
+\begin{enumerate}
+  \item \textbf{Bug isolation.}  A minimal reproducing test case is
+    constructed and added to the test suite as a new test
+    (\textbf{T-\textit{n}}).
+  \item \textbf{Fix implementation.}  The bug is fixed in the pipeline
+    codebase.
+  \item \textbf{Golden-file update.}  If the fix changes the output for the
+    reference datasets, the golden files are regenerated and the new expected
+    output is committed alongside the fix.
+  \item \textbf{Version increment.}  If the fix changes published output
+    (axis scores, composite scores, classifications, or hashes), a minor or
+    major version increment is triggered under the governance protocol
+    (\cref{sec:governance}).
+  \item \textbf{Non-regression gate.}  The full test suite must pass before
+    the fix is merged.  No test may be deleted to accommodate a fix.
+\end{enumerate}
+
+\subsection{Continuous Integration}\label{sec:test:ci}
+
+The test suite runs automatically on every commit to the main branch and on
+every pull request.  The CI pipeline enforces:
+
+\begin{enumerate}
+  \item All tests pass (zero failures, zero errors).
+  \item Coverage thresholds (\cref{tab:test-coverage}) are met.
+  \item No new static-analysis warnings are introduced (linting via
+    \texttt{ruff} or equivalent).
+  \item No new type-checking errors are introduced (type checking via
+    \texttt{mypy} in strict mode or equivalent).
+\end{enumerate}
+
+A pull request that fails any of these gates cannot be merged.
+
+\subsection{Formal Assurance Statement}\label{sec:test:assurance}
+
+The test suite does not constitute a formal proof of correctness.  It
+provides a high-confidence empirical assurance that the pipeline conforms
+to its specification.  The assurance is bounded by the coverage and
+diversity of the test inputs.  Specifically:
+
+\begin{itemize}
+  \item Property-based tests (\textbf{T-20} through \textbf{T-30}) verify
+    algebraic invariants over parameterised input spaces, providing stronger
+    guarantees than fixed test vectors alone.
+  \item Golden-file tests (\textbf{T-40} through \textbf{T-44}) provide
+    byte-level regression protection for the complete pipeline.
+  \item Integrity-chain tests (\textbf{T-60} through \textbf{T-65}) verify
+    the cryptographic binding between scores and published hashes.
+\end{itemize}
+
+Formal verification (e.g., proof-carrying code, model checking) is not
+applied in v\,1.0 but is identified as a candidate for future methodology
+versions where the state space and cost of verification warrant it.

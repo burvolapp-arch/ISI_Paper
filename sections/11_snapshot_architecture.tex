@@ -1,0 +1,404 @@
+% sections/11_snapshot_architecture.tex
+\section{Snapshot Materialisation and Registry Architecture}%
+\label{sec:snapshot-architecture}
+
+This section specifies the file-system structure, registry schema, and
+immutability contract that govern a published \ISI snapshot.  The
+architecture is designed so that every snapshot is a self-contained,
+content-addressed, read-only artefact that can be verified without access
+to the computation environment.
+
+\subsection{Design Principles}\label{sec:snapshot:principles}
+
+Three principles govern the snapshot architecture:
+
+\begin{enumerate}[label=\textbf{S-\arabic*}.]
+  \item \textbf{Self-containment.}\enspace  A snapshot directory contains
+    \emph{all} information required to verify the integrity chain, reproduce
+    the classification, and reconstruct the ranking.  No external lookup,
+    network request, or database query is required.
+  \item \textbf{Content addressing.}\enspace  Every file in the snapshot
+    is listed in the manifest with its SHA-256 hash.  The manifest itself
+    is covered by the snapshot signature.  Content addressing ensures that
+    any file substitution or corruption is detectable.
+  \item \textbf{Immutability.}\enspace  Once published, no file within a
+    snapshot directory may be modified, renamed, or deleted.  Corrections
+    are issued as separate addenda under the governance protocol
+    (\cref{sec:governance}); they do not alter the original snapshot.
+\end{enumerate}
+
+\subsection{Directory Structure}\label{sec:snapshot:directory}
+
+A conforming snapshot for vintage year \(t\) and methodology version
+\(v\) is materialised in the following directory layout:
+
+\begin{quote}\ttfamily\small
+snapshots/v\{v\}/\{t\}/\\
+\null\quad MANIFEST.json\\
+\null\quad HASH\_SUMMARY.json\\
+\null\quad SIGNATURE.json\\
+\null\quad methodology\_registry.json\\
+\null\quad scores/\\
+\null\qquad country\_scores.csv\\
+\null\qquad axis\_scores.csv\\
+\null\qquad channel\_scores.csv\\
+\null\quad metadata/\\
+\null\qquad snapshot\_metadata.json\\
+\null\qquad warnings.csv\\
+\null\qquad fallback\_basis.csv
+\end{quote}
+
+Every file listed above is \textbf{mandatory}.  No additional files may
+appear in a conforming snapshot directory.  The path prefix
+\texttt{snapshots/} is a convention; the top-level directory name is
+not semantically significant.
+
+\subsection{Output Schema}\label{sec:snapshot:output}
+
+\subsubsection{Country Scores (\texttt{country\_scores.csv})}
+
+Each row corresponds to one country in the vintage.  The fixed column
+schema is:
+
+\begin{longtable}{@{}l l >{\raggedright\arraybackslash}p{7.8cm}@{}}
+  \caption{Column schema for \texttt{country\_scores.csv}.}%
+  \label{tab:schema-country-scores} \\
+  \toprule
+  \textbf{Column} & \textbf{Type} & \textbf{Description} \\
+  \midrule
+  \endfirsthead
+  \caption[]{Column schema for \texttt{country\_scores.csv} (continued).} \\
+  \toprule
+  \textbf{Column} & \textbf{Type} & \textbf{Description} \\
+  \midrule
+  \endhead
+  \midrule
+  \multicolumn{3}{r@{}}{\footnotesize\itshape Continued on next page} \\
+  \endfoot
+  \bottomrule
+  \endlastfoot
+  \texttt{country\_code}    & \texttt{str}   & ISO~3166-1 alpha-2 code. \\
+  \texttt{vintage\_year}    & \texttt{int}   & Vintage year~\(t\). \\
+  \texttt{methodology\_version} & \texttt{str} & Version string (e.g., \texttt{"1.0"}). \\
+  \texttt{axis\_1\_score}   & \texttt{str}   & Axis~1 score, 8-decimal fixed-point, or \texttt{"null"}. \\
+  \texttt{axis\_2\_score}   & \texttt{str}   & Axis~2 score. \\
+  \texttt{axis\_3\_score}   & \texttt{str}   & Axis~3 score. \\
+  \texttt{axis\_4\_score}   & \texttt{str}   & Axis~4 score. \\
+  \texttt{axis\_5\_score}   & \texttt{str}   & Axis~5 score. \\
+  \texttt{axis\_6\_score}   & \texttt{str}   & Axis~6 score. \\
+  \texttt{composite\_score} & \texttt{str}   & Composite \ISI score, 8-decimal fixed-point. \\
+  \texttt{classification}   & \texttt{str}   & One of the four classification labels. \\
+  \texttt{rank}             & \texttt{int}   & Ordinal rank (1 = most concentrated). \\
+  \texttt{computable\_axes} & \texttt{int}   & Number of computable axes \(|\mathcal{A}_i|\). \\
+\end{longtable}
+
+Scores are serialised as fixed-point decimal \emph{strings}
+(\texttt{"0.34218753"}), not as floating-point numbers.  This eliminates
+parser-dependent rounding artefacts in downstream tooling.
+
+\subsubsection{Axis Scores (\texttt{axis\_scores.csv})}
+
+One row per country--axis pair.  Columns:
+
+\begin{table}[htbp]
+  \centering\small
+  \caption{Column schema for \texttt{axis\_scores.csv}.}%
+  \label{tab:schema-axis-scores}
+  \begin{tabularx}{\textwidth}{@{}l l X@{}}
+    \toprule
+    \textbf{Column} & \textbf{Type} & \textbf{Description} \\
+    \midrule
+    \texttt{country\_code}  & \texttt{str} & ISO~3166-1 alpha-2 code. \\
+    \texttt{axis}           & \texttt{int} & Axis index (\(1, \ldots, 6\)). \\
+    \texttt{score}          & \texttt{str} & 8-decimal fixed-point or \texttt{"null"}. \\
+    \texttt{fallback\_basis}& \texttt{str} & One of \texttt{BOTH}, \texttt{A\_ONLY},
+      \texttt{B\_ONLY}, \texttt{NONE}. \\
+    \texttt{warnings}       & \texttt{str} & Comma-separated warning codes, or empty. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsubsection{Channel Scores (\texttt{channel\_scores.csv})}
+
+One row per country--axis--channel triplet.  This file provides the
+lowest-level computed scores for axes that use a two-channel decomposition.
+For Axis~2 (Energy), which uses fuel averaging, each fuel category is
+treated as a separate channel row.
+
+\begin{table}[htbp]
+  \centering\small
+  \caption{Column schema for \texttt{channel\_scores.csv}.}%
+  \label{tab:schema-channel-scores}
+  \begin{tabularx}{\textwidth}{@{}l l X@{}}
+    \toprule
+    \textbf{Column} & \textbf{Type} & \textbf{Description} \\
+    \midrule
+    \texttt{country\_code}  & \texttt{str} & ISO~3166-1 alpha-2 code. \\
+    \texttt{axis}           & \texttt{int} & Axis index. \\
+    \texttt{channel}        & \texttt{str} & Channel identifier (\texttt{A}, \texttt{B},
+      or fuel/mode name). \\
+    \texttt{score}          & \texttt{str} & 8-decimal fixed-point or \texttt{"null"}. \\
+    \texttt{partner\_count} & \texttt{int} & Number of partners in the share vector. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{Methodology Registry}\label{sec:snapshot:registry}
+
+Each snapshot includes a machine-readable methodology registry file
+(\texttt{methodology\_\allowbreak{}registry.json}) that encodes every
+parameter required to reproduce the computation.  The registry is a flat
+JSON object with the following mandatory keys:
+
+\begin{longtable}{@{}l l >{\raggedright\arraybackslash}p{5.8cm}@{}}
+  \caption{Methodology registry keys.}\label{tab:registry-keys} \\
+  \toprule
+  \textbf{Key} & \textbf{Type} & \textbf{Description} \\
+  \midrule
+  \endfirsthead
+  \caption[]{Methodology registry keys (continued).} \\
+  \toprule
+  \textbf{Key} & \textbf{Type} & \textbf{Description} \\
+  \midrule
+  \endhead
+  \midrule
+  \multicolumn{3}{r@{}}{\footnotesize\itshape Continued on next page} \\
+  \endfoot
+  \bottomrule
+  \endlastfoot
+  \texttt{methodology\_version}   & \texttt{str}   & \texttt{"1.0"} \\
+  \texttt{vintage\_year}          & \texttt{int}   & \texttt{2024} \\
+  \texttt{country\_set}           & \texttt{str[]} & Sorted ISO alpha-2 codes \\
+  \texttt{axis\_count}            & \texttt{int}   & \texttt{6} \\
+  \texttt{axis\_weights}          & \texttt{str[]} & Equal weights (\(\tfrac{1}{6}\) each) \\
+  \texttt{round\_precision}       & \texttt{int}   & \texttt{8} \\
+  \texttt{rounding\_mode}         & \texttt{str}   & \texttt{"half\_even"} \\
+  \texttt{classification\_thresholds} & \texttt{obj} &
+    Tier boundaries as decimal strings \\
+  \texttt{scenario\_bounds}       & \texttt{str[]} & \texttt{["-0.20","+0.20"]} \\
+  \texttt{defence\_window\_years} & \texttt{int}   & \texttt{6} \\
+  \texttt{min\_computable\_axes}  & \texttt{int}   & \texttt{4} \\
+  \texttt{hash\_algorithm}        & \texttt{str}   & \texttt{"SHA-256"} \\
+  \texttt{signature\_algorithm}   & \texttt{str}   & \texttt{"Ed25519"} \\
+  \texttt{energy\_fuel\_categories} & \texttt{str[]} &
+    Gas, oil, solid fossil \\
+  \texttt{semiconductor\_hs\_codes} & \texttt{str[]} &
+    HS~8541 and HS~8542 \\
+\end{longtable}
+
+All numeric parameters are serialised as strings to preserve exact decimal
+representation.  The registry file is included in the manifest hash and is
+therefore covered by the integrity chain.
+
+\subsection{Snapshot Metadata}\label{sec:snapshot:metadata}
+
+The \texttt{snapshot\_metadata.json} file records non-computational metadata:
+
+\begin{table}[htbp]
+  \centering\small
+  \caption{Snapshot metadata keys.}\label{tab:snapshot-metadata-keys}
+  \begin{tabularx}{\textwidth}{@{}l l X@{}}
+    \toprule
+    \textbf{Key} & \textbf{Type} & \textbf{Description} \\
+    \midrule
+    \texttt{computed\_at}   & \texttt{str} & ISO~8601 timestamp of computation
+      completion (not used in hashing). \\
+    \texttt{published\_at}  & \texttt{str} & ISO~8601 timestamp of publication
+      (not used in hashing). \\
+    \texttt{pipeline\_version} & \texttt{str} & Git commit hash of the
+      computation codebase at build time. \\
+    \texttt{python\_version}   & \texttt{str} & Python interpreter version
+      (e.g., \texttt{"3.12.4"}). \\
+    \texttt{platform}          & \texttt{str} & Platform identifier
+      (e.g., \texttt{"linux-x86\_64"}). \\
+    \texttt{notes}             & \texttt{str} & Free-text publication note
+      (not used in hashing). \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\textbf{None} of the metadata fields enter the hash preimage or affect the
+integrity chain.  They are informational annotations only.  The
+\texttt{computed\_at} and \texttt{published\_at} fields specifically violate
+time-invariance (\textbf{D-3}) if they were to enter the hash; their
+exclusion is deliberate.
+
+\subsection{Immutability Contract}\label{sec:snapshot:immutability}
+
+Once a snapshot is published (i.e., the \texttt{published\_at} field is set
+and the directory is committed to the public archive), the following
+constraints apply:
+
+\begin{enumerate}[label=\textbf{I-\arabic*}.]
+  \item \textbf{No file modification.}\enspace  No file within the snapshot
+    directory may be modified after publication.  This includes the manifest,
+    score files, registry, metadata, and integrity files.
+  \item \textbf{No file deletion.}\enspace  No file may be removed from the
+    snapshot directory.
+  \item \textbf{No file addition.}\enspace  No file may be added to the
+    snapshot directory after publication.  Supplementary materials (e.g.,
+    errata, addenda) are published as separate artefacts under a distinct
+    path.
+  \item \textbf{No path renaming.}\enspace  The directory path of a
+    published snapshot may not be changed.  Symbolic links to the snapshot
+    are permitted but may not replace the original path.
+  \item \textbf{Addendum protocol.}\enspace  Corrections to a published
+    snapshot are published as addendum directories
+    (\texttt{snapshots/v\{v\}/\{t\}/addenda/\{seq\}/}) containing the
+    corrected files and a written justification.  The original snapshot
+    remains unmodified and its integrity chain remains valid.
+\end{enumerate}
+
+Violation of any immutability constraint (\textbf{I-1} through \textbf{I-4})
+renders the snapshot non-conforming and triggers a mandatory erratum under
+the governance protocol (\cref{sec:gov:revision}).
+
+\paragraph{Immutable Snapshot Law.}
+The following normative statement summarises the immutability obligations
+and is intended to be citable by external auditors and consuming systems:
+
+\begin{quote}\itshape
+A published \ISI snapshot is an append-only, content-addressed,
+cryptographically signed artefact.  The snapshot directory SHALL NOT be
+modified, renamed, or deleted after publication.  The methodology registry
+SHALL be append-only: existing entries SHALL NOT be mutated or removed.
+Retroactive recomputation of a published snapshot is prohibited.  Any
+material error discovered in a published snapshot SHALL be corrected by
+publishing a new version (v\,1.1 or higher) under the governance protocol
+(\cref{sec:gov:change}); the original snapshot and its integrity chain
+SHALL remain intact and publicly accessible.
+\end{quote}
+
+\subsection{Manifest Construction}\label{sec:snapshot:manifest}
+
+The manifest file (\texttt{MANIFEST.json}) is constructed as follows:
+
+\begin{enumerate}
+  \item Enumerate all files in the snapshot directory excluding
+    the three integrity files:
+    \texttt{MANIFEST.json},
+    \texttt{HASH\_SUMMARY.json}, and
+    \texttt{SIGNATURE.json}.
+  \item Sort the file list lexicographically by relative path.
+  \item Compute the SHA-256 hash of each file (byte-level, no encoding
+    transformation).
+  \item Serialise the result as a JSON object mapping relative file paths
+    to hex-encoded SHA-256 hashes, with keys in sorted order.
+\end{enumerate}
+
+The manifest is then itself covered by the snapshot hash
+(\cref{sec:integrity:snapshot}): the manifest hash is included in the
+\texttt{HASH\_SUMMARY.json} as a separate field
+(\texttt{manifest\_hash}), and the snapshot hash~\(H_t\) is computed
+over the concatenation of all country hashes \emph{and} the manifest hash.
+
+\subsection{Pipeline Architecture}\label{sec:snapshot:pipeline}
+
+The end-to-end data flow from raw sources to signed publication is
+illustrated below.  Each arrow represents a deterministic, auditable
+transformation.  No feedback loop or bidirectional dependency exists.
+
+\begin{quote}\ttfamily\small
+\begin{verbatim}
++----------------+     +----------------+     +--------------+
+| Raw source     |---->| Ingestion &    |---->| Share-vector |
+| files (CSV,    |     | validation     |     | construction |
+| SDMX, JSON)    |     | (sec 2.4)      |     | (sec 5.1-1)  |
++----------------+     +----------------+     +--------------+
+                                                     |
+                        +----------------------------+
+                        v
+                 +----------------+     +--------------+
+                 | Concentration  |---->| Axis-level   |
+                 | scoring (HHI)  |     | aggregation  |
+                 | (sec 3.2)      |     | (sec 3.3-3.5)|
+                 +----------------+     +--------------+
+                                               |
+                        +----------------------+
+                        v
+                 +--------------+     +----------------+
+                 | Composite    |---->| Rounding       |
+                 | averaging    |     | (8dp, R-H-E)   |
+                 | (sec 3.6)    |     | (sec 3.7)       |
+                 +--------------+     +----------------+
+                                               |
+                        +----------------------+
+                        v
+                 +----------------+     +--------------+
+                 | Classification |---->| Country hash |
+                 | (sec 3.8)      |     | SHA-256      |
+                 +----------------+     | (sec 7.2)    |
+                                        +--------------+
+                                               |
+                        +----------------------+
+                        v
+                 +----------------+     +--------------+
+                 | Snapshot hash  |---->| Ed25519      |
+                 | SHA-256        |     | signature    |
+                 | (sec 7.3)      |     | (sec 7.4)    |
+                 +----------------+     +--------------+
+                                               |
+                        +----------------------+
+                        v
+                 +----------------+     +--------------+
+                 | Snapshot       |---->| API serving  |
+                 | materialisation|     | (sec 12)     |
+                 | (sec 11)       |     |              |
+                 +----------------+     +--------------+
+\end{verbatim}
+\end{quote}
+
+Every box in the diagram is a pure function of its inputs.  No box reads
+from a mutable external state.  The pipeline is executed exactly once per
+vintage; re-execution on identical inputs produces bit-identical output
+(\textbf{D-1}).
+
+\subsection{Hash Cascade Logic}\label{sec:snapshot:cascade}
+
+The integrity chain forms a Merkle-like cascade with the following
+properties:
+
+\begin{description}[style=nextline]
+  \item[\textbf{C-1}~Leaf completeness.]
+    Every country in the snapshot contributes exactly one leaf hash~\(h_i\).
+    No country may be omitted from the cascade, even if its composite score
+    is null (excluded countries receive a hash over a canonical null record).
+  \item[\textbf{C-2}~Deterministic ordering.]
+    Leaf hashes are concatenated in ascending lexicographic order of
+    ISO~3166-1 alpha-2 country code.  This ordering is invariant across
+    platforms (\textbf{D-2}) and invocations (\textbf{D-1}).
+  \item[\textbf{C-3}~Manifest binding.]
+    The manifest hash is concatenated after the last country hash before
+    computing~\(H_t\).  This binds the file-level integrity check to the
+    score-level integrity check in a single digest.
+  \item[\textbf{C-4}~Single-root property.]
+    The cascade terminates at a single root: the snapshot hash~\(H_t\).
+    The Ed25519 signature covers only~\(H_t\); individual country hashes
+    are transitively authenticated through the cascade.
+  \item[\textbf{C-5}~Tamper propagation.]
+    Any modification to any score, classification, warning code, or
+    metadata field in any country record changes~\(h_i\), which
+    changes~\(H_t\), which invalidates~\(\sigma_t\).  The propagation
+    is guaranteed by the collision resistance of SHA-256.
+\end{description}
+
+\subsection{Backward Compatibility of the Directory Schema}%
+\label{sec:snapshot:compat}
+
+The directory schema defined above is frozen for major version~1.x.
+Specifically:
+
+\begin{itemize}
+  \item No mandatory file may be removed.
+  \item No mandatory column may be removed from a CSV schema.
+  \item New \emph{optional} columns may be appended to CSV files in minor
+    versions, provided they are appended after all existing columns and do
+    not alter the interpretation of existing columns.
+  \item New \emph{optional} keys may be added to JSON files in minor
+    versions, provided they do not alter the semantics of existing keys.
+  \item The \texttt{methodology\_registry.json} key set may be extended but
+    not contracted.
+\end{itemize}
+
+Any change that violates these rules constitutes a major-version increment
+under the governance protocol (\cref{sec:governance}).

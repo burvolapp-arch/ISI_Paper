@@ -1,0 +1,296 @@
+% sections/15_state_model.tex
+\section{Formal Computational State Model}\label{sec:state-model}
+
+This section defines the \ISI computation pipeline as a deterministic finite
+state machine.  The model enumerates every intermediate state, every
+transition function, and every irreversibility constraint.  Conforming
+implementations SHALL realise the state transitions in the order specified
+below; no reordering, merging, or elision of states is permitted.
+
+% -------------------------------------------------------------------------
+\subsection{State Definitions}\label{sec:state:defs}
+
+The pipeline comprises ten discrete states, designated \textbf{S0}
+through~\textbf{S9}.  Each state is a typed artefact; the transition from
+state~\(n\) to state~\(n+1\) is a pure function consuming only the
+artefact at state~\(n\) (and, where noted, the methodology-parameter
+vector~\(\theta\)).
+
+\begin{description}[style=nextline, leftmargin=4em, labelwidth=3.5em]
+
+  \item[\textbf{S0}] \textbf{Raw data.}\enspace
+    The unprocessed source files as received from statistical agencies.
+    Format: heterogeneous (CSV, SDMX, JSON).  No computational
+    transformation has been applied.  State~S0 is the sole external
+    input to the pipeline.
+
+  \item[\textbf{S1}] \textbf{Validated data.}\enspace
+    Source files ingested, parsed, and validated against the quality
+    controls of \cref{sec:data:quality}.  Records failing validation are
+    rejected.  Output: a normalised tabular dataset with uniform column
+    schema, country codes in ISO~3166-1 alpha-2, and numeric fields in
+    native floating-point representation.
+
+  \item[\textbf{S2}] \textbf{Channel concentration vectors.}\enspace
+    Per-country, per-axis, per-channel partner-share vectors and the
+    corresponding \HHI scores computed via \cref{eq:hhi}.  Output: a set
+    of \((i, a, c, \mathrm{HHI}_{i,a,c})\) tuples for every country~\(i\),
+    axis~\(a\), and channel~\(c\).
+
+  \item[\textbf{S3}] \textbf{Axis-level scores.}\enspace
+    Channel scores aggregated to axis level via the aggregation variants
+    specified in \cref{sec:axis-specifications}: dual-channel averaging
+    (\cref{eq:dual-channel}), category-weighted averaging
+    (\cref{eq:weighted-b}), or single-channel fuel averaging
+    (\cref{eq:fuel-avg}).  Output: a set of \((i, a, M_i^{(a)})\) tuples.
+    Scores at this stage are in full binary64 precision.
+
+  \item[\textbf{S4}] \textbf{Composite score.}\enspace
+    The arithmetic mean of computable axis scores
+    (\cref{eq:composite}).  Output: a set of \((i, \mathrm{ISI}_i)\) pairs
+    in full binary64 precision.
+
+  \item[\textbf{S5}] \textbf{Rounded and classified country object.}\enspace
+    All scores (axis and composite) rounded to eight decimal places
+    (round-half-to-even) using an arbitrary-precision decimal library.
+    The classification function (\cref{sec:math:thresholds}) is applied to
+    the rounded composite.  The ranking function (\cref{sec:agg:ranking})
+    produces ordinal ranks.  Output: a fully populated country record
+    containing rounded scores, classification label, rank, warning codes,
+    and computable-axis count.
+
+  \item[\textbf{S6}] \textbf{Country hash.}\enspace
+    The canonical serialisation of each country record
+    (\cref{sec:integrity:country}) is hashed with SHA-256 to produce
+    \(h_i\).  Output: a set of \((i, h_i)\) pairs.
+
+  \item[\textbf{S7}] \textbf{Snapshot hash.}\enspace
+    Country hashes concatenated in ISO~alpha-2 lexicographic order,
+    combined with the manifest hash, and hashed with SHA-256 to
+    produce~\(H_t\) (\cref{sec:integrity:snapshot}).  Output: a single
+    256-bit digest.
+
+  \item[\textbf{S8}] \textbf{Signed snapshot.}\enspace
+    The snapshot hash is signed with Ed25519 (\cref{sec:integrity:signature})
+    to produce~\(\sigma_t\).  The snapshot directory is materialised on disk
+    (\cref{sec:snapshot-architecture}).  Output: the complete snapshot
+    directory including all score files, integrity files, and the signature.
+
+  \item[\textbf{S9}] \textbf{Served API artefact.}\enspace
+    The signed snapshot is loaded into the serving layer
+    (\cref{sec:api-contract}).  API responses are read-only projections of
+    the snapshot.  No transformation, re-computation, or re-serialisation
+    occurs at serving time.
+
+\end{description}
+
+% -------------------------------------------------------------------------
+\subsection{Transition Functions}\label{sec:state:transitions}
+
+Each transition is designated \textbf{T\textit{n}} and maps from
+state~\(\textbf{S(n{-}1)}\) to state~\(\textbf{Sn}\).  All transitions
+are pure functions: they read only their input state and the
+methodology-parameter vector~\(\theta\); they produce no side effects.
+
+\begin{description}[style=nextline, leftmargin=4em, labelwidth=3.5em]
+
+  \item[\textbf{T1}] \(f_1 : (\mathrm{S0}, \theta) \to \mathrm{S1}\).\\
+    Ingestion and validation.  Applies schema enforcement, type coercion,
+    country-code normalisation, and quality-control rejection rules
+    (\cref{sec:data:ingestion,sec:data:quality}).
+
+  \item[\textbf{T2}] \(f_2 : (\mathrm{S1}, \theta) \to \mathrm{S2}\).\\
+    Share-vector construction and \HHI computation
+    (\cref{eq:hhi}).  Partner shares are normalised to sum to~\(1.0\) per
+    country--axis--channel group.  Summation follows the canonical
+    accumulation order specified in \cref{sec:det:floating-point}.
+
+  \item[\textbf{T3}] \(f_3 : (\mathrm{S2}, \theta) \to \mathrm{S3}\).\\
+    Cross-channel aggregation.  Applies the axis-specific aggregation
+    variant (\cref{sec:axis-specifications}).  Output scores are in full
+    binary64 precision.
+
+  \item[\textbf{T4}] \(f_4 : (\mathrm{S3}, \theta) \to \mathrm{S4}\).\\
+    Composite averaging (\cref{eq:composite}).  The divisor is the number
+    of computable axes~\(|\mathcal{A}_i|\), not a fixed constant.
+
+  \item[\textbf{T5}] \(f_5 : (\mathrm{S4}, \theta) \to \mathrm{S5}\).\\
+    Rounding, classification, and ranking.  This is the \textbf{rounding
+    gate}: the irreversible precision-reduction step.  After this
+    transition, all scores are fixed-point 8-decimal values and SHALL NOT
+    revert to binary64 representation.
+
+  \item[\textbf{T6}] \(f_6 : \mathrm{S5} \to \mathrm{S6}\).\\
+    Country hashing.  Canonical serialisation of the country record
+    followed by SHA-256 (\cref{sec:integrity:country}).  This is the
+    \textbf{hashing gate}: once a country hash is computed, the underlying
+    score values are cryptographically committed.
+
+  \item[\textbf{T7}] \(f_7 : \mathrm{S6} \to \mathrm{S7}\).\\
+    Snapshot hash construction.  Concatenation of ordered country hashes
+    and manifest hash, followed by SHA-256
+    (\cref{sec:integrity:snapshot}).
+
+  \item[\textbf{T8}] \(f_8 : \mathrm{S7} \to \mathrm{S8}\).\\
+    Signing and materialisation.  Ed25519 signature over~\(H_t\), followed
+    by file-system materialisation of the complete snapshot directory.
+
+  \item[\textbf{T9}] \(f_9 : \mathrm{S8} \to \mathrm{S9}\).\\
+    Loading into the serving layer.  Read-only memory mapping of the
+    snapshot directory.  No mutation of the snapshot is permitted during or
+    after this transition.
+
+\end{description}
+
+% -------------------------------------------------------------------------
+\subsection{Irreversibility Points}\label{sec:state:irreversibility}
+
+Two transitions impose irreversible commitments on the pipeline state.
+After each irreversibility point, the preceding full-precision
+representation is discarded and SHALL NOT be recoverable from the
+published artefacts.
+
+\begin{description}[style=nextline, leftmargin=6.5em, labelwidth=6em]
+
+  \item[\textbf{T5} (Rounding gate)]
+    After transition~\textbf{T5}, all published scores exist only in
+    rounded 8-decimal form.  The full binary64 intermediates are not
+    serialised, not hashed, and not recoverable.  Any downstream
+    computation (classification, hashing, serving) operates exclusively on
+    rounded values.  Invariant \textbf{D-5} guarantees that no further
+    rounding is required.
+
+  \item[\textbf{T6} (Hashing gate)]
+    After transition~\textbf{T6}, the content of each country record is
+    cryptographically committed via SHA-256.  Any modification to a rounded
+    score, classification label, or warning code after~\textbf{T6} would
+    produce a different country hash and therefore a different snapshot hash,
+    invalidating the signature.
+\end{description}
+
+The two gates partition the pipeline into three zones:
+
+\begin{enumerate}
+  \item \textbf{Pre-rounding zone} (S0--S4).  Full binary64 precision.
+    Scores may be recomputed freely.
+  \item \textbf{Post-rounding / pre-hashing zone} (S5).  Rounded scores
+    exist but are not yet cryptographically committed.  Recomputation is
+    permitted only if the rounding step is re-executed.
+  \item \textbf{Post-hashing zone} (S6--S9).  Scores are committed.
+    Modification is prohibited (\cref{sec:snapshot:immutability}).
+\end{enumerate}
+
+% -------------------------------------------------------------------------
+\subsection{State Mutation Prohibition}\label{sec:state:mutation}
+
+The pipeline is a strict feed-forward computation.  The following mutation
+rules SHALL be enforced:
+
+\begin{enumerate}
+  \item No transition function \(f_n\) MAY modify the artefact at
+    state~\(\mathrm{S(n{-}1)}\).  Transitions are pure functions that
+    \emph{read} input states and \emph{produce} output states.
+
+  \item After transition~\textbf{T8} (signing), the snapshot directory
+    SHALL NOT be modified by any subsequent operation, including
+    \textbf{T9} (serving).  The serving layer operates on a read-only
+    view of the materialised snapshot.
+
+  \item No transition function MAY write to a global mutable variable,
+    file, or database that is read by a later transition.  All inter-state
+    communication is through the explicitly typed artefacts defined in
+    \cref{sec:state:defs}.
+\end{enumerate}
+
+% -------------------------------------------------------------------------
+\subsection{Scenario Engine as Non-State-Altering Branch}%
+\label{sec:state:scenario}
+
+The scenario engine (\cref{sec:scenario-engine}) operates as a
+\textbf{read-only branch} from state~\textbf{S5}.  It consumes the
+rounded baseline scores and the user-supplied adjustment
+vector~\((\alpha_1, \ldots, \alpha_6)\), applies the multiplicative
+model (\cref{eq:scenario}), recomputes the composite and rank, and
+returns the result to the caller.
+
+The scenario engine SHALL NOT:
+
+\begin{itemize}
+  \item Modify any file in the snapshot directory.
+  \item Write to the methodology registry.
+  \item Produce or modify country hashes, snapshot hashes, or signatures.
+  \item Persist scenario results in any durable store that is visible to
+    the canonical pipeline.
+\end{itemize}
+
+Scenario outputs are \textbf{ephemeral}: they exist only in the API
+response and are not covered by the integrity chain.  Scenario responses
+SHALL NOT include a signature or hash digest.  Any downstream consumer of
+scenario data MUST treat it as unsigned and non-authoritative.
+
+Formally, the scenario engine defines a side-branch:
+\[
+  f_{\mathrm{scenario}} : (\mathrm{S5}, \vec{\alpha}) \to
+  \mathrm{S5'_{\mathrm{ephemeral}}}
+\]
+where \(\mathrm{S5'_{\mathrm{ephemeral}}}\) is a transient artefact that
+is never committed to~\textbf{S6} or any subsequent state.  The canonical
+state path S0\,\(\to\)\,\ldots\,\(\to\)\,S9 is unaffected.
+
+% -------------------------------------------------------------------------
+\subsection{Deterministic Transition Constraints}\label{sec:state:constraints}
+
+Every transition function \(f_n\) SHALL satisfy the following properties:
+
+\begin{enumerate}
+  \item \textbf{Purity.}\enspace  \(f_n\) depends only on its input state
+    and~\(\theta\).  No hidden input (clock, locale, environment variable,
+    random seed) is consumed.  This is a restatement of invariants
+    \textbf{D-1} through \textbf{D-3}.
+
+  \item \textbf{Totality.}\enspace  \(f_n\) is defined for all valid inputs.
+    Partial failures (e.g., a missing axis score) are handled by the
+    missing-axis protocol (\cref{sec:agg:missing}), not by undefined
+    behaviour.
+
+  \item \textbf{Convergence.}\enspace  \(f_n\) terminates in finite time
+    for all valid inputs.  No unbounded iteration or recursion is permitted.
+
+  \item \textbf{Idempotence of read operations.}\enspace  Reading from
+    a state artefact does not modify it.  This is trivially satisfied by
+    file-system reads but must be explicitly enforced for in-memory data
+    structures that might use lazy evaluation or memoisation with side
+    effects.
+
+  \item \textbf{Canonical ordering.}\enspace  Where the transition
+    iterates over a collection (partner shares, country records, axis
+    scores), the iteration order SHALL be the canonical order defined in
+    \cref{sec:det:floating-point} and \cref{sec:det:serialisation}.
+\end{enumerate}
+
+% -------------------------------------------------------------------------
+\subsection{State Diagram Summary}\label{sec:state:diagram}
+
+The following notation summarises the state machine.  Each arrow is labelled
+with its transition function and the section that specifies it.
+
+\begin{quote}\small
+\begin{verbatim}
+  S0 --[T1: ingest/validate (sec 2.4)]--> S1
+  S1 --[T2: HHI computation  (sec 3.2)]--> S2
+  S2 --[T3: axis aggregation (sec 3.3)]--> S3
+  S3 --[T4: composite mean   (sec 3.6)]--> S4
+  S4 --[T5: round+classify   (sec 3.7)]--> S5  *ROUNDING GATE*
+  S5 --[T6: country hash     (sec 7.2)]--> S6  *HASHING GATE*
+  S6 --[T7: snapshot hash    (sec 7.3)]--> S7
+  S7 --[T8: sign+materialise (sec 7.4)]--> S8
+  S8 --[T9: serve            (sec 12) ]--> S9
+
+  S5 --[f_scenario (sec 6)]--> S5'_ephemeral  (branch)
+\end{verbatim}
+\end{quote}
+
+No backward edge exists.  The graph is a directed acyclic path with a
+single read-only branch at~\textbf{S5}.  This structure guarantees that
+every state is reachable from~\textbf{S0} by a unique path and that no
+cyclic dependency can arise.
