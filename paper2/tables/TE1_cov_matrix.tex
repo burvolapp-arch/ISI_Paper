@@ -4,17 +4,19 @@
 \caption{Population covariance matrix of the six ISI axes, EU-27, 2024.}
 \label{tab:cov-matrix}
 \small
-\sisetup{table-format=+1.6}
-\begin{tabular}{@{}l S S S S S S@{}}
+\setlength{\tabcolsep}{4pt}
+\sisetup{table-format=+1.6,round-precision=6}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}
+  l S S S S S S @{}}
 \toprule
  & {\textbf{Fin.}} & {\textbf{Ene.}} & {\textbf{Tec.}} & {\textbf{Def.}} & {\textbf{Crit.}} & {\textbf{Log.}} \\
 \midrule
-  Financial & +0.001390 & +0.000111 & +0.000267 & +0.000199 & +0.000988 & -0.001137 \\
-  Energy & +0.000111 & +0.002295 & +0.002401 & -0.001894 & +0.002171 & +0.000997 \\
-  Technology & +0.000267 & +0.002401 & +0.008947 & -0.004735 & +0.001113 & +0.001205 \\
-  Defence & +0.000199 & -0.001894 & -0.004735 & +0.050922 & +0.005251 & +0.012038 \\
+  Financial       & +0.001390 & +0.000111 & +0.000267 & +0.000199 & +0.000988 & -0.001137 \\
+  Energy          & +0.000111 & +0.002295 & +0.002401 & -0.001894 & +0.002171 & +0.000997 \\
+  Technology      & +0.000267 & +0.002401 & +0.008947 & -0.004735 & +0.001113 & +0.001205 \\
+  Defence         & +0.000199 & -0.001894 & -0.004735 & +0.050922 & +0.005251 & +0.012038 \\
   Critical Inputs & +0.000988 & +0.002171 & +0.001113 & +0.005251 & +0.014841 & +0.012456 \\
-  Logistics & -0.001137 & +0.000997 & +0.001205 & +0.012038 & +0.012456 & +0.034748 \\
+  Logistics       & -0.001137 & +0.000997 & +0.001205 & +0.012038 & +0.012456 & +0.034748 \\
 \bottomrule
-\end{tabular}
+\end{tabular*}
 \end{table}

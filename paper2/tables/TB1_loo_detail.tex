@@ -1,20 +1,25 @@
 % Appendix Table: LOO detailed ranks
-\begin{longtable}{@{}rlrrrrrrr@{}}
+\begin{table}[htbp]
+\centering
 \caption{Detailed rank comparison: baseline vs.\ each leave-one-axis-out variant.
 Columns show the rank under each LOO composite.  $\Delta_{\max}$ is the
 maximum absolute rank change across all six LOO variants.}
-\label{tab:loo-detail}\\
+\label{tab:loo-detail}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}
+  r l
+  S[table-format=2.0,round-precision=0]
+  S[table-format=2.0,round-precision=0]
+  S[table-format=2.0,round-precision=0]
+  S[table-format=2.0,round-precision=0]
+  S[table-format=2.0,round-precision=0]
+  S[table-format=2.0,round-precision=0]
+  S[table-format=2.0,round-precision=0]
+  @{}}
 \toprule
-{\textbf{Rk}} & {\textbf{Country}} & {\textbf{$-$Fina}} & {\textbf{$-$Ener}} & {\textbf{$-$Tech}} & {\textbf{$-$Defe}} & {\textbf{$-$Crit}} & {\textbf{$-$Logi}} & {$\boldsymbol{\Delta_{\max}}$} \\
+{\textbf{Rk}} & {\textbf{Country}} & {\textbf{$-$Fin}} & {\textbf{$-$Ene}} & {\textbf{$-$Tec}} & {\textbf{$-$Def}} & {\textbf{$-$Cri}} & {\textbf{$-$Log}} & {$\boldsymbol{\Delta_{\max}}$} \\
 \midrule
-\endfirsthead
-\caption[]{LOO detailed ranks (continued).}\\
-\toprule
-{\textbf{Rk}} & {\textbf{Country}} & {\textbf{$-$Fina}} & {\textbf{$-$Ener}} & {\textbf{$-$Tech}} & {\textbf{$-$Defe}} & {\textbf{$-$Crit}} & {\textbf{$-$Logi}} & {$\boldsymbol{\Delta_{\max}}$} \\
-\midrule
-\endhead
-\bottomrule
-\endlastfoot
   1 & Malta & 1 & 1 & 1 & 2 & 1 & 1 & 1 \\
   2 & Cyprus & 2 & 2 & 2 & 3 & 2 & 5 & 3 \\
   3 & Ireland & 4 & 3 & 10 & 1 & 3 & 3 & 7 \\
@@ -42,4 +47,6 @@ maximum absolute rank change across all six LOO variants.}
   25 & Latvia & 25 & 25 & 25 & 24 & 25 & 25 & 1 \\
   26 & Slovakia & 27 & 27 & 27 & 16 & 26 & 27 & 10 \\
   27 & France & 26 & 26 & 26 & 26 & 27 & 26 & 1 \\
-\end{longtable}
+\bottomrule
+\end{tabular*}
+\end{table}

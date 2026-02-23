@@ -17,25 +17,26 @@ empirical system.  The principal findings are:
 \begin{itemize}[leftmargin=2em]
 
 \item \textbf{Compressed composite distribution.}
-  The ISI composite ranges from \num{0.23567126} (France) to
-  \num{0.51748148} (Malta), a span of \num{0.28181022} on the unit
-  interval.  The population standard deviation is \num{0.06992188},
-  yielding a coefficient of variation of 0.2030.  The interquartile
-  range is \num{0.09881618} (P25~= \num{0.29179051}, P75~=
-  \num{0.39060669}).  The Gini coefficient is \num{0.115463},
+  The ISI composite ranges from 0.236 (France) to
+  0.517 (Malta), a span of 0.282 on the unit
+  interval.  The population standard deviation is 0.070,
+  yielding a coefficient of variation of 0.203.  The interquartile
+  range is 0.099 (P25~= 0.292, P75~= 0.391).
+  The Gini coefficient is 0.115,
   indicating a relatively egalitarian distribution.
-  See \cref{tab:summary-stats,fig:histogram,fig:lorenz}.
+  See \cref{tab:summary-stats}, \cref{fig:histogram}, and
+  \cref{fig:lorenz}.
 
 \item \textbf{Tier compression is mathematically inevitable.}
   Under the four-tier classification, 23 of 27~countries (85.2\%)
-  fall in the \emph{moderately concentrated} tier (ISI $\in [0.25,
-  0.50)$).  Only Malta exceeds 0.50; three countries (Latvia,
-  Slovakia, France) fall below~0.25.  The between-tier $\eta^2 =
-  0.483$ indicates that the official scheme captures less than half
-  the total dispersion; the within-tier range for the dominant
-  category spans \num{0.20727287}, nearly four times the entire
+  fall in the \emph{moderately concentrated} tier
+  (ISI~$\in [0.25, 0.50)$).  Only Malta exceeds~0.50; three countries
+  (Latvia, Slovakia, France) fall below~0.25.  The between-tier
+  $\eta^2 = 0.483$ indicates that the official scheme captures less
+  than half the total dispersion; the within-tier range for the
+  dominant category spans~0.207, nearly four times the entire
   mildly-concentrated band.
-  See \cref{tab:ranking,tab:compression-diagnostics,fig:rank-scatter}.
+  See \cref{tab:ranking,tab:compression-diagnostics} and \cref{fig:rank-scatter}.
 
 \item \textbf{Defence and logistics dominate cross-country variance.}
   A covariance-based variance decomposition, proved analytically from
@@ -45,14 +46,15 @@ empirical system.  The principal findings are:
   variance.  The own-variance component accounts for 64.28\% of total
   composite variance; cross-covariances account for 35.72\%.
   Financial concentration contributes only 1.03\%.
-  See \cref{tab:variance-decomp,tab:variance-decomp-detail,fig:axis-dominance-bar}.
+  See \cref{tab:variance-decomp,tab:variance-decomp-detail} and
+  \cref{fig:axis-dominance-bar}.
 
 \item \textbf{Axis dominance is concentrated.}
   In 16 of 27~countries, the defence axis records the highest
   axis-level score; in the remaining 11, logistics is highest.
   No country has its maximum score on the financial, energy,
   technology, or critical-inputs axis.  The mean defence-to-second
-  gap for defence-dominant countries is \num{0.183660}.
+  gap for defence-dominant countries is 0.184.
   See \cref{tab:axis-dominance,tab:defence-structural}.
 
 \item \textbf{Defence axis exhibits oligopsonistic concentration.}
@@ -64,15 +66,15 @@ empirical system.  The principal findings are:
   buyers face few feasible suppliers.
   See \cref{tab:defence-structural,tab:defence-gap}.
 
-\item \textbf{Three moderate cross-axis correlations; only two
-  statistically significant.}
+\item \textbf{Two statistically significant cross-axis correlations.}
   Of 15~pairwise Pearson correlations, only two are significant at
   the 5\% level ($t_{0.025,25} = 2.060$): critical inputs--logistics
   ($r = 0.549$, $t = 3.280$) and energy--technology ($r = 0.530$,
   $t = 3.124$).  The remaining 13~pairs---including all correlations
   involving the financial axis---are not significant, establishing
   that the six axes capture largely distinct dimensions.
-  See \cref{tab:corr-pearson,tab:corr-tstat,fig:corr-heatmap,fig:corr-network}.
+  See \cref{tab:corr-pearson,tab:corr-tstat} and
+  \cref{fig:corr-heatmap,fig:corr-network}.
 
 \item \textbf{Rank ordering robust at extremes, fragile in mid-tier.}
   Under leave-one-axis-out (LOO) analysis, Spearman~$\rho$ ranges
@@ -83,7 +85,8 @@ empirical system.  The principal findings are:
   structurally locked, while the Netherlands ($\sigma = 3.07$) is the
   most volatile.  Under $\pm10\%$ axis perturbation, 14 of 27
   countries are rank-invariant.
-  See \cref{tab:loo-summary,tab:dirichlet-volatility,tab:rank-elasticity}.
+  See \cref{tab:loo-summary}, \cref{tab:dirichlet-volatility}, and
+  \cref{tab:rank-elasticity}.
 
 \item \textbf{Financial concentration is orthogonal to goods-trade
   concentration.}
@@ -113,7 +116,7 @@ empirical system.  The principal findings are:
   See \cref{tab:geo-correlates}.
 
 \item \textbf{Slovakia's zero defence score.}
-  Slovakia records a defence axis score of \num{0.00000000}, the
+  Slovakia records a defence axis score of \num{0.0000}, the
   only zero score in the dataset.  This arises mechanically from
   the absence of bilateral supplier entries for Slovakia in the
   SIPRI arms-transfer data under methodology v1.0.  It does not

@@ -5,18 +5,25 @@
 marginal contribution equals $(1/36)\sum_{k=1}^{6}\operatorname{Cov}(A_j, A_k)$,
 reflecting both own-variance and covariance with other axes.}
 \label{tab:variance-decomp}
-\begin{tabular}{@{}lS[table-format=1.8]S[table-format=1.8]S[table-format=2.2]@{}}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}
+  l
+  S[table-format=1.6,round-precision=6]
+  S[table-format=1.6,round-precision=6]
+  S[table-format=3.2,round-precision=2]
+  @{}}
 \toprule
-{\textbf{Axis}} & {\textbf{Var (pop.)}} & {\textbf{Marginal Contrib.}} & {\textbf{\% of Composite Var}} \\
+{\textbf{Axis}} & {\textbf{Var (pop.)}} & {\textbf{Marginal Contrib.}} & {\textbf{\% of Comp.\ Var}} \\
 \midrule
-  Financial & 0.00138995 & 0.00005049 & 1.03 \\
-  Energy & 0.00229504 & 0.00016894 & 3.46 \\
-  Technology & 0.00894722 & 0.00025549 & 5.23 \\
-  Defence & 0.05092152 & 0.00171612 & 35.10 \\
-  Critical Inputs & 0.01484142 & 0.00102280 & 20.92 \\
-  Logistics & 0.03474797 & 0.00167522 & 34.26 \\
+  Financial       & 0.001390 & 0.000050 &  1.03 \\
+  Energy          & 0.002295 & 0.000169 &  3.46 \\
+  Technology      & 0.008947 & 0.000255 &  5.23 \\
+  Defence         & 0.050922 & 0.001716 & 35.10 \\
+  Critical Inputs & 0.014841 & 0.001023 & 20.92 \\
+  Logistics       & 0.034748 & 0.001675 & 34.26 \\
 \midrule
-  Total & 0.11314312 & 0.00488907 & 100.00 \\
+  Total           & 0.113143 & 0.004889 & 100.00 \\
 \bottomrule
-\end{tabular}
+\end{tabular*}
 \end{table}

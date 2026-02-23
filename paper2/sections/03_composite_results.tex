@@ -13,29 +13,29 @@ ISI composite across the 27~EU member states.
 \centering
 \caption{ISI composite: summary statistics, EU-27, 2024.}
 \label{tab:summary-stats}
-\begin{tabular}{@{}lS[table-format=1.8]@{}}
+\begin{tabular}{@{}lS[table-format=1.4]@{}}
 \toprule
 \textbf{Statistic} & {\textbf{Value}} \\
 \midrule
-$N$                         & 27 \\
-Minimum                     & 0.23567126 \\
-Maximum                     & 0.51748148 \\
-Range                       & 0.28181022 \\
-Mean                        & 0.34439144 \\
-Median (P50)                & 0.34027984 \\
-Std.\ dev.\ (pop.)         & 0.06992188 \\
-Std.\ dev.\ (sample)       & 0.07125384 \\
-Coeff.\ of variation (pop.) & 0.20303651 \\
+$N$                         & {27} \\
+Minimum                     & 0.2356 \\
+Maximum                     & 0.5175 \\
+Range                       & 0.2818 \\
+Mean                        & 0.3444 \\
+Median (P50)                & 0.3403 \\
+Std.\ dev.\ (pop.)         & 0.0699 \\
+Std.\ dev.\ (sample)       & 0.0712 \\
+Coeff.\ of variation (pop.) & 0.2030 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The composite mean (\num{0.34439144}) slightly exceeds the median
-(\num{0.34027984}), indicating a mild positive skew driven by Malta's
-outlying score of \num{0.51748148}.  The coefficient of variation
+The composite mean (\num{0.3444}) slightly exceeds the median
+(\num{0.3403}), indicating a mild positive skew driven by Malta's
+outlying score of \num{0.5175}.  The coefficient of variation
 (0.203) is relatively low, indicating that the composite scores are
 compressed relative to the full unit-interval range.  The range
-(\num{0.28181022}) occupies only 28.2\% of the theoretical $[0, 1]$
+(\num{0.2818}) occupies only 28.2\% of the theoretical $[0, 1]$
 interval, and the standard deviation is approximately one-fifth of
 the mean.  These statistics indicate that the ISI composite
 differentiates countries along a relatively narrow band rather than
@@ -47,26 +47,26 @@ spanning the full theoretically available range.
 \centering
 \caption{ISI composite: selected percentiles.}
 \label{tab:percentiles}
-\begin{tabular}{@{}lS[table-format=1.8]@{}}
+\begin{tabular}{@{}lS[table-format=1.4]@{}}
 \toprule
 \textbf{Percentile} & {\textbf{Value}} \\
 \midrule
-P5   & 0.23604347 \\
-P10  & 0.25534441 \\
-P25  & 0.29179051 \\
-P50  & 0.34027984 \\
-P75  & 0.39060669 \\
-P90  & 0.42586650 \\
-P95  & 0.47131816 \\
+P5   & 0.2360 \\
+P10  & 0.2553 \\
+P25  & 0.2917 \\
+P50  & 0.3402 \\
+P75  & 0.3906 \\
+P90  & 0.4258 \\
+P95  & 0.4713 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The interquartile range (IQR = P75 $-$ P25 = \num{0.09881618})
+The interquartile range (IQR = P75 $-$ P25 = \num{0.0988})
 spans approximately 9.9 percentage points of the unit interval.
-The P10--P90 range is \num{0.17052209}, indicating that the central
+The P10--P90 range is \num{0.1705}, indicating that the central
 80\% of the distribution occupies roughly 17 percentage points.
-The P5--P95 range extends to \num{0.23527469}, still well within the
+The P5--P95 range extends to \num{0.2353}, still well within the
 unit interval.  The narrowness of the distribution has direct
 implications for the classification scheme discussed in
 \cref{sec:compression-diagnostics}: when most countries cluster in
@@ -84,7 +84,7 @@ A visible right tail is produced by Malta and Cyprus.
 \input{figures/F01_histogram}
 \caption{Histogram of ISI composite scores, EU-27, 2024.  Bin width
   = 0.05.  The dashed vertical line marks the population mean
-  (\num{0.34439144}).}
+  (\num{0.3444}).}
 \label{fig:histogram}
 \end{figure}
 
@@ -128,7 +128,7 @@ where $L(p)$ is the Lorenz ordinate at population fraction $p$.
 \label{fig:lorenz}
 \end{figure}
 
-The Gini coefficient of \num{0.115463} indicates a relatively egalitarian
+The Gini coefficient of \num{0.1155} indicates a relatively egalitarian
 distribution.  For comparison, the Gini coefficient of GDP per capita
 across EU countries typically ranges between 0.10 and 0.20, and the
 Gini of income distributions within individual countries ranges from
@@ -144,63 +144,59 @@ heterogeneity, as demonstrated in subsequent sections.
 states.  Countries are ordered by descending composite score (rank~1
 = most concentrated).
 
-{\footnotesize
-\setlength{\tabcolsep}{1pt}
-\begin{longtable}{@{}r l S[table-format=1.8] S[table-format=1.8]
-  S[table-format=1.8] S[table-format=1.8] S[table-format=1.8]
-  S[table-format=1.8] S[table-format=1.8] l@{}}
-  \caption{ISI composite and axis-level scores, EU-27, 2024.  Rank~1
-    = most concentrated.}%
-  \label{tab:ranking} \\
+\begin{table}[htbp]
+\centering
+\caption{ISI composite and axis-level scores, EU-27, 2024.  Rank~1
+  = most concentrated.}%
+\label{tab:ranking}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}
+  r l
+  S[table-format=1.3,round-precision=3]
+  S[table-format=1.3,round-precision=3]
+  S[table-format=1.3,round-precision=3]
+  S[table-format=1.3,round-precision=3]
+  S[table-format=1.3,round-precision=3]
+  S[table-format=1.3,round-precision=3]
+  S[table-format=1.3,round-precision=3]
+  l@{}}
   \toprule
   {\textbf{Rk}} & {\textbf{Country}} & {\textbf{Comp.}}
     & {\textbf{Fin.}} & {\textbf{Ene.}} & {\textbf{Tech.}}
     & {\textbf{Def.}} & {\textbf{Crit.}} & {\textbf{Log.}}
-    & {\textbf{Class.}} \\
+    & {\textbf{Tier}} \\
   \midrule
-  \endfirsthead
-  \caption[]{ISI composite and axis-level scores (continued).} \\
-  \toprule
-  {\textbf{Rk}} & {\textbf{Country}} & {\textbf{Comp.}}
-    & {\textbf{Fin.}} & {\textbf{Ene.}} & {\textbf{Tech.}}
-    & {\textbf{Def.}} & {\textbf{Crit.}} & {\textbf{Log.}}
-    & {\textbf{Class.}} \\
-  \midrule
-  \endhead
-  \midrule
-  \multicolumn{10}{r@{}}{\scriptsize\itshape Continued on next page} \\
-  \endfoot
+  1  & Malta        & 0.518 & 0.140 & 0.351 & 0.206 & 1.000 & 0.409 & 1.000 & high \\
+  2  & Cyprus       & 0.468 & 0.124 & 0.348 & 0.224 & 0.749 & 0.424 & 0.941 & mod. \\
+  3  & Ireland      & 0.428 & 0.147 & 0.465 & 0.587 & 0.449 & 0.307 & 0.614 & mod. \\
+  4  & Denmark      & 0.424 & 0.124 & 0.470 & 0.150 & 0.724 & 0.436 & 0.642 & mod. \\
+  5  & Croatia      & 0.404 & 0.273 & 0.351 & 0.173 & 0.747 & 0.524 & 0.358 & mod. \\
+  6  & Finland      & 0.402 & 0.118 & 0.363 & 0.198 & 0.390 & 0.547 & 0.797 & mod. \\
+  7  & Sweden       & 0.399 & 0.117 & 0.327 & 0.120 & 0.881 & 0.193 & 0.755 & mod. \\
+  8  & Austria      & 0.383 & 0.149 & 0.456 & 0.261 & 0.585 & 0.319 & 0.526 & mod. \\
+  9  & Italy        & 0.374 & 0.188 & 0.308 & 0.141 & 0.921 & 0.208 & 0.478 & mod. \\
+  10 & Slovenia     & 0.370 & 0.119 & 0.405 & 0.357 & 0.667 & 0.223 & 0.447 & mod. \\
+  11 & Greece       & 0.365 & 0.201 & 0.335 & 0.163 & 0.552 & 0.222 & 0.720 & mod. \\
+  12 & Luxembourg   & 0.360 & 0.115 & 0.360 & 0.200 & 0.645 & 0.223 & 0.619 & mod. \\
+  13 & Estonia      & 0.343 & 0.182 & 0.439 & 0.227 & 0.356 & 0.386 & 0.470 & mod. \\
+  14 & Bulgaria     & 0.340 & 0.161 & 0.357 & 0.152 & 0.861 & 0.148 & 0.363 & mod. \\
+  15 & Netherlands  & 0.335 & 0.121 & 0.320 & 0.125 & 0.960 & 0.130 & 0.355 & mod. \\
+  16 & Hungary      & 0.330 & 0.122 & 0.386 & 0.225 & 0.545 & 0.234 & 0.466 & mod. \\
+  17 & Portugal     & 0.322 & 0.183 & 0.349 & 0.198 & 0.434 & 0.260 & 0.508 & mod. \\
+  18 & Romania      & 0.319 & 0.200 & 0.406 & 0.297 & 0.564 & 0.158 & 0.288 & mod. \\
+  19 & Czechia      & 0.318 & 0.161 & 0.381 & 0.182 & 0.484 & 0.170 & 0.530 & mod. \\
+  20 & Poland       & 0.296 & 0.133 & 0.335 & 0.209 & 0.443 & 0.165 & 0.489 & mod. \\
+  21 & Belgium      & 0.288 & 0.154 & 0.308 & 0.295 & 0.447 & 0.173 & 0.352 & mod. \\
+  22 & Germany      & 0.268 & 0.102 & 0.329 & 0.098 & 0.583 & 0.223 & 0.273 & mod. \\
+  23 & Lithuania    & 0.265 & 0.134 & 0.338 & 0.242 & 0.402 & 0.131 & 0.347 & mod. \\
+  24 & Spain        & 0.261 & 0.146 & 0.302 & 0.193 & 0.381 & 0.112 & 0.432 & mod. \\
+  25 & Latvia       & 0.247 & 0.123 & 0.365 & 0.133 & 0.341 & 0.151 & 0.368 & mild \\
+  26 & Slovakia     & 0.236 & 0.162 & 0.400 & 0.217 & 0.000 & 0.155 & 0.486 & mild \\
+  27 & France       & 0.236 & 0.100 & 0.309 & 0.120 & 0.370 & 0.161 & 0.353 & mild \\
   \bottomrule
-  \endlastfoot
-  1  & Malta        & 0.51748148 & 0.13998786 & 0.35068126 & 0.20546991 & 1.00000000 & 0.40874987 & 1.00000000 & high.     \\
-  2  & Cyprus       & 0.46821264 & 0.12407171 & 0.34768252 & 0.22438354 & 0.74847998 & 0.42359750 & 0.94106062 & mod.      \\
-  3  & Ireland      & 0.42802519 & 0.14666620 & 0.46472525 & 0.58695939 & 0.44887460 & 0.30719544 & 0.61373023 & mod.      \\
-  4  & Denmark      & 0.42442738 & 0.12401663 & 0.47029821 & 0.14995928 & 0.72368274 & 0.43629935 & 0.64230809 & mod.      \\
-  5  & Croatia      & 0.40434768 & 0.27299265 & 0.35125471 & 0.17343982 & 0.74648317 & 0.52392772 & 0.35798800 & mod.      \\
-  6  & Finland      & 0.40205136 & 0.11775073 & 0.36268783 & 0.19789321 & 0.38964518 & 0.54699996 & 0.79733123 & mod.      \\
-  7  & Sweden       & 0.39871532 & 0.11646504 & 0.32721403 & 0.11982797 & 0.88107943 & 0.19257891 & 0.75512656 & mod.      \\
-  8  & Austria      & 0.38249806 & 0.14903467 & 0.45581191 & 0.26057910 & 0.58506379 & 0.31857781 & 0.52592111 & mod.      \\
-  9  & Italy        & 0.37386086 & 0.18753526 & 0.30781423 & 0.14103384 & 0.92057651 & 0.20839534 & 0.47781001 & mod.      \\
-  10 & Slovenia     & 0.36979186 & 0.11917574 & 0.40540014 & 0.35739912 & 0.66661871 & 0.22301125 & 0.44714621 & mod.      \\
-  11 & Greece       & 0.36537350 & 0.20078311 & 0.33541623 & 0.16272142 & 0.55148593 & 0.22200621 & 0.71982808 & mod.      \\
-  12 & Luxembourg   & 0.36016893 & 0.11462818 & 0.35980871 & 0.20019721 & 0.64483831 & 0.22295831 & 0.61858285 & mod.      \\
-  13 & Estonia      & 0.34332177 & 0.18172493 & 0.43935251 & 0.22713142 & 0.35561474 & 0.38622776 & 0.46987927 & mod.      \\
-  14 & Bulgaria     & 0.34027984 & 0.16052965 & 0.35711773 & 0.15204272 & 0.86064518 & 0.14843767 & 0.36290606 & mod.      \\
-  15 & Netherlands  & 0.33515702 & 0.12107826 & 0.31992851 & 0.12527375 & 0.95955396 & 0.13018835 & 0.35491930 & mod.      \\
-  16 & Hungary      & 0.32966227 & 0.12222969 & 0.38580312 & 0.22538122 & 0.54471981 & 0.23405214 & 0.46578765 & mod.      \\
-  17 & Portugal     & 0.32173430 & 0.18303606 & 0.34860414 & 0.19766062 & 0.43376254 & 0.25955617 & 0.50778629 & mod.      \\
-  18 & Romania      & 0.31864192 & 0.20033340 & 0.40546401 & 0.29691153 & 0.56353195 & 0.15814280 & 0.28746783 & mod.      \\
-  19 & Czechia      & 0.31796630 & 0.16116762 & 0.38082003 & 0.18242269 & 0.48413737 & 0.16976911 & 0.52948100 & mod.      \\
-  20 & Poland       & 0.29561321 & 0.13314812 & 0.33487780 & 0.20845359 & 0.44326493 & 0.16532767 & 0.48860717 & mod.      \\
-  21 & Belgium      & 0.28796781 & 0.15348744 & 0.30789144 & 0.29454573 & 0.44734854 & 0.17248330 & 0.35205038 & mod.      \\
-  22 & Germany      & 0.26788694 & 0.10186464 & 0.32908790 & 0.09762824 & 0.58266751 & 0.22312039 & 0.27295297 & mod.      \\
-  23 & Lithuania    & 0.26540520 & 0.13349636 & 0.33747627 & 0.24172279 & 0.40227798 & 0.13056067 & 0.34689716 & mod.      \\
-  24 & Spain        & 0.26093977 & 0.14554195 & 0.30187479 & 0.19263249 & 0.38088569 & 0.11235234 & 0.43235135 & mod.      \\
-  25 & Latvia       & 0.24695137 & 0.12316988 & 0.36522282 & 0.13309607 & 0.34079636 & 0.15120012 & 0.36822299 & mild      \\
-  26 & Slovakia     & 0.23641567 & 0.16163673 & 0.39995460 & 0.21649186 & 0.00000000 & 0.15490434 & 0.48550648 & mild      \\
-  27 & France       & 0.23567126 & 0.10039135 & 0.30911838 & 0.12001059 & 0.37034617 & 0.16122463 & 0.35293643 & mild      \\
-\end{longtable}
-}
+\end{tabular*}
+\end{table}
 
 Several features of the ranking are analytically significant.  First, the top two
 positions are occupied by small island economies (Malta, Cyprus),
@@ -210,8 +206,8 @@ bottom three countries include two large economies (Germany rank~22,
 France rank~27) and one small economy with anomalous defence data
 (Slovakia rank~26).  Third, the mid-range (ranks 8--20) is
 exceptionally compressed: the composite scores of Austria (rank~8,
-\num{0.38249806}) and Poland (rank~20, \num{0.29561321}) differ by
-only \num{0.08688485}, yet span 13~rank positions.  This compression
+\num{0.3825}) and Poland (rank~20, \num{0.2956}) differ by
+only \num{0.0869}, yet span 13~rank positions.  This compression
 implies that small perturbations to the underlying data could produce
 substantial rank reshuffling in the mid-range, a prediction confirmed
 by the robustness exercises in \cref{sec:robustness}.
@@ -227,21 +223,23 @@ statistics for each occupied tier.
 \centering
 \caption{Within-tier composite statistics.}
 \label{tab:tier-compression}
-\begin{tabular}{@{}lrS[table-format=1.8]S[table-format=1.8]S[table-format=1.8]S[table-format=1.8]@{}}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} l r S[table-format=1.4] S[table-format=1.4] S[table-format=1.4] S[table-format=1.4] @{}}
 \toprule
 \textbf{Tier} & {$n$} & {\textbf{Min}} & {\textbf{Max}} & {\textbf{Mean}}
   & {\textbf{Std (pop.)}} \\
 \midrule
-Highly concentrated & 1 & 0.51748148 & 0.51748148 & 0.51748148 & 0.00000000 \\
-Moderately conc.    & 23 & 0.26093977 & 0.46821264 & 0.35327637 & 0.05339393 \\
-Mildly concentrated & 3  & 0.23567126 & 0.24695137 & 0.24301277 & 0.00504709 \\
+Highly concentrated & 1 & 0.5174 & 0.5174 & 0.5174 & 0.0000 \\
+Moderately conc.    & 23 & 0.2609 & 0.4682 & 0.3532 & 0.0533 \\
+Mildly concentrated & 3  & 0.2356 & 0.2469 & 0.2430 & 0.0050 \\
 \bottomrule
-\end{tabular}
+\end{tabular*}
 \end{table}
 
 Within the moderately concentrated tier, the range spans
-\num{0.20727287} (from Spain at \num{0.26093977} to Cyprus at
-\num{0.46821264}).  This wide within-tier range indicates that the
+\num{0.2073} (from Spain at \num{0.2609} to Cyprus at
+\num{0.4682}).  This wide within-tier range indicates that the
 four-tier classification groups countries with meaningfully different
 concentration profiles into the same category.  The tier structure is
 informative at the extremes (Malta stands alone; the three mildly
@@ -270,7 +268,7 @@ provides adequate discriminatory power, or whether the observed
 compression is an artefact of the threshold placement.  We address
 this through three complementary diagnostics.
 
-\subsubsection{Between-tier variance share ($\eta^2$)}
+\subsubsection{Between-tier variance share (\texorpdfstring{$\eta^2$}{η²})}
 
 Let $\bar{x}_g$ denote the mean composite within tier~$g$ and
 $\bar{x}$ the grand mean.  The between-tier sum of squares is

@@ -1,44 +1,49 @@
 % Table T12: Winsorization sensitivity
-\begin{longtable}{@{}rlS[table-format=1.8]rS[table-format=1.8]rr@{}}
+\begin{table}[htbp]
+\centering
 \caption{Rank comparison: baseline vs.\ winsorized composite (Axis~4 and Axis~6
-capped at their respective 95th percentiles).  Spearman $\rho = 1.000000$.}
-\label{tab:winsorization}\\
+capped at their respective 95th percentiles).  Spearman $\rho = 1.0000$.}
+\label{tab:winsorization}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}
+  r l
+  S[table-format=1.4]
+  S[table-format=2.0,round-precision=0]
+  S[table-format=1.4]
+  S[table-format=2.0,round-precision=0]
+  S[table-format=2.0,round-precision=0]
+  @{}}
 \toprule
-{\textbf{Rk}} & {\textbf{Country}} & {\textbf{Baseline}} & {\textbf{Rk (base)}} & {\textbf{Winsorized}} & {\textbf{Rk (win)}} & {$\boldsymbol{\Delta}$} \\
+{\textbf{Rk}} & {\textbf{Country}} & {\textbf{Baseline}} & {\textbf{Rk\,(b)}} & {\textbf{Winsor.}} & {\textbf{Rk\,(w)}} & {$\boldsymbol{\Delta}$} \\
 \midrule
-\endfirsthead
-\caption[]{Winsorization (continued).}\\
-\toprule
-{\textbf{Rk}} & {\textbf{Country}} & {\textbf{Baseline}} & {\textbf{Rk (base)}} & {\textbf{Winsorized}} & {\textbf{Rk (win)}} & {$\boldsymbol{\Delta}$} \\
-\midrule
-\endhead
+  1 & Malta & 0.5174 & 1 & 0.4917 & 1 & 0 \\
+  2 & Cyprus & 0.4682 & 2 & 0.4610 & 2 & 0 \\
+  3 & Ireland & 0.4280 & 3 & 0.4280 & 3 & 0 \\
+  4 & Denmark & 0.4244 & 4 & 0.4244 & 4 & 0 \\
+  5 & Croatia & 0.4043 & 5 & 0.4043 & 5 & 0 \\
+  6 & Finland & 0.4020 & 6 & 0.4020 & 6 & 0 \\
+  7 & Sweden & 0.3987 & 7 & 0.3987 & 7 & 0 \\
+  8 & Austria & 0.3824 & 8 & 0.3824 & 8 & 0 \\
+  9 & Italy & 0.3738 & 9 & 0.3738 & 9 & 0 \\
+  10 & Slovenia & 0.3697 & 10 & 0.3697 & 10 & 0 \\
+  11 & Greece & 0.3653 & 11 & 0.3653 & 11 & 0 \\
+  12 & Luxembourg & 0.3601 & 12 & 0.3601 & 12 & 0 \\
+  13 & Estonia & 0.3433 & 13 & 0.3433 & 13 & 0 \\
+  14 & Bulgaria & 0.3402 & 14 & 0.3402 & 14 & 0 \\
+  15 & Netherlands & 0.3351 & 15 & 0.3332 & 15 & 0 \\
+  16 & Hungary & 0.3296 & 16 & 0.3296 & 16 & 0 \\
+  17 & Portugal & 0.3217 & 17 & 0.3217 & 17 & 0 \\
+  18 & Romania & 0.3186 & 18 & 0.3186 & 18 & 0 \\
+  19 & Czechia & 0.3179 & 19 & 0.3179 & 19 & 0 \\
+  20 & Poland & 0.2956 & 20 & 0.2956 & 20 & 0 \\
+  21 & Belgium & 0.2879 & 21 & 0.2879 & 21 & 0 \\
+  22 & Germany & 0.2678 & 22 & 0.2678 & 22 & 0 \\
+  23 & Lithuania & 0.2654 & 23 & 0.2654 & 23 & 0 \\
+  24 & Spain & 0.2609 & 24 & 0.2609 & 24 & 0 \\
+  25 & Latvia & 0.2469 & 25 & 0.2469 & 25 & 0 \\
+  26 & Slovakia & 0.2364 & 26 & 0.2364 & 26 & 0 \\
+  27 & France & 0.2356 & 27 & 0.2356 & 27 & 0 \\
 \bottomrule
-\endlastfoot
-  1 & Malta & 0.51748148 & 1 & 0.49178190 & 1 & 0 \\
-  2 & Cyprus & 0.46821264 & 2 & 0.46102618 & 2 & 0 \\
-  3 & Ireland & 0.42802519 & 3 & 0.42802518 & 3 & 0 \\
-  4 & Denmark & 0.42442738 & 4 & 0.42442738 & 4 & 0 \\
-  5 & Croatia & 0.40434768 & 5 & 0.40434768 & 5 & 0 \\
-  6 & Finland & 0.40205136 & 6 & 0.40205136 & 6 & 0 \\
-  7 & Sweden & 0.39871532 & 7 & 0.39871532 & 7 & 0 \\
-  8 & Austria & 0.38249806 & 8 & 0.38249806 & 8 & 0 \\
-  9 & Italy & 0.37386086 & 9 & 0.37386086 & 9 & 0 \\
-  10 & Slovenia & 0.36979186 & 10 & 0.36979186 & 10 & 0 \\
-  11 & Greece & 0.36537350 & 11 & 0.36537350 & 11 & 0 \\
-  12 & Luxembourg & 0.36016893 & 12 & 0.36016893 & 12 & 0 \\
-  13 & Estonia & 0.34332177 & 13 & 0.34332177 & 13 & 0 \\
-  14 & Bulgaria & 0.34027984 & 14 & 0.34027984 & 14 & 0 \\
-  15 & Netherlands & 0.33515702 & 15 & 0.33320815 & 15 & 0 \\
-  16 & Hungary & 0.32966227 & 16 & 0.32966227 & 16 & 0 \\
-  17 & Portugal & 0.32173430 & 17 & 0.32173430 & 17 & 0 \\
-  18 & Romania & 0.31864192 & 18 & 0.31864192 & 18 & 0 \\
-  19 & Czechia & 0.31796630 & 19 & 0.31796630 & 19 & 0 \\
-  20 & Poland & 0.29561321 & 20 & 0.29561321 & 20 & 0 \\
-  21 & Belgium & 0.28796781 & 21 & 0.28796781 & 21 & 0 \\
-  22 & Germany & 0.26788694 & 22 & 0.26788694 & 22 & 0 \\
-  23 & Lithuania & 0.26540520 & 23 & 0.26540520 & 23 & 0 \\
-  24 & Spain & 0.26093977 & 24 & 0.26093977 & 24 & 0 \\
-  25 & Latvia & 0.24695137 & 25 & 0.24695137 & 25 & 0 \\
-  26 & Slovakia & 0.23641567 & 26 & 0.23641567 & 26 & 0 \\
-  27 & France & 0.23567126 & 27 & 0.23567126 & 27 & 0 \\
-\end{longtable}
+\end{tabular*}
+\end{table}

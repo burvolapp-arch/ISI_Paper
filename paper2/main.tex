@@ -20,7 +20,8 @@
 \onehalfspacing
 \setlength{\parindent}{0pt}
 \usepackage{parskip}
-\usepackage{microtype}
+\usepackage[protrusion=true,expansion=true]{microtype}
+\microtypesetup{verbose=silent}
 
 % ── Mathematics ──────────────────────────────────────────────────────────────
 \usepackage{amsmath,amssymb}
@@ -33,13 +34,20 @@
 \usepackage{multirow}
 \usepackage{siunitx}
 \sisetup{
-  round-mode = places,
-  round-precision = 8,
-  group-separator = {},
-  table-format = 1.8,
+  detect-all,
+  group-digits          = false,
+  input-signs           = +-,
+  input-symbols         = (),
+  table-align-text-post = false,
+  table-number-alignment = center,
+  round-mode            = places,
+  round-precision       = 4,
+  table-format          = 1.4,
 }
 \usepackage{adjustbox}
 \usepackage{pdflscape}
+\setlength{\extrarowheight}{1pt}          % breathing room in every table row
+\renewcommand{\arraystretch}{1.10}        % baseline row stretch
 
 % ── Figures & Graphics ───────────────────────────────────────────────────────
 \usepackage{graphicx}
@@ -61,6 +69,11 @@
 ]{hyperref}
 \usepackage[capitalise,noabbrev]{cleveref}
 
+% Allow URL line breaks at hyphens, slashes, and dots
+\makeatletter
+\g@addto@macro{\UrlBreaks}{\UrlOrds}
+\makeatother
+
 % ── Bibliography ─────────────────────────────────────────────────────────────
 \usepackage[numbers,sort&compress]{natbib}
 \bibliographystyle{unsrtnat}
@@ -68,7 +81,9 @@
 % ── Miscellaneous ────────────────────────────────────────────────────────────
 \usepackage{enumitem}
 \usepackage{listings}
-\hfuzz=6pt  % suppress trivial overfull hbox warnings from siunitx tables
+\hfuzz=0.5pt   % suppress sub-0.5pt micro-overflow only
+\widowpenalty=10000   % prevent widows (single last line at page top)
+\clubpenalty=10000    % prevent orphans (single first line at page bottom)
 \lstset{
   basicstyle=\ttfamily\footnotesize,
   breaklines=true,
@@ -88,6 +103,7 @@
 
 % ── Document ─────────────────────────────────────────────────────────────────
 \begin{document}
+\hypersetup{pageanchor=false}% suppress duplicate page anchors on titlepage
 
 % ---------- Title Page ----------
 \begin{titlepage}
@@ -144,8 +160,7 @@ correlates, defence structural analysis, full axis-level rankings,
 and a complete reproducibility protocol.
 \end{abstract}
 \vfill
-\noindent\textbf{JEL codes:} F02, F15, F52, O30, Q43
-\quad\textit{[to confirm]}\\[0.3cm]
+\noindent\textbf{JEL codes:} F02, F15, F52, O30, Q43\\[0.3cm]
 \noindent\textbf{Keywords:} sovereignty index, EU-27, concentration measurement,
 composite indicator, supply-chain dependence, defence dependence
 \end{titlepage}
@@ -154,6 +169,8 @@ composite indicator, supply-chain dependence, defence dependence
 \newpage
 \tableofcontents
 \newpage
+\hypersetup{pageanchor=true}
+\pagenumbering{arabic}
 
 % ---------- Executive Summary ----------
 \input{sections/00_executive_summary}
@@ -186,7 +203,9 @@ composite indicator, supply-chain dependence, defence dependence
 
 % ---------- References ----------
 \newpage
+\begingroup\emergencystretch=2em\hbadness=10000
 \bibliography{references}
+\endgroup
 
 % ---------- Appendices ----------
 \newpage

@@ -6,16 +6,24 @@ $\tau$ measure rank-order agreement between the baseline and each LOO ranking.
 Mean $|\Delta|$ and Max $|\Delta|$ report the average and maximum absolute rank
 displacement across the 27 countries.}
 \label{tab:loo-summary}
-\begin{tabular}{@{}l S[table-format=1.6] S[table-format=1.6] S[table-format=1.2] r@{}}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}
+  l
+  S[table-format=1.4]
+  S[table-format=1.4]
+  S[table-format=1.2,round-precision=2]
+  r
+  @{}}
 \toprule
-{\textbf{Excluded Axis}} & {$\boldsymbol{\rho}$ \textbf{(Spearman)}} & {$\boldsymbol{\tau}$ \textbf{(Kendall)}} & {\textbf{Mean} $|\Delta|$} & {\textbf{Max} $|\Delta|$} \\
+{\textbf{Excluded Axis}} & {$\boldsymbol{\rho}$ \textbf{(Spear.)}} & {$\boldsymbol{\tau}$ \textbf{(Kend.)}} & {\textbf{Mean} $|\Delta|$} & {\textbf{Max} $|\Delta|$} \\
 \midrule
-  Financial & 0.992674 & 0.943020 & 0.67 & 2 \\
-  Energy & 0.992063 & 0.943020 & 0.67 & 2 \\
-  Technology & 0.968254 & 0.886040 & 1.26 & 7 \\
-  Defence & 0.832723 & 0.675214 & 3.33 & 10 \\
-  Critical Inputs & 0.941392 & 0.846154 & 1.78 & 8 \\
-  Logistics & 0.926129 & 0.789174 & 2.07 & 7 \\
+  Financial       & 0.9927 & 0.9430 & 0.67 & 2 \\
+  Energy          & 0.9921 & 0.9430 & 0.67 & 2 \\
+  Technology      & 0.9683 & 0.8860 & 1.26 & 7 \\
+  Defence         & 0.8327 & 0.6752 & 3.33 & 10 \\
+  Critical Inputs & 0.9414 & 0.8462 & 1.78 & 8 \\
+  Logistics       & 0.9261 & 0.7892 & 2.07 & 7 \\
 \bottomrule
-\end{tabular}
+\end{tabular*}
 \end{table}

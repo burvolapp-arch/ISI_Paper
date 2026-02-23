@@ -20,22 +20,30 @@ provides a scale-free measure of relative dispersion.
 \centering
 \caption{Axis-level distributional statistics, EU-27, 2024.}
 \label{tab:axis-stats}
-\begin{tabular}{@{}lS[table-format=1.8]S[table-format=1.8]
-  S[table-format=1.8]S[table-format=1.8]S[table-format=1.8]
-  S[table-format=1.4]@{}}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}
+  l
+  S[table-format=1.4]
+  S[table-format=1.4]
+  S[table-format=1.4]
+  S[table-format=1.4]
+  S[table-format=1.4]
+  S[table-format=1.4]
+  @{}}
 \toprule
 {\textbf{Axis}} & {\textbf{Min}} & {\textbf{Max}} & {\textbf{Mean}}
   & {\textbf{Median}} & {$\boldsymbol{\sigma}$ \textbf{(pop.)}}
   & {\textbf{CV}} \\
 \midrule
-Financial       & 0.10039135 & 0.27299265 & 0.14799792 & 0.13998786 & 0.03728203 & 0.2519 \\
-Energy          & 0.30187479 & 0.47029821 & 0.36523663 & 0.35125471 & 0.04790658 & 0.1312 \\
-Technology      & 0.09762824 & 0.58695939 & 0.21078775 & 0.19789321 & 0.09458972 & 0.4488 \\
-Defence         & 0.00000000 & 1.00000000 & 0.57319930 & 0.55148593 & 0.22565797 & 0.3936 \\
-Critical inputs & 0.11235234 & 0.54699996 & 0.25154982 & 0.22200621 & 0.12182538 & 0.4843 \\
-Logistics       & 0.27295297 & 1.00000000 & 0.51757723 & 0.47781001 & 0.18640808 & 0.3603 \\
+Financial       & 0.1003 & 0.2729 & 0.1479 & 0.1399 & 0.0372 & 0.2519 \\
+Energy          & 0.3018 & 0.4702 & 0.3652 & 0.3512 & 0.0479 & 0.1312 \\
+Technology      & 0.0976 & 0.5869 & 0.2107 & 0.1978 & 0.0945 & 0.4488 \\
+Defence         & 0.0000 & 1.0000 & 0.5731 & 0.5514 & 0.2256 & 0.3936 \\
+Critical inputs & 0.1123 & 0.5469 & 0.2515 & 0.2220 & 0.1218 & 0.4843 \\
+Logistics       & 0.2729 & 1.0000 & 0.5175 & 0.4778 & 0.1864 & 0.3603 \\
 \bottomrule
-\end{tabular}
+\end{tabular*}
 \end{table}
 
 The following distributional patterns are analytically relevant:
@@ -47,22 +55,22 @@ The following distributional patterns are analytically relevant:
     unit of mean score.
 
   \item \textbf{Lowest dispersion.}  Energy has the lowest CV
-    (0.1312) and the smallest range (\num{0.16842342}), indicating
+    (0.1312) and the smallest range (\num{0.1684}), indicating
     that EU countries exhibit comparatively homogeneous energy
     dependency concentration.
 
   \item \textbf{Highest absolute dispersion.}  Defence has the
-    largest population standard deviation (\num{0.22565797}) and
+    largest population standard deviation (\num{0.2256}) and
     the largest range (1.0), spanning the entire unit interval from
-    Slovakia's \num{0.00000000} to Malta's \num{1.00000000}.
+    Slovakia's \num{0.0000} to Malta's \num{1.0000}.
 
   \item \textbf{Lowest mean.}  The financial axis has the lowest mean
-    (\num{0.14799792}).  All 27~countries score below 0.28 on this
+    (\num{0.1479}).  All 27~countries score below 0.28 on this
     axis, indicating dispersed counterparty structures in cross-border
     financial exposures.
 
-  \item \textbf{Highest means.}  Defence (\num{0.57319930}) and
-    logistics (\num{0.51757723}) record the highest axis means.
+  \item \textbf{Highest means.}  Defence (\num{0.5731}) and
+    logistics (\num{0.5175}) record the highest axis means.
     These axes pull the composite upward on average.
 \end{itemize}
 
@@ -188,7 +196,9 @@ Countries are classified into three structural types:
 \caption{Structural typology: classification rules and EU-27
   distribution.}
 \label{tab:structural-typology}
-\begin{tabular}{@{}llrl@{}}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} l l r l @{}}
 \toprule
 \textbf{Type} & \textbf{Criterion} & \textbf{Count}
   & \textbf{Examples} \\
@@ -206,7 +216,7 @@ Balanced profile
   & 16
   & BE (0.095), SK (0.086), DK (0.081) \\
 \bottomrule
-\end{tabular}
+\end{tabular*}
 \end{table}
 
 The typology reveals that 3 of 27 countries (11.1\%) are
@@ -374,7 +384,7 @@ the largest rank disruption ($\rho = 0.833$).
 \Cref{tab:defence-structural} reports the key distributional
 statistics.  The defence axis spans the full unit interval, from
 Slovakia's score of exactly zero to Malta's score of exactly one.
-The population standard deviation (\num{0.22565797}) is nearly six
+The population standard deviation (\num{0.2256}) is nearly six
 times that of the financial axis.  Five countries record scores above
 0.80: Malta (1.000), Netherlands (0.960), Italy (0.921), Sweden
 (0.881), and Bulgaria (0.861).  These five countries alone account for
@@ -403,7 +413,7 @@ features of oligopsonistic procurement markets:
     have concentrated defence-import partnerships.
 
   \item \textbf{Wide dispersion.}  The coefficient of variation
-    (0.394) and the IQR (\num{0.31706}) indicate substantial
+    (0.394) and the IQR (\num{0.3171}) indicate substantial
     heterogeneity in defence concentration across the EU-27.
 \end{enumerate}
 
@@ -411,7 +421,7 @@ features of oligopsonistic procurement markets:
 
 For countries where defence is the dominant axis, the defence score
 exceeds the second-highest axis score by an average margin of
-\num{0.183660}.  \Cref{tab:defence-gap} reports the country-level
+\num{0.1837}.  \Cref{tab:defence-gap} reports the country-level
 defence scores, dominant axes, and defence-to-max gaps.
 
 \input{tables/T16b_defence_gap}
@@ -457,7 +467,9 @@ on reduced-composite ranks.
 \caption{Defence-dominance stress test: rank-order agreement between
   reduced composites and the ISI~v1.0 baseline.}
 \label{tab:defence-stress-test}
-\begin{tabular}{@{}lS[table-format=1.3]S[table-format=1.3]S[table-format=1.3]@{}}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} l S[table-format=1.3,round-precision=3] S[table-format=1.3,round-precision=3] S[table-format=1.3,round-precision=3] @{}}
 \toprule
 \textbf{Reduced composite}
   & {$\boldsymbol{\rho}$} & {$\boldsymbol{\tau}$}
@@ -470,7 +482,7 @@ Without logistics ($\text{ISI}^{(-L)}$)
 Without both ($\text{ISI}^{(-DL)}$)
   & 0.654 & 0.459 & 0.428 \\
 \bottomrule
-\end{tabular}
+\end{tabular*}
 \end{table}
 
 \subsubsection{Interpretation}

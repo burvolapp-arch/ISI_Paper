@@ -6,24 +6,26 @@ is compared with data-driven tercile and quartile alternatives.  $\eta^2 = SS_B 
 measures between-tier variance share.}
 \label{tab:compression-diagnostics}
 \small
-\begin{tabular}{@{}l r S[table-format=1.8] S[table-format=1.10] l@{}}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}
+  l r S[table-format=1.4] S[table-format=1.6,round-precision=6] l @{}}
 \toprule
 {\textbf{Tier}} & {$n$} & {\textbf{Mean}} & {\textbf{Var (within)}} & {\textbf{Scheme}} \\
 \midrule
-  Highly concentrated & 1 & 0.51748148 & 0.0000000000 & Official \\
-  Moderately concentrated & 23 & 0.35052388 & 0.0029654931 & Official \\
-  Mildly concentrated & 3 & 0.23967943 & 0.0000265329 & Official \\
+  Highly conc. & 1 & 0.5174 & 0.000000 & Official \\
+  Moderately conc. & 23 & 0.3505 & 0.002965 & Official \\
+  Mildly conc. & 3 & 0.2396 & 0.000027 & Official \\
 \addlinespace
-  T1 (low) & 9 & 0.26831306 & 0.0006888119 & Tercile \\
-  T2 (mid) & 9 & 0.34268127 & 0.0003116324 & Tercile \\
-  T3 (high) & 9 & 0.42218000 & 0.0018248593 & Tercile \\
+  T1 (low) & 9 & 0.2683 & 0.000689 & Tercile \\
+  T2 (mid) & 9 & 0.3426 & 0.000312 & Tercile \\
+  T3 (high) & 9 & 0.4221 & 0.001825 & Tercile \\
 \addlinespace
-  Q1 (low) & 7 & 0.25731972 & 0.0003060842 & Quartile \\
-  Q2 & 6 & 0.31979584 & 0.0001544247 & Quartile \\
-  Q3 & 7 & 0.36218497 & 0.0002080999 & Quartile \\
-  Q4 (high) & 7 & 0.43475158 & 0.0016297180 & Quartile \\
+  Q1 (low) & 7 & 0.2573 & 0.000306 & Quartile \\
+  Q2 & 6 & 0.3197 & 0.000154 & Quartile \\
+  Q3 & 7 & 0.3621 & 0.000208 & Quartile \\
+  Q4 (high) & 7 & 0.4347 & 0.001630 & Quartile \\
 \midrule
-  \multicolumn{5}{@{}l@{}}{$\eta^2$ (official) $= 0.482701$; Gini $= 0.115463$} \\
+  \multicolumn{5}{@{}l@{}}{$\eta^2$ (official) $= 0.4827$; Gini $= 0.1155$} \\
 \bottomrule
-\end{tabular}
+\end{tabular*}
 \end{table}

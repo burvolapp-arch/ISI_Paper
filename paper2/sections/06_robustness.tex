@@ -185,9 +185,9 @@ statistics:
 
 \begin{itemize}[leftmargin=2em]
   \item \textbf{Mean Spearman~$\rho$} between each draw's ranking
-    and the baseline: \num{0.979} (std~=~\num{0.017}).
-  \item \textbf{Minimum~$\rho$}: \num{0.863}; \textbf{Maximum~$\rho$}:
-    \num{1.000}.
+    and the baseline: \num{0.979} (std = \num{0.017}).
+  \item \textbf{Minimum~$\rho$}: \num{0.863};
+    \textbf{Maximum~$\rho$}: \num{1.000}.
   \item In more than 95\% of draws, $\rho > 0.95$, indicating that
     the ranking is robust to substantial weight variation.
 \end{itemize}
@@ -221,8 +221,8 @@ drive the ranking, we cap both axes at their respective 95th
 percentiles:
 
 \begin{itemize}[leftmargin=2em]
-  \item Defence: P95 cap = \num{0.94786072}.
-  \item Logistics: P95 cap = \num{0.89794180}.
+  \item Defence: P95 cap = \num{0.9479}.
+  \item Logistics: P95 cap = \num{0.8979}.
 \end{itemize}
 
 Any country-axis score exceeding the cap is replaced by the cap value.
@@ -303,7 +303,9 @@ exercises.
   Kendall~$\tau$ between each perturbed ranking and the ISI~v1.0
   baseline.}
 \label{tab:robustness-summary}
-\begin{tabular}{@{}llS[table-format=1.3]S[table-format=1.3]l@{}}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} l l S[table-format=1.3,round-precision=3] S[table-format=1.3,round-precision=3] l @{}}
 \toprule
 \textbf{Exercise} & \textbf{Perturbation}
   & {$\boldsymbol{\rho}$} & {$\boldsymbol{\tau}$}
@@ -322,7 +324,7 @@ Winsorization     & Cap at P95 & 1.000 & 1.000 & Fully stable \\
 \multicolumn{2}{@{}l}{Rank elasticity ($\pm 10\%$)}
   & \multicolumn{3}{@{}l}{13/27 sensitive; 14/27 locked} \\
 \bottomrule
-\end{tabular}
+\end{tabular*}
 \end{table}
 
 The ranking is robust to outlier capping (winsorization) and to

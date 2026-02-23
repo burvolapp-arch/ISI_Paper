@@ -21,9 +21,10 @@ the~27~countries.
 \caption{Pearson correlation matrix of axis-level scores, EU-27,
   2024.  Cells in bold indicate $|r| \geq 0.40$.}
 \label{tab:corr-pearson}
-\sisetup{table-format=+1.3, tight-spacing}
-\begin{tabular}{@{}l
-  S S S S S S@{}}
+\small
+\setlength{\tabcolsep}{4pt}
+\sisetup{table-format=+1.3, tight-spacing, round-precision=3}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} l S S S S S S @{}}
 \toprule
  & {\textbf{Fin.}} & {\textbf{Ene.}} & {\textbf{Tec.}}
  & {\textbf{Def.}} & {\textbf{Crit.}} & {\textbf{Log.}} \\
@@ -35,7 +36,7 @@ Defence         & +0.024 & -0.175 & -0.222 & {1.000} & +0.191 & +0.286 \\
 Critical inputs & +0.218 & +0.372 & +0.097 & +0.191 & {1.000} & \textbf{+0.549} \\
 Logistics       & -0.164 & +0.112 & +0.068 & +0.286 & \textbf{+0.549} & {1.000} \\
 \bottomrule
-\end{tabular}
+\end{tabular*}
 \end{table}
 
 \Cref{tab:corr-spearman} reports the Spearman rank correlation matrix.
@@ -47,9 +48,10 @@ they are robust to non-linear monotone relationships and outliers.
 \caption{Spearman rank correlation matrix of axis-level scores,
   EU-27, 2024.  Cells in bold indicate $|\rho| \geq 0.40$.}
 \label{tab:corr-spearman}
-\sisetup{table-format=+1.3, tight-spacing}
-\begin{tabular}{@{}l
-  S S S S S S@{}}
+\small
+\setlength{\tabcolsep}{4pt}
+\sisetup{table-format=+1.3, tight-spacing, round-precision=3}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} l S S S S S S @{}}
 \toprule
  & {\textbf{Fin.}} & {\textbf{Ene.}} & {\textbf{Tec.}}
  & {\textbf{Def.}} & {\textbf{Crit.}} & {\textbf{Log.}} \\
@@ -61,7 +63,7 @@ Defence         & -0.040 & -0.115 & -0.212 & {1.000} & +0.234 & +0.220 \\
 Critical inputs & +0.016 & \textbf{+0.409} & +0.183 & +0.234 & {1.000} & \textbf{+0.545} \\
 Logistics       & -0.034 & +0.236 & +0.042 & +0.220 & \textbf{+0.545} & {1.000} \\
 \bottomrule
-\end{tabular}
+\end{tabular*}
 \end{table}
 
 \subsection{Significance testing}\label{sec:corr-tstat}
@@ -208,7 +210,9 @@ insight into the dimensionality of the axis structure.
 \centering
 \caption{Eigenvalues of the $6 \times 6$ Pearson correlation matrix.}
 \label{tab:eigenvalues}
-\begin{tabular}{@{}lS[table-format=1.4]S[table-format=2.1]S[table-format=2.1]@{}}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} l S[table-format=1.4] S[table-format=3.1,round-precision=1] S[table-format=3.1,round-precision=1] @{}}
 \toprule
 \textbf{Component} & {\textbf{Eigenvalue}} & {\textbf{\% Var.}}
   & {\textbf{Cum.~\%}} \\
@@ -220,7 +224,7 @@ PC4 & 0.6674 & 11.1 & 87.2 \\
 PC5 & 0.5065 &  8.4 & 95.7 \\
 PC6 & 0.2593 &  4.3 & 100.0 \\
 \bottomrule
-\end{tabular}
+\end{tabular*}
 \end{table}
 
 Three eigenvalues exceed unity (Kaiser criterion: PC1, PC2, PC3),
@@ -249,8 +253,10 @@ total variance.
   $6 \times 6$ Pearson correlation matrix.  Loadings with
   $|\ell| \geq 0.40$ in bold.}
 \label{tab:pca-loadings}
-\sisetup{table-format=+1.3, tight-spacing}
-\begin{tabular}{@{}l S S S@{}}
+\sisetup{table-format=+1.3, tight-spacing, round-precision=3}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} l S S S @{}}
 \toprule
 \textbf{Axis} & {\textbf{PC1}} & {\textbf{PC2}} & {\textbf{PC3}} \\
 \midrule
@@ -261,7 +267,7 @@ Defence         & +0.067 & \textbf{+0.596} & +0.148 \\
 Critical inputs & \textbf{+0.581} & +0.269 & +0.180 \\
 Logistics       & \textbf{+0.448} & \textbf{+0.450} & -0.305 \\
 \bottomrule
-\end{tabular}
+\end{tabular*}
 \end{table}
 
 The loading structure reveals three interpretable dimensions:
@@ -299,7 +305,7 @@ composite variance through a mechanism (oligopsonistic procurement
 concentration) that is structurally independent of goods-trade
 diversification patterns.
 
-\medskip\noindent\textbf{Implications for equal weighting.}
+\paragraph{Implications for equal weighting.}
 Because no single principal component captures more than 31.7\% of
 variance, PCA-derived weights (proportional to first-component
 loadings) would upweight the goods-trade axes at the expense of
@@ -311,7 +317,7 @@ the case for equal weighting: data-driven weighting would suppress
 precisely the axis that contributes most to the composite's
 discriminatory power.
 
-\medskip\noindent\textbf{Implications for composite construction.}
+\paragraph{Implications for composite construction.}
 The moderate inter-axis correlations and multi-dimensional eigenvalue
 structure support the equal-weight additive aggregation rule
 (\cref{eq:composite}): because no single latent factor dominates,
