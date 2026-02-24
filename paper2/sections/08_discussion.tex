@@ -234,6 +234,61 @@ policy design:
     tracks with distinct institutional mechanisms.
 \end{itemize}
 
+\subsection{Structural positioning of the ISI}\label{sec:structural-positioning}
+
+The ISI occupies a specific niche in the landscape of composite
+indicators that measure aspects of economic openness, supply-chain
+structure, or strategic autonomy.  Clarifying its boundaries relative
+to adjacent constructs is essential to prevent interpretive conflation.
+
+\textbf{Distinction from globalisation indices.}  The KOF
+Globalisation Index, the Maastricht Globalisation Index, and similar
+composites measure the \emph{intensity} of cross-border integration
+across economic, social, and political dimensions.  A country that
+trades extensively with many partners scores high on globalisation but
+low on the ISI: intensity and concentration are orthogonal constructs.
+Ireland, for instance, is among the most globalised EU economies yet
+ranks third on the ISI because its imports are concentrated among few
+counterparties.  The ISI does not measure how much a country trades
+but how narrowly its trade is distributed.
+
+\textbf{Distinction from supply-chain vulnerability metrics.}  The
+European Commission's supply-chain stress tests, OECD critical
+minerals analyses, and firm-level supply-chain risk indices typically
+combine concentration with assessments of \emph{partner identity}
+(geopolitical alignment, governance quality, substitutability).  The
+ISI deliberately excludes partner identity in v1.0: it measures the
+\emph{geometry} of counterparty concentration---how many partners,
+how unequal the shares---without scoring whether those partners are
+allied, adversarial, or neutral.  This is a narrower but
+more precisely defined construct: a high ISI score indicates a
+concentrated supplier base regardless of who the suppliers are.  The
+advantage is measurement precision and normative neutrality; the
+limitation is that the ISI cannot distinguish between concentration
+among allied partners (potentially benign) and concentration among
+adversarial partners (potentially coercive).
+
+\textbf{Distinction from strategic autonomy scorecards.}  Strategic
+autonomy assessments---such as those produced by the European Council
+on Foreign Relations or the Istituto Affari Internazionali---incorporate
+military capability, institutional sovereignty, regulatory capacity,
+and economic self-sufficiency.  The ISI measures none of these.  It
+captures a single structural dimension---counterparty concentration
+of import flows---that is a necessary \emph{input} to strategic
+autonomy assessments but not a substitute for them.  A country with
+low ISI (diversified imports) may still lack strategic autonomy if it
+has no domestic production capacity; a country with high ISI
+(concentrated imports) may retain autonomy if its concentrated partners
+are stable allies and switching costs are low.
+
+\textbf{The ISI as concentration geometry.}  The unifying concept is
+that the ISI measures the \emph{geometric structure} of bilateral
+dependence: the shape of the distribution of import shares across
+counterparty countries, summarised by the Herfindahl--Hirschman Index.
+This positions the ISI as a structural diagnostic tool---one input
+among several required for comprehensive vulnerability
+assessment---rather than as a standalone policy verdict.
+
 \subsection{Methodological limitations}\label{sec:limitations}
 
 Several limitations constrain the interpretation of these results.
@@ -304,10 +359,11 @@ and to guide the design of future extensions.
   \item \textbf{Small $N$.}  With $N = 27$, many pairwise
     correlations fail to reach statistical significance even when
     point estimates are moderate (\cref{tab:corr-tstat}).  The
-    geographic correlates (\cref{sec:geo-correlates}) are
-    descriptive, not inferential, because the small sample
-    precludes multivariate regression with more than a few
-    covariates.
+    geographic correlates (\cref{sec:geo-correlates}) are supported
+    by a parsimonious OLS regression ($R^2 = 0.382$,
+    \cref{tab:ols-geo}), but the small sample limits the number of
+    covariates that can be included without overfitting and precludes
+    robust subgroup inference.
 \end{enumerate}
 
 \noindent These limitations are inherent to the v1.0 design and do

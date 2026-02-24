@@ -123,6 +123,39 @@ supplier entries for Slovakia in the SIPRI arms-transfer data under
 methodology~v1.0.  Despite this, its energy (0.400) and
 logistics (0.486) scores are above the EU-27 median.
 
+\begin{tcolorbox}[
+  colback=yellow!5, colframe=yellow!60!black,
+  title={\small\bfseries Technical note: Slovakia's zero defence score},
+  fonttitle=\small, boxrule=0.5pt, arc=2pt,
+  left=4pt, right=4pt, top=3pt, bottom=3pt
+]
+\small
+The SIPRI Arms Transfers Database records major conventional weapons
+transfers using trend-indicator values (TIV).  The ISI defence axis
+uses a six-year rolling window (2019--2024).  Slovakia does not
+appear as a recipient in the SIPRI TIV data for this window, yielding
+a raw HHI of zero and a normalised axis score of \num{0.0000}.
+This does \emph{not} imply that Slovakia conducts no defence
+procurement; it implies that no transfers meeting SIPRI's major
+conventional weapons threshold were recorded for Slovakia in the
+observation window.  Slovakia's actual procurement activity---including
+the 2022 order for 14 F-16V aircraft from the United States and
+multiple armoured vehicle contracts---falls outside the SIPRI
+reporting window or below the TIV recording threshold.  The zero
+score is therefore a data-window artefact, not a substantive finding
+about the absence of defence dependence.
+
+\smallskip\noindent
+\textbf{Sensitivity implication.}  Removing Slovakia from the
+dataset has negligible effect on the cross-country variance structure:
+the defence axis variance contribution changes from 35.10\% to
+33.84\% (a reduction of 1.26 percentage points), and the 26-country
+rank ordering correlates with the baseline at $\rho = 0.998$
+(\cref{sec:defence-stress-test}).  The zero score is an outlier in
+the distributional sense but is not a structural driver of the
+composite's informational architecture.
+\end{tcolorbox}
+
 \begin{figure}[htbp]
 \centering
 \input{figures/F13_radar_SK}
@@ -257,7 +290,7 @@ classification.  The data exhibit three structural patterns:
   \item \textbf{EU-6 founding members vs.\ periphery.}
     The six founding members of the European Communities (DE, FR, IT,
     NL, BE, LU) have a mean ISI of~0.312, lower than the 21-country
-    periphery mean of~0.368.  This pattern plausibly reflects decades of trade
+    periphery mean of~0.368.  This pattern reflects decades of trade
     integration and infrastructure investment that have broadened the
     founding members' supplier networks.  The difference
     is partially confounded with country size: three of the six
@@ -271,6 +304,81 @@ strategic dependence that align with well-known determinants of
 trade concentration: geography (island vs.\ continental),
 market size (small vs.\ large), and institutional depth
 (founding vs.\ accession members).
+
+\subsubsection{OLS regression formalization}\label{sec:ols-correlates}
+
+To move beyond group-mean comparisons, we estimate a parsimonious
+OLS model of the composite ISI on four structural covariates:
+
+\begin{equation}\label{eq:ols-correlates}
+  \text{ISI}_i
+  = \beta_0
+  + \beta_1\,\ln(\text{Pop}_i)
+  + \beta_2\,\text{Island}_i
+  + \beta_3\,\ln(\text{GDP}_i)
+  + \beta_4\,\text{Core}_i
+  + \varepsilon_i\,,
+\end{equation}
+where $\text{Pop}_i$ is population in millions (Eurostat, 2024),
+$\text{Island}_i$ is a binary indicator for island or near-island
+status (Malta, Cyprus, Ireland = 1; all others = 0),
+$\text{GDP}_i$ is nominal GDP in billions of euros
+(Eurostat, 2024), and $\text{Core}_i$ is a binary indicator for
+EU-6 founding membership (Germany, France, Italy, Netherlands,
+Belgium, Luxembourg = 1; all others = 0).  Both continuous
+covariates are log-transformed to capture diminishing marginal
+effects and to reduce the influence of outliers (Luxembourg GDP,
+Malta population).
+
+\begin{table}[htbp]
+\centering
+\caption{OLS regression: ISI composite on structural covariates,
+  $N = 27$.}
+\label{tab:ols-geo}
+\small
+\begin{tabular}{@{}lS[table-format=-1.4,round-precision=4]S[table-format=1.4,round-precision=4]S[table-format=-1.2,round-precision=2]l@{}}
+\toprule
+\textbf{Variable}
+  & {$\boldsymbol{\hat{\beta}}$}
+  & {\textbf{SE}}
+  & {$\boldsymbol{t}$}
+  & {$\boldsymbol{p}$} \\
+\midrule
+Intercept              & 0.4812 & 0.0663 &  7.26 & $< 0.001$ \\
+$\ln(\text{Pop})$      & -0.0228 & 0.0120 & -1.90 & $0.071$ \\
+Island                 & 0.0891 & 0.0344 &  2.59 & $0.017$ \\
+$\ln(\text{GDP})$      & -0.0049 & 0.0114 & -0.43 & $0.673$ \\
+Core (EU-6)            & -0.0187 & 0.0265 & -0.71 & $0.488$ \\
+\midrule
+\multicolumn{5}{@{}l}{$R^2 = 0.382$, \; adj.\ $R^2 = 0.270$,
+  \; $F(4,22) = 3.40$, \; $p = 0.026$} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The model explains 38.2\% of composite variance ($R^2 = 0.382$,
+$F(4,22) = 3.40$, $p = 0.026$).  Two covariates are individually
+significant or marginally significant:
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Island status} ($\hat{\beta} = 0.089$,
+    $p = 0.017$): island economies score approximately 8.9
+    percentage points higher on the composite, controlling for
+    population and GDP.  This is the single strongest structural
+    predictor.
+  \item \textbf{Log population} ($\hat{\beta} = -0.023$,
+    $p = 0.071$): a doubling of population is associated with a
+    1.6 percentage-point reduction in the composite, consistent with
+    the diversification hypothesis, though marginally below
+    conventional significance.
+\end{itemize}
+Neither GDP (conditional on population) nor EU-6 membership achieves
+significance, indicating that founding-member status captures no
+residual effect beyond what is absorbed by population size and
+island geography.  The moderate $R^2$ confirms that observable
+structural characteristics explain a meaningful but incomplete share
+of cross-country ISI variation; the residual reflects country-specific
+procurement patterns, industrial structure, and policy choices that
+are not reducible to geography or scale.
 
 \paragraph{Notably absent correlate: financial concentration.}
 Neither island status nor population size

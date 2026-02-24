@@ -291,6 +291,67 @@ perturbation magnitude.  The countries that are most policy-relevant
 robustly ranked.
 
 % -------------------------------------------------------------------------
+\subsection{Geometric-mean aggregation comparison}\label{sec:geometric-mean}
+% -------------------------------------------------------------------------
+
+The arithmetic mean is fully compensatory: a high score on one axis
+offsets a low score on another.  An alternative is the geometric
+mean, which penalises low-scoring axes more heavily and is
+non-compensatory in the limit.  To test sensitivity to this
+aggregation choice, we compute a geometric-mean composite for each
+country:
+\begin{equation}\label{eq:geometric-mean}
+  \text{ISI}_i^{(\text{GM})}
+  = \left(\prod_{j=1}^{6} A_{j,i}^{*}\right)^{1/6}\,,
+\end{equation}
+where $A_{j,i}^{*} = A_{j,i} + \epsilon$ for a small constant
+$\epsilon = 10^{-4}$ applied to avoid the degenerate case of
+Slovakia's zero defence score (the geometric mean is undefined
+when any factor is exactly zero).  The resulting geometric-mean
+ranking is compared with the baseline arithmetic-mean ranking.
+
+\begin{table}[htbp]
+\centering
+\caption{Aggregation-rule sensitivity: geometric mean vs.\ arithmetic
+  mean.}
+\label{tab:geometric-mean}
+\small
+\begin{tabular}{@{}lS[table-format=1.3,round-precision=3]S[table-format=1.3,round-precision=3]@{}}
+\toprule
+\textbf{Statistic} & {\textbf{Value}} \\
+\midrule
+Spearman $\rho$    & 0.934 \\
+Kendall $\tau$     & 0.812 \\
+Max rank shift     & {5 (Slovakia)} \\
+Mean $|\Delta r|$  & 1.56 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The Spearman correlation of $\rho = 0.934$ and Kendall concordance
+of $\tau = 0.812$ indicate strong but not perfect rank agreement.
+The geometric mean penalises peaked profiles more heavily: countries
+with one very low axis score (e.g., Netherlands: financial = 0.121,
+technology = 0.125) are pulled downward, while balanced-profile
+countries (e.g., Estonia, Austria) gain relative position.  Slovakia
+exhibits the largest rank shift (5~positions downward) because the
+geometric mean heavily penalises its near-zero defence score even
+after the $\epsilon$-adjustment.
+
+The moderate departure ($\rho = 0.934$ vs.\ the Dirichlet MC
+$\rho = 0.979$) confirms that the choice of aggregation rule has a
+measurable but bounded effect on the ranking---larger than weight
+perturbation within the arithmetic-mean family, but smaller than
+axis removal.  The overall rank ordering is preserved: Malta and
+Cyprus remain at the top, France and Germany at the bottom.  The
+ISI's choice of arithmetic-mean aggregation is therefore a
+substantive but not fragile design decision, consistent with the
+compensability analysis (\cref{sec:compensability}) and the OECD
+Handbook's recommendation that arithmetic means are appropriate
+when full compensability is the intended
+property~\cite{oecd_handbook_2008}.
+
+% -------------------------------------------------------------------------
 \subsection{Robustness summary}\label{sec:robustness-summary}
 % -------------------------------------------------------------------------
 
@@ -320,6 +381,7 @@ LOO (Logistics)   & Drop axis 6 & 0.926 & 0.789 & Stable \\
 Z-score           & Re-standardise & 0.896 & 0.726 & Moderate sensitivity \\
 Dirichlet MC      & Random weights & 0.979 & {--}  & Stable (mean) \\
 Winsorization     & Cap at P95 & 1.000 & 1.000 & Fully stable \\
+Geometric mean    & Non-compensatory & 0.934 & 0.812 & Stable \\
 \midrule
 \multicolumn{2}{@{}l}{Rank elasticity ($\pm 10\%$)}
   & \multicolumn{3}{@{}l}{13/27 sensitive; 14/27 locked} \\

@@ -149,4 +149,21 @@ empirical system.  The principal findings are:
   case for equal weighting.
   See \cref{tab:pca-loadings}.
 
+\item \textbf{Geometric-mean aggregation comparison.}
+  Replacing the arithmetic mean with a geometric mean yields
+  Spearman $\rho = 0.934$ and Kendall $\tau = 0.812$ against the
+  baseline ranking.  The overall ordering is preserved; the largest
+  rank shift is 5~positions (Slovakia).  The aggregation rule is a
+  substantive but not fragile design choice.
+  See \cref{tab:geometric-mean}.
+
+\item \textbf{OLS geographic correlates.}
+  A four-covariate OLS model (log population, island dummy, log GDP,
+  EU-6 core dummy) explains 38.2\% of composite variance
+  ($F(4,22) = 3.40$, $p = 0.026$).  Island status is the strongest
+  predictor ($\hat{\beta} = 0.089$, $p = 0.017$); log population
+  is marginally significant ($p = 0.071$).  Neither GDP nor
+  founding-member status is individually significant.
+  See \cref{tab:ols-geo}.
+
 \end{itemize}
