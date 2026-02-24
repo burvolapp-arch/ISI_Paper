@@ -1,0 +1,174 @@
+% =============================================================================
+% isi-series.sty — ISI Paper Series Shared Template
+% =============================================================================
+% Version:  1.0 (February 2026)
+% Purpose:  Canonical formatting for all ISI Paper Series publications.
+%           Both papers \input or \usepackage this file to guarantee
+%           identical pagination, typography, and layout.
+% Engine:   pdfLaTeX (do NOT compile with XeLaTeX or LuaLaTeX)
+% =============================================================================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{isi-series}[2026/02/24 v1.0 ISI Paper Series shared template]
+
+% ── Encoding & Fonts (pdfLaTeX) ─────────────────────────────────────────────
+\RequirePackage[T1]{fontenc}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[english]{babel}
+\RequirePackage{tgtermes}               % TeX Gyre Termes (Times-like serif)
+\RequirePackage{tgheros}                 % TeX Gyre Heros  (Helvetica-like sans)
+\RequirePackage{tgcursor}                % TeX Gyre Cursor (Courier-like mono)
+
+% ── Page Layout ─────────────────────────────────────────────────────────────
+\RequirePackage[
+  a4paper,
+  left=25mm,
+  right=25mm,
+  top=30mm,
+  bottom=30mm,
+  headheight=14pt,
+  headsep=12pt,
+  footskip=20pt,
+]{geometry}
+\RequirePackage{setspace}
+\setstretch{1.15}                        % Slightly more than single-spaced
+\setlength{\parindent}{0pt}
+\RequirePackage{parskip}                 % Paragraph spacing (no indent, skip)
+\RequirePackage[protrusion=true,expansion=true]{microtype}
+\microtypesetup{verbose=silent}
+
+% ── Pagination: Bottom-Centered ─────────────────────────────────────────────
+\RequirePackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}                               % Clear all headers and footers
+\fancyfoot[C]{\small\sffamily\thepage}   % Bottom-centered page number
+\renewcommand{\headrulewidth}{0pt}       % No header rule
+\renewcommand{\footrulewidth}{0pt}       % No footer rule
+
+% Plain style (title pages, chapter openers)
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \fancyfoot[C]{\small\sffamily\thepage}%
+  \renewcommand{\headrulewidth}{0pt}%
+  \renewcommand{\footrulewidth}{0pt}%
+}
+
+% ── Section Headings (titlesec) ─────────────────────────────────────────────
+\RequirePackage{titlesec}
+\titleformat{\section}
+  {\Large\bfseries\sffamily}{\thesection}{1em}{}
+\titleformat{\subsection}
+  {\large\bfseries\sffamily}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}
+  {\normalsize\bfseries\sffamily}{\thesubsubsection}{1em}{}
+
+\titlespacing*{\section}{0pt}{1.5ex plus 0.5ex minus 0.2ex}{0.8ex plus 0.2ex}
+\titlespacing*{\subsection}{0pt}{1.2ex plus 0.4ex minus 0.2ex}{0.6ex plus 0.2ex}
+\titlespacing*{\subsubsection}{0pt}{1.0ex plus 0.3ex minus 0.1ex}{0.4ex plus 0.1ex}
+
+% ── Mathematics ─────────────────────────────────────────────────────────────
+\RequirePackage{amsmath,amssymb}
+
+% ── Tables ──────────────────────────────────────────────────────────────────
+\RequirePackage{booktabs}
+\RequirePackage{tabularx}
+\RequirePackage{longtable}
+\RequirePackage{multirow}
+\RequirePackage{siunitx}
+\renewcommand{\arraystretch}{1.10}
+\setlength{\extrarowheight}{1pt}
+
+% ── Figures & Graphics ──────────────────────────────────────────────────────
+\RequirePackage{graphicx}
+\RequirePackage{float}
+\RequirePackage[dvipsnames,svgnames,x11names,table]{xcolor}
+
+% ── Captions ────────────────────────────────────────────────────────────────
+\RequirePackage{caption}
+\RequirePackage{subcaption}
+\captionsetup{
+  font={small,sf},
+  labelfont={bf},
+  labelsep=period,
+  justification=centering,
+  singlelinecheck=true,
+  skip=8pt,
+}
+
+% ── Lists ───────────────────────────────────────────────────────────────────
+\RequirePackage{enumitem}
+\setlist{
+  topsep=4pt,
+  itemsep=2pt,
+  parsep=0pt,
+  leftmargin=2em,
+}
+
+% ── Cross-references & Hyperlinks ───────────────────────────────────────────
+\RequirePackage[
+  unicode,
+  breaklinks=true,
+  colorlinks=true,
+  linkcolor={blue!60!black},
+  citecolor={blue!60!black},
+  urlcolor={blue!60!black},
+  bookmarksnumbered=true,
+  bookmarksopen=false,
+]{hyperref}
+\RequirePackage[capitalise,noabbrev]{cleveref}
+
+% Allow URL line breaks
+\makeatletter
+\g@addto@macro{\UrlBreaks}{\UrlOrds}
+\makeatother
+
+% ── Bibliography (natbib) ───────────────────────────────────────────────────
+\RequirePackage[numbers,sort&compress]{natbib}
+\bibliographystyle{unsrtnat}
+
+% ── Widow / Orphan / Club Penalties ─────────────────────────────────────────
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+
+% ── Float Placement Defaults ────────────────────────────────────────────────
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\bottomfraction}{0.70}
+\renewcommand{\textfraction}{0.15}
+\renewcommand{\floatpagefraction}{0.66}
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{5}
+
+% ── Micro-overflow Tolerance ────────────────────────────────────────────────
+\hfuzz=0.5pt
+
+% ── ISI-Specific Commands ──────────────────────────────────────────────────
+\newcommand{\ISI}{\textsc{isi}}
+\newcommand{\HHI}{\textsc{hhi}}
+
+% ── Institutional Colours ──────────────────────────────────────────────────
+\definecolor{ISIBlue}{HTML}{1B3A5C}
+\definecolor{ISIGray}{HTML}{4A4A4A}
+\definecolor{ISILight}{HTML}{E8EDF2}
+
+% ── Title Page Helper ──────────────────────────────────────────────────────
+% Usage: \isititlepage{Paper~1}{Full Title\\Second Line}{Month Year}
+%        then place abstract after it
+\newcommand{\isititlepage}[3]{%
+  \begin{titlepage}
+    \centering
+    \vspace*{3cm}
+    {\Large\textsc{ISI Paper Series --- #1}}\\[1.5cm]
+    {\LARGE\bfseries #2}\\[2cm]
+    {\large International Sovereignty Institute --- Research Unit}\\[1cm]
+    {\large #3}\\[3cm]
+}
+\newcommand{\isiendtitlepage}{%
+    \vfill
+  \end{titlepage}
+  \newpage
+  \tableofcontents
+  \newpage
+}
+
+\endinput

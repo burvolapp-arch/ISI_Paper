@@ -1,0 +1,35 @@
+% sections/00_abstract_body.tex — Abstract text (no environment wrapper)
+This document is the technical specification of the International Sovereignty
+Index (\ISI), a composite indicator that measures the degree to which a
+sovereign state concentrates its critical external dependencies on a narrow set
+of counterparties.  The \ISI applies a Herfindahl--Hirschman framework across
+six thematic axes---financial sovereignty, energy dependency, technology and
+semiconductor dependency, defence industrial dependency, critical inputs and
+raw materials dependency, and logistics and freight dependency---each
+decomposed into one or two measurement channels.  Country-level concentration
+scores are computed on the unit interval, arithmetically averaged into a
+single composite, and mapped to a four-tier classification (\emph{highly
+concentrated}, \emph{moderately concentrated}, \emph{mildly concentrated},
+\emph{unconcentrated}).  A deterministic scenario engine permits first-order
+sensitivity analysis by applying bounded multiplicative adjustments at the
+axis-score level.  All computational outputs are bound to a cryptographic
+integrity chain (SHA-256 hashing, Ed25519 signing) that enables third-party
+audit without access to the computation environment.
+
+Beyond the core methodology, this specification formalises the determinism
+guarantees of the computation pipeline (ten invariants, floating-point
+assumptions, canonical serialisation rules, and prohibited operations), the
+snapshot materialisation architecture (directory structure, output schemas,
+methodology registry, and immutability contract), the read-only API contract
+(endpoint taxonomy, caching semantics, error codes, and backward-compatibility
+rules), the verification and test-coverage requirements (unit tests,
+property-based tests, golden-file tests, integration tests, and
+integrity-chain tests), a threat model with six adversary classes and four
+security goals, and a formal computational state model defining the
+ten-state pipeline with explicit irreversibility gates and mutation
+prohibitions.
+
+\ISI v\,1.0 covers the EU-27.  Extension to additional country sets requires
+source-level availability, harmonisation, and integrity validation.  All
+scores are rounded to eight decimal places (round-half-to-even) prior to
+classification and hashing.

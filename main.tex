@@ -1,20 +1,37 @@
 % =============================================================================
 % main.tex — Top-level orchestrator for ISI Technical Specification
 % =============================================================================
-% Engine:  XeLaTeX (do NOT use pdflatex)
-% Build:   latexmk -xelatex main.tex   (or use scripts/build.sh)
-% Bib:     biber (invoked automatically by latexmk)
+% Engine:  pdfLaTeX
+% Build:   pdflatex main.tex && bibtex main && pdflatex main.tex (×2)
+% Bib:     BibTeX + natbib (via isi-series.sty)
 % =============================================================================
 \documentclass[12pt,a4paper]{article}
 
 \emergencystretch=2em
 
-% --- Preamble (order matters) ------------------------------------------------
-\input{preamble/packages}      % Package loading
-\input{preamble/formatting}    % Page layout, fonts, headings, captions
-\input{preamble/macros}        % Project macros, helpers, colours
-\input{preamble/metadata}      % Title, authors, date, PDF metadata
-% --- Hyperref PDF string sanitization (eliminate bookmark warnings) ------
+% --- ISI Paper Series shared template ----------------------------------------
+\usepackage{isi-series}
+
+% --- Paper-specific packages -------------------------------------------------
+\usepackage{threeparttable}
+\usepackage{xspace}
+
+% --- Paper-specific macros ---------------------------------------------------
+\newcommand{\axis}[1]{Axis~#1}
+\DeclareMathOperator{\clamp}{clamp}
+\newcommand{\ie}{i.e.\@\xspace}
+\newcommand{\eg}{e.g.\@\xspace}
+\newcommand{\cf}{cf.\@\xspace}
+\newcommand{\etal}{et~al.\@\xspace}
+
+% --- PDF metadata ------------------------------------------------------------
+\hypersetup{
+  pdftitle={International Sovereignty Index (ISI) -- Technical Specification v1.0},
+  pdfauthor={International Sovereignty Institute -- Research Unit},
+  pdfcreator={International Sovereignty Institute},
+  pdfsubject={Composite sovereignty-concentration index: technical specification},
+  pdfkeywords={sovereignty, concentration, Herfindahl-Hirschman, composite index, ISI},
+}
 \pdfstringdefDisableCommands{%
   \def\kern#1{}%
   \def\leavevmode{}%
@@ -26,18 +43,25 @@
 
 % =============================================================================
 \begin{document}
+\hypersetup{pageanchor=false}
 
-% --- Front Matter ------------------------------------------------------------
-\maketitle
-\thispagestyle{plain}
+% --- Title Page --------------------------------------------------------------
+\isititlepage{Paper~1}{%
+  International Sovereignty Index (ISI)\\[0.3em]
+  Technical Specification\\[0.5cm]
+  Version~1.0%
+}{February 2026}
 
-{\centering\small\paperaffiliations\par\vspace{1em}}
-
-\input{sections/00_abstract}
-
-\newpage
-\tableofcontents
-\newpage
+\begin{abstract}
+\noindent
+\input{sections/00_abstract_body}
+\end{abstract}
+\vfill
+\noindent\textbf{Keywords:} sovereignty index, concentration measurement,
+composite indicator, Herfindahl--Hirschman, determinism, integrity chain
+\isiendtitlepage
+\hypersetup{pageanchor=true}
+\pagenumbering{arabic}
 
 % --- Body --------------------------------------------------------------------
 \input{sections/01_introduction}
@@ -63,7 +87,9 @@
 
 % --- Bibliography ------------------------------------------------------------
 \newpage
-\printbibliography[heading=bibintoc,title={References}]
+\begingroup\emergencystretch=2em\hbadness=10000
+\bibliography{bibliography}
+\endgroup
 
 % --- Appendices --------------------------------------------------------------
 \newpage

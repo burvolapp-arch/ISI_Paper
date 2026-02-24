@@ -131,9 +131,12 @@ consequence of determinism invariant \textbf{D-1}
 
 Responses also include a \texttt{Cache-Control} header:
 \begin{itemize}
-  \item Snapshot endpoints: \texttt{Cache-Control:\ public,\ max-age=86400,\ immutable}.
-  \item Scenario endpoint: \texttt{Cache-Control:\ public,\ max-age=3600}.
-  \item Snapshot-list endpoint: \texttt{Cache-Control:\ public,\ max-age=3600}.
+  \item Snapshot endpoints:\newline
+        \texttt{Cache-Control:\ public,\ max-age=86400,\ immutable}.
+  \item Scenario endpoint:
+        \texttt{Cache-Control:\ public,\ max-age=3600}.
+  \item Snapshot-list endpoint:
+        \texttt{Cache-Control:\ public,\ max-age=3600}.
 \end{itemize}
 
 The \texttt{immutable} directive on snapshot endpoints signals to
@@ -145,7 +148,7 @@ reflecting the immutability contract (\cref{sec:snapshot:immutability}).
 The API uses the following error response structure:
 
 \begin{quote}
-\ttfamily\small
+\ttfamily\footnotesize
 \{"error": \{"code": "<CODE>", "message": "<human-readable>"\}\}
 \end{quote}
 

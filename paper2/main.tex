@@ -8,83 +8,19 @@
 % =============================================================================
 \documentclass[12pt,a4paper]{article}
 
-% ── Encoding & Fonts ─────────────────────────────────────────────────────────
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage[english]{babel}
-\usepackage{lmodern}
+% --- ISI Paper Series shared template ----------------------------------------
+\usepackage{isi-series}
 
-% ── Page Layout ──────────────────────────────────────────────────────────────
-\usepackage[margin=2.5cm]{geometry}
-\usepackage{setspace}
-\onehalfspacing
-\setlength{\parindent}{0pt}
-\usepackage{parskip}
-\usepackage[protrusion=true,expansion=true]{microtype}
-\microtypesetup{verbose=silent}
-
-% ── Mathematics ──────────────────────────────────────────────────────────────
-\usepackage{amsmath,amssymb}
-
-% ── Tables ───────────────────────────────────────────────────────────────────
-\usepackage{booktabs}
-\usepackage{tabularx}
-\usepackage{longtable}
+% --- Paper-specific packages -------------------------------------------------
 \usepackage{threeparttable}
-\usepackage{multirow}
-\usepackage{siunitx}
-\sisetup{
-  detect-all,
-  group-digits          = false,
-  input-signs           = +-,
-  input-symbols         = (),
-  table-align-text-post = false,
-  table-number-alignment = center,
-  round-mode            = places,
-  round-precision       = 4,
-  table-format          = 1.4,
-}
 \usepackage{adjustbox}
 \usepackage{pdflscape}
-\setlength{\extrarowheight}{1pt}          % breathing room in every table row
-\renewcommand{\arraystretch}{1.10}        % baseline row stretch
-
-% ── Figures & Graphics ───────────────────────────────────────────────────────
-\usepackage{graphicx}
-\usepackage{float}
-\usepackage[table]{xcolor}
-\usepackage{caption}
-\usepackage{subcaption}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
 \usepgfplotslibrary{statistics}
 \usetikzlibrary{calc,positioning,shapes.geometric,arrows.meta}
 \usepackage[most]{tcolorbox}
-
-% ── Cross-references & Hyperlinks ────────────────────────────────────────────
-\usepackage[
-  colorlinks=true,
-  linkcolor={blue!60!black},
-  citecolor={blue!60!black},
-  urlcolor={blue!60!black}
-]{hyperref}
-\usepackage[capitalise,noabbrev]{cleveref}
-
-% Allow URL line breaks at hyphens, slashes, and dots
-\makeatletter
-\g@addto@macro{\UrlBreaks}{\UrlOrds}
-\makeatother
-
-% ── Bibliography ─────────────────────────────────────────────────────────────
-\usepackage[numbers,sort&compress]{natbib}
-\bibliographystyle{unsrtnat}
-
-% ── Miscellaneous ────────────────────────────────────────────────────────────
-\usepackage{enumitem}
 \usepackage{listings}
-\hfuzz=0.5pt   % suppress sub-0.5pt micro-overflow only
-\widowpenalty=10000   % prevent widows (single last line at page top)
-\clubpenalty=10000    % prevent orphans (single first line at page bottom)
 \lstset{
   basicstyle=\ttfamily\footnotesize,
   breaklines=true,
@@ -97,26 +33,45 @@
   stringstyle=\color{red!60!black},
 }
 
-% ── Custom Commands ──────────────────────────────────────────────────────────
-\newcommand{\ISI}{\textsc{isi}}
+% --- Paper-specific siunitx config ------------------------------------------
+\sisetup{
+  detect-all,
+  group-digits          = false,
+  input-signs           = +-,
+  input-symbols         = (),
+  table-align-text-post = false,
+  table-number-alignment = center,
+  round-mode            = places,
+  round-precision       = 4,
+  table-format          = 1.4,
+}
+
+% --- Paper-specific macros ---------------------------------------------------
 \newcommand{\Axis}[1]{Axis~#1}
 \newcommand{\country}[1]{\textit{#1}}
 
+% --- PDF metadata ------------------------------------------------------------
+\hypersetup{
+  pdftitle={ISI Empirical Results: EU-27, Vintage 2024, Methodology v1.0},
+  pdfauthor={International Sovereignty Institute -- Research Unit},
+  pdfcreator={International Sovereignty Institute},
+  pdfsubject={Empirical results and distributional structure of the ISI},
+  pdfkeywords={sovereignty index, EU-27, concentration measurement,
+    composite indicator, supply-chain dependence, defence dependence},
+}
+
 % ── Document ─────────────────────────────────────────────────────────────────
 \begin{document}
-\hypersetup{pageanchor=false}% suppress duplicate page anchors on titlepage
+\hypersetup{pageanchor=false}
 
 % ---------- Title Page ----------
-\begin{titlepage}
-\centering
-\vspace*{3cm}
-{\Large\textsc{ISI Paper Series --- Paper 2}}\\[1.5cm]
-{\LARGE\bfseries Empirical Results and\\[0.3em]
-Distributional Structure of the\\[0.3em]
-International Sovereignty Index (ISI)\\[0.5cm]
-EU-27, Vintage 2024, Methodology v1.0}\\[2cm]
-{\large International Sovereignty Institute --- Research Unit}\\[1cm]
-{\large February 2026}\\[3cm]
+\isititlepage{Paper~2}{%
+  Empirical Results and\\[0.3em]
+  Distributional Structure of the\\[0.3em]
+  International Sovereignty Index (ISI)\\[0.5cm]
+  EU-27, Vintage 2024, Methodology v1.0%
+}{February 2026}
+
 \begin{abstract}
 \noindent
 This paper reports the first empirical application of the International
@@ -165,12 +120,7 @@ and a complete reproducibility protocol.
 \noindent\textbf{JEL codes:} F02, F15, F52, O30, Q43\\[0.3cm]
 \noindent\textbf{Keywords:} sovereignty index, EU-27, concentration measurement,
 composite indicator, supply-chain dependence, defence dependence
-\end{titlepage}
-
-% ---------- Table of Contents ----------
-\newpage
-\tableofcontents
-\newpage
+\isiendtitlepage
 \hypersetup{pageanchor=true}
 \pagenumbering{arabic}
 
