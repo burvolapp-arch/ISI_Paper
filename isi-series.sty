@@ -155,6 +155,8 @@
 % Usage: \isititlepage{Paper~1}{Full Title\\Second Line}{Month Year}
 %        then place abstract after it
 \newcommand{\isititlepage}[3]{%
+  \pagenumbering{roman}%          all front matter uses roman labels
+  \pagestyle{empty}%              suppress visible page numbers on title pages
   \begin{titlepage}
     \centering
     \vspace*{3cm}
@@ -163,12 +165,17 @@
     {\large International Sovereignty Institute --- Research Unit}\\[1cm]
     {\large #3}\\[3cm]
 }
+\newcounter{isi@pretoc}%          tracks pages consumed by title block
 \newcommand{\isiendtitlepage}{%
     \vfill
+    \setcounter{isi@pretoc}{\value{page}}%  save last title-block page
   \end{titlepage}
-  \newpage
+  \clearpage
+  \pagestyle{fancy}%              restore bottom-centered page numbers
+  %% article.cls resets page=1 after titlepage; jump past title pages
+  \setcounter{page}{\numexpr\value{isi@pretoc}+1\relax}%
   \tableofcontents
-  \newpage
+  \clearpage
 }
 
 \endinput
