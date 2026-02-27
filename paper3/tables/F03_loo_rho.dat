@@ -1,0 +1,8 @@
+% F03: LOO Spearman rho by excluded axis
+% axis_index axis_name spearman_rho kendall_tau
+0 financial 0.992674 0.943020
+1 energy 0.992063 0.943020
+2 technology 0.968254 0.886040
+3 defence 0.832723 0.675214
+4 critical_inputs 0.941392 0.846154
+5 logistics 0.926129 0.789174

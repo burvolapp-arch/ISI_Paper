@@ -1,0 +1,83 @@
+% =============================================================================
+% Section 4: Empirics — Tables and Figures
+% =============================================================================
+\section{Empirical Evidence}\label{sec:empirics}
+
+This section presents the key tables and figures that document the
+defence--logistics duplex.  All values are computed from the
+{\ISI} v1.0 data snapshot (EU-27, vintage~2024) and are identical
+to those reported in Paper~2~\cite{isi_paper2}.
+
+\subsection{Composite distribution}
+
+\Cref{tab:key-summary} reports the summary statistics of the
+composite distribution.  The {\ISI} ranges from 0.236 (France,
+rank~27) to 0.517 (Malta, rank~1), with a population mean of
+0.344 and standard deviation of 0.070.  The distribution is
+compressed: the coefficient of variation is 0.203, the Gini
+coefficient is 0.116, and 23 of 27~countries fall in the
+moderately concentrated tier ($[0.25, 0.50)$).
+
+\input{tables/T01_key_summary}
+
+\subsection{Variance decomposition}
+
+\Cref{tab:variance-decomp} reports the variance decomposition.
+Defence contributes 35.10\% and logistics 34.26\% of total
+composite variance.  The combined share is 69.37\%.
+
+\input{tables/T02_variance_decomposition}
+
+\Cref{fig:variance-bar} provides a visual summary.  The dominance
+of defence and logistics is immediate: the two bars on the right
+dwarf the remaining four.
+
+\begin{figure}[htbp]
+  \centering
+  \input{figures/F01_variance_bar}
+  \caption{Axis contributions to composite variance (\%).
+    Defence (35.1\%) and logistics (34.3\%) together account for
+    69.4\% of total composite variance.}
+  \label{fig:variance-bar}
+\end{figure}
+
+\subsection{Axis dominance}
+
+\Cref{tab:dominance-counts} reports the number of countries for
+which each axis is the highest-scoring axis.
+
+\input{tables/T03_axis_dominance_counts}
+
+\Cref{fig:dominance-share} visualises the binary split: defence
+dominates 16~countries, logistics dominates~11, and no other axis
+dominates any country.
+
+\begin{figure}[htbp]
+  \centering
+  \input{figures/F02_dominance_share}
+  \caption{Number of countries dominated by each axis.
+    Only defence and logistics appear; no country is dominated by
+    financial, energy, technology, or critical inputs.}
+  \label{fig:dominance-share}
+\end{figure}
+
+\subsection{Rank disruption under omission}
+
+\Cref{tab:loo-disruption} reports the Spearman~$\rho$ and
+Kendall~$\tau$ between the baseline ranking and each
+leave-one-axis-out variant.
+
+\input{tables/T04_loo_rank_disruption}
+
+\Cref{fig:loo-rho} plots $\rho$ for each omitted axis.  The
+defence bar stands out: $\rho = 0.833$, substantially lower than
+any other axis.
+
+\begin{figure}[htbp]
+  \centering
+  \input{figures/F03_loo_rho}
+  \caption{Spearman~$\rho$ between the baseline ranking and each
+    leave-one-axis-out variant.  Removing the defence axis produces
+    the largest rank disruption.}
+  \label{fig:loo-rho}
+\end{figure}

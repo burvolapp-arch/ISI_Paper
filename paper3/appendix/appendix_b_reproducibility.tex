@@ -1,0 +1,119 @@
+% =============================================================================
+% Appendix B: Reproducibility Protocol
+% =============================================================================
+\section{Reproducibility Protocol}\label{app:reproducibility}
+
+This appendix documents the procedure for reproducing all results
+presented in this paper.
+
+\subsection{Software requirements}
+
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Python} $\geq$ 3.10 (tested with 3.14.0).
+  \item \textbf{NumPy} $\geq$ 2.0 (tested with 2.2.6).
+    NumPy is the only external dependency.
+  \item \textbf{LaTeX} distribution with pdfLaTeX (tested with
+    TeX~Live 2025), including packages: \texttt{pgfplots} ($\geq$
+    1.18), \texttt{tikz}, \texttt{siunitx}, \texttt{longtable},
+    \texttt{booktabs}, \texttt{natbib}, \texttt{cleveref},
+    \texttt{threeparttable}, \texttt{tcolorbox}, \texttt{listings},
+    \texttt{xcolor}.
+\end{itemize}
+
+\subsection{Directory structure}
+
+The project is organised as follows:
+
+\begin{verbatim}
+paper3/
++-- main.tex                 % Master document
++-- references.bib           % Bibliography
++-- isi-series.sty -> ../isi-series.sty
++-- sections/
+|   +-- 00_executive_summary.tex
+|   +-- 01_thesis_and_context.tex
+|   +-- 02_core_finding_defence_logistics.tex
+|   +-- 03_mechanics_and_proof_sketch.tex
+|   +-- 04_empirics_tables_figures.tex
+|   +-- 05_robustness_short.tex
+|   +-- 06_implications.tex
+|   +-- 07_limitations.tex
+|   +-- 08_conclusion.tex
++-- tables/                  % Generated .tex table fragments
+|   +-- T01_key_summary.tex
+|   +-- T02_variance_decomposition.tex
+|   +-- T03_axis_dominance_counts.tex
+|   +-- T04_loo_rank_disruption.tex
+|   +-- T05_dirichlet_volatility_top.tex
+|   +-- TA1_full_variance_detail.tex
+|   +-- TA2_dominance_per_country.tex
+|   +-- TA3_loo_rank_diffs.tex
+|   +-- F01_variance_bar.dat
+|   +-- F02_dominance_share.dat
+|   +-- F03_loo_rho.dat
++-- figures/                 % TikZ figure source files
+|   +-- F01_variance_bar.tex
+|   +-- F02_dominance_share.tex
+|   +-- F03_loo_rho.tex
++-- appendix/
+|   +-- appendix_a_supporting_tables.tex
+|   +-- appendix_b_reproducibility.tex
+|   +-- appendix_c_code_listing.tex
++-- scripts/
+    +-- isi_results_paper3.py
+\end{verbatim}
+
+\subsection{Step-by-step reproduction}
+
+\begin{enumerate}[leftmargin=2em]
+  \item \textbf{Install Python and NumPy.}
+    \begin{verbatim}
+    python -m venv .venv
+    source .venv/bin/activate
+    pip install numpy
+    \end{verbatim}
+
+  \item \textbf{Run the computation script.}
+    \begin{verbatim}
+    cd paper3/scripts
+    python isi_results_paper3.py
+    \end{verbatim}
+    This generates all \texttt{.tex} table fragments and
+    \texttt{.dat} coordinate files in the \texttt{tables/} directory.
+    The script embeds the full {\ISI} v1.0 data snapshot and performs
+    all computations (variance decomposition, axis dominance, LOO,
+    Dirichlet Monte Carlo, correlation structure).
+
+  \item \textbf{Compile the LaTeX document.}
+    \begin{verbatim}
+    cd paper3
+    pdflatex main.tex
+    bibtex main
+    pdflatex main.tex
+    pdflatex main.tex
+    \end{verbatim}
+    Three passes are required to resolve cross-references and the
+    bibliography.
+
+  \item \textbf{Verify.}  The final PDF should compile with
+    0~errors, 0~warnings, and 0~overfull boxes.
+\end{enumerate}
+
+\subsection{Random seed}
+
+The Dirichlet Monte Carlo exercise uses a fixed random seed
+(\texttt{np.random.seed(42)}) to ensure exact reproducibility of
+rank volatility statistics.  Changing the seed will produce
+quantitatively similar but not identical results.
+
+\subsection{Data integrity}
+
+\begin{sloppypar}
+The {\ISI} v1.0 data snapshot is embedded directly in the Python
+script (\texttt{isi\_results\_\allowbreak paper3.py},
+lines~42--82) as a list of tuples.
+No external data files need to be downloaded or configured.  The
+embedded data constitutes the single authoritative source for all
+computations in this paper and is identical to the snapshot used in
+Paper~2~\cite{isi_paper2}.
+\end{sloppypar}

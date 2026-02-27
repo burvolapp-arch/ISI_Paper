@@ -1,0 +1,75 @@
+% =============================================================================
+% Executive Summary
+% =============================================================================
+\section*{Executive Summary}\label{sec:executive-summary}
+\addcontentsline{toc}{section}{Executive Summary}
+
+This paper identifies the dominant structural driver of cross-country
+differentiation in the International Sovereignty Index (ISI) applied to
+the EU-27.  The finding is concise and falsifiable:
+
+\begin{tcolorbox}[
+  colback=ISILight,
+  colframe=ISIBlue,
+  fonttitle=\bfseries\sffamily,
+  title={Core finding}
+]
+Two of the six {\ISI} axes---defence and logistics---account for
+69.4\% of total cross-country composite variance.  The remaining four
+axes (financial, energy, technology, critical inputs) contribute
+30.6\% collectively.  In all 27~countries, either defence or logistics
+is the highest-scoring axis; no country's profile is dominated by any
+other axis.
+\end{tcolorbox}
+
+\medskip
+\noindent
+The principal results are:
+
+\begin{itemize}[leftmargin=2em]
+
+\item \textbf{Variance dominance.}
+  A covariance-based variance decomposition attributes 35.1\% of
+  composite variance to the defence axis and 34.3\% to the logistics
+  axis.  The own-variance component accounts for 64.3\% of total
+  composite variance; cross-covariances contribute 35.7\%.
+  Financial concentration accounts for 1.0\%.
+  See \cref{tab:variance-decomp} and \cref{fig:variance-bar}.
+
+\item \textbf{Universal axis dominance.}
+  Defence is the highest-scoring axis in 16 of 27~countries;
+  logistics is highest in the remaining~11.  No country is dominated
+  by financial, energy, technology, or critical inputs.  Among
+  defence-dominant countries, the mean gap between the highest and
+  second-highest axis is 0.184 on the unit interval.
+  See \cref{tab:dominance-counts} and \cref{fig:dominance-share}.
+
+\item \textbf{Rank disruption under omission.}
+  Removing the defence axis from the composite produces the largest
+  rank disruption: Spearman~$\rho = 0.833$, Kendall~$\tau = 0.675$.
+  Removing financial or energy leaves the ranking nearly unchanged
+  ($\rho > 0.99$).
+  See \cref{tab:loo-disruption} and \cref{fig:loo-rho}.
+
+\item \textbf{Weight robustness.}
+  Dirichlet weight perturbation (10\,000 draws, $\alpha_j = 10$)
+  yields a mean rank-order correlation of $\rho = 0.980$.  The
+  Netherlands exhibits the highest rank volatility ($\sigma = 3.08$).
+  See \cref{tab:dirichlet-top}.
+
+\item \textbf{Correlation structure.}
+  Only 2 of 15~pairwise axis correlations are significant after
+  Bonferroni correction.  The financial axis is orthogonal to all
+  others ($|t| < 1.15$).
+
+\end{itemize}
+
+\medskip
+\noindent
+The implication for policy is direct: any reform that alters the
+defence or logistics axis will propagate to the composite ranking;
+changes to the remaining four axes are, for ranking purposes,
+second-order.  For measurement, the result implies that the index's
+discriminatory power rests on two domains where data are structurally
+sparse (arms transfers) or operationally opaque (maritime and freight
+logistics).

@@ -1,0 +1,18 @@
+% Table T04: Leave-one-axis-out rank disruption
+\begin{table}[htbp]
+\centering
+\caption{Leave-one-axis-out (LOO) rank disruption.  Spearman~$\rho$ and Kendall~$\tau$ measure rank-order agreement between the baseline and each LOO composite.  Lower values indicate greater rank disruption when the axis is removed.}
+\label{tab:loo-disruption}
+\begin{tabular}{@{}l rrrr@{}}
+\toprule
+\textbf{Excluded Axis} & $\boldsymbol{\rho}$ & $\boldsymbol{\tau}$ & \textbf{Mean} $|\Delta|$ & \textbf{Max} $|\Delta|$ \\
+\midrule
+  Financial & 0.992674 & 0.943020 & 0.67 & 2 \\
+  Energy & 0.992063 & 0.943020 & 0.67 & 2 \\
+  Technology & 0.968254 & 0.886040 & 1.26 & 7 \\
+  Defence & 0.832723 & 0.675214 & 3.33 & 10 \\
+  Critical Inputs & 0.941392 & 0.846154 & 1.78 & 8 \\
+  Logistics & 0.926129 & 0.789174 & 2.07 & 7 \\
+\bottomrule
+\end{tabular}
+\end{table}

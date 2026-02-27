@@ -1,0 +1,65 @@
+% =============================================================================
+% International Sovereignty Index (ISI) — Paper 3
+% Externe Lieferantenkonzentration in der EU-27
+%
+% ISI Paper Series — Paper 3
+% International Sovereignty Institute — Research Unit
+% Februar 2026
+% =============================================================================
+\documentclass[12pt,a4paper]{article}
+
+% --- ISI Paper Series shared template ----------------------------------------
+\usepackage{isi-series}
+
+% --- PDF metadata (ASCII only) -----------------------------------------------
+\hypersetup{
+  pdftitle={Externe Lieferantenkonzentration in der EU-27:
+            Empirische Befunde des International Sovereignty Index (2024)},
+  pdfauthor={International Sovereignty Institute -- Research Unit},
+  pdfcreator={International Sovereignty Institute},
+  pdfsubject={ISI Paper Series -- Paper 3, EU-27, Vintage 2024},
+  pdfkeywords={sovereignty index, EU-27, supplier concentration,
+    variance decomposition, Austria},
+}
+
+% ── Document ─────────────────────────────────────────────────────────────────
+\begin{document}
+\hypersetup{pageanchor=false}
+
+% ---------- Title Page ----------
+\isititlepage{Paper~3}{%
+  Externe Lieferanten\-konzentration\\[0.3em]
+  in der EU-27:\\[0.3em]
+  Empirische Befunde des\\[0.1em]
+  International Sovereignty Index~(2024)%
+}{Februar 2026}
+
+\begin{abstract}
+\noindent
+\textit{Analytisches Briefing auf Grundlage der ISI Paper
+Series~(Papers~1--2).  Datenbasis: EU-27, Methodik~v1.0,
+Datenjahrgang~2024.  Der \ISI ist ein sechs\-dimensionaler
+Kompositindikator der externen Lieferanten\-konzentration.
+Dieses Dokument fasst die zentralen empirischen Ergebnisse
+zusammen und ordnet sie strukturell ein.  Der Beitrag leistet
+eine systematische Quantifizierung struktureller
+Heterogenit\"at innerhalb der EU-27.}
+\end{abstract}
+\vfill
+\noindent\textbf{Datengrundlage:} ISI Paper~2 --- EU-27,
+Methodik~v1.0, Vintage~2024.\\[0.2cm]
+\noindent\textbf{Methodik:} ISI Paper~1 --- Methodische
+Grundlagen, Version~1.0.
+\isiendtitlepage
+\hypersetup{pageanchor=true}
+\pagenumbering{arabic}
+
+% ---------- Body ----------
+\input{sections/brief_body}
+
+% ---------- References ----------
+\begingroup\emergencystretch=2em\hbadness=10000
+\bibliography{references}
+\endgroup
+
+\end{document}

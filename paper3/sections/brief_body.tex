@@ -1,0 +1,498 @@
+% =============================================================================
+% ISI Paper 3 -- Analytisches Briefing (German)
+% Externe Lieferantenkonzentration in der EU-27
+% Sections 1--7
+% =============================================================================
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Zusammenfassung}
+\label{sec:summary}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\begin{sloppypar}
+\textbf{Kernaussage.}
+Der International Sovereignty Index (\ISI) ist ein
+sechs\-dimensionaler Kompositindikator der externen
+Lieferanten\-konzentration.  Die empirische Anwendung auf die EU-27
+(Datenjahrgang~2024) zeigt, dass die Querschnitts\-varianz der
+Kompositwerte \"uberwiegend durch zwei der sechs Achsen bestimmt
+wird: R\"ustung und Logistik.  Dieses Ergebnis ist ein deskriptiver
+Varianzbefund --- keine konzeptionelle Reduktion des Index auf
+zwei Dimensionen.
+\end{sloppypar}
+
+\medskip
+\textbf{Empirische Kernergebnisse:}
+\begin{itemize}[leftmargin=2em]
+  \item Der \ISI-Kompositwert reicht von Frankreich~(0{,}236;
+    Rang~27) bis Malta~(0{,}517; Rang~1).  Der EU-27-Mittelwert
+    betr\"agt~0{,}344 bei einer Standardabweichung von~0{,}070.
+
+  \item \begin{sloppypar}Die kovarianz\-basierte Varianz\-zerlegung
+    ergibt: Die R\"ustungsachse tr\"agt~35{,}1\,\% zur
+    Komposit\-varianz bei, die Logistik\-achse~34{,}3\,\%.
+    Gemeinsam entfallen auf diese beiden
+    Achsen~69{,}4\,\% der gesamten
+    Querschnitts\-varianz.\end{sloppypar}
+
+  \item Die \"ubrigen vier Achsen --- Finanzen, Energie, Technologie,
+    kritische Rohstoffe --- tragen zusammen~30{,}6\,\% bei.  Ihre
+    Werte sind im EU-Querschnitt vergleichsweise homogen verteilt.
+
+  \item In 16 von 27~Mitgliedstaaten weist die R\"ustungsachse den
+    h\"ochsten Einzelachsenwert auf; in den verbleibenden~11 ist es
+    die Logistik\-achse.  Keine der \"ubrigen vier Achsen stellt in
+    einem Mitgliedstaat den Spitzenwert.
+
+  \item Das Entfernen der R\"ustungsachse aus dem Komposit verursacht
+    die gr\"o\ss te Rangverschiebung
+    (Spearman~$\rho = 0{,}833$ gegen\"uber dem Baseline-Ranking).
+    Alle anderen Einzelachsen-Entfernungen ergeben Korrelationen
+    \"uber~0{,}92.
+
+  \item Unter Dirichlet-Gewichtsperturbation (10\,000~Ziehungen)
+    betr\"agt die mittlere Rang\-ordnungs\-korrelation
+    $\rho = 0{,}979$.  Die Rangordnung ist gegen\"uber moderaten
+    Gewichts\-variationen stabil.
+
+  \item \textbf{\"Osterreich} belegt Rang~8 (Kompositwert~0{,}383;
+    moderat konzentriert).  H\"ochster Achsenwert:
+    R\"ustung~(0{,}585), gefolgt von Logistik~(0{,}526).  Die
+    Rangposition ist strukturell stabil --- unter keiner
+    Einzelachsen-Perturbation verschiebt sich \"Osterreich um mehr
+    als zwei R\"ange.
+\end{itemize}
+
+
+\newpage
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Was der ISI misst}
+\label{sec:was-der-isi-misst}
+% ─────────────────────────────────────────────────────────────────────────────
+
+Der \ISI ist ein zusammengesetzter Indikator, der die
+\emph{Konzentration externer Lieferanten} erfasst.  F\"ur jeden
+EU-Mitgliedstaat wird erhoben, inwieweit Importe in sechs strategisch
+relevanten Bereichen von einer kleinen Anzahl externer Lieferanten
+abh\"angen.  Der Index umfasst sechs gleichberechtigte Dimensionen:
+
+\begin{table}[htbp]
+\centering\small
+\caption{Die sechs \ISI-Achsen und ihre Erfassungs\-bereiche.}
+\label{tab:achsen}
+\begin{tabular}{@{}lp{0.64\linewidth}@{}}
+\toprule
+\textbf{Achse} & \textbf{Erfassungsbereich} \\
+\midrule
+Finanzen &
+  Grenz\"uber\-schreitende Bank- und
+  Portfolio\-konzentration \\
+Energie &
+  Abh\"angigkeit von wenigen prim\"aren
+  Energie\-lieferanten \\
+Technologie &
+  Import\-konzentration bei
+  Hochtechnologie\-g\"utern \\
+R\"ustung &
+  Lieferanten\-konzentration bei R\"ustungs\-transfers und
+  verteidigungs\-relevanten Importen \\
+Kritische Inputs &
+  Konzentration bei kritischen Rohstoffen und
+  Vorleistungs\-g\"utern \\
+Logistik &
+  Abh\"angigkeit von wenigen Transport\-korridoren und
+  Schifffahrts\-routen \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{sloppypar}
+Jeder Achsenwert basiert auf einem Herfindahl-Hirschman-\"ahnlichen
+Konzentrations\-ma\ss, normiert auf das Einheits\-intervall
+$[0,\,1]$.  Ein Wert von Null bedeutet vollst\"andige
+Diversifikation; ein Wert nahe Eins bedeutet nahezu vollst\"andige
+Abh\"angigkeit von einem einzigen externen Lieferanten.  Alle sechs
+Achsen sind identisch skaliert.
+\end{sloppypar}
+
+\begin{sloppypar}
+Der Kompositwert ist das \emph{gleichgewichtete arithmetische
+Mittel} der sechs Achsenwerte.  Die Aggregation ist
+deterministisch --- keine Sch\"atzung, keine latenten Faktoren,
+keine Modell\-selektion.  Die Methodik ist vollst\"andig offen
+dokumentiert: Paper~1~\cite{isi_paper1} legt den methodischen
+Rahmen dar, Paper~2~\cite{isi_paper2} dokumentiert die empirische
+Anwendung auf die EU-27.
+\end{sloppypar}
+
+\begin{sloppypar}
+\textbf{Einordnung.}
+Der \ISI misst keine ,,Souver\"anit\"at'' im normativen oder
+verfassungs\-rechtlichen Sinne.  Er erfasst eine spezifische,
+quantifizier\-bare strukturelle Eigenschaft: den Grad der
+Konzentration externer Liefer\-beziehungen.  Hohe Konzentration
+ist nicht automatisch negativ --- sie kann geographische N\"ahe,
+Handels\-effizienz oder B\"undnis\-strukturen widerspiegeln.  Sie
+impliziert jedoch, dass die Position des Landes gegen\"uber
+St\"orungen in einer kleinen Anzahl von Liefer\-beziehungen
+exponiert ist.
+\end{sloppypar}
+
+
+\newpage
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Strukturelle Differenzierung innerhalb der EU-27}
+\label{sec:differenzierung}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\subsection{Varianzbeitr\"age der sechs Achsen}
+
+\begin{sloppypar}
+Der \ISI ist konzeptionell ein sechs\-dimensionaler Index.  Alle
+sechs Achsen gehen gleichgewichtet in den Kompositwert ein und tragen
+zum absoluten Konzentrations\-niveau jedes Landes bei.  Die
+empirische Frage dieses Abschnitts ist eine andere: Welche Achsen
+bestimmen die \emph{Unterschiede} zwischen den Mitgliedstaaten?
+\end{sloppypar}
+
+\begin{sloppypar}
+Da alle sechs Achsen identisch auf das Intervall~$[0,\,1]$ normiert
+sind und gleichgewichtet in den Komposit eingehen, ist die
+kovarianz\-basierte Varianz\-zerlegung unmittelbar interpretierbar.
+Die Querschnitts\-varianz der Kompositwerte wird \"uberwiegend durch
+zwei Achsen bestimmt:
+\end{sloppypar}
+
+\begin{table}[htbp]
+\centering\small
+\caption{Varianzzerlegung des \ISI-Kompositwerts, EU-27.}
+\label{tab:varianz}
+\begin{tabular}{@{}lr@{}}
+\toprule
+\textbf{Achse} & \textbf{Anteil an Kompositvarianz} \\
+\midrule
+R\"ustung          & 35{,}1\,\% \\
+Logistik           & 34{,}3\,\% \\
+Kritische Inputs   & 20{,}9\,\% \\
+Technologie        &  5{,}2\,\% \\
+Energie            &  3{,}5\,\% \\
+Finanzen           &  1{,}0\,\% \\
+\midrule
+R\"ustung + Logistik     & 69{,}4\,\% \\
+\"Ubrige vier Achsen     & 30{,}6\,\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{sloppypar}
+Rund 64\,\% der Gesamtvarianz entfallen auf die Eigenvarianz
+(Streuung jeder Achse \"uber die L\"ander), 36\,\% auf
+Kreuz\-kovarianzen (gemeinsame Variation zwischen Achsen).
+R\"ustung und Logistik dominieren beide Komponenten.
+\end{sloppypar}
+
+\textbf{Methodische Einordnung.}
+Die Varianzzerlegung ist rein deskriptiv.  Sie beschreibt, welche
+Achsen die Querschnittsvarianz statistisch bestimmen --- nicht,
+welche Achsen politisch vorrangig sind.  Eine Achse kann politisch
+von h\"ochster Relevanz sein und dennoch wenig zur
+Querschnittsdifferenzierung beitragen, wenn alle Mitgliedstaaten
+auf dieser Achse \"ahnliche Werte aufweisen.  Politische
+Priorit\"at und statistische Differenzierung sind analytisch
+getrennte Kategorien.
+
+\begin{sloppypar}
+Der Befund impliziert, dass strukturelle Heterogenit\"at innerhalb
+der EU nicht gleichm\"a\ss ig \"uber alle strategischen Bereiche
+verteilt ist, sondern sich auf wenige Dimensionen konzentriert.
+Integrations\-politische Spannungen sind dort wahrscheinlicher
+beobachtbar, wo nationale Profile stark auseinanderlaufen.
+\end{sloppypar}
+
+\subsection{Warum differenzieren Energie und Technologie weniger?}
+
+\begin{sloppypar}
+Energie\-abh\"angigkeit ist f\"ur viele Mitgliedstaaten von hoher
+Relevanz.  Im EU-27-Querschnitt differenziert sie die L\"ander
+jedoch weniger stark als R\"ustung und Logistik.  Der Grund ist
+empirisch: Die Energie\-konzentrations\-werte streuen
+vergleichsweise wenig.  Die meisten Mitgliedstaaten weisen
+\"ahnliche Grade der Energie\-lieferanten\-konzentration auf.
+Analoges gilt f\"ur die Technologie\-achse.  Beide Achsen tragen
+zum absoluten Konzentrations\-niveau jedes Landes bei, erzeugen
+aber im Vergleich zu R\"ustung und Logistik geringere Unterschiede
+zwischen den L\"andern.
+\end{sloppypar}
+
+\subsection{Achsendominanz auf L\"anderebene}
+
+\begin{sloppypar}
+In 16~Mitgliedstaaten weist die R\"ustungsachse den h\"ochsten
+Einzelachsenwert auf, in 11~die Logistik\-achse.  Keine der
+\"ubrigen vier Achsen stellt in einem Mitgliedstaat den
+Spitzenwert.  Dieses Muster beschreibt die empirische Verteilung
+der Achsenmaxima --- es bedeutet nicht, dass der \ISI konzeptionell
+auf zwei Achsen reduziert werden kann.  Der Index bleibt ein
+sechs\-dimensionales Instrument; die beobachtete
+Zweiachsen-Dominanz ist ein Befund \"uber die Daten, nicht \"uber
+die Konstruktion.
+\end{sloppypar}
+
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{\"Osterreich im EU-27-Kontext}
+\label{sec:oesterreich}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\"Osterreich belegt Rang~8 von~27 mit einem Kompositwert
+von~0{,}383.  Es wird als ,,moderat konzentriert'' eingestuft ---
+dieselbe Kategorie wie 23 der 27~Mitgliedstaaten.
+
+\begin{table}[htbp]
+\centering\small
+\caption{\"Osterreichs Achsenprofil.}
+\label{tab:oesterreich}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+\textbf{Achse} & \textbf{Wert} & \textbf{Achsenrang (v.\ 27)} \\
+\midrule
+R\"ustung          & 0{,}585 & 11. \\
+Logistik           & 0{,}526 & 10. \\
+Energie            & 0{,}456 &  3. \\
+Kritische Inputs   & 0{,}319 &  7. \\
+Technologie        & 0{,}261 &  5. \\
+Finanzen           & 0{,}149 & 11. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{sloppypar}
+\"Osterreichs h\"ochster Achsenwert entf\"allt auf
+R\"ustung~(0{,}585), gefolgt von Logistik~(0{,}526).  Der Abstand
+zwischen beiden betr\"agt~0{,}059 --- \"Osterreich weist kein
+stark asymmetrisches Achsen\-profil auf.
+\end{sloppypar}
+
+\textbf{Energiekonzentration.}
+\"Osterreichs drittst\"arkster Achsenwert ist Energie~(0{,}456),
+Rang~3 in der EU.  Dies spiegelt die dokumentierte Abh\"angigkeit
+von einer kleinen Zahl von Gaslieferanten wider.  Da die
+Energie\-konzentration im EU-Querschnitt jedoch vergleichsweise
+homogen verteilt ist, beeinflusst sie \"Osterreichs
+Komposit\-ranking nur geringf\"ugig.
+
+\begin{sloppypar}
+\textbf{Profilbalance.}
+\"Osterreichs Variations\-koeffizient \"uber die sechs Achsen
+betr\"agt~0{,}40 --- ein vergleichsweise ausgeglichenes
+Achsen\-profil.  Zum Vergleich: Schweden (Rang~7;
+Kompositwert~0{,}399) weist einen R\"ustungswert von~0{,}881 auf,
+aber einen Finanzwert von nur~0{,}116 --- ein deutlich
+asymmetrischeres Profil.
+\end{sloppypar}
+
+\textbf{Rangstabilit\"at.}
+\begin{sloppypar}
+Unter Leave-one-out-Analyse --- dem systematischen Entfernen jeder
+einzelnen Achse --- verschiebt sich \"Osterreichs Rang um
+h\"ochstens zwei Positionen.  Unter
+Dirichlet-Gewichts\-perturbation (10\,000~Monte-Carlo-Ziehungen)
+betr\"agt \"Osterreichs Rang\-Standard\-abweichung ca.~1{,}1.  Das
+95-\%-Konfidenz\-intervall umfasst die R\"ange~6 bis~10.
+\"Osterreichs Position im oberen Mittelfeld ist strukturell robust.
+\end{sloppypar}
+
+\textbf{Nachbarschaft.}
+\"Osterreich liegt zwischen Schweden (Rang~7; 0{,}399) und
+Italien (Rang~9; 0{,}374).  Die Abst\"ande betragen~0{,}016 nach
+oben und~0{,}009 nach unten.  Moderate Ver\"anderungen an einer
+einzelnen Achse k\"onnten \"Osterreich um ein bis zwei
+Rangpositionen verschieben; ein Sprung in die Top~5 oder unter
+Rang~12 w\"urde substanzielle strukturelle Ver\"anderungen
+erfordern.
+
+
+\newpage
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Robustheit der Ergebnisse}
+\label{sec:robustheit}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\begin{sloppypar}
+Ein berechtigter Einwand gegen jeden zusammengesetzten Indikator
+betrifft die Abh\"angigkeit der Ergebnisse von spezifischen
+Methoden\-entscheidungen.  Drei Pr\"ufungen adressieren diesen
+Einwand.
+\end{sloppypar}
+
+\subsection{Leave-one-out-Analyse}
+
+\begin{sloppypar}
+Wird jede Achse einzeln aus dem Komposit entfernt, ergeben sich
+sechs alternative Rankings.  Die R\"ustungs-Entfernung erzeugt die
+niedrigste Korrelation mit dem Baseline-Ranking
+(Spearman~$\rho = 0{,}833$) --- dies best\"atigt, dass R\"ustung
+die einzeln wirksamste Achse f\"ur die Rang\-differenzierung ist.
+Logistik-Entfernung ergibt~$\rho = 0{,}926$.  Alle \"ubrigen
+Entfernungen erzeugen Korrelationen \"uber~0{,}94.
+\end{sloppypar}
+
+Die Reihenfolge ist monoton: Achsen mit h\"oherem Varianzbeitrag
+verursachen bei Entfernung gr\"o\ss ere Rangverschiebungen.
+
+\subsection{Gewichtsstabilit\"at}
+
+\begin{sloppypar}
+Die Gleichgewichtung ist eine Entwurfs\-entscheidung.  Um deren
+Konsequenzen zu testen, werden 10\,000~alternative
+Gewichts\-vektoren aus einer symmetrischen Dirichlet-Verteilung
+gezogen und der Kompositwert jeweils neu berechnet.  Die mittlere
+Rang\-ordnungs\-korrelation \"uber alle Ziehungen
+betr\"agt~0{,}979 --- die Rangordnung ist gegen\"uber moderaten
+Gewichts\-variationen stabil.
+\end{sloppypar}
+
+\begin{sloppypar}
+Die h\"ochste Rang\-volatilit\"at weisen die Niederlande auf
+(Standard\-abweichung $\approx$~3{,}07~Rang\-positionen).  Diese
+Volatilit\"at spiegelt das asymmetrische Achsen\-profil der
+Niederlande wider: Der R\"ustungswert~(0{,}960) liegt weit \"uber
+dem Niveau der \"ubrigen f\"unf Achsen.  St\"arkere Gewichtung der
+R\"ustungsachse hebt den niederl\"andischen Rangplatz; schw\"achere
+Gewichtung senkt ihn.  F\"ur die gro\ss e Mehrzahl der
+Mitgliedstaaten ist das Ranking auf ein bis zwei Positionen stabil.
+\end{sloppypar}
+
+\subsection{Korrelationsstruktur}
+
+\begin{sloppypar}
+Die sechs Achsen sind weitgehend unabh\"angig voneinander.  Von
+15~paarweisen Korrelationen sind nach Bonferroni-Korrektur nur
+zwei statistisch signifikant: Energie--Technologie und Kritische
+Inputs--Logistik.  Die Finanzachse ist zu allen anderen Achsen
+nahezu orthogonal (h\"ochster $|t|$-Wert: 1{,}11).
+\end{sloppypar}
+
+Diese Unabh\"angigkeit ist analytisch vorteilhaft: Die
+Varianzzerlegung spiegelt genuinen strukturellen Gehalt wider,
+nicht statistische Redundanz.  Die geringe
+Multikollinearit\"at verhindert eine k\"unstliche
+Varianzaufbl\"ahung einzelner Achsen.
+
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Einordnung und analytische Implikationen}
+\label{sec:implikationen}
+% ─────────────────────────────────────────────────────────────────────────────
+
+Der \ISI schreibt keine Politik vor.  Er liefert eine empirische
+Messgrundlage.
+
+\begin{sloppypar}
+\textbf{Querschnitts\-varianz und absolute Konzentration.}
+R\"ustung und Logistik bestimmen die Querschnitts\-varianz.  Daraus
+folgt \emph{nicht}, dass die \"ubrigen Achsen f\"ur einzelne
+Mitgliedstaaten irrelevant sind.  Ein Land kann auf der
+Energieachse einen hohen absoluten Konzentrations\-wert aufweisen,
+ohne dass dieser Wert die L\"ander im Querschnitt voneinander
+unterscheidet.  Politische Priorit\"at und statistische
+Differenzierung sind analytisch getrennte Kategorien.
+\end{sloppypar}
+
+\textbf{Empirische Fundierung strategischer Debatten.}
+\begin{sloppypar}
+Der Begriff ,,strategische Autonomie'' ist in der
+EU-Politikdebatte allgegenw\"artig, aber selten an vergleichbare,
+quantitative Daten gekn\"upft.  Der \ISI bietet einen solchen
+Ankerpunkt.  Die Varianz\-zerlegung zeigt, dass
+R\"ustungs\-beschaffung und Logistik\-korridore die gr\"o\ss ten
+Unterschiede zwischen den Mitgliedstaaten erzeugen --- Bereiche,
+die in der \"offentlichen Debatte gegen\"uber Energie und
+Technologie vergleichsweise wenig Aufmerksamkeit erhalten.
+\end{sloppypar}
+
+\begin{sloppypar}
+\textbf{Energie und Technologie.}
+Energie\-abh\"angigkeit ist f\"ur zahlreiche Mitgliedstaaten von
+hoher Bedeutung.  Im EU-27-Querschnitt differenziert sie die
+L\"ander jedoch weniger stark als R\"ustung und Logistik, weil die
+Energie\-konzentrations\-werte vergleichsweise gleichm\"a\ss ig
+verteilt sind.  Analoges gilt f\"ur Technologie.  Beide Achsen
+erfordern eigenst\"andige Analyse; ihr geringer
+Streuungs\-beitrag schm\"alert ihre sachliche Bedeutung nicht.
+\end{sloppypar}
+
+\begin{sloppypar}
+\textbf{\"Osterreich.}
+Rang~8 platziert \"Osterreich im oberen Mittelfeld der externen
+Konzentration.  Das vergleichsweise ausgeglichene Achsen\-profil
+weist weder eine singul\"are Konzentrations\-spitze noch eine
+au\ss er\-gew\"ohn\-liche Diversifikations\-st\"arke auf.
+\end{sloppypar}
+
+\begin{sloppypar}
+\textbf{Messung, nicht Bewertung.}
+Ein hoher Kompositwert bedeutet nicht, dass ein Land ,,schlecht
+abschneidet''.  Maltas Rang~1 spiegelt Gr\"o\ss e und
+geographische Lage wider, nicht politisches Versagen.
+Frankreichs Rang~27 spiegelt die strukturelle Diversifikation
+einer gro\ss en, gut vernetzten Volkswirtschaft wider.  Der Index
+misst Konzentration --- was die Politik daraus ableitet, ist eine
+separate Frage.
+\end{sloppypar}
+
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Limitationen}
+\label{sec:limitationen}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\textbf{Re-Export-Verzerrung.}
+\begin{sloppypar}
+Handelsstatistiken erfassen bilaterale Str\"ome, identifizieren
+aber nicht immer den tats\"achlichen Ursprung der G\"uter.
+L\"ander, die als Handels\-drehscheiben fungieren (etwa die
+Niederlande oder Belgien), erscheinen m\"oglicherweise
+diversifizierter als sie tats\"achlich sind.
+\end{sloppypar}
+
+\begin{sloppypar}
+\textbf{Verst\"arkungseffekt bei kleinen Volkswirtschaften.}
+Kleine, offene Volkswirtschaften mit begrenzter Zahl an
+Handelspartnern erzeugen mechanisch h\"ohere
+Konzentrations\-werte.  Malta und Zypern belegen Rang~1 und~2
+teilweise, weil Geographie und Gr\"o\ss e ihre Bezugsoptionen
+einschr\"anken.  Dies ist ein reales Merkmal ihrer Situation, kein
+Messfehler --- es sollte jedoch entsprechend eingeordnet werden.
+\end{sloppypar}
+
+\begin{sloppypar}
+\textbf{Querschnitts\-limitation.}
+Der Datensatz bildet den Jahrgang~2024 ab.
+Lieferanten\-konzentration kann sich durch politische
+Entscheidungen, Markt\-entwicklungen oder geopolitische Ereignisse
+ver\"andern.  Ein einzelner Querschnitt kann keine Dynamiken
+erfassen.  K\"unftige \ISI-Jahrg\"ange werden Trend\-analysen
+erm\"oglichen.
+\end{sloppypar}
+
+\textbf{Gleichgewichtung.}
+\begin{sloppypar}
+Die Aggregation behandelt alle sechs Achsen als gleich wichtig.
+Das ist eine normative Setzung.  Ein Entscheidungs\-tr\"ager, der
+Energie\-abh\"angigkeit als vorrangig erachtet, w\"urde andere
+Gewichte setzen und ein anderes Ranking erhalten.  Die
+Dirichlet-Perturbations\-analyse zeigt, dass moderate Abweichungen
+von der Gleichgewichtung die Ergebnisse nicht grunds\"atzlich
+ver\"andern.
+\end{sloppypar}
+
+\vfill
+\begin{center}
+\rule{0.4\linewidth}{0.4pt}
+\end{center}
+\smallskip
+\noindent\textit{Dieses Briefing basiert auf der ISI Paper Series
+(Papers~1--2), erstellt von der Research Unit des International
+Sovereignty Institute.  Die zugrunde liegenden Daten und die
+vollst\"andige Methodik sind \"offentlich dokumentiert.}

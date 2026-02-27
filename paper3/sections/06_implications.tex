@@ -1,0 +1,112 @@
+% =============================================================================
+% Section 6: Implications
+% =============================================================================
+\section{Implications}\label{sec:implications}
+
+The duplex finding has consequences for both policy and measurement.
+This section states them, bounded by the evidence.
+
+\subsection{Policy implications}
+
+\subsubsection{Defence supply-chain diversification is the
+  highest-leverage intervention}
+
+If a government seeks to reduce its {\ISI} composite score---that is,
+to reduce the concentration of its bilateral external
+dependencies---the highest-return intervention is to diversify
+defence procurement.  A one-standard-deviation reduction in a
+country's defence axis score produces a larger effect on the composite
+than an equivalent reduction in any other axis, precisely because
+the defence axis contributes the most composite variance and has
+the widest cross-country dispersion.
+
+This is not a normative recommendation.  Defence procurement is
+constrained by alliance structures, technology access, and
+interoperability requirements that this index does not measure.  The
+point is mechanical: the index rewards defence diversification more
+than it rewards diversification in any other domain.
+
+\subsubsection{Logistics diversification has similar ranking power}
+
+Logistics contributes nearly as much variance as defence.  Countries
+dominated by the logistics axis (11 of~27) can reduce their composite
+score most efficiently by diversifying port and freight
+dependencies.  For small island economies and peripheral states
+where logistics concentration is structurally determined by
+geography, the implication is that the index will persistently
+rank them as more concentrated regardless of reforms in other domains.
+
+\subsubsection{Financial and energy reforms are ranking-neutral}
+
+Reforms that reduce financial or energy axis scores will reduce the
+country's composite score arithmetically, but will not change the
+country's rank position.  Financial contributes 1.0\% of composite
+variance; energy contributes 3.5\%.  The ranking is insensitive to
+variation in these domains.
+
+This does not mean financial or energy dependence is unimportant.
+It means the {\ISI} composite ranking does not differentiate
+countries along these dimensions.
+
+\subsection{Measurement implications}
+
+\subsubsection{Data quality in defence and logistics is critical}
+
+The two axes that drive the ranking rely on data sources that are,
+respectively, sparse and opaque:
+
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Defence.}  The {\ISI} defence axis is constructed
+    from SIPRI trend-indicator values~\cite{sipri_transfers}, which
+    cover major conventional arms transfers.  Small arms, dual-use
+    items, cyber capabilities, and maintenance contracts are excluded.
+    Countries with highly classified procurement programmes may have
+    understated concentration scores.
+
+  \item \textbf{Logistics.}  The logistics axis aggregates
+    containerised freight flows and port throughput data.  The
+    underlying data are collected by national statistical offices and
+    Eurostat~\cite{eurostat_comext} with varying granularity.  Transit
+    flows, overland freight, and air cargo are not included in the
+    current construction.
+\end{itemize}
+
+\noindent
+Any measurement error in these two domains propagates directly to
+the composite ranking.  Errors in financial or energy data are,
+by contrast, ranking-irrelevant.
+
+\subsubsection{The equal-weight assumption amplifies
+  high-variance axes}
+
+The equal-weight mean assigns each axis the same nominal weight.  But
+effective weight---the share of composite variance attributable to
+each axis---is determined by the empirical dispersion.  Under equal
+weights, defence and logistics receive $1/6 \approx 16.7\%$
+nominal weight each but contribute $35.1\%$ and $34.3\%$ of the
+variance, respectively.
+
+This is not a flaw.  It is an inherent property of linear
+aggregation with heterogeneous sub-indicators.  Users who wish to
+equalise effective variance shares would need to rescale axis scores
+(e.g., z-score standardisation) before averaging.
+Paper~2~\cite{isi_paper2} reports that z-score standardisation
+produces near-identical rankings, suggesting the result is not an
+artefact of the scale.
+
+\subsection{Boundaries}
+
+The implications stated above are bounded by the following constraints:
+
+\begin{itemize}[leftmargin=2em]
+  \item They apply to the EU-27 under vintage-2024 data.  The
+    variance structure may differ for other country sets or time
+    periods.
+  \item They concern the \emph{ranking} produced by the index, not
+    the underlying economic or strategic significance of each
+    domain.  A country may face severe financial concentration risk
+    that the ranking does not differentiate.
+  \item They do not imply that defence or logistics should receive
+    higher (or lower) nominal weight.  The observation is
+    descriptive, not prescriptive.
+\end{itemize}

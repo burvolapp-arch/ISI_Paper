@@ -1,0 +1,28 @@
+% =============================================================================
+% Appendix C: Computation Code
+% =============================================================================
+\section{Computation Code}\label{app:code}
+
+The complete Python script used to generate all derived tables and
+data files is listed below.  The script requires only NumPy and
+embeds the full {\ISI} v1.0 data snapshot.
+
+\lstinputlisting[
+  language=Python,
+  basicstyle=\ttfamily\tiny,
+  breaklines=true,
+  breakatwhitespace=false,
+  breakindent=0pt,
+  postbreak=\mbox{\textcolor{gray}{$\hookrightarrow$}\space},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  numbersep=5pt,
+  frame=single,
+  framesep=3pt,
+  xleftmargin=10pt,
+  columns=fullflexible,
+  keepspaces=true,
+  caption={ISI Paper~3 --- Computation Engine
+    (\texttt{isi\_results\_paper3.py}).},
+  label={lst:computation-script},
+]{scripts/isi_results_paper3.py}

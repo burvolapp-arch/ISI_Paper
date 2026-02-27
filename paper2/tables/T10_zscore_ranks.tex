@@ -1,51 +1,46 @@
 % Table T10: Z-score standardized composite rank comparison
-\begin{table}[htbp]
-\centering
+\begin{longtable}{@{}rlS[table-format=1.8]rS[table-format=2.8]rr@{}}
 \caption{Rank comparison: baseline ISI vs.\ z-score standardized composite.
 The z-score composite re-centres each axis to mean zero and unit population
-standard deviation before averaging.  Spearman $\rho = 0.8956$,
-Kendall $\tau = 0.7265$.}
-\label{tab:zscore-ranks}
-\small
-\setlength{\tabcolsep}{4pt}
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}
-  r l
-  S[table-format=1.4]
-  S[table-format=2.0,round-precision=0]
-  S[table-format=+2.4]
-  S[table-format=2.0,round-precision=0]
-  S[table-format=2.0,round-precision=0]
-  @{}}
+standard deviation before averaging.  Spearman $\rho = 0.895604$,
+Kendall $\tau = 0.726496$.}
+\label{tab:zscore-ranks}\\
 \toprule
-{\textbf{Rk}} & {\textbf{Country}} & {\textbf{Baseline}} & {\textbf{Rk\,(b)}} & {\textbf{Z-Comp.}} & {\textbf{Rk\,(z)}} & {$\boldsymbol{\Delta}$} \\
+{\textbf{Rk}} & {\textbf{Country}} & {\textbf{Baseline}} & {\textbf{Rk (base)}} & {\textbf{Z-Composite}} & {\textbf{Rk (z)}} & {$\boldsymbol{\Delta}$} \\
 \midrule
-  1 & Malta & 0.5174 & 1 & +0.8658 & 2 & 1 \\
-  2 & Cyprus & 0.4682 & 2 & +0.5993 & 5 & 3 \\
-  3 & Ireland & 0.4280 & 3 & +1.0732 & 1 & 2 \\
-  4 & Denmark & 0.4244 & 4 & +0.6265 & 4 & 0 \\
-  5 & Croatia & 0.4043 & 5 & +0.8022 & 3 & 2 \\
-  6 & Finland & 0.4020 & 6 & +0.3519 & 8 & 2 \\
-  7 & Sweden & 0.3987 & 7 & -0.0744 & 14 & 7 \\
-  8 & Austria & 0.3824 & 8 & +0.5154 & 6 & 2 \\
-  9 & Italy & 0.3738 & 9 & +0.0160 & 12 & 3 \\
-  10 & Slovenia & 0.3697 & 10 & +0.2361 & 9 & 1 \\
-  11 & Greece & 0.3653 & 11 & +0.1719 & 11 & 0 \\
-  12 & Luxembourg & 0.3601 & 12 & -0.0826 & 15 & 3 \\
-  13 & Estonia & 0.3433 & 13 & +0.4183 & 7 & 6 \\
-  14 & Bulgaria & 0.3402 & 14 & -0.1427 & 18 & 4 \\
-  15 & Netherlands & 0.3351 & 15 & -0.4547 & 22 & 7 \\
-  16 & Hungary & 0.3296 & 16 & -0.1092 & 17 & 1 \\
-  17 & Portugal & 0.3217 & 17 & -0.0251 & 13 & 4 \\
-  18 & Romania & 0.3186 & 18 & +0.1849 & 10 & 8 \\
-  19 & Czechia & 0.3179 & 19 & -0.1039 & 16 & 3 \\
-  20 & Poland & 0.2956 & 20 & -0.4159 & 21 & 1 \\
-  21 & Belgium & 0.2879 & 21 & -0.3764 & 19 & 2 \\
-  22 & Germany & 0.2678 & 22 & -0.7820 & 26 & 4 \\
-  23 & Lithuania & 0.2654 & 23 & -0.5512 & 23 & 0 \\
-  24 & Spain & 0.2609 & 24 & -0.6720 & 24 & 0 \\
-  25 & Latvia & 0.2469 & 25 & -0.6904 & 25 & 0 \\
-  26 & Slovakia & 0.2364 & 26 & -0.3924 & 20 & 6 \\
-  27 & France & 0.2356 & 27 & -0.9886 & 27 & 0 \\
+\endfirsthead
+\caption[]{Z-score rank comparison (continued).}\\
+\toprule
+{\textbf{Rk}} & {\textbf{Country}} & {\textbf{Baseline}} & {\textbf{Rk (base)}} & {\textbf{Z-Composite}} & {\textbf{Rk (z)}} & {$\boldsymbol{\Delta}$} \\
+\midrule
+\endhead
 \bottomrule
-\end{tabular*}
-\end{table}
+\endlastfoot
+  1 & Malta & 0.51748148 & 1 & 0.86580452 & 2 & 1 \\
+  2 & Cyprus & 0.46821264 & 2 & 0.59939302 & 5 & 3 \\
+  3 & Ireland & 0.42802519 & 3 & 1.07325330 & 1 & 2 \\
+  4 & Denmark & 0.42442738 & 4 & 0.62653969 & 4 & 0 \\
+  5 & Croatia & 0.40434768 & 5 & 0.80226061 & 3 & 2 \\
+  6 & Finland & 0.40205136 & 6 & 0.35195092 & 8 & 2 \\
+  7 & Sweden & 0.39871532 & 7 & -0.07440719 & 14 & 7 \\
+  8 & Austria & 0.38249806 & 8 & 0.51540026 & 6 & 2 \\
+  9 & Italy & 0.37386086 & 9 & 0.01604243 & 12 & 3 \\
+  10 & Slovenia & 0.36979186 & 10 & 0.23619235 & 9 & 1 \\
+  11 & Greece & 0.36537350 & 11 & 0.17191139 & 11 & 0 \\
+  12 & Luxembourg & 0.36016893 & 12 & -0.08261677 & 15 & 3 \\
+  13 & Estonia & 0.34332177 & 13 & 0.41831993 & 7 & 6 \\
+  14 & Bulgaria & 0.34027984 & 14 & -0.14278617 & 18 & 4 \\
+  15 & Netherlands & 0.33515702 & 15 & -0.45475394 & 22 & 7 \\
+  16 & Hungary & 0.32966227 & 16 & -0.10920820 & 17 & 1 \\
+  17 & Portugal & 0.32173430 & 17 & -0.02514480 & 13 & 4 \\
+  18 & Romania & 0.31864192 & 18 & 0.18499446 & 10 & 8 \\
+  19 & Czechia & 0.31796630 & 19 & -0.10390912 & 16 & 3 \\
+  20 & Poland & 0.29561321 & 20 & -0.41594363 & 21 & 1 \\
+  21 & Belgium & 0.28796781 & 21 & -0.37649883 & 19 & 2 \\
+  22 & Germany & 0.26788694 & 22 & -0.78200145 & 26 & 4 \\
+  23 & Lithuania & 0.26540520 & 23 & -0.55126508 & 23 & 0 \\
+  24 & Spain & 0.26093977 & 24 & -0.67207644 & 24 & 0 \\
+  25 & Latvia & 0.24695137 & 25 & -0.69040406 & 25 & 0 \\
+  26 & Slovakia & 0.23641567 & 26 & -0.39244145 & 20 & 6 \\
+  27 & France & 0.23567126 & 27 & -0.98860577 & 27 & 0 \\
+\end{longtable}

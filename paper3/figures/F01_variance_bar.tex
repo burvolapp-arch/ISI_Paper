@@ -1,0 +1,33 @@
+% F01: Axis variance contributions (%) — horizontal bar chart
+\begin{tikzpicture}
+\begin{axis}[
+  xbar,
+  width=0.85\textwidth,
+  height=6cm,
+  bar width=10pt,
+  xlabel={Contribution to composite variance (\%)},
+  xlabel style={font=\small\sffamily},
+  ytick=data,
+  yticklabels={Financial, Energy, Technology, Critical Inputs, Logistics, Defence},
+  yticklabel style={font=\small\sffamily},
+  xticklabel style={font=\small\sffamily},
+  xmin=0, xmax=40,
+  enlarge y limits=0.15,
+  nodes near coords,
+  nodes near coords style={font=\tiny\sffamily, anchor=west},
+  every node near coord/.append style={/pgf/number format/.cd,fixed,precision=1},
+  axis lines*=left,
+  grid=major,
+  grid style={gray!20},
+  major tick length=0pt,
+]
+\addplot[fill=ISIBlue!30, draw=ISIBlue] coordinates {
+  (1.0326, 0)
+  (3.4555, 1)
+  (5.2258, 2)
+  (20.9202, 3)
+  (34.2646, 4)
+  (35.1012, 5)
+};
+\end{axis}
+\end{tikzpicture}

@@ -1,0 +1,33 @@
+% F02: Axis dominance counts — bar chart
+\begin{tikzpicture}
+\begin{axis}[
+  ybar,
+  width=0.85\textwidth,
+  height=6.5cm,
+  bar width=18pt,
+  ylabel={Number of countries},
+  ylabel style={font=\small\sffamily},
+  xtick=data,
+  symbolic x coords={Financial, Energy, Technology, Defence,
+                     {Crit.\ Inputs}, Logistics},
+  xticklabel style={font=\small\sffamily, rotate=25, anchor=north east},
+  yticklabel style={font=\small\sffamily},
+  ymin=0, ymax=20,
+  enlarge x limits=0.12,
+  nodes near coords,
+  nodes near coords style={font=\small\sffamily\bfseries, anchor=south},
+  axis lines*=left,
+  grid=major,
+  grid style={gray!20},
+  major tick length=0pt,
+]
+\addplot[fill=ISIBlue!30, draw=ISIBlue] coordinates {
+  (Financial, 0)
+  (Energy, 0)
+  (Technology, 0)
+  (Defence, 16)
+  ({Crit.\ Inputs}, 0)
+  (Logistics, 11)
+};
+\end{axis}
+\end{tikzpicture}

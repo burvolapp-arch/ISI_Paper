@@ -1,0 +1,116 @@
+% =============================================================================
+% Section 2: Core Finding — The Defence–Logistics Duplex
+% =============================================================================
+\section{Core Finding: The Defence--Logistics Duplex}%
+\label{sec:core-finding}
+
+This section presents the central empirical result of the paper in
+three parts: the variance decomposition, the axis dominance pattern,
+and the rank-disruption asymmetry.
+
+\subsection{Variance share: 69.4\% from two axes}
+
+The {\ISI} composite is an unweighted arithmetic mean of six axes
+(\cref{eq:composite}).  Under this aggregation rule, the population
+variance of the composite decomposes exactly into contributions from
+each axis's own variance and from all pairwise covariances
+(\cref{sec:proof}).
+
+\Cref{tab:variance-decomp} reports the result.  Defence contributes
+35.10\% of total composite variance; logistics contributes 34.26\%.
+The combined share is 69.37\%.  The remaining four axes
+contribute:
+
+\begin{itemize}[leftmargin=2em]
+  \item Critical inputs: 20.92\%
+  \item Technology: 5.23\%
+  \item Energy: 3.46\%
+  \item Financial: 1.03\%
+\end{itemize}
+
+\noindent
+The own-variance component (the contribution of each axis's marginal
+variance, absent covariance) accounts for 64.28\% of total composite
+variance.  Cross-covariances account for the remaining 35.72\%.
+
+Two features of this decomposition warrant emphasis:
+
+\begin{enumerate}[leftmargin=2em]
+  \item \textbf{The duplex is nearly symmetric.}  Defence and
+    logistics contribute almost equal shares (35.1\% vs.\ 34.3\%).
+    Neither axis alone dominates; both are necessary to explain the
+    composite's cross-country differentiation.
+
+  \item \textbf{Financial is negligible.}  The financial axis
+    contributes 1.03\% of composite variance.  Cross-border banking
+    and portfolio dependencies, while economically significant, do not
+    differentiate EU-27 countries from one another under the {\HHI}
+    concentration metric.
+\end{enumerate}
+
+\subsection{Axis dominance: 16/27 and 11/27}
+
+The variance decomposition describes the distribution of
+\emph{dispersion}.  A complementary question is: which axis scores
+highest for each country?
+
+\Cref{tab:dominance-counts} reports the result.  In 16 of
+27~countries (59.3\%), the defence axis is the highest-scoring axis.
+In the remaining 11~countries (40.7\%), the logistics axis is
+highest.  No country is dominated by financial, energy, technology,
+or critical inputs.
+
+This is a strong structural pattern.  It means that every EU-27
+country's sovereignty-risk profile is, at the country level,
+\emph{either} a defence story \emph{or} a logistics story.  The
+other four axes contribute to the composite score but never determine
+a country's peak vulnerability.
+
+Among the 16~defence-dominant countries, the mean gap between the
+defence score and the second-highest axis is 0.184 on the unit
+interval.  Among the 11~logistics-dominant countries, the
+corresponding gap is 0.088.  Defence dominance is not only more
+prevalent but more pronounced.
+
+\subsection{Rank disruption: defence removal is most destructive}
+
+Leave-one-axis-out (LOO) analysis removes each axis in turn and
+recomputes the composite as the mean of the remaining five.  The
+resulting ranking is compared to the baseline using Spearman~$\rho$
+and Kendall~$\tau$.
+
+\Cref{tab:loo-disruption} reports the result.  Removing the defence
+axis produces the lowest rank-order correlation with the baseline:
+$\rho = 0.833$, $\tau = 0.675$.  Removing logistics produces
+$\rho = 0.926$, $\tau = 0.789$.  By contrast, removing financial or
+energy barely perturbs the ranking ($\rho > 0.99$).
+
+The asymmetry between defence and logistics in the LOO test
+(despite near-equal variance shares) reflects a structural
+difference: defence axis scores are more dispersed (population
+standard deviation 0.244 vs.\ 0.205 for logistics) and less
+correlated with other axes, so their removal produces larger rank
+displacements.
+
+The maximum absolute rank displacement when defence is removed is
+10~positions.  The mean absolute displacement is 3.33~positions.
+For financial removal, the mean displacement is 0.67~positions.
+
+\subsection{Summary: the duplex}
+
+The three results---variance share, axis dominance, and
+rank disruption---converge on a single structural fact:
+
+\begin{tcolorbox}[
+  colback=ISILight,
+  colframe=ISIBlue,
+  fonttitle=\bfseries\sffamily,
+  title={The defence--logistics duplex}
+]
+The cross-country dispersion of the {\ISI} composite in the EU-27 is
+structurally determined by two axes.  Defence and logistics together
+account for 69.4\% of composite variance, dominate the axis profile of
+every country, and produce the largest rank disruptions when omitted.
+The remaining four axes are second-order for cross-country
+differentiation.
+\end{tcolorbox}

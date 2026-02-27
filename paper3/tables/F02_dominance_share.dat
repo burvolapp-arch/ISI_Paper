@@ -1,0 +1,8 @@
+% F02: Axis dominance counts -- bar/pie data
+% axis_index axis_name count
+0 financial 0
+1 energy 0
+2 technology 0
+3 defence 16
+4 critical_inputs 0
+5 logistics 11

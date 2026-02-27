@@ -1,0 +1,91 @@
+% =============================================================================
+% Section 1: Thesis and Context
+% =============================================================================
+\section{Thesis and Context}\label{sec:thesis}
+
+\subsection{What the ISI measures}
+
+The International Sovereignty Index (ISI) is a composite indicator that
+measures the degree to which a country's bilateral external dependencies
+are concentrated among a small number of counterparties.  Higher {\ISI}
+scores indicate higher concentration of counterparty exposure and,
+consequently, greater structural vulnerability to disruption by any
+single partner.
+
+The index aggregates six normalised axes, each constructed as a
+Herfindahl--Hirschman Index (\HHI) over the bilateral counterparty
+distribution in a specific domain~\cite{isi_paper1}:
+
+\begin{enumerate}[leftmargin=2em]
+  \item \textbf{Financial} (cross-border banking and portfolio claims).
+  \item \textbf{Energy} (primary energy imports by source country).
+  \item \textbf{Technology} (high-technology goods imports).
+  \item \textbf{Defence} (arms transfers by supplier).
+  \item \textbf{Critical Inputs} (critical raw materials imports).
+  \item \textbf{Logistics} (containerised freight and port throughput
+        by origin).
+\end{enumerate}
+
+\noindent
+The composite score is the unweighted arithmetic mean of the six
+normalised axis scores:
+\begin{equation}\label{eq:composite}
+  \text{ISI}_i
+  \;=\;
+  \frac{1}{K}\sum_{j=1}^{K} A_{ij},
+  \qquad K = 6,
+\end{equation}
+where $A_{ij} \in [0,1]$ is the normalised axis~$j$ score for
+country~$i$.  The score is bounded on $[0,1]$; a score of~1
+indicates monopoly dependence on a single counterparty across the
+axis, while~0 indicates perfect diversification.
+
+Methodology, normalisation, and data sources are documented in
+Paper~1~\cite{isi_paper1}.  The full empirical results for all
+27~EU member states are reported in Paper~2~\cite{isi_paper2}.
+
+\subsection{What ``variance dominance'' means}
+
+A composite indicator that averages $K$~sub-indicators inherits a
+specific variance structure.  The total cross-country variance of the
+composite is a function of the variances of the individual axes
+\emph{and} all pairwise covariances between them.  When one or two
+axes exhibit substantially higher cross-country dispersion than the
+rest, those axes mechanically dominate the composite's ability to
+differentiate countries from one another.
+
+This paper asks: which axes drive the cross-country dispersion of the
+ISI?  The answer determines which structural vulnerabilities actually
+distinguish one member state from another---and which are, for ranking
+purposes, empirically inert.
+
+\subsection{Why it matters}
+
+Composite indicators are used to inform policy, allocate attention,
+and structure public debate.  If the discriminatory power of a
+composite rests on a narrow subset of its components, then:
+
+\begin{itemize}[leftmargin=2em]
+  \item \textbf{Policy responses} that target the dominant axes will
+    have disproportionate ranking effects; reforms targeting
+    low-variance axes will not.
+  \item \textbf{Measurement quality} depends critically on the data
+    integrity of the dominant axes.  If those axes rely on sparse or
+    contested data sources, the composite inherits that fragility.
+  \item \textbf{Communication} to non-specialist audiences must
+    acknowledge that the headline ranking is not an equally weighted
+    reflection of all six domains; it is, in practice, a
+    defence-and-logistics ranking with a residual contribution from
+    the other four.
+\end{itemize}
+
+\subsection{Scope and relation to Paper~2}
+
+This paper draws exclusively on the {\ISI} v1.0 data snapshot for the
+EU-27, vintage~2024, as reported in Paper~2~\cite{isi_paper2}.  All
+empirical anchors---composite values, axis scores, tier
+classifications, variance shares, rank correlations, and Monte Carlo
+results---are identical to those published in Paper~2.  What differs
+is the analytical lens: Paper~2 provides a comprehensive empirical
+report; this paper extracts and stress-tests a single structural
+finding.

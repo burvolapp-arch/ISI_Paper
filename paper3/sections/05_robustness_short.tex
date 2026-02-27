@@ -1,0 +1,79 @@
+% =============================================================================
+% Section 5: Robustness (Short)
+% =============================================================================
+\section{Robustness}\label{sec:robustness}
+
+The duplex finding must survive interrogation.  This section reports
+three robustness checks drawn from Paper~2~\cite{isi_paper2}.
+
+\subsection{Defence omission stress test}
+
+The LOO analysis in \cref{sec:core-finding} removes each axis
+individually.  The defence-omission variant yields
+$\rho = 0.833$---the lowest correlation with the baseline among all
+six single-axis omissions.  The mean absolute rank displacement is
+3.33~positions; the maximum is 10~positions.
+
+For comparison, the logistics-omission variant yields
+$\rho = 0.926$; critical inputs, $\rho = 0.941$; technology,
+$\rho = 0.968$; energy, $\rho = 0.992$; financial, $\rho = 0.993$.
+The ordering is monotonic in variance share: axes that contribute
+more variance produce larger rank disruptions when removed.
+
+\subsection{Dirichlet weight perturbation}
+
+The equal-weight assumption ($w_j = 1/6$ for all~$j$) is a design
+choice.  To test sensitivity, we draw 10\,000 weight vectors from
+a symmetric Dirichlet distribution with $\alpha_j = 10$, recompute
+the composite as $C_i = \sum_j w_j A_{ij}$, and record the
+resulting ranking.
+
+The mean rank-order Spearman correlation across all 10\,000 draws
+is $\rho = 0.980$.  The ranking is structurally stable under
+moderate weight perturbation.  The highest rank volatility is
+observed for the Netherlands ($\sigma = 3.08$), a country whose
+defence score (0.960) is exceptionally high relative to its
+composite rank (15th).
+
+\Cref{tab:dirichlet-top} reports the eight most volatile countries.
+
+\input{tables/T05_dirichlet_volatility_top}
+
+The Netherlands result deserves comment.  Its defence score is the
+third-highest in the sample (behind Malta and Slovakia's zero), yet
+its scores on all other axes are low to moderate.  When weight draws
+increase the defence weight, the Netherlands rises; when they
+decrease it, it falls.  The country's rank volatility is a direct
+consequence of its extreme axis profile---and a microcosm of the
+duplex: the defence axis determines where the Netherlands sits.
+
+\subsection{Correlation structure}
+
+The variance decomposition in \cref{sec:proof} depends on the
+covariance matrix of the six axes.  If axes were strongly
+correlated, the cross-covariance terms would be large and the
+decomposition less informative.  In practice, the correlation
+structure is sparse.
+
+Of 15~pairwise Pearson correlations among the six axes, only two
+are statistically significant at $\alpha = 0.05$ after Bonferroni
+correction (15~tests, critical $|t| \approx 2.79$, $\text{df} = 25$):
+
+\begin{itemize}[leftmargin=2em]
+  \item Energy--Technology: $t = 3.12$.
+  \item Critical Inputs--Logistics: $t = 3.28$.
+\end{itemize}
+
+\noindent
+The financial axis is orthogonal to all others: its maximum
+$|t|$-statistic against any axis is 1.11.  This confirms that
+financial concentration measures a structurally independent
+dimension of external dependence---one that happens to exhibit
+minimal cross-country dispersion.
+
+\begin{sloppypar}
+The sparse correlation structure reinforces the variance
+decomposition result: the axes are largely independent, so the
+marginal contributions reflect genuine structural content rather
+than statistical redundancy.
+\end{sloppypar}

@@ -1,0 +1,8 @@
+% F01: Axis variance contribution (%) -- bar chart data
+% axis_index axis_name pct_contribution
+0 financial 1.0326
+1 energy 3.4555
+2 technology 5.2258
+3 defence 35.1012
+4 critical_inputs 20.9202
+5 logistics 34.2646

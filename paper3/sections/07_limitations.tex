@@ -1,0 +1,65 @@
+% =============================================================================
+% Section 7: Limitations
+% =============================================================================
+\section{Limitations}\label{sec:limitations}
+
+The duplex finding is robust within the {\ISI} framework, but
+several structural limitations constrain its external validity.
+
+\subsection{Re-export masking}
+
+Trade-based axes (technology, critical inputs, logistics) use
+bilateral import data that record the last country of shipment, not
+the country of origin.  Countries that function as re-export hubs
+(notably the Netherlands and Belgium) may appear more diversified
+than they are, because multiple recorded counterparties ultimately
+source from the same upstream producer.  This limitation applies to
+Paper~2's full results and is inherited here without modification.
+
+\subsection{Small-economy amplification}
+
+Small economies tend to exhibit higher concentration mechanically:
+with fewer trading partners and smaller absolute volumes, the
+{\HHI} is structurally elevated.  The top four {\ISI} ranks are
+occupied by Malta, Cyprus, Ireland, and Denmark---all small or
+medium economies.  The duplex finding (defence and logistics
+dominate variance) is partly a consequence of these axes exhibiting
+the widest range between small and large economies.
+
+\subsection{Defence data sparsity}
+
+The SIPRI arms transfer database records trend-indicator values for
+major conventional weapons.  Countries with no recorded transfers in
+the observation window receive imputed scores based on documented
+procurement structures.  For countries with minimal arms imports
+(e.g., Slovakia, with a defence score of 0.000), the imputed score
+may not reflect actual dependence structures.  Slovakia's zero
+score is an extreme case that inflates the variance of the defence
+axis.
+
+\subsection{Logistics scope}
+
+The logistics axis currently captures containerised freight and port
+throughput.  Road, rail, inland waterway, and air freight are
+excluded.  For landlocked countries (Austria, Czechia, Hungary,
+Slovakia, Luxembourg), the logistics axis may understate
+concentration because it omits their primary freight modalities.
+
+\subsection{Static snapshot}
+
+The analysis is based on a single vintage (2024).  The variance
+structure may change over time as supply chains evolve, new trade
+agreements are signed, or defence procurement shifts.  The duplex
+finding should be treated as a snapshot property of the current
+data, not as a structural invariant.
+
+\subsection{Equal-weight sensitivity}
+
+The equal-weight assumption ($w_j = 1/6$) is tested by Dirichlet
+perturbation (mean $\rho = 0.980$; see \cref{sec:robustness}).
+This confirms ranking stability under moderate weight variation,
+but does not address the case of deliberately unequal expert
+weights, which could reduce or amplify the duplex.  Under a
+weighting scheme that down-weights defence and logistics, the
+duplex would weaken; under one that up-weights them, it would
+intensify.  The finding is conditional on approximate weight parity.

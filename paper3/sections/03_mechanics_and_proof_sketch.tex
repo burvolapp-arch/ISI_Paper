@@ -1,0 +1,111 @@
+% =============================================================================
+% Section 3: Mechanics and Proof Sketch
+% =============================================================================
+\section{Mechanics and Proof Sketch}\label{sec:proof}
+
+This section provides the analytical derivation that underlies the
+variance decomposition reported in \cref{sec:core-finding}.  The
+result is a direct consequence of the linear aggregation rule and the
+properties of population covariance.
+
+\subsection{Setup}
+
+Let $A_{ij}$ denote the normalised axis~$j$ score for country~$i$,
+$i = 1, \ldots, N$, $j = 1, \ldots, K$, with $N = 27$ and $K = 6$.
+The composite is defined as
+\begin{equation}\label{eq:composite-def}
+  C_i
+  \;=\;
+  \frac{1}{K} \sum_{j=1}^{K} A_{ij}.
+\end{equation}
+
+\subsection{Variance decomposition}
+
+The population variance of the composite across countries is
+\begin{align}
+  \operatorname{Var}(C)
+  &= \operatorname{Var}\!\Bigl(\frac{1}{K}\sum_{j=1}^{K} A_j\Bigr)
+  \notag \\[4pt]
+  &= \frac{1}{K^2} \sum_{j=1}^{K} \sum_{k=1}^{K}
+     \operatorname{Cov}(A_j, A_k)
+  \label{eq:var-decomp}
+\end{align}
+where the random variable notation is understood as operating over
+the population of $N$~countries.
+
+Define the \emph{marginal contribution} of axis~$j$ as
+\begin{equation}\label{eq:marginal}
+  M_j
+  \;=\;
+  \frac{1}{K^2} \sum_{k=1}^{K} \operatorname{Cov}(A_j, A_k).
+\end{equation}
+
+By construction, $\sum_{j=1}^{K} M_j = \operatorname{Var}(C)$, so
+each axis's marginal contribution sums exactly to the composite
+variance.  The percentage contribution of axis~$j$ is
+\begin{equation}\label{eq:pct-contrib}
+  \pi_j
+  \;=\;
+  \frac{M_j}{\operatorname{Var}(C)} \times 100.
+\end{equation}
+
+\subsection{Own-variance and cross-covariance decomposition}
+
+Each marginal contribution $M_j$ can be split into two components:
+\begin{equation}\label{eq:own-cross}
+  M_j
+  \;=\;
+  \underbrace{\frac{1}{K^2}\operatorname{Var}(A_j)}_{\text{own-variance}}
+  \;+\;
+  \underbrace{\frac{1}{K^2}\sum_{k \neq j}
+    \operatorname{Cov}(A_j, A_k)}_{\text{cross-covariance}}.
+\end{equation}
+
+Summing over all axes:
+\begin{equation}\label{eq:own-cross-total}
+  \operatorname{Var}(C)
+  \;=\;
+  \underbrace{\frac{1}{K^2}\sum_{j=1}^{K}
+    \operatorname{Var}(A_j)}_{\text{total own-variance}}
+  \;+\;
+  \underbrace{\frac{1}{K^2}\sum_{j=1}^{K}\sum_{k \neq j}
+    \operatorname{Cov}(A_j, A_k)}_{\text{total cross-covariance}}.
+\end{equation}
+
+\subsection{Interpretation}
+
+Equation~\eqref{eq:var-decomp} is exact: no approximation, no
+model, no distributional assumption.  It holds for any linear
+aggregation of any set of random variables.  The only structural
+requirement is the equal-weight mean in \cref{eq:composite-def}.
+
+The empirical result reported in \cref{sec:core-finding} is a direct
+evaluation of \cref{eq:marginal,eq:pct-contrib} on the
+$27 \times 6$ matrix of observed axis scores.  No estimation or
+inference is involved; $\pi_j$ is a population quantity computed over
+the full population of EU-27 countries.
+
+\subsection{Why two axes can dominate}
+
+An axis contributes disproportionately to composite variance when
+either or both of the following conditions hold:
+
+\begin{enumerate}[leftmargin=2em]
+  \item \textbf{High own-variance.}  The axis scores are more
+    dispersed across countries.  For the ISI, the defence axis has
+    a population standard deviation of 0.244 and the logistics axis
+    0.205, compared to 0.028 for financial.
+
+  \item \textbf{Positive covariance with other axes.}  If high scores
+    on axis~$j$ tend to coincide with high scores on other axes, the
+    cross-covariance terms in \cref{eq:own-cross} amplify the
+    marginal contribution.
+\end{enumerate}
+
+\noindent
+In the EU-27 data, defence and logistics satisfy both conditions.
+Their own-variances are the two highest, and their cross-covariance
+terms are predominantly positive (though modest).  The financial
+axis fails on both counts: its own-variance is the lowest of the
+six, and its correlations with all other axes are near zero
+($|t| < 1.15$; see \cref{sec:robustness}).
