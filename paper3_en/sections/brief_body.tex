@@ -1,0 +1,428 @@
+% =============================================================================
+% ISI Paper 3 -- Analytical Brief (English)
+% External Supplier Concentration in the EU-27
+% Sections 1--7
+% =============================================================================
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Executive Summary}
+\label{sec:summary}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\begin{sloppypar}
+\textbf{Core finding.}
+The International Sovereignty Index (\ISI) is a six-dimensional
+composite indicator of external supplier concentration.  Its
+empirical application to the EU-27 (vintage~2024) shows that the
+cross-sectional variance of composite scores is predominantly
+determined by two of the six axes: defence and logistics.  This
+result is a descriptive variance finding --- not a conceptual
+reduction of the index to two dimensions.
+\end{sloppypar}
+
+\medskip
+\textbf{Principal empirical results:}
+\begin{itemize}[leftmargin=2em]
+  \item The \ISI composite score ranges from France~(0.236;
+    rank~27) to Malta~(0.517; rank~1).  The EU-27 mean
+    is~0.344 with a standard deviation of~0.070.
+
+  \item \begin{sloppypar}The covariance-based variance
+    decomposition yields the following: the defence axis
+    contributes~35.1\,\% to composite variance; the logistics
+    axis~34.3\,\%.  Together, these two axes account
+    for~69.4\,\% of total cross-sectional
+    variance.\end{sloppypar}
+
+  \item The remaining four axes --- finance, energy, technology,
+    critical inputs --- jointly contribute~30.6\,\%.  Their
+    values are distributed comparatively homogeneously across
+    the EU-27 cross-section.
+
+  \item In 16 of 27~member states, the defence axis records the
+    highest individual axis score; in the remaining~11, the
+    logistics axis does.  None of the other four axes records
+    the highest score in any member state.
+
+  \item Removing the defence axis from the composite produces
+    the largest rank displacement
+    (Spearman~$\rho = 0.833$ relative to the baseline ranking).
+    All other single-axis removals yield correlations
+    above~0.92.
+
+  \item Under Dirichlet weight perturbation (10\,000~draws),
+    the mean rank-order correlation is
+    $\rho = 0.979$.  The rank ordering is stable under
+    moderate weight variations.
+
+  \item \textbf{Austria} ranks~8th (composite score~0.383;
+    moderately concentrated).  Highest axis score:
+    defence~(0.585), followed by logistics~(0.526).  The
+    rank position is structurally stable --- under no
+    single-axis perturbation does Austria shift by more
+    than two ranks.
+\end{itemize}
+
+
+\newpage
+% ─────────────────────────────────────────────────────────────────────────────
+\section{What the ISI Measures}
+\label{sec:what-the-isi-measures}
+% ─────────────────────────────────────────────────────────────────────────────
+
+The \ISI is a composite indicator that measures the
+\emph{concentration of external suppliers}.  For each EU member
+state, it captures the extent to which imports in six strategically
+relevant domains depend on a small number of external suppliers.
+The index comprises six equally weighted dimensions:
+
+\begin{table}[htbp]
+\centering\small
+\caption{The six \ISI axes and their coverage domains.}
+\label{tab:axes}
+\begin{tabular}{@{}lp{0.64\linewidth}@{}}
+\toprule
+\textbf{Axis} & \textbf{Coverage domain} \\
+\midrule
+Finance &
+  Cross-border banking and portfolio
+  concentration \\
+Energy &
+  Dependence on a small number of primary
+  energy suppliers \\
+Technology &
+  Import concentration in
+  high-technology goods \\
+Defence &
+  Supplier concentration in arms transfers and
+  defence-relevant imports \\
+Critical Inputs &
+  Concentration in critical raw materials and
+  intermediate goods \\
+Logistics &
+  Dependence on a small number of transport
+  corridors and shipping routes \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Each axis score is based on a Herfindahl-Hirschman-type
+concentration measure, normalised to the unit interval
+$[0,\,1]$.  A value of zero denotes complete
+diversification; a value near one denotes near-complete
+dependence on a single external supplier.  All six
+axes are identically scaled.
+
+The composite score is the \emph{equal-weighted arithmetic
+mean} of the six axis scores.  The aggregation is
+deterministic --- no estimation, no latent factors,
+no model selection.  The methodology is fully documented:
+Paper~1~\cite{isi_paper1} presents the methodological
+framework; Paper~2~\cite{isi_paper2} documents the empirical
+application to the EU-27.
+
+\textbf{Scope and interpretation.}
+The \ISI does not measure ``sovereignty'' in the normative or
+constitutional sense.  It captures a specific, quantifiable
+structural property: the degree of concentration of external
+supply relationships.  High concentration is not inherently
+negative --- it may reflect geographical proximity, trade
+efficiency, or alliance structures.  It does, however, imply
+that the country's position is exposed to disruptions in a
+small number of supply relationships.
+
+
+\newpage
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Structural Differentiation within the EU-27}
+\label{sec:differentiation}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\subsection{Variance Contributions of the Six Axes}
+
+The \ISI is conceptually a six-dimensional index.  All six axes
+enter the composite score with equal weight and contribute to the
+absolute concentration level of each country.  The empirical
+question of this section is different: which axes determine the
+\emph{differences} among member states?
+
+Since all six axes are identically normalised to the
+interval~$[0,\,1]$ and enter the composite with equal weight, the
+covariance-based variance decomposition is directly interpretable.
+The cross-sectional variance of composite scores is predominantly
+determined by two axes:
+
+\begin{table}[htbp]
+\centering\small
+\caption{Variance decomposition of the \ISI composite score, EU-27.}
+\label{tab:variance}
+\begin{tabular}{@{}lr@{}}
+\toprule
+\textbf{Axis} & \textbf{Share of composite variance} \\
+\midrule
+Defence            & 35.1\,\% \\
+Logistics          & 34.3\,\% \\
+Critical Inputs    & 20.9\,\% \\
+Technology         &  5.2\,\% \\
+Energy             &  3.5\,\% \\
+Finance            &  1.0\,\% \\
+\midrule
+Defence + Logistics      & 69.4\,\% \\
+Remaining four axes      & 30.6\,\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Approximately 64\,\% of total variance is attributable to
+own-variance (dispersion of each axis across countries); 36\,\%
+is attributable to cross-covariances (joint variation across
+axes).  Defence and logistics dominate both components.
+
+\textbf{Methodological note.}
+The variance decomposition is purely descriptive.  It identifies
+which axes statistically determine cross-sectional variance --- not
+which axes are politically paramount.  An axis may be of the
+highest political relevance yet contribute little to cross-sectional
+differentiation if all member states exhibit similar values on that
+axis.  Political priority and statistical differentiation are
+analytically distinct categories.
+
+The finding implies that structural heterogeneity within the EU is
+not uniformly distributed across all strategic domains but
+concentrated in a small number of dimensions.  Integration-policy
+tensions are more likely observable where national profiles diverge
+substantially.
+
+\subsection{Why Energy and Technology Differentiate Less}
+
+Energy dependence is of high relevance for many member states.
+Across the EU-27 cross-section, however, it differentiates
+countries less strongly than defence and logistics.  The reason is
+empirical: energy concentration scores exhibit comparatively low
+dispersion.  Most member states display similar degrees of
+energy supplier concentration.  The same applies to the technology
+axis.  Both axes contribute to the absolute concentration level of
+each country but generate smaller differences among countries than
+defence and logistics.
+
+\subsection{Axis Dominance at the Country Level}
+
+In 16~member states, the defence axis records the highest
+individual axis score; in~11, the logistics axis does.  None of the
+remaining four axes records the highest score in any member state.
+This pattern describes the empirical distribution of axis
+maxima --- it does not imply that the \ISI can be conceptually
+reduced to two axes.  The index remains a six-dimensional
+instrument; the observed two-axis dominance is a finding about the
+data, not about the construction.
+
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Austria in the EU-27 Context}
+\label{sec:austria}
+% ─────────────────────────────────────────────────────────────────────────────
+
+Austria ranks~8th of~27 with a composite score of~0.383.  It is
+classified as ``moderately concentrated'' --- the same category as
+23 of the 27~member states.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Austria's axis profile.}
+\label{tab:austria}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+\textbf{Axis} & \textbf{Score} & \textbf{Axis rank (of~27)} \\
+\midrule
+Defence            & 0.585 & 11th \\
+Logistics          & 0.526 & 10th \\
+Energy             & 0.456 &  3rd \\
+Critical Inputs    & 0.319 &  7th \\
+Technology         & 0.261 &  5th \\
+Finance            & 0.149 & 11th \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Austria's highest axis score is on defence~(0.585), followed by
+logistics~(0.526).  The gap between the two is~0.059 --- Austria
+does not exhibit a strongly asymmetric axis profile.
+
+\textbf{Energy concentration.}
+Austria's third-highest axis score is energy~(0.456), rank~3 in
+the EU.  This reflects the documented dependence on a small number
+of gas suppliers.  Because energy concentration is distributed
+comparatively homogeneously across the EU cross-section, it
+affects Austria's composite ranking only marginally.
+
+\textbf{Profile balance.}
+Austria's coefficient of variation across the six axes is~0.40 ---
+a comparatively balanced axis profile.  For comparison:
+Sweden (rank~7; composite score~0.399) records a defence score
+of~0.881 but a finance score of only~0.116 --- a substantially
+more asymmetric profile.
+
+\textbf{Rank stability.}
+Under leave-one-out analysis --- the systematic removal of each
+individual axis --- Austria's rank shifts by at most two positions.
+Under Dirichlet weight perturbation (10\,000~Monte Carlo draws),
+Austria's rank standard deviation is approximately~1.1.  The
+95\,\% confidence interval spans ranks~6 to~10.  Austria's
+position in the upper midfield is structurally robust.
+
+\textbf{Neighbourhood.}
+Austria is situated between Sweden (rank~7; 0.399) and
+Italy (rank~9; 0.374).  The distances are~0.016 upward
+and~0.009 downward.  Moderate changes to a single axis could
+shift Austria by one to two rank positions; a move into the top~5
+or below rank~12 would require substantial structural changes.
+
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Robustness of Results}
+\label{sec:robustness}
+% ─────────────────────────────────────────────────────────────────────────────
+
+A legitimate concern regarding any composite indicator is the
+dependence of results on specific methodological choices.  Three
+tests address this concern.
+
+\subsection{Leave-one-out Analysis}
+
+When each axis is individually removed from the composite, six
+alternative rankings result.  Removing the defence axis produces
+the lowest correlation with the baseline ranking
+(Spearman~$\rho = 0.833$) --- confirming that defence is the
+single most influential axis for rank differentiation.
+Removing logistics yields~$\rho = 0.926$.  All remaining
+removals produce correlations above~0.94.
+
+The ordering is monotonic: axes with higher variance contributions
+produce larger rank displacements upon removal.
+
+\subsection{Weight Stability}
+
+Equal weighting is a design choice.  To test its consequences,
+10\,000~alternative weight vectors are drawn from a symmetric
+Dirichlet distribution and the composite score is recomputed for
+each draw.  The mean rank-order correlation across all draws
+is~0.979 --- the rank ordering is stable under moderate weight
+variations.
+
+The highest rank volatility is exhibited by the Netherlands
+(standard deviation $\approx$~3.07~rank positions).  This
+volatility reflects the asymmetric axis profile of the
+Netherlands: the defence score~(0.960) lies far above the level
+of the remaining five axes.  Stronger weighting of the defence
+axis raises the Dutch rank position; weaker weighting lowers it.
+For the large majority of member states, the ranking is stable to
+within one to two positions.
+
+\subsection{Correlation Structure}
+
+The six axes are largely independent of one another.  Of
+15~pairwise correlations, only two are statistically significant
+after Bonferroni correction: energy--technology and critical
+inputs--logistics.  The finance axis is nearly orthogonal to all
+other axes (highest $|t|$-value: 1.11).
+
+This independence is analytically advantageous: the variance
+decomposition reflects genuine structural content rather than
+statistical redundancy.  The low multicollinearity prevents
+artificial variance inflation of individual axes.
+
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Interpretation and Analytical Implications}
+\label{sec:implications}
+% ─────────────────────────────────────────────────────────────────────────────
+
+The \ISI does not prescribe policy.  It provides an empirical
+measurement basis.
+
+\textbf{Cross-sectional variance and absolute concentration.}
+Defence and logistics determine cross-sectional variance.  It does
+\emph{not} follow that the remaining axes are irrelevant for
+individual member states.  A country may exhibit a high absolute
+concentration score on the energy axis without that score
+differentiating countries in the cross-section.  Political priority
+and statistical differentiation are analytically distinct
+categories.
+
+\textbf{Empirical grounding of strategic debates.}
+The term ``strategic autonomy'' is ubiquitous in EU policy
+discourse but rarely linked to comparable, quantitative data.  The
+\ISI provides such an anchor point.  The variance decomposition
+shows that defence procurement and logistics corridors generate the
+largest differences among member states --- domains that receive
+comparatively little attention in public debate relative to energy
+and technology.
+
+\begin{sloppypar}
+\textbf{Energy and technology.}
+Energy dependence is of high importance for numerous member states.
+Across the EU-27 cross-section, however, it differentiates
+countries less strongly than defence and logistics because energy
+concentration scores are distributed comparatively uniformly.  The
+same applies to technology.  Both axes require independent
+analysis; their low contribution to cross-sectional dispersion does
+not diminish their substantive significance.
+\end{sloppypar}
+
+\textbf{Austria.}
+Rank~8 places Austria in the upper midfield of external
+concentration.  The comparatively balanced axis profile exhibits
+neither a singular concentration peak nor an exceptional
+diversification strength.
+
+\textbf{Measurement, not evaluation.}
+A high composite score does not mean that a country ``performs
+poorly.''  Malta's rank~1 reflects size and geographical location,
+not policy failure.  France's rank~27 reflects the structural
+diversification of a large, well-connected economy.  The index
+measures concentration --- what policymakers derive from it is a
+separate question.
+
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Limitations}
+\label{sec:limitations}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\textbf{Re-export bias.}
+Trade statistics capture bilateral flows but do not always identify
+the actual origin of goods.  Countries that function as trade
+hubs (such as the Netherlands or Belgium) may appear more
+diversified than they actually are.
+
+\textbf{Amplification effect for small economies.}
+Small, open economies with a limited number of trading partners
+mechanically generate higher concentration scores.  Malta and
+Cyprus rank~1st and~2nd in part because geography and size
+constrain their sourcing options.  This is a real feature of their
+situation, not a measurement error --- it should, however, be
+interpreted accordingly.
+
+\textbf{Cross-sectional limitation.}
+The dataset captures the 2024 vintage.  Supplier concentration may
+change as a result of political decisions, market developments, or
+geopolitical events.  A single cross-section cannot capture
+dynamics.  Future \ISI vintages will enable trend analysis.
+
+\textbf{Equal weighting.}
+The aggregation treats all six axes as equally important.  This is
+a normative assumption.  A decision-maker who regards energy
+dependence as paramount would apply different weights and obtain a
+different ranking.  The Dirichlet perturbation analysis shows that
+moderate deviations from equal weighting do not fundamentally alter
+the results.
+
+\vfill
+\begin{center}
+\rule{0.4\linewidth}{0.4pt}
+\end{center}
+\smallskip
+\noindent\textit{This brief is based on the ISI Paper Series
+(Papers~1--2), prepared by the Research Unit of the International
+Sovereignty Institute.  The underlying data and the complete
+methodology are publicly documented.}
