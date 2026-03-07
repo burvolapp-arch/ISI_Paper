@@ -1,0 +1,59 @@
+% =============================================================================
+% ISI EU-27 Country Brief Series — Merge Order
+% =============================================================================
+%
+% Recommended compilation order: by ISI composite rank (most concentrated first).
+% This ordering corresponds to Table 3 of ISI Paper 2.
+%
+% Rank  ISO  Country          Composite   File
+% ────  ───  ───────────────  ─────────   ─────────────────────────────────────
+%   1   MT   Malta            0.518       isi_country_brief_MT.tex
+%   2   CY   Cyprus           0.468       isi_country_brief_CY.tex
+%   3   IE   Ireland          0.428       isi_country_brief_IE.tex
+%   4   DK   Denmark          0.424       isi_country_brief_DK.tex
+%   5   HR   Croatia          0.404       isi_country_brief_HR.tex
+%   6   FI   Finland          0.402       isi_country_brief_FI.tex
+%   7   SE   Sweden           0.399       isi_country_brief_SE.tex
+%   8   AT   Austria          0.383       isi_country_brief_AT.tex
+%   9   IT   Italy            0.374       isi_country_brief_IT.tex
+%  10   SI   Slovenia         0.370       isi_country_brief_SI.tex
+%  11   GR   Greece           0.365       isi_country_brief_GR.tex
+%  12   LU   Luxembourg       0.360       isi_country_brief_LU.tex
+%  13   EE   Estonia          0.343       isi_country_brief_EE.tex
+%  14   BG   Bulgaria         0.340       isi_country_brief_BG.tex
+%  15   NL   Netherlands      0.335       isi_country_brief_NL.tex
+%  16   HU   Hungary          0.330       isi_country_brief_HU.tex
+%  17   PT   Portugal         0.322       isi_country_brief_PT.tex
+%  18   RO   Romania          0.319       isi_country_brief_RO.tex
+%  19   CZ   Czechia          0.318       isi_country_brief_CZ.tex
+%  20   PL   Poland           0.296       isi_country_brief_PL.tex
+%  21   BE   Belgium          0.288       isi_country_brief_BE.tex
+%  22   DE   Germany          0.268       isi_country_brief_DE.tex
+%  23   LT   Lithuania        0.265       isi_country_brief_LT.tex
+%  24   ES   Spain            0.261       isi_country_brief_ES.tex
+%  25   LV   Latvia           0.247       isi_country_brief_LV.tex
+%  26   SK   Slovakia         0.236       isi_country_brief_SK.tex
+%  27   FR   France           0.236       isi_country_brief_FR.tex
+%
+% =============================================================================
+% To compile in this order using a shell loop:
+%
+%   for iso in MT CY IE DK HR FI SE AT IT SI GR LU EE BG NL HU PT RO CZ PL BE DE LT ES LV SK FR; do
+%     pdflatex -interaction=nonstopmode "isi_country_brief_${iso}.tex"
+%   done
+%
+% To merge PDFs (requires pdfunite or pdftk):
+%
+%   pdfunite \
+%     isi_country_brief_MT.pdf isi_country_brief_CY.pdf isi_country_brief_IE.pdf \
+%     isi_country_brief_DK.pdf isi_country_brief_HR.pdf isi_country_brief_FI.pdf \
+%     isi_country_brief_SE.pdf isi_country_brief_AT.pdf isi_country_brief_IT.pdf \
+%     isi_country_brief_SI.pdf isi_country_brief_GR.pdf isi_country_brief_LU.pdf \
+%     isi_country_brief_EE.pdf isi_country_brief_BG.pdf isi_country_brief_NL.pdf \
+%     isi_country_brief_HU.pdf isi_country_brief_PT.pdf isi_country_brief_RO.pdf \
+%     isi_country_brief_CZ.pdf isi_country_brief_PL.pdf isi_country_brief_BE.pdf \
+%     isi_country_brief_DE.pdf isi_country_brief_LT.pdf isi_country_brief_ES.pdf \
+%     isi_country_brief_LV.pdf isi_country_brief_SK.pdf isi_country_brief_FR.pdf \
+%     ISI_EU27_Country_Brief_Series_2024.pdf
+%
+% =============================================================================
